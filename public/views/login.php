@@ -134,7 +134,7 @@
 <body>
     <div class="login-container">
        
-        <form action="dashboard.php" method="POST">
+        <form action="../views/dashboard.php" method="POST">
             <div class="form-group">
                 <div class="right-column">
                     <h1>ADMINISTRATOR</h1>
