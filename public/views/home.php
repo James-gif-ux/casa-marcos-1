@@ -265,17 +265,8 @@
     <header>
         <nav>
             <ul style="width: 100%; align-items: center;">
-                <li>
-                    <a href="#">Our Rooms</a>
-                </li>
-                <li>
-                    <a href="#">Offer</a>
-                    <div class="dropdown-menu">
-                        <a href="/menu">Menu</a>
-                        <a href="/specials">Special Offers</a>
-                        <a href="/events">Events</a>
-                    </div>
-                </li>
+                <li><a href="/">Our Rooms</a></li>
+                <li><a href="/menu">Offer</a></li>
                 <div class="logo" style="margin: 0 2rem;">
                     <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
                         <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
@@ -288,31 +279,51 @@
     </header>
 
     <main>
-        <section class="hero">
-        <div class="search-box">
-            <h2>Book Your Stay</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div class="mb-4">
-                    <label for="checkin">Check-in *</label>
-                    <input type="date" id="checkin" required />
-                </div>
-                <div class="mb-4">
-                    <label for="checkout">Check-out *</label>
-                    <input type="date" id="checkout" required />
-                </div>
-                <div class="mb-4">
-                    <label for="guests">Guests</label>
-                    <select id="guests">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
+        <section class="hero" style="background-image: url('../images/11.jpg'); background-size: cover; background-position: center; color: white;">
+            <h2>Welcome to Casa Marcos</h2>
+            <p>Experience authentic Spanish cuisine in a warm, family atmosphere</p>
+            <a href="/reservations" class="cta-button">Make a Reservation</a>
+        </section>
+
+        <section class="check-in-out" style="padding: 8rem 1rem; background-color: #f8f9fa;">
+            <div style="max-width: 1000px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);">
+            <h2 style="text-align: center; color: rgb(163, 99, 15); margin-bottom: 1.5rem; font-size: 1.8rem;">Reservation Details</h2>
+            <form action="/reservation/submit" method="POST">
+            <!-- Check-in and Check-out Section -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div>
+                <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.6rem;">Check In</h3>
+                <input type="date" name="check_in" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
+                <input type="time" name="check_in_time" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
             </div>
-            <button class="cta-button">Search</button>
-        </div>
+            <div>
+                <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.6rem;">Check Out</h3>
+                <input type="date" name="check_out" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
+                <input type="time" name="check_out_time" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
+            </div>
+            </div>
+
+            <!-- Guest Information Section -->
+            <div style="margin-top: 2rem;">
+            <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.8rem;">Guest Information</h3>
+            <input type="text" name="name" placeholder="Full Name" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
+            <input type="email" name="email" placeholder="Email Address" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
+            <input type="tel" name="phone" placeholder="Phone Number" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
+            <select name="room_type" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
+                <option value="">Select Room Type</option>
+                <option value="standard">Standard Room</option>
+                <option value="deluxe">Deluxe Room</option>
+                <option value="suite">Suite</option>
+                <option value="villa">Villa</option>
+            </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" style="width: 95%; padding: 0.8rem; margin-top: 1.5rem; background-color: rgb(163, 99, 15); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;">
+            Confirm Reservation
+            </button>
+            </form>
+            </div>
         </section>
 
 
