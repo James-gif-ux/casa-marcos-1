@@ -16,7 +16,7 @@
 
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
+        line-height: 1.4;
         font-size: 16px;
     }
 
@@ -42,7 +42,6 @@
         align-items: center;
         max-width: 1200px;
         margin: 0 auto;
-        position: relative;
     }
 
     .logo h1 {
@@ -63,7 +62,7 @@
     }
 
     nav ul li a {
-        color:rgb(102, 67, 35);
+        color: rgb(102, 67, 35);
         text-decoration: none;
         padding: 0.8rem 1.5rem;
         font-size: 1rem;
@@ -115,8 +114,11 @@
 
     .hero {
         text-align: center;
-        padding: 28rem;
-        background-color: #f8f9fa;
+        padding: 13rem;
+        background-image: url('../images/11.jpg');
+        background-size: cover;
+        background-position: center;
+        color: white;
     }
 
     .cta-button {
@@ -161,11 +163,16 @@
         color: #fff;
         text-align: center;
         padding: 1.5rem;
-        margin-top: 2rem;
+      
     }
 
     input, select {
         font-family: 'Arial', sans-serif;
+        padding: 0.8rem;
+        border-radius: 4px;
+        width: 100%;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
     }
 
     input:focus, select:focus {
@@ -173,9 +180,83 @@
         outline: none;
     }
 
+    button {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
     button:hover {
         background-color: #c0392b;
         transform: translateY(-2px);
+    }
+
+    .search-box {
+        max-width: 600px;
+        margin: 4rem auto;
+        background-color: #fff;
+        padding: 3rem;
+        border-radius: 8px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .search-box h2 {
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        color: #2c3e50;
+    }
+
+    .search-box div {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+
+    .search-box div label {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: #555;
+    }
+
+    .search-box div input,
+    .search-box div select {
+        font-size: 1rem;
+        padding: 1rem;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fafafa;
+        transition: border-color 0.3s;
+    }
+
+    .search-box div input:focus,
+    .search-box div select:focus {
+        border-color: #2c3e50;
+        outline: none;
+    }
+
+    .cta-button {
+        width: 100%;
+        padding: 1rem 2.5rem;
+        background-color: #2c3e50;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        margin-top: 1.5rem;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .cta-button:hover {
+        background-color: #c0392b;
+        transform: scale(1.05);
     }
 
 </style>
@@ -207,56 +288,38 @@
     </header>
 
     <main>
-        <section class="hero" style="background-image: url('../images/11.jpg'); background-size: cover; background-position: center; color: white;">
-            <h2>Welcome to Casa Marcos</h2>
-            <p>Experience authentic Spanish cuisine in a warm, family atmosphere</p>
-            <a href="/reservations" class="cta-button">Make a Reservation</a>
+        <section class="hero">
+        <div class="search-box">
+            <h2>Book Your Stay</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="mb-4">
+                    <label for="checkin">Check-in *</label>
+                    <input type="date" id="checkin" required />
+                </div>
+                <div class="mb-4">
+                    <label for="checkout">Check-out *</label>
+                    <input type="date" id="checkout" required />
+                </div>
+                <div class="mb-4">
+                    <label for="guests">Guests</label>
+                    <select id="guests">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <button class="cta-button">Search</button>
+        </div>
         </section>
 
-        <section class="check-in-out" style="padding: 8rem 1rem; background-color: #f8f9fa;">
-            <div style="max-width: 1000px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);">
-            <h2 style="text-align: center; color: rgb(163, 99, 15); margin-bottom: 1.5rem; font-size: 1.8rem;">Reservation Details</h2>
-            <form action="/reservation/submit" method="POST">
-            <!-- Check-in and Check-out Section -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-            <div>
-                <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.6rem;">Check In</h3>
-                <input type="date" name="check_in" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-                <input type="time" name="check_in_time" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            </div>
-            <div>
-                <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.6rem;">Check Out</h3>
-                <input type="date" name="check_out" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-                <input type="time" name="check_out_time" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            </div>
-            </div>
 
-            <!-- Guest Information Section -->
-            <div style="margin-top: 2rem;">
-            <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.8rem;">Guest Information</h3>
-            <input type="text" name="name" placeholder="Full Name" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            <input type="email" name="email" placeholder="Email Address" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            <input type="tel" name="phone" placeholder="Phone Number" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            <select name="room_type" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-                <option value="">Select Room Type</option>
-                <option value="standard">Standard Room</option>
-                <option value="deluxe">Deluxe Room</option>
-                <option value="suite">Suite</option>
-                <option value="villa">Villa</option>
-            </select>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" style="width: 95%; padding: 0.8rem; margin-top: 1.5rem; background-color: rgb(163, 99, 15); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;">
-            Confirm Reservation
-            </button>
-            </form>
-            </div>
-        </section>
     </main>
 
     <footer>
-        <p>&copy; <?php echo date('Y'); ?> Casa Marcos. All rights reserved.</p>
+        <p>&copy; 2025 Casa Marcos. All rights reserved.</p>
     </footer>
 
     <script>
