@@ -1,3 +1,9 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,20 +139,34 @@
 </head>
 <body>
     <div class="login-container">
-       
-        <form action="../page/authenication.php?function=login" method="POST">
+        <form action="../pages/authentication.php?function=login" method="POST">
             <div class="form-group">
                 <div class="right-column">
                     <h1>ADMINISTRATOR</h1>
                 </div>
-                <?php if (isset($error)) { echo "<p style='color:red;'>$error</p>"; } ?>
-                <input type="text" id="Email" placeholder="User" name="Email" required>
+                <input type="text" 
+                       id="user" 
+                       placeholder="Username" 
+                       name="user" 
+                       required>
             </div>
             <div class="form-group">
-            
-                <input type="password" id="password" placeholder="Password" name="password" required>
+                <input type="password" 
+                       id="password" 
+                       placeholder="Password" 
+                       name="password" 
+                       required>
             </div>
             <button type="submit">Login</button>
+            <?php 
+            if(isset($_SESSION['error'])): ?>
+                <div class="error" style="color: red; text-align: center; margin-top: 10px;">
+                    <?php 
+                        echo $_SESSION['error']; 
+                        unset($_SESSION['error']); 
+                    ?>
+                </div>
+            <?php endif; ?>
         </form>
     </div>
 </body>
