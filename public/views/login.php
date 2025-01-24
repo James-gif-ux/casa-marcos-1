@@ -134,12 +134,13 @@
 <body>
     <div class="login-container">
        
-        <form action="../views/dashboard.php" method="POST">
+        <form action="../page/authenication.php?function=login" method="POST">
             <div class="form-group">
                 <div class="right-column">
                     <h1>ADMINISTRATOR</h1>
                 </div>
-                <input type="text" id="Email" placeholder="Email" name="Email" required>
+                <?php if (isset($error)) { echo "<p style='color:red;'>$error</p>"; } ?>
+                <input type="text" id="Email" placeholder="User" name="Email" required>
             </div>
             <div class="form-group">
             
