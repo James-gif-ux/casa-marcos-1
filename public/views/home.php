@@ -116,7 +116,7 @@
     <header>
         <nav>
             <ul style="width: 100%; align-items: center;">
-                <li><a href="/">Our Rooms</a></li>
+                <li><a href="#">Our Rooms</a></li>
                 <li><a href="/menu">Offer</a></li>
                 <div class="logo" style="margin: 0 2rem;">
                     <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
@@ -133,7 +133,6 @@
         <section class="hero" style="background-image: url('../images/11.jpg'); background-size: cover; background-position: center; color: white;">
             <h2>Welcome to Casa Marcos</h2>
             <p>Experience authentic Spanish cuisine in a warm, family atmosphere</p>
-            <a href="/reservations" class="cta-button">Make a Reservation</a>
         </section>
 
         <section class="features">
