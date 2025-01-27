@@ -39,7 +39,7 @@
 
     header.scrolled .logo h1,
     header.scrolled nav ul li a {
-        color:rgb(218, 191, 156);
+        color: rgb(218, 191, 156);
     }
 
     nav {
@@ -199,94 +199,174 @@
         box-shadow: 0 5px 15px rgba(102, 67, 35, 0.3);
     }
 
-      /* Container for the Carousel */
-      .carousel-container {
+    /* Container for the Carousel */
+    .carousel-container {
+        width: 80%;
+        margin: 50px auto;
+        overflow: hidden;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Carousel Slide Wrapper */
+    .carousel-wrapper {
+        display: flex;
+        transition: transform 1s ease;
+    }
+
+    /* Individual Slide */
+    .carousel-slide {
+        min-width: 100%;
+        height: 700px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    /* Title and Description */
+    .room-details {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+        font-family: 'Georgia', serif;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .room-title {
+        font-size: 2em;
+        font-weight: bold;
+    }
+
+    .room-description {
+        font-size: 1.1em;
+        margin-top: 10px;
+    }
+
+    /* Navigation Arrows */
+    .prev,
+    .next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+        border: none;
+        font-size: 2em;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+
+    /* Dots Navigation */
+    .dots-container {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+    }
+
+    .dot {
+        height: 10px;
+        width: 10px;
+        margin: 0 5px;
+        background-color: white;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    .active-dot {
+        background-color: gold;
+    }
+
+    @media (max-width: 1200px) {
+        .room-card {
+            width: calc(50% - 2.25rem);
+        }
+
+        nav ul {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-bottom: 1rem;
+        }
+
+        .hero {
+            padding: 10rem;
+        }
+
+        .hero div {
+            padding: 2rem;
+        }
+
+        .rooms-header {
+            text-align: center;
+        }
+
+        .carousel-container {
+            width: 90%;
+        }
+
+        .btn-room {
             width: 80%;
-            margin: 50px auto;
-            overflow: hidden;
-            position: relative;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Carousel Slide Wrapper */
-        .carousel-wrapper {
-            display: flex;
-            transition: transform 1s ease;
+        h2,
+        h3 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .room-card {
+            width: 100%;
         }
 
-        /* Individual Slide */
-        .carousel-slide {
-            min-width: 100%;
-            height: 700px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
+        .carousel-container {
+            height: auto;
         }
 
-        /* Title and Description */
-        .room-details {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
-            font-family: 'Georgia', serif;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        .hero {
+            padding: 6rem 1.5rem;
         }
 
-        .room-title {
-            font-size: 2em;
-            font-weight: bold;
+        .hero div {
+            padding: 2rem 1rem;
         }
 
-        .room-description {
-            font-size: 1.1em;
-            margin-top: 10px;
-        }
-
-        /* Navigation Arrows */
-        .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.4);
-            color: white;
-            border: none;
-            font-size: 2em;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-
-        /* Dots Navigation */
         .dots-container {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
+            bottom: 10px;
         }
 
-        .dot {
-            height: 10px;
-            width: 10px;
-            margin: 0 5px;
-            background-color: white;
-            border-radius: 50%;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
+        .btn-room {
+            width: 100%;
+            margin: 0 0 2rem 0;
         }
 
-        .active-dot {
-            background-color: gold;
+        nav {
+            flex-direction: column;
         }
+
+        nav ul {
+            width: 100%;
+        }
+
+        nav ul li {
+            text-align: center;
+        }
+    }
 </style>
 
 <body>
@@ -309,24 +389,24 @@
     <main>
         <section class="hero">
             <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-                <h2 style="text-align: center; color: rgb(218, 191, 156); margin-bottom: 2rem; font-size: 2.4rem; font-family: 'impact';">RESERVATION DETAILS</h2> 
+                <h2 style="text-align: center; color: rgb(218, 191, 156); margin-bottom: 2rem; font-size: 2.4rem; font-family: 'impact';">RESERVATION DETAILS</h2>
                 <form action="/reservation/submit" method="POST">
                     <!-- Check-in and Check-out Section -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                         <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3> 
+                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
                             <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                             <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                         </div>
                         <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3> 
+                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
                             <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                             <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                         </div>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" style="width: 100%; padding: 1rem; margin-top: 2rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
+                    <button type="submit" style="width: 50%; padding: 1rem; margin-top: 2rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
                         Search Booking
                     </button>
                 </form>
@@ -356,64 +436,64 @@
 
         <!-- Rooms Section -->
         <section class="rooms">
-        <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact'; text-align: center;">Our Rooms</h2>
- 
-        <!-- Carousel Container -->
-    <div class="carousel-container">
-        <!-- Carousel Slides -->
-        <div class="carousel-wrapper">
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                <div class="room-details">
-                    <div class="room-title">Grand Living Room</div>
-                    <div class="room-description">Relax in style with plush seating, warm textures, and carefully curated decor.</div>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                <div class="room-details">
-                    <div class="room-title">Opulent Bedroom</div>
-                    <div class="room-description">An oasis of peace with soft hues, velvet throws, and the finest linens.</div>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                <div class="room-details">
-                    <div class="room-title">Elegant Dining Room</div>
-                    <div class="room-description">A space designed for unforgettable dinners, featuring luxurious furniture.</div>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                <div class="room-details">
-                    <div class="room-title">Chic Study</div>
-                    <div class="room-description">Where productivity meets comfort. A sophisticated workspace perfect for focus.</div>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                <div class="room-details">
-                    <div class="room-title">Luxurious Bathroom</div>
-                    <div class="room-description">Pamper yourself with a spa-like experience, featuring modern elegance.</div>
-                </div>
-            </div>
-        </div>
+            <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact'; text-align: center;">Our Rooms</h2>
 
-        <!-- Navigation Arrows -->
-        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+            <!-- Carousel Container -->
+            <div class="carousel-container">
+                <!-- Carousel Slides -->
+                <div class="carousel-wrapper">
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Grand Living Room</div>
+                            <div class="room-description">Relax in style with plush seating, warm textures, and carefully curated decor.</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Opulent Bedroom</div>
+                            <div class="room-description">An oasis of peace with soft hues, velvet throws, and the finest linens.</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Elegant Dining Room</div>
+                            <div class="room-description">A space designed for unforgettable dinners, featuring luxurious furniture.</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Chic Study</div>
+                            <div class="room-description">Where productivity meets comfort. A sophisticated workspace perfect for focus.</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Luxurious Bathroom</div>
+                            <div class="room-description">Pamper yourself with a spa-like experience, featuring modern elegance.</div>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Dots Navigation -->
-        <div class="dots-container">
-            <span class="dot active-dot" onclick="currentSlide(0)"></span>
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-            <span class="dot" onclick="currentSlide(4)"></span>
-        </div>
-    </div>
+                <!-- Navigation Arrows -->
+                <button class="prev" onclick="moveSlide(-1)">❮</button>
+                <button class="next" onclick="moveSlide(1)">❯</button>
+
+                <!-- Dots Navigation -->
+                <div class="dots-container">
+                    <span class="dot active-dot" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+            </div>
 
         </section>
 
     </main>
 
     <footer>
-        <p>&copy; 2025 Casa Marcos. All rights reserved.</p>
+        <p>© 2025 Casa Marcos. All rights reserved.</p>
     </footer>
 
     <script>
@@ -427,7 +507,7 @@
         });
     </script>
 
-<script>
+    <script>
         let currentIndex = 0;
 
         const slides = document.querySelectorAll('.carousel-slide');
