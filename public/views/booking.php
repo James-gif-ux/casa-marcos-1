@@ -6,7 +6,7 @@
   $connector = new Connector();
 
   // Fetch all bookings that are pending approval
-  $sql = "SELECT booking_id, booking_name, booking_email, booking_number, booking_date, booking_time, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved','completed')";
+  $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date, booking_time, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved','completed')";
 
   $bookings = $connector->executeQuery($sql);
 ?>
