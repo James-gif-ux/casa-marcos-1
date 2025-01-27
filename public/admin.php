@@ -17,7 +17,7 @@ if (session_status() == PHP_SESSION_NONE) {
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-image: url(../images/logo.jpg);
+            background-image: url(./images/logo.jpg);
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
@@ -139,7 +139,7 @@ if (session_status() == PHP_SESSION_NONE) {
 </head>
 <body>
     <div class="login-container">
-        <form action="../pages/authentication.php?function=login" method="POST">
+        <form action="./pages/authentication.php?function=login" method="POST">
             <div class="form-group">
                 <div class="right-column">
                     <h1>ADMINISTRATOR</h1>
