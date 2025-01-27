@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +35,11 @@
 
     header.scrolled {
         background-color: #2c3e50;
+    }
+
+    header.scrolled .logo h1,
+    header.scrolled nav ul li a {
+        color:rgb(218, 191, 156);
     }
 
     nav {
@@ -78,84 +84,12 @@
         transform: scale(1.05);
     }
 
-    .dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: #fff;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-        z-index: 1;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-in-out, visibility 0s 0.3s;
-    }
-
-    .dropdown-menu a {
-        color: rgb(163, 99, 15);
-        padding: 0.7rem 1.2rem;
-        text-decoration: none;
-        display: block;
-        transition: background-color 0.3s;
-    }
-
-    .dropdown-menu a:hover {
-        background-color: #34495e;
-        color: #fff;
-    }
-
-    nav ul li:hover .dropdown-menu {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-        transition: opacity 0.3s ease-in-out;
-    }
-
     .hero {
         text-align: center;
-        padding: 13rem;
+        padding: 10rem;
         background-image: url('../images/11.jpg');
         background-size: cover;
         background-position: center;
-        color: white;
-    }
-
-    .cta-button {
-        display: inline-block;
-        padding: 1rem 2.5rem;
-        background-color: #2c3e50;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 25px;
-        margin-top: 2rem;
-        transition: background-color 0.3s;
-    }
-
-    .cta-button:hover {
-        background-color: #c0392b;
-    }
-
-    .features {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-        padding: 5rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .feature {
-        text-align: center;
-        padding: 2.5rem;
-        background-color: #fff;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        transition: transform 0.3s;
-    }
-
-    .feature:hover {
-        transform: translateY(-5px);
     }
 
     footer {
@@ -163,10 +97,10 @@
         color: #fff;
         text-align: center;
         padding: 1.5rem;
-      
     }
 
-    input, select {
+    input,
+    select {
         font-family: 'Arial', sans-serif;
         padding: 0.8rem;
         border-radius: 4px;
@@ -175,90 +109,95 @@
         box-sizing: border-box;
     }
 
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
         border-color: rgb(163, 99, 15);
         outline: none;
     }
 
-    button {
-        display: inline-block;
-        padding: 1rem 2.5rem;
-        background-color: #2c3e50;
+    /* Room Section */
+    .rooms {
+        background-color: #f9f6f2;
+        padding: 8rem 0;
+        position: relative;
+    }
+
+    .rooms-header {
+        margin-bottom: 4rem;
+        position: relative;
+    }
+
+    .room-cards {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 0 4rem;
+    }
+
+    .room-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        width: calc(25% - 2.25rem);
+        text-align: center;
+        padding: 0;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        position: relative;
+    }
+
+    .room-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 15px 40px rgba(102, 67, 35, 0.2);
+    }
+
+    .room-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .room-card:hover .room-img {
+        transform: scale(1.1);
+    }
+
+    .room-title {
+        margin: 2rem 1.5rem 1rem;
+        font-size: 2rem;
+        color: rgb(102, 67, 35);
+        font-family: 'impact';
+        letter-spacing: 1px;
+    }
+
+    .room-description {
+        margin: 0 1.5rem 2rem;
+        font-size: 1.1rem;
+        color: #5d4037;
+        line-height: 1.6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .btn-room {
+        background: linear-gradient(135deg, rgb(102, 67, 35) 0%, rgb(163, 99, 15) 100%);
         color: white;
         border: none;
-        border-radius: 25px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    button:hover {
-        background-color: #c0392b;
-        transform: translateY(-2px);
-    }
-
-    .search-box {
-        max-width: 600px;
-        margin: 4rem auto;
-        background-color: #fff;
-        padding: 3rem;
-        border-radius: 8px;
-        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-
-    .search-box h2 {
-        margin-bottom: 1.5rem;
-        font-size: 1.8rem;
-        color: #2c3e50;
-    }
-
-    .search-box div {
-        margin-bottom: 1.5rem;
-        text-align: left;
-    }
-
-    .search-box div label {
-        display: block;
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-        color: #555;
-    }
-
-    .search-box div input,
-    .search-box div select {
-        font-size: 1rem;
-        padding: 1rem;
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #fafafa;
-        transition: border-color 0.3s;
-    }
-
-    .search-box div input:focus,
-    .search-box div select:focus {
-        border-color: #2c3e50;
-        outline: none;
-    }
-
-    .cta-button {
-        width: 100%;
+        border-radius: 30px;
         padding: 1rem 2.5rem;
-        background-color: #2c3e50;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 25px;
+        cursor: pointer;
+        margin: 0 1.5rem 2rem;
+        transition: all 0.3s ease;
         font-size: 1.1rem;
-        margin-top: 1.5rem;
-        transition: background-color 0.3s, transform 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    .cta-button:hover {
-        background-color: #c0392b;
+    .btn-room:hover {
         transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(102, 67, 35, 0.3);
     }
-
 </style>
 
 <body>
@@ -267,11 +206,11 @@
             <ul style="width: 100%; align-items: center;">
                 <li><a href="/">Our Rooms</a></li>
                 <li><a href="/menu">Offer</a></li>
-                <div class="logo" style="margin: 0 2rem;">
+                <a href="/" class="logo" style="margin: 0 2rem; text-decoration: none;">
                     <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
                         <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
                     </h1>
-                </div>
+                </a>
                 <li><a href="/reservations">About Us</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
@@ -279,53 +218,104 @@
     </header>
 
     <main>
-        <section class="hero" style="background-image: url('../images/11.jpg'); background-size: cover; background-position: center; color: white;">
-            <h2>Welcome to Casa Marcos</h2>
-            <p>Experience authentic Spanish cuisine in a warm, family atmosphere</p>
-            <a href="/reservations" class="cta-button">Make a Reservation</a>
-        </section>
+        <section class="hero">
+            <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
+                <h2 style="text-align: center; color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.4rem; font-family: 'impact';">RESERVATION DETAILS</h2> 
+                <form action="/reservation/submit" method="POST">
+                    <!-- Check-in and Check-out Section -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: rgb(102, 67, 35); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3> 
+                            <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                        </div>
+                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: rgb(102, 67, 35); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3> 
+                            <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                        </div>
+                    </div>
 
-        <section class="check-in-out" style="padding: 8rem 1rem; background-color: #f8f9fa;">
-            <div style="max-width: 1000px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);">
-            <h2 style="text-align: center; color: rgb(163, 99, 15); margin-bottom: 1.5rem; font-size: 1.8rem;">Reservation Details</h2>
-            <form action="/reservation/submit" method="POST">
-            <!-- Check-in and Check-out Section -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-            <div>
-                <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.6rem;">Check In</h3>
-                <input type="date" name="check_in" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-                <input type="time" name="check_in_time" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            </div>
-            <div>
-                <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.6rem;">Check Out</h3>
-                <input type="date" name="check_out" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-                <input type="time" name="check_out_time" required style="width: 90%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            </div>
-            </div>
+                    <!-- Guest Information Section -->
+                    <div style="margin-top: 2.5rem; background:rgba(250, 240, 230, 0); padding: 2rem; border-radius: 12px;">
+                        <h3 style="color: rgb(102, 67, 35); margin-bottom: 1.5rem; font-size: 1.4rem; font-family: 'impact';">GUEST INFORMATION</h3> 
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <input type="text" name="name" placeholder="Full Name" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="email" name="email" placeholder="Email Address" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="tel" name="phone" placeholder="Phone Number" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <select name="room_type" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                                <option value="">Select Room Type</option>
+                                <option value="standard">Standard Room</option>
+                                <option value="deluxe">Deluxe Room</option>
+                                <option value="suite">Suite</option>
+                                <option value="villa">Villa</option>
+                            </select>
+                        </div>
+                    </div>
 
-            <!-- Guest Information Section -->
-            <div style="margin-top: 2rem;">
-            <h3 style="color: rgb(163, 99, 15); margin-bottom: 0.8rem;">Guest Information</h3>
-            <input type="text" name="name" placeholder="Full Name" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            <input type="email" name="email" placeholder="Email Address" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            <input type="tel" name="phone" placeholder="Phone Number" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-            <select name="room_type" required style="width: 95%; padding: 0.6rem; margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;">
-                <option value="">Select Room Type</option>
-                <option value="standard">Standard Room</option>
-                <option value="deluxe">Deluxe Room</option>
-                <option value="suite">Suite</option>
-                <option value="villa">Villa</option>
-            </select>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" style="width: 95%; padding: 0.8rem; margin-top: 1.5rem; background-color: rgb(163, 99, 15); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;">
-            Confirm Reservation
-            </button>
-            </form>
+                    <!-- Submit Button -->
+                    <button type="submit" style="width: 100%; padding: 1rem; margin-top: 2rem; background: linear-gradient(to right, rgb(102, 67, 35), rgb(102, 67, 35)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
+                        Confirm Reservation
+                    </button>
+                </form>
             </div>
         </section>
 
+
+        <section style="padding: 5rem 2rem; background-color: rgba(172, 144, 117, 0.89)">
+            <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+                <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact';">Our History</h2>
+                <div style="display: flex; gap: 3rem; align-items: center;">
+                    <div style="flex: 1;">
+                        <img src="../images/history.jpg" alt="Resort History" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    </div>
+                    <div style="flex: 1; text-align: left;">
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #34495e; margin-bottom: 1.5rem;">
+                            Founded in 1985, Casa Marcos began as a modest family retreat nestled in the heart of nature. Over the decades, it has evolved into a premier luxury resort while maintaining its authentic charm and warm hospitality.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #34495e;">
+                            Today, Casa Marcos stands as a testament to excellence in hospitality, combining traditional values with modern luxury. Our commitment to exceptional service and guest satisfaction continues to be the cornerstone of our legacy.
+                        </p>
+                        <button class="btn-room">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rooms Section -->
+        <section class="rooms">
+            <div class="rooms-header">
+                <h2 style="text-align: center; color: rgb(102, 67, 35); margin-bottom: 3rem; font-size: 2.5rem; font-family: 'impact';">Our Luxurious Rooms</h2>
+                <p style="text-align: center; font-size: 1.2rem; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #34495e;">Experience comfort and elegance in every room, designed with your luxury in mind.</p>
+            </div>
+
+            <div class="room-cards">
+                <div class="room-card">
+                    <img src="../images/room.jpg" alt="Standard Room" class="room-img" />
+                    <h3 class="room-title">Standard Room</h3>
+                    <p class="room-description">A cozy retreat offering all the essentials for a relaxing stay, with elegant touches for your comfort.</p>
+                    <button class="btn-room">Book Now</button>
+                </div>
+                <div class="room-card">
+                    <img src="../images/room.jpg" alt="Deluxe Room" class="room-img" />
+                    <h3 class="room-title">Deluxe Room</h3>
+                    <p class="room-description">Spacious and sophisticated, offering premium amenities and a stunning view of the surroundings.</p>
+                    <button class="btn-room">Book Now</button>
+                </div>
+                <div class="room-card">
+                    <img src="../images/room.jpg" alt="Suite" class="room-img" />
+                    <h3 class="room-title">Suite</h3>
+                    <p class="room-description">Designed for the discerning guest, the Suite offers unparalleled luxury with exceptional services.</p>
+                    <button class="btn-room">Book Now</button>
+                </div>
+                <div class="room-card">
+                    <img src="../images/room.jpg" alt="Villa" class="room-img" />
+                    <h3 class="room-title">Villa</h3>
+                    <p class="room-description">The epitome of luxury and privacy, offering expansive spaces and world-class amenities for an exclusive stay.</p>
+                    <button class="btn-room">Book Now</button>
+                </div>
+            </div>
+        </section>
 
     </main>
 
@@ -334,7 +324,7 @@
     </footer>
 
     <script>
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
@@ -344,4 +334,5 @@
         });
     </script>
 </body>
+
 </html>
