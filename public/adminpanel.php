@@ -13,9 +13,9 @@ if (session_status() == PHP_SESSION_NONE) {
     <title>Admin Login</title>
     <style>
     :root {
-        --primary: #ff6b6b;
+        --primary:rgb(88, 74, 61));
         --secondary: #4ecdc4;
-        --bg-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        --bg-gradient: linear-gradient(45deg,rgb(218, 191, 156),rgb(88, 74, 61));
         --glass-bg: rgba(255, 255, 255, 0.1);
         --glass-border: rgba(255, 255, 255, 0.2);
         --text-primary: #2d3436;
@@ -136,7 +136,7 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     h2 {
-        color:  #ff6b6b;
+        color:rgb(73, 63, 57);
         font-size: 2em;
         margin-bottom: 30px;
         font-weight: 600;
@@ -275,7 +275,14 @@ if (session_status() == PHP_SESSION_NONE) {
             </div>
         </div>
         <div class="form-container">
-        <form method="POST" action="./pages/authentication.php?function=login" class="login-form">
+        <form method="POST" action="./pages/authentication.php?sub_page=login" class="login-form">
+                <?php
+                    // Generate and store CSRF token in session
+                    if (!isset($_SESSION['csrf_token'])) {
+                        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+                    }
+                ?>
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <h2>ADMINISTRATOR</h2>
                 <div class="input-group">
                     <input type="text" name="username" placeholder="Username" required>
