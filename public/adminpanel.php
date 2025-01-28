@@ -1,9 +1,35 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+session_start();
+require_once('./model/connector.php');
 
+if ($_GET['function'] == 'login') {
+    $db = new Connector();
+    
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
+    $sql = "SELECT * FROM admin WHERE username = ?";
+    $result = $db->executeQuery($sql, [$username]);
+    
+    if ($result && count($result) > 0) {
+        if (password_verify($password, $result[0]['password'])) {
+            $_SESSION['admin_id'] = $result[0]['id'];
+            $_SESSION['admin_username'] = $result[0]['username'];
+            header('Location: ../dashboard.php');
+            exit();
+        } else {
+            $_SESSION['error'] = "Invalid password";
+            header('Location: ../login.php');
+            exit();
+        }
+    } else {
+        $_SESSION['error'] = "Username not found";
+        header('Location: ../login.php');
+        exit();
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -276,24 +302,25 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="form-container">
         <form method="POST" action="./pages/authentication.php?function=login" class="login-form">
-                <h2>ADMINISTRATOR</h2>
-                <div class="input-group">
-                    <input type="text" name="username" placeholder="Username" required>
+            <h2>ADMINISTRATOR</h2>
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit">Log in</button>
+            
+            <?php if(isset($_SESSION['error'])): ?>
+                <div class="error-message">
+                    <?php
+                        echo htmlspecialchars($_SESSION['error']);
+                        unset($_SESSION['error']);
+                    ?>
                 </div>
-                <div class="input-group">
-                    <input type="password" name="password" placeholder="Password" required>
-                </div>
-                <button type="submit">Log in</button>
-                
-                <?php if(isset($_SESSION['error'])): ?>
-                    <div class="error-message">
-                        <?php 
-                            echo htmlspecialchars($_SESSION['error']); 
-                            unset($_SESSION['error']); 
-                        ?>
-                    </div>
-                <?php endif; ?>
-            </form>
+            <?php endif; ?>
+        </form>
+
         </div>
     </div>
 </body>
