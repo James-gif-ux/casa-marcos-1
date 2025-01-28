@@ -39,9 +39,9 @@ if ($_GET['function'] == 'login') {
     <title>Admin Login</title>
     <style>
     :root {
-        --primary: #ff6b6b;
+        --primary:rgb(88, 74, 61));
         --secondary: #4ecdc4;
-        --bg-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        --bg-gradient: linear-gradient(45deg,rgb(218, 191, 156),rgb(88, 74, 61));
         --glass-bg: rgba(255, 255, 255, 0.1);
         --glass-border: rgba(255, 255, 255, 0.2);
         --text-primary: #2d3436;
@@ -162,7 +162,7 @@ if ($_GET['function'] == 'login') {
     }
 
     h2 {
-        color:  #ff6b6b;
+        color:rgb(73, 63, 57);
         font-size: 2em;
         margin-bottom: 30px;
         font-weight: 600;
@@ -302,25 +302,24 @@ if ($_GET['function'] == 'login') {
         </div>
         <div class="form-container">
         <form method="POST" action="./pages/authentication.php?function=login" class="login-form">
-            <h2>ADMINISTRATOR</h2>
-            <div class="input-group">
-                <input type="text" name="username" placeholder="Username" required>
-            </div>
-            <div class="input-group">
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <button type="submit">Log in</button>
-            
-            <?php if(isset($_SESSION['error'])): ?>
-                <div class="error-message">
-                    <?php
-                        echo htmlspecialchars($_SESSION['error']);
-                        unset($_SESSION['error']);
-                    ?>
+                <h2>ADMINISTRATOR</h2>
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Username" required>
                 </div>
-            <?php endif; ?>
-        </form>
-
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit">Log in</button>
+                
+                <?php if(isset($_SESSION['error'])): ?>
+                    <div class="error-message">
+                        <?php 
+                            echo htmlspecialchars($_SESSION['error']); 
+                            unset($_SESSION['error']); 
+                        ?>
+                    </div>
+                <?php endif; ?>
+            </form>
         </div>
     </div>
 </body>
