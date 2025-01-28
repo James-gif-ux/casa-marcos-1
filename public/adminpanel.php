@@ -209,6 +209,56 @@ if (session_status() == PHP_SESSION_NONE) {
         font-size: 14px;
         border: 1px solid rgba(255, 71, 87, 0.2);
     }
+    .brand-logo {
+    margin-bottom: 30px;
+    }
+
+    .brand-logo img {
+        max-width: 150px;  /* Adjust this value based on your image size */
+        height: auto;
+        /* Add a subtle glow effect to make the logo stand out */
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    }
+
+    /* Enhance the existing left-panel styles */
+    .left-panel {
+        flex: 1;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        /* Add a subtle gradient overlay */
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.1)
+        );
+        }
+        .left-panel {
+        flex: 1;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: url('./images/11.jpg') center center/cover;
+    }
+
+    .panel-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* Darkens the image for better text readability */
+        backdrop-filter: blur(2px);      /* Adds a slight blur effect */
+    }
+
+    .brand-content {
+        position: relative;  /* Ensures content stays above the overlay */
+        z-index: 1;         /* Places content above the overlay */
+    }
     </style>
 </head>
 <body>
@@ -221,8 +271,6 @@ if (session_status() == PHP_SESSION_NONE) {
     <div class="container">
         <div class="left-panel">
             <div class="brand-content">
-                <h1>Welcome Back</h1>
-                <p>Sign in to continue your journey</p>
             </div>
         </div>
         <div class="form-container">
