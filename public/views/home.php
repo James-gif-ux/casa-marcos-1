@@ -86,7 +86,7 @@
 
     .hero {
         text-align: center;
-        padding: 18rem;
+        padding: 20rem;
         background-image: url('../images/11.jpg');
         background-size: cover;
         background-position: center;
@@ -389,7 +389,6 @@
     <main>
         <section class="hero">
             <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-                <h2 style="text-align: center; color: rgb(218, 191, 156); margin-bottom: 2rem; font-size: 2.4rem; font-family: 'impact';">RESERVATION DETAILS</h2>
                 <form action="/reservation/submit" method="POST">
                     <!-- Check-in and Check-out Section -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
@@ -436,8 +435,10 @@
 
         <!-- Rooms Section -->
         <section class="rooms">
-            <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact'; text-align: center;">Our Rooms</h2>
-
+        <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
+            Our Rooms
+            <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+        </h2>
             <!-- Carousel Container -->
             <div class="carousel-container">
                 <!-- Carousel Slides -->
@@ -488,6 +489,67 @@
                 </div>
             </div>
 
+        </section>
+
+        <section style="padding: 8rem 2rem; background-color: #f9f6f2;">
+            <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
+            Our Spaces
+            <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+            </h2>
+            <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: 0 2rem;">
+            
+            <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
+                <img src="../images/area.jpg" alt="Fitness Room" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+                <div style="padding: 2rem;">
+                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Fitness Room</h3>
+                <p style="color: #666; line-height: 1.6;">Have a good sweat at the Fitness Center, with state-of-the-art equipment to serve our guests.</p>
+                </div>
+            </div>
+
+            <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
+                <img src="../images/area.jpg" alt="Restaurant and Cafe" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+                <div style="padding: 2rem;">
+                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Restaurant & Cafe</h3>
+                <p style="color: #666; line-height: 1.6;">Experience exquisite dining in an elegant atmosphere with our diverse culinary offerings.</p>
+                </div>
+            </div>
+
+            <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
+                <img src="../images/area.jpg" alt="Pool and Gardens" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+                <div style="padding: 2rem;">
+                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Pool & Gardens</h3>
+                <p style="color: #666; line-height: 1.6;">Unwind in our luxurious pool or explore our meticulously maintained garden paradise.</p>
+                </div>
+            </div>
+
+            <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
+                <img src="../images/area.jpg" alt="Conference Areas" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+                <div style="padding: 2rem;">
+                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Conference Areas</h3>
+                <p style="color: #666; line-height: 1.6;">Professional meeting spaces equipped with modern technology for successful events.</p>
+                </div>
+            </div>
+            </div>
+
+            <style>
+            .amenity-card:hover {
+                transform: translateY(-15px);
+                box-shadow: 0 15px 40px rgba(102, 67, 35, 0.2);
+            }
+            .amenity-card:hover img {
+                transform: scale(1.1);
+            }
+            @media (max-width: 1200px) {
+                div[style*="grid-template-columns"] {
+                grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+            @media (max-width: 768px) {
+                div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                }
+            }
+            </style>
         </section>
 
     </main>

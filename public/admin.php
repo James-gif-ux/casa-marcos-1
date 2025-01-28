@@ -40,100 +40,76 @@ if (session_status() == PHP_SESSION_NONE) {
             flex: 1;
             padding-left: 20px;
         }
-        h1{
+        h1 {
             color: rgb(188, 117, 36);
             font-size: 50px;
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            
+            font-family: 'Impact', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: left;
-        }
-        .form-group {
             position: relative;
         }
         input {
-            width: 50%;
+            width: 60%;
             padding: 20px;
             text-align: center;
-            margin-top: 5px;
-            border: 1px solid #ddd;
+            margin-top: 10px;
+            border: 2px solid rgba(129, 124, 121, 0.5);
             border-radius: 25px;
-            background-color: rgb(129, 124, 121);
+            background-color: rgba(129, 124, 121, 0.9);
             position: relative;
             left: 50%;
             transform: translateX(-50%);
             display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        ::placeholder{
-            color: black;
+        input:focus {
+            background-color: rgba(129, 124, 121, 1);
+            border-color: rgb(188, 117, 36);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        ::placeholder {
+            color: rgba(0, 0, 0, 0.7);
             font-family: 'Roboto', sans-serif;
             font-weight: bold;
-        }
-        input::placeholder {
-            transition: transform 0.2s ease-out;
+            transition: all 0.3s ease;
         }
         input:focus::placeholder {
             transform: translateY(-20px);
             font-size: 0.8em;
-            color: #f9f9f9;
-            font-weight: bold;
-        }
-        .form-group {
-            position: relative;
-        }
-        .form-group label {
-            position: absolute;
-            left: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            color: #d71010;
-            background: transparent;
-            z-index: 1;
-        }
-        input:focus + label,
-        input:not(:placeholder-shown) + label {
-            top: -5px;
-            font-size: 12px;
-            color: #4CAF50;
-            background: white;
-            padding: 0 5px;
+            color: #ffffff;
+            opacity: 0.8;
         }
         button {
-            width: 60%;
-            padding: 10px;
-            background-color: rgb(129, 124, 121);
+            width: 65%;
+            padding: 15px;
+            background-color: rgb(188, 117, 36);
             color: white;
             border: none;
-            border-radius: 25px; 
+            border-radius: 25px;
             cursor: pointer;
             display: block;
-            margin: 0 auto;
-            font-size: large;
+            margin: 25px auto;
+            font-size: 18px;
             font-weight: bold;
-            position: relative;
-            left: 0%;
-            transform: translateX(-1%);
-            display: block;
-           
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-        
+        button:hover {
+            background-color: rgb(216, 134, 41);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
         h2 {
-            color: #fffcfc;
-            margin-bottom: 20px;
+            color: #ffffff;
+            margin-bottom: 25px;
             text-align: left;
             margin-left: -30px;
-        }
-        
-       
-        
-        .form-group label {
-            color: #666;
-            font-size: 0.9em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>

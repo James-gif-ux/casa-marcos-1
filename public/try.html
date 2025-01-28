@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 240 10% 3.9%;
+      --card: 0 0% 100%;
+      --primary: 240 5.9% 10%;
+      --primary-foreground: 0 0% 98%;
+      --border: 240 5.9% 90%;
+      --destructive: 0 84.2% 60.2%;
+      --radius: 0.5rem;
+    }
+    .dark {
+      --background: 240 10% 3.9%;
+      --foreground: 0 0% 98%;
+      --card: 240 10% 3.9%;
+      --primary: 0 0% 98%;
+      --primary-foreground: 240 5.9% 10%;
+      --border: 240 3.7% 15.9%;
+      --destructive: 0 62.8% 30.6%;
+    }
+  </style>
+</head>
+<body class="bg-background dark:bg-background-dark">
+  <div class="flex flex-col md:flex-row h-screen">
+    <div class="flex-1 flex items-center justify-center bg-background dark:bg-background-dark p-8"></div>
+      <div class="max-w-md w-full space-y-8 bg-card dark:bg-card p-8 rounded-xl shadow-lg">
+        <div class="space-y-4">
+          <h2 class="text-3xl font-extrabold text-center text-foreground">Welcome Back</h2>
+          <p class="text-center text-muted-foreground">Sign in to your account</p>
+        </div>
+
+        <form id="login-form" class="mt-8 space-y-6">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-foreground" for="username">Username</label>
+              <input 
+                class="mt-1 block w-full rounded-md border border-border bg-background p-3 text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" 
+                type="text" 
+                id="username" 
+                placeholder="Enter your username" 
+                required 
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-foreground" for="password">Password</label>
+              <input 
+                class="mt-1 block w-full rounded-md border border-border bg-background p-3 text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" 
+                type="password" 
+                id="password" 
+                placeholder="Enter your password" 
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input type="checkbox" id="remember" class="h-4 w-4 rounded border-border text-primary focus:ring-primary" />
+              <label for="remember" class="ml-2 text-sm text-muted-foreground">Remember me</label>
+            </div>
+            <a href="#" class="text-sm text-primary hover:text-primary/80">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="w-full bg-primary text-primary-foreground hover:bg-primary/90 p-3 rounded-md font-medium transition-colors">
+            Sign In
+          </button>
+
+          <div id="loader" class="hidden flex justify-center"></div>
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+
+          <div id="error-message" class="hidden text-center text-destructive text-sm"></div>
+        </form>
+
+        <div class="relative py-4">
+          <div class="absolute inset-0 flex items-center"></div>
+            <div class="w-full border-t border-border"></div>
+          </div>
+          <div class="relative flex justify-center">
+            <span class="px-2 bg-card text-muted-foreground">Or continue with</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <button class="flex items-center justify-center p-3 border border-border rounded-md hover:bg-background/90 transition-colors"></button>
+            <img src="https://authjs.dev/img/providers/facebook.svg" alt="Facebook" class="w-5 h-5"/>
+          </button>
+          <button class="flex items-center justify-center p-3 border border-border rounded-md hover:bg-background/90 transition-colors">
+            <img src="https://authjs.dev/img/providers/google.svg" alt="Google" class="w-5 h-5"/>
+          </button>
+          <button class="flex items-center justify-center p-3 border border-border rounded-md hover:bg-background/90 transition-colors">
+            <img src="https://authjs.dev/img/providers/twitter.svg" alt="Twitter" class="w-5 h-5"/>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 bg-cover bg-center hidden md:block" style="background-image: url('./images/logo.jpg');"></div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const loader = document.getElementById('loader');
+    const errorMessage = document.getElementById('error-message');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loader.classList.remove('hidden');
+      errorMessage.classList.add('hidden');
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!response.ok) throw new Error('Invalid credentials');
+        const data = await response.json();
+        // Handle successful login here
+        window.location.href = '/dashboard'; // Redirect after successful login
+      } catch (error) {
+        errorMessage.textContent = error.message;
+        errorMessage.classList.remove('hidden');
+      } finally {
+        loader.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
