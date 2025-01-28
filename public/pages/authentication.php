@@ -19,7 +19,7 @@ if(isset($_GET['function']) && $_GET['function'] == 'login') {
     } else {
         // Handle login failure
         $_SESSION['error'] = "Invalid Username or Password!";
-        header('Location: ../views/login.php');
+        header('Location: ../views/dashboard.php');
         exit();
     }
 }
