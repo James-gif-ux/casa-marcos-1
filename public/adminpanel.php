@@ -136,10 +136,11 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     h2 {
-        color: var(--text-primary);
+        color:  #ff6b6b;
         font-size: 2em;
         margin-bottom: 30px;
         font-weight: 600;
+        font-family: impact;
     }
 
     .input-group {
@@ -275,7 +276,7 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="form-container">
         <form method="POST" action="./pages/authentication.php?function=login" class="login-form">
-                <h2>Admin Panel</h2>
+                <h2>ADMINISTRATOR</h2>
                 <div class="input-group">
                     <input type="text" name="username" placeholder="Username" required>
                 </div>
