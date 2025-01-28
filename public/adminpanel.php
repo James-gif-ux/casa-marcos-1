@@ -286,7 +286,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <div class="forgot-password">
                     <a href="#">Forgot Password?</a>
                 </div>
-                <button type="submit">Sign In</button>
+                <button type="submit">Log in</button>
                 
                 <?php if(isset($_SESSION['error'])): ?>
                     <div class="error-message">
