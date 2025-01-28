@@ -283,9 +283,6 @@ if (session_status() == PHP_SESSION_NONE) {
                 <div class="input-group">
                     <input type="password" name="password" placeholder="Password" required>
                 </div>
-                <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </div>
                 <button type="submit">Log in</button>
                 
                 <?php if(isset($_SESSION['error'])): ?>
