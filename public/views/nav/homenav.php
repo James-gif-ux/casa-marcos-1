@@ -19,6 +19,10 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.4;
         font-size: 16px;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     header {
@@ -91,13 +95,18 @@
         background-position: center;
     }
 
-    footer {
+    footer{
         background-color: #2c3e50;
         color: #fff;
         text-align: center;
-        padding: 1.5rem;
+        width: 100%;
     }
-
+    p{
+        text-align: center;
+        margin-left: 650px;
+        margin-top: 40px;
+    }
+    
     input,
     select {
         font-family: 'Arial', sans-serif;
@@ -119,6 +128,7 @@
         background-color: #f9f6f2;
         padding: 8rem 0;
         position: relative;
+        margin-top: 200px;
     }
 
     .rooms-header {
@@ -369,7 +379,7 @@
     .dropdown {
     position: relative;
     display: inline-block;
-}
+    }
 
     .dropdown-content {
         display: none;
@@ -421,6 +431,123 @@
         transform: translateX(5px);
         color: #fff !important;
     }
+
+    /*ROOMS style*/
+   
+
+      h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #007BFF;
+      animation: fadeInDown 0.8s ease-out;
+      }
+
+      @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      }
+
+      p {
+      font-size: 1.2em;
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 40px;
+      animation: fadeIn 1s ease-out;
+      }
+
+      @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+      }
+
+      .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      border-radius: 12px;
+      animation: slideUp 0.8s ease-out;
+      }
+
+      @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      }
+
+      .grid-item {
+      background-color: #fff;
+      text-align: center;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      border: 1px solid #eee;
+      position: relative;
+      }
+
+      .grid-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border-color: #007BFF;
+      }
+
+      .grid-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px 12px 0 0;
+      transition: transform 0.6s ease;
+      }
+
+      .grid-item:hover img {
+      transform: scale(1.1);
+      }
+
+      .grid-item p {
+      margin: 15px 0;
+      font-size: 1.3em;
+      color: #444;
+      }
+
+      .room-price {
+      font-size: 1.6em;
+      color: #28a745;
+      margin: 15px 0;
+      transition: color 0.3s ease;
+      }
+
+      .grid-item:hover .room-price {
+      color: #1e7e34;
+      }
+
+      .book-button {
+      display: inline-block;
+      padding: 12px 25px;
+      margin: 15px 0;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      }
+
+      .book-button:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+      }
 
 </style>
 
