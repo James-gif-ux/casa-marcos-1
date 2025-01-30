@@ -1,40 +1,45 @@
 <?php
-require_once 'connector.php';
-
-class authenticationModel extends Connector {
-    function __construct() {
-        parent::__construct();
-    }
-
-    function loggedin() {
-        $username = htmlspecialchars($_POST['username']);
-        $password = $_POST['password'];
-
-        $sql = "SELECT * FROM admin_tb WHERE admin_username = :username";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['username' => $username]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user && password_verify($password, $user['admin_password'])) {
-            $_SESSION['admin_id'] = $user['admin_id'];
-            $_SESSION['admin_username'] = $user['admin_username'];
-            $_SESSION['admin_type'] = $user['admin_type'];
-            $_SESSION['loggedin'] = true;
-            return $user;
+	//import database connector
+	require_once 'connector.php';
+	
+	//-------------------------------//
+	//--class for login page active--//
+	//-------------------------------//
+	class authenticationModel extends Connector{
+		function __construct(){
+			parent::__construct();
+		}
+		
+		//-------------------------------//
+		//--  function starts here      --//
+		function loggedin(){
+            $sql = "SELECT * FROM `admin_tb` WHERE admin_username = ? and admin_password = ?";
+            $query = $this->conn->prepare($sql);
+            
+            // Bind the parameters
+            $query->bindParam(1, $_POST['username']);
+            $query->bindParam(2, $_POST['password']);
+        
+            //execute query
+            $query->execute();
+            //return
+            return $query->fetch(PDO::FETCH_ASSOC);
         }
-        return false;
-    }
+        
 
-    function register() {
-        $username = htmlspecialchars($_POST['user']);
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+	// 	function register(){
 
-        $sql = "INSERT INTO admin_tb (admin_user, admin_password) VALUES (:username, :password)";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([
-            'username' => $username,
-            'password' => $password
-        ]);
-    }
-}
+	// 		$sql = "INSERT INTO `user_tb` (`user_fullname`, `user_email`, `user_password`) 
+	// 							VALUE ('{$_POST['name']}','{$_POST['email']}','{$_POST['password']}')";
+	// 		$query = $this->conn->prepare($sql);
+			
+
+	// 		//execute query
+	// 		$query->execute();
+	// 		//return
+	// 		return true;
+
+
+	// 	}
+	 }
 ?>

@@ -209,7 +209,7 @@ if (session_status() == PHP_SESSION_NONE) {
     }
     </style>
 </head>
-<body>
+    <body>
     <div class="background-shapes">
         <div class="shape"></div>
         <div class="shape"></div>
@@ -224,26 +224,24 @@ if (session_status() == PHP_SESSION_NONE) {
             </div>
         </div>
         <div class="form-container">
-        <form method="POST" action="../pages/authentication.php" class="login-form">
-                <h2>Admin Panel</h2>
-                <div class="input-group">
-                    <input type="text" name="username" placeholder="Username" required>
+            <form action="../pages/authentication.php?function=login&&sub_page=loggedin" method="POST" class="login-form">
+                <div  class="input-group">
+                    <input type="text" name="username" class="form-control form-control-user"
+                        id="username" aria-label="username"
+                        placeholder="Username" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control form-control-user"
+                        id="password" aria-label="password" placeholder="Password" required>
                 </div>
-                <button type="submit">Sign In</button>
-                <?php 
-                if(isset($_SESSION['error'])): ?>
-                    <div class="error" style="color: red; text-align: center; margin-top: 10px;">
-                        <?php 
-                            echo $_SESSION['error']; 
-                            unset($_SESSION['error']); 
-                        ?>
-                    </div>
-                <?php endif; ?>
+                <button class="btn btn-secondary btn-user btn-block">Login</button>
+                <?php if(isset($msg)): ?>
+                <div class="error-message">
+                    <?php echo htmlspecialchars($msg); ?>
+                </div>
+            <?php endif; ?>
             </form>
         </div>
     </div>
-</body>
+    </body>
 </html>

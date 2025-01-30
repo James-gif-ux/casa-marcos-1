@@ -1,55 +1,127 @@
 <?php
-ob_start();
-session_start();
+	//import model
+	include_once '../model/authenticationModel.php';
 
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+	$page_info['page'] = 'login'; //for page that needs to be called
+	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'login'; //for function to be loaded
+		
+	//-----------------------//
+	//--     --//
+	//-----------------------//
+	session_start();
+	if(!isset($_SESSION['loggedin'])){
+		try {//used try to catch unfortunate errors
+			//check for active function
+			if (isset($_GET['function'])){
+				new LoginActive($page_info);
+			}else{
+				//no active function, use the default page to view
+				new Login($page_info);
+			}		
+			
+		}catch (Throwable $e){ //get the encountered error
+			echo '<h1>ERROR 404</h1>';
+			echo $e->getMessage();
+		}//end of validation
+	}else{
+		header("Location: ../pages/dashboard.php");
+	}
+	
+	
+	//-----------------------//
+	//--  Class Navigation --//
+	//-----------------------//
+	class Login{
+		//set default page info
+		private $page = '';
+		private $sub_page = '';
+		
+		//run function construct
+		function __construct($page_info){
+			//assign page info
+			$this->page = $page_info['page'];
+			$this->sub_page = $page_info['sub_page'];
+			
+			//run the function
+			$this->{$page_info['sub_page']}();
+		}
+		
+		//-----------------------------//
+		//--   function start here   --//
+		function login(){
+			include '../views/login.php';
+		}
+		function register(){ //register page
+			include "../views/register.php";
+		}
+		function dashboard(){
+			include '../views/dashboard.php';
+		}
+	}
+	
+	//-----------------------//
+	//-- Active Class      --//
+	//-----------------------//
+	class LoginActive{
+		//set default page info
+		private $page = '';
+		private $sub_page = '';
+		
+		//run function construct
+		function __construct($page_info){
+			//assign page info
+			$this->page = $page_info['page'];
+			$this->sub_page = $page_info['sub_page'];
+			
+			//run the function
+			$this->{$page_info['sub_page']}();
+		}
+		
+		//-----------------------------//
+		//--   function start here   --//
+		
+		//-----------------------------------//
+		//--  active function start here   --//
+		
+		function loggedin(){ //validate login
+			//instantiate class model
+			
+			$loggedin = new authenticationModel();
+			
 
-// Include the database connector class
-require '../model/Connector.php'; // Adjust the path as necessary
+			$result = $loggedin->loggedin($_POST);
+			
+			if($result){
+				if($result['admin_type'] === 'admin'){
+					header('Location: ../pages/dashboard.php?sub_page=dashboard');
+				}else{
+					header('Location: ../pages/dashboard.php?sub_page=dashboard');
+				}
+			}else{
+				$msg = "Invalid Username or Password!";
+				include '../views/login.php';
+			}
 
-// Create an instance of the Connector
-$dbConnector = new Connector();
+			
+		}
+		
+		// function register(){//register user
+		
+		// 	$register = new authenticationModel();
 
-// Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve the submitted username and password
-    $submitted_username = $_POST['username'];
-    $submitted_password = $_POST['password'];
-
-    // Prepare SQL for selecting user
-    $sql = "SELECT * FROM admin_tb WHERE admin_username = :admin_username"; // Use named parameters for clarity
-    $params = ['admin_username' => $submitted_username];
-
-    // Execute the query
-    $user = $dbConnector->executeQuery($sql, $params);
-
-    // Debug: Check the returned user data
-    var_dump($user); // Check the structure of the fetched data
-
-    // Check if user exists and verify password
-    if (is_array($user) && count($user) > 0) { // Ensure $user is an array and check if user is found
-        $user = $user[0]; // Fetch the first result
-        // Debug: Show hashed password from the database
-        echo 'Hashed Password in DB: ' . $user['password'] . '<br>';
-        // Verify password
-        if (password_verify($submitted_password, $user['password'])) {
-            // Password is correct, start user session and redirect to dashboard
-            $_SESSION['admin_username'] = $submitted_username; // Store session variable
-            header("Location: ../views/dashboard.php");
-            exit;
-        } else {
-            // Invalid password
-            $_SESSION['error'] = "Invalid password.";
-        }
-    } else {
-        // User does not exist
-        $_SESSION['error'] = "User does not exist.";
-    }
-
-    // Redirect back to login page in case of post request to show error string.
-    header("Location: ../views/adminpanel.php");
-    exit;
-}
+		// 	$result = $register->register($_POST);
+			
+		// 	if($result){
+		// 		echo "<script>alert('REGISTERED SUCCESSFULLY')</script>";
+		// 		include '../views/login.php';
+		// 	}else{
+		// 		echo "<script>alert('REGISTRATION FAILED')</script>";
+		// 		include '../views/register.php';
+		// 	}
+		
+			
+		// }
+	
+	}
+	
 ?>

@@ -1,5 +1,5 @@
 <?php
-  include_once './nav/header.php';
+  include_once 'nav/header.php';
 ?>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <main class="h-full overflow-y-auto">
