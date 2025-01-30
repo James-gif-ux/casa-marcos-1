@@ -78,7 +78,7 @@
     }
 
     nav ul li a:hover {
-        border-bottom: 3px solid rgb(153, 120, 90);
+        border-bottom: 3px solid rgb(102, 67, 35);
         color:rgb(102, 67, 35);
         transform: translateY(-2px);
     }
@@ -409,7 +409,7 @@
         transform: translateX(5px);
     }
     nav ul li a.active {
-        border-bottom: 3px solid rgb(102, 67, 35);
+        border-bottom: 3px solid rgb(218, 191, 156);
         color:  rgb(218, 191, 156);
         transform: translateY(-2px);
     }
