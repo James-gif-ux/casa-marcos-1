@@ -1,36 +1,8 @@
 <?php
-session_start();
-require_once('./model/connector.php');
-
-if ($_GET['function'] == 'login') {
-    $db = new Connector();
-    
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    
-    $sql = "SELECT * FROM admin WHERE username = ?";
-    $result = $db->executeQuery($sql, [$username]);
-    
-    if ($result && count($result) > 0) {
-        if (password_verify($password, $result[0]['password'])) {
-            $_SESSION['admin_id'] = $result[0]['id'];
-            $_SESSION['admin_username'] = $result[0]['username'];
-            header('Location: ../dashboard.php');
-            exit();
-        } else {
-            $_SESSION['error'] = "Invalid password";
-            header('Location: ../login.php');
-            exit();
-        }
-    } else {
-        $_SESSION['error'] = "Username not found";
-        header('Location: ../login.php');
-        exit();
-    }
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,9 +11,9 @@ if ($_GET['function'] == 'login') {
     <title>Admin Login</title>
     <style>
     :root {
-        --primary:rgb(88, 74, 61));
+        --primary:rgb(133, 104, 71);
         --secondary: #4ecdc4;
-        --bg-gradient: linear-gradient(45deg,rgb(218, 191, 156),rgb(88, 74, 61));
+        --bg-gradient: linear-gradient(45deg,rgb(144, 102, 38),rgb(150, 125, 53));
         --glass-bg: rgba(255, 255, 255, 0.1);
         --glass-border: rgba(255, 255, 255, 0.2);
         --text-primary: #2d3436;
@@ -162,11 +134,10 @@ if ($_GET['function'] == 'login') {
     }
 
     h2 {
-        color:rgb(73, 63, 57);
+        color: var(--text-primary);
         font-size: 2em;
         margin-bottom: 30px;
         font-weight: 600;
-        font-family: impact;
     }
 
     .input-group {
@@ -236,59 +207,9 @@ if ($_GET['function'] == 'login') {
         font-size: 14px;
         border: 1px solid rgba(255, 71, 87, 0.2);
     }
-    .brand-logo {
-    margin-bottom: 30px;
-    }
-
-    .brand-logo img {
-        max-width: 150px;  /* Adjust this value based on your image size */
-        height: auto;
-        /* Add a subtle glow effect to make the logo stand out */
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-    }
-
-    /* Enhance the existing left-panel styles */
-    .left-panel {
-        flex: 1;
-        padding: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        background: rgba(255, 255, 255, 0.05);
-        /* Add a subtle gradient overlay */
-        background-image: linear-gradient(
-            rgba(255, 255, 255, 0.05),
-            rgba(255, 255, 255, 0.1)
-        );
-        }
-        .left-panel {
-        flex: 1;
-        padding: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        background: url('./images/11.jpg') center center/cover;
-    }
-
-    .panel-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4); /* Darkens the image for better text readability */
-        backdrop-filter: blur(2px);      /* Adds a slight blur effect */
-    }
-
-    .brand-content {
-        position: relative;  /* Ensures content stays above the overlay */
-        z-index: 1;         /* Places content above the overlay */
-    }
     </style>
 </head>
-<body>
+    <body>
     <div class="background-shapes">
         <div class="shape"></div>
         <div class="shape"></div>
@@ -298,29 +219,29 @@ if ($_GET['function'] == 'login') {
     <div class="container">
         <div class="left-panel">
             <div class="brand-content">
+                <h1>Welcome Back</h1>
+                <p>Sign in to continue your journey</p>
             </div>
         </div>
         <div class="form-container">
-        <form method="POST" action="./pages/authentication.php?function=login" class="login-form">
-                <h2>ADMINISTRATOR</h2>
-                <div class="input-group">
-                    <input type="text" name="username" placeholder="Username" required>
+            <form action="../pages/authentication.php?function=login&&sub_page=loggedin" method="POST" class="login-form">
+                <div  class="input-group">
+                    <input type="text" name="username" class="form-control form-control-user"
+                        id="username" aria-label="username"
+                        placeholder="Username" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control form-control-user"
+                        id="password" aria-label="password" placeholder="Password" required>
                 </div>
-                <button type="submit">Log in</button>
-                
-                <?php if(isset($_SESSION['error'])): ?>
-                    <div class="error-message">
-                        <?php 
-                            echo htmlspecialchars($_SESSION['error']); 
-                            unset($_SESSION['error']); 
-                        ?>
-                    </div>
-                <?php endif; ?>
+                <button class="btn btn-secondary btn-user btn-block">Login</button>
+                <?php if(isset($msg)): ?>
+                <div class="error-message">
+                    <?php echo htmlspecialchars($msg); ?>
+                </div>
+            <?php endif; ?>
             </form>
         </div>
     </div>
-</body>
+    </body>
 </html>
