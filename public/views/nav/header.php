@@ -1,6 +1,6 @@
 <?php
 // Initialize message count
-$unread_count = 13;
+$unread_count = 0;
 
 // Sample messages array
 $messages = [
