@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                                    <!-- Modal -->
+                             <!-- Reply Modal -->
                                 <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -178,12 +178,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="replyForm" method="POST" action="send_reply.php">
-                                                    <input type="hidden" id="recipient_email" name="recipient_email">
-                                                    <input type="hidden" id="message_id" name="message_id">
+                                                <form method="POST" action="send_reply.php">
+                                                    <input type="hidden" name="recipient_email" value="<?= $message['sender_email'] ?>">
+                                                    <input type="hidden" name="message_id" value="<?= $message['id'] ?>">
                                                     <div class="mb-3">
                                                         <label for="reply_content" class="form-label">Your Reply</label>
-                                                        <textarea class="form-control" id="reply_content" name="reply_content" rows="4" required></textarea>
+                                                        <textarea class="form-control" name="reply_content" rows="4" required></textarea>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Send Reply</button>
                                                 </form>
@@ -191,14 +191,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </div>
                                     </div>
                                 </div>
-
                                 <script>
-                                function openReplyModal(messageId, recipientEmail) {
-                                    document.getElementById('replyModallabel').value = messageId;
-                                    document.getElementById('sender_email').value = recipientEmail;
+                                function openReplyModal(messageId, senderEmail) {
+                                    document.querySelector('input[name="message_id"]').value = messageId;
+                                    document.querySelector('input[name="recipient_email"]').value = senderEmail;
+                                    const modal = new bootstrap.Modal(document.getElementById('replyModal'));
+                                    modal.show();
                                 }
                                 </script>
-
                             </div>
                         </div>
                     </div>
@@ -207,4 +207,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
