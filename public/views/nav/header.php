@@ -1,22 +1,17 @@
 <?php
-// Initialize message count
-$unread_count = 0;
+// At the top of header.php
+require_once '../model/connector.php';
+// Initialize connector
+$connector = new Connector();
+// First mark messages as read
+$updateSql = "UPDATE messages SET is_read = 1 WHERE is_read = 0";
+$connector->executeQuery($updateSql);
 
-// Sample messages array
-$messages = [
-    [
-        'sender' => 'John Doe',
-        'content' => 'Hello, I would like to book a room.'
-    ],
-    [
-        'sender' => 'Jane Smith',
-        'content' => 'Is the Grand Suite available next week?'
-    ],
-    [
-        'sender' => 'Mike Johnson',
-        'content' => 'Thank you for the excellent service!'
-    ]
-];
+// Then get the count (which will now be 0)
+$sql = "SELECT COUNT(*) as unread_count FROM messages WHERE is_read = 0";
+$result = $connector->executeQuery($sql);
+$unread_count = $result[0]['unread_count'];
+
 ?>
 
 
@@ -310,32 +305,34 @@ $messages = [
                       d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
                     ></path>
                   </svg>
+                
                   <!-- Notification badge -->
-                  <span
-                    aria-hidden="true"
-                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
-                  ></span>
+                  <?php if($unread_count > 0): ?>
+                    <span class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"></span>
+                  <?php endif; ?>
+
                 </button>
                 <template x-if="isNotificationsMenuOpen">
-                  <ul
-                    x-transition:leave="transition ease-in duration-150"
-                    x-transition:leave-start="opacity-100"
+                <ul x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100" 
                     x-transition:leave-end="opacity-0"
                     @click.away="closeNotificationsMenu"
                     @keydown.escape="closeNotificationsMenu"
-                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
-                  >
+                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700">
                   <li class="flex">
-                      <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="messages.php"> <!-- Change href to the desired page -->
-                          <span>Messages</span>
-                          <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                              <?php echo $unread_count; ?>
-                          </span>
-                      </a>
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="messages.php">
+                      <span>Messages</span>
+                      <?php if($unread_count > 0): ?>
+                        <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
+                          <?php echo $unread_count; ?>
+                        </span>
+                      <?php endif; ?>
+                    </a>
                   </li>
-                  </ul>
-                </template>
+                </ul>
+              </template>
+
               </li>
               <!-- Profile menu -->
               <li class="relative">

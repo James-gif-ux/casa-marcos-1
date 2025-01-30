@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Send email notification to recipient
         mail($recipientEmail, "Reply to your message", $replyContent);
         
-        header('Location: messages.php?success=1');
+        header('Location: ../pages/messages.php?success=1');
         exit();
     }
 }

@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db->executeUpdate($updateSql, [$messageId]);
         
         header('Location: messages.php?success=1');
+        
     }
 }
 ?>
@@ -126,6 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </style>
 
 <div class="messages-container">
+      <!-- Add this close button at the top -->
+    <a href="../pages/dashboard.php" class="btn btn-secondary" style="position: absolute; top: 20px; right: 20px; padding: 8px 15px; border-radius: 8px; background: rgb(102, 67, 35); color: white; text-decoration: none; font-weight: 600;">
+        Close
+    </a>
     <div class="table-header">
         <h2>Messages</h2>
     </div>
@@ -178,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="send_reply.php">
+                                                <form method="POST" action="../pages/send_reply.php">
                                                     <input type="hidden" name="recipient_email" value="<?= $message['sender_email'] ?>">
                                                     <input type="hidden" name="message_id" value="<?= $message['id'] ?>">
                                                     <div class="mb-3">
