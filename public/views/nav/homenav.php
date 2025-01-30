@@ -75,13 +75,12 @@
         font-family: impact;
         text-transform: uppercase;
         transition: background-color 0.3s, transform 0.3s;
-        border-radius: 4px;
     }
 
     nav ul li a:hover {
-        background-color: #34495e;
-        color: #fff;
-        transform: scale(1.05);
+        border-bottom: 3px solid rgb(153, 120, 90);
+        color:rgb(102, 67, 35);
+        transform: translateY(-2px);
     }
 
     .hero {
@@ -407,26 +406,21 @@
     }
 
     .dropdown-content a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        transform: translateX(10px);
+        transform: translateX(5px);
     }
     nav ul li a.active {
-    background-color: #34495e;
-    color: rgb(218, 191, 156) !important;
-    transform: scale(1.05);
+        border-bottom: 3px solid rgb(102, 67, 35);
+        color:  rgb(218, 191, 156);
+        transform: translateY(-2px);
     }
     .dropbtn.active {
-        background-color: #34495e;
-        color: rgb(218, 191, 156) !important;
         transform: scale(1.05);
     }
 
     .dropdown-content a.active {
-        background-color: rgba(255, 255, 255, 0.1);
-        transform: translateX(10px);
+        transform: translateX(5px);
         color: #fff !important;
     }
-
 
 </style>
 
