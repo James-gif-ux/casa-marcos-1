@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
     :root {
         --primary:rgb(133, 104, 71);
         --secondary: #4ecdc4;
-        --bg-gradient: linear-gradient(45deg,rgb(144, 102, 38),rgb(150, 125, 53));
+        --bg-gradient: linear-gradient(45deg,rgb(82, 55, 30),rgb(187, 167, 141));
         --glass-bg: rgba(255, 255, 255, 0.1);
         --glass-border: rgba(255, 255, 255, 0.2);
         --text-primary: #2d3436;
@@ -217,14 +217,15 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 
     <div class="container">
-        <div class="left-panel">
+        <div class="left-panel" style="background: url('../images/11.jpg') center center; background-size: cover;">
             <div class="brand-content">
-                <h1>Welcome Back</h1>
-                <p>Sign in to continue your journey</p>
             </div>
         </div>
         <div class="form-container">
             <form action="../pages/authentication.php?function=login&&sub_page=loggedin" method="POST" class="login-form">
+                <div style="margin-bottom: 20px; margin-left: 15px;">
+                    <h1 style="font-family: Impact, sans-serif; color: rgb(133, 104, 71);">CASA MARCOS ADMIN</h1>
+                </div>
                 <div  class="input-group">
                     <input type="text" name="username" class="form-control form-control-user"
                         id="username" aria-label="username"
