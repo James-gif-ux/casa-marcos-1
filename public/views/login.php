@@ -87,7 +87,7 @@ if (session_status() == PHP_SESSION_NONE) {
     .container {
         width: 100%;
         max-width: 900px;
-        height: 600px;
+        min-height: 500px;
         display: flex;
         border-radius: 20px;
         overflow: hidden;
@@ -113,7 +113,7 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     .brand-content h1 {
-        font-size: 3em;
+        font-size: clamp(2em, 4vw, 3em);
         margin-bottom: 20px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
@@ -126,7 +126,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
     .login-form {
         flex: 1;
-        padding: 50px;
+        padding: clamp(20px, 4vw, 50px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -135,7 +135,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
     h2 {
         color: var(--text-primary);
-        font-size: 2em;
+        font-size: clamp(1.5em, 3vw, 2em);
         margin-bottom: 30px;
         font-weight: 600;
     }
@@ -181,22 +181,6 @@ if (session_status() == PHP_SESSION_NONE) {
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
-    .forgot-password {
-        text-align: right;
-        margin: 15px 0 25px;
-    }
-
-    .forgot-password a {
-        color: var(--primary);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-
-    .forgot-password a:hover {
-        color: var(--secondary);
-    }
-
     .error-message {
         background: rgba(255, 71, 87, 0.1);
         color: var(--error-color);
@@ -206,6 +190,32 @@ if (session_status() == PHP_SESSION_NONE) {
         text-align: center;
         font-size: 14px;
         border: 1px solid rgba(255, 71, 87, 0.2);
+    }
+
+    @media screen and (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            height: auto;
+        }
+
+        .left-panel {
+            min-height: 200px;
+            padding: 20px;
+        }
+
+        .login-form {
+            padding: 30px 20px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .container {
+            margin: 10px;
+        }
+
+        input, button {
+            padding: 12px;
+        }
     }
     </style>
 </head>
@@ -219,6 +229,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <div class="container">
         <div class="left-panel" style="background: url('../images/11.jpg') center center; background-size: cover;">
             <div class="brand-content">
+            <img src="../images/logo.jpg" alt="Logo" style="position: absolute; top: 20px; left: 20px; width: 90px; height: 90px; border-radius: 50%; object-fit: cover;">
             </div>
         </div>
         <div class="form-container">
