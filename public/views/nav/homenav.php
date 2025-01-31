@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CASA MARCOS</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <style>
@@ -78,7 +79,7 @@
     }
 
     nav ul li a:hover {
-        border-bottom: 3px solid  rgb(102, 67, 35);
+        border-bottom: 2px solid  rgb(102, 67, 35);
         color:  rgb(102, 67, 35);
         transform: translateY(-2px);
     }
@@ -405,24 +406,14 @@
         opacity: 1;
     }
 
-    .dropdown-content a:hover {
-        transform: translateX(5px);
-    }
     nav ul li a.active {
-        border-bottom: 3px solid rgb(218, 191, 156);
+        border-bottom: 2px solid rgb(218, 191, 156);
         color:  rgb(218, 191, 156);
         transform: translateY(-2px);
     }
     .dropbtn.active {
         transform: scale(1.05);
-    }
-
-    .dropdown-content a.active {
-        transform: translateX(5px);
-        color: #fff !important;
-    }
-
-    
+    }  
 
 </style>
 
@@ -433,21 +424,24 @@
             <ul style="width: 100%; align-items: center;">
                 <li><a href="rooms.php" class="<?php echo ($current_page == 'rooms.php') ? 'active' : ''; ?>">Our Rooms</a></li>
                 <li class="dropdown">
-                    <a href="offers.php" class="dropbtn <?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Offers</a>
+                    <a href="offers.php" class="dropbtn <?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Offers <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
                     <div class="dropdown-content">
-                        <a href="offers.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Seasonal Offers</a>
-                        <a href="offers.php#packages" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'packages') ? 'active' : ''; ?>">Room Packages</a>
-                        <a href="offers.php#promos" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'promos') ? 'active' : ''; ?>">Special Promos</a>
+                        <a href="offers.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Food Menu</a>
                     </div>
                 </li>
-
-
                 <a href="home.php" class="logo" style="margin: 0 2rem; text-decoration: none;">
                     <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
                         <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
                     </h1>
                 </a>
-                <li><a href="aboutus.php" class="<?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About Us</a></li>
+                <li class="dropdown">
+                    <a href="aboutus.php" class="dropbtn <?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="aboutus.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Resort Areas</a>
+                        <a href="aboutus.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Events</a>
+                        <a href="aboutus.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Seminars</a>
+                    </div>
+                </li>
                 <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact</a></li>
             </ul>
         </nav>
