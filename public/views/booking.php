@@ -46,7 +46,7 @@
                     <th class="px-4 py-3">Booking Date</th>
                     <th class="px-4 py-3">Booking Time</th>
                     <th class="px-4 py-3">Booking Status</th>
-                    <th class="px-4 py-3">Action</th>
+                    <th colspan="2" class="px-4 py-3">Action</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
