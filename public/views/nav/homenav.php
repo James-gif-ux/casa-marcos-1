@@ -414,35 +414,101 @@
     .dropbtn.active {
         transform: scale(1.05);
     }  
+    .mobile-menu-btn {
+    display: none;
+    font-size: 1.5rem;
+    color: rgb(102, 67, 35);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    color: rgb(163, 99, 15);
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+    }
+
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(44, 62, 80, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li a, 
+    .nav-links .dropbtn {
+        color: rgb(218, 191, 156);
+        font-size: 1.2rem;
+        margin: 10px 0;
+    }
+
+    .mobile-logo h1 {
+        font-size: 2.5rem;
+        color: rgb(218, 191, 156);
+    }
+
+    .mobile-logo span {
+        font-size: 0.9rem;
+    }
+
+    .dropdown-content {
+        position: relative;
+        background: transparent;
+        box-shadow: none;
+        margin-top: 0;
+    }
+}
 
 </style>
 
 <body>
-    <header>
-        <nav>
+<header>
+    <nav>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
         <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
-            <ul style="width: 100%; align-items: center;">
-                <li><a href="rooms.php" class="<?php echo ($current_page == 'rooms.php') ? 'active' : ''; ?>">Our Rooms</a></li>
-                <li class="dropdown">
-                    <a href="offers.php" class="dropbtn <?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Offers <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
-                    <div class="dropdown-content">
-                        <a href="offers.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Food Menu</a>
-                    </div>
-                </li>
-                <a href="home.php" class="logo" style="margin: 0 2rem; text-decoration: none;">
-                    <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
-                        <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
-                    </h1>
-                </a>
-                <li class="dropdown">
-                    <a href="aboutus.php" class="dropbtn <?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
-                    <div class="dropdown-content">
-                        <a href="aboutus.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Resort Areas</a>
-                        <a href="aboutus.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Events</a>
-                        <a href="aboutus.php#seasonal" class="<?php echo (isset($_GET['section']) && $_GET['section'] == 'seasonal') ? 'active' : ''; ?>">Seminars</a>
-                    </div>
-                </li>
-                <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+        <ul class="nav-links" style="width: 100%; align-items: center;">
+            <li><a href="rooms.php" class="<?php echo ($current_page == 'rooms.php') ? 'active' : ''; ?>">Our Rooms</a></li>
+            <li class="dropdown">
+                <a href="offers.php" class="dropbtn <?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Offers <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="offers.php#seasonal">Food Menu</a>
+                </div>
+            </li>
+            <a href="home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
+                <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
+                    <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
+                </h1>
+            </a>
+            <li class="dropdown">
+                <a href="aboutus.php" class="dropbtn <?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="aboutus.php#seasonal">Resort Areas</a>
+                    <a href="aboutus.php#seasonal">Events</a>
+                    <a href="aboutus.php#seasonal">Seminars</a>
+                </div>
+            </li>
+            <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+    
