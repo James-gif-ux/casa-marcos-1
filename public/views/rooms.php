@@ -1,199 +1,49 @@
 <?php
     include_once 'nav/homenav.php';
-?>
- <style>
-     
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px;
-        max-width: 1200px;
-        border-radius: 12px;
-        animation: slideUp 0.8s ease-out;
-        margin: 0 auto; /* Add this */
-        
-    }
-
-    h1, p {
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    }
-
+    require_once '../model/connector.php';
+    require_once '../model/roomModel.php';
     
-    h1 {
-        font-size: 2.5em;
-        margin-bottom: 10px;
-        color: #007BFF;
-        animation: fadeInDown 0.8s ease-out;
-    }
+    $connector = new Connector();
+    $roomModel = new RoomModel($connector->getConnection());
+    $rooms = $roomModel->getAllRooms();
 
-    @keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    }
-
-    p {
-        font-size: 1.2em;
-        text-align: center;
-        max-width: 600px;
-        margin-bottom: 40px;
-        animation: fadeIn 1s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px;
-        max-width: 1200px;
-        border-radius: 12px;
-        animation: slideUp 0.8s ease-out;
-    }
-
-    @keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    }
-
-    .grid-item {
-        background-color: #fff;
-        text-align: center;
-        border-radius: 12px;
-        overflow: hidden;
-        transition: all 0.4s ease;
-        border: 1px solid #eee;
-        position: relative;
-        margin-top: 150px;
-        margin-bottom: 20px;
-        padding: none;
-    }
-
-    .grid-item:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        border-color: #007BFF;
-    }
-
-    .grid-item img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        border-radius: 12px 12px 0 0;
-        transition: transform 0.6s ease;
-    }
-
-    .grid-item:hover img {
-        transform: scale(1.1);
-    }
-
-    .grid-item p {
-        margin: 15px 0;
-        font-size: 1.3em;
-        color: #444;
-    }
-
-    .room-price {
-        font-size: 1.6em;
-        color: #28a745;
-        margin: 15px 0;
-        transition: color 0.3s ease;
-    }
-
-    .grid-item:hover .room-price {
-        color: #1e7e34;
-    }
-
-    .book-button {
-        display: inline-block;
-        padding: 12px 25px;
-        margin: 15px 0;
-        background-color: #007BFF;
-        color: white;
-        text-decoration: none;
-        border-radius: 25px;
-        transition: all 0.3s ease;
-    }
-
-    .book-button:hover {
-        background-color: #0056b3;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
-    }
-
-    footer p {
-        text-align: center;
-        font-size: 1.0em;
-        margin: 1px auto; 
-        color: #fff;
-        width: 100%;
-        display: block; 
-    }
-    </style>
+if (empty($rooms)) {
+    $rooms = [];
+}
+?>
+?>
+    <link rel="stylesheet" href="../assets/css/rooms.css">
    <!-- Rooms Section -->
 
     <div class="grid-container">
-        <div class="grid-item">
-            <img src="../images/room.jpg" alt="Room 1">
-            <p>Deluxe Room</p>
-            <div class="room-price">$200/night</div>
-            <a href="#" class="book-button">Book Now</a>
-        </div>
-        <div class="grid-item">
-            <img src="../images/room.jpg" alt="Room 2">
-            <p>Standard Room</p>
-            <div class="room-price">$150/night</div>
-            <a href="#" class="book-button">Book Now</a>
-        </div>
-        <div class="grid-item">
-            <img src="../images/room.jpg" alt="Room 3">
-            <p>Executive Suite</p>
-            <div class="room-price">$350/night</div>
-            <a href="#" class="book-button">Book Now</a>
-        </div>
-        <div class="grid-item">
-            <img src="../images/room.jpg" alt="Room 4">
-            <p>Family Suite</p>
-            <div class="room-price">$300/night</div>
-            <a href="#" class="book-button">Book Now</a>
-        </div>
-        <div class="grid-item">
-            <img src="../images/room.jpg" alt="Room 5">
-            <p>Honeymoon Suite</p>
-            <div class="room-price">$400/night</div>
-            <a href="#" class="book-button">Book Now</a>
-        </div>
-        <div class="grid-item">
-            <img src="../images/room.jpg" alt="Room 6">
-            <p>Single Room</p>
-            <div class="room-price">$100/night</div>
-            <a href="#" class="book-button">Book Now</a>
-        </div>
+       <?php foreach ($rooms as $room): ?>
+            <div class="grid-item">
+                <a href="#" class="room-image-link">
+                    <img src="<?php echo $room['image']; ?>" alt="<?php echo $room['name']; ?>" class="room-image">
+                </a>
+                <p><?php echo $room['name']; ?></p>
+                <div class="room-price">$<?php echo $room['price']; ?>/night</div>
+            </div>
+            <div id="imageModal" class="modal">
+                <div class="modal-content">
+                    <a href="rooms.php" class="btn btn-secondary" style="position: absolute; top: 20px; right: 20px; padding: 8px 15px; border-radius: 8px; background: rgb(102, 67, 35); color: white; text-decoration: none; font-weight: 600;">&times;</a>
+                    <img class="modal-image-content" id="modalImage">
+                    <form action="reservation.php" method="$_POST" id="bookingForm" class="compact-form">
+                        <div class="form-group">
+                            <input type="date" id="checkIn" name="checkIn" required placeholder="Check-in">
+                            <input type="date" id="checkOut" name="checkOut" required placeholder="Check-out">
+                        </div>
+                        <select id="guests" name="guests" required>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                        </select>
+                        <button type="submit" class="book-button">Search Bookings</button>
+                    </form>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 
 </main>
@@ -212,7 +62,7 @@
         }
     });
 </script>
-
+<script src="../assets/js/modal.js"></script>
 
 </body>
 

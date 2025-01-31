@@ -1,0 +1,375 @@
+
+     
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    border-radius: 12px;
+    animation: slideUp 0.8s ease-out;
+    margin: 0 auto; /* Add this */
+    
+}
+
+h1, p {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+}
+
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #007BFF;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+from {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+p {
+    font-size: 1.2em;
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    border-radius: 12px;
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+from {
+    opacity: 0;
+    transform: translateY(20px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+.grid-item {
+    background-color: #fff;
+    text-align: center;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border: 1px solid #eee;
+    position: relative;
+    margin-top: 150px;
+    margin-bottom: 20px;
+    padding: none;
+}
+
+.grid-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: #007BFF;
+}
+
+.grid-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    transition: transform 0.6s ease;
+}
+
+.grid-item:hover img {
+    transform: scale(1.1);
+}
+
+.grid-item p {
+    margin: 15px 0;
+    font-size: 1.3em;
+    color: #444;
+}
+
+.room-price {
+    font-size: 1.6em;
+    color: #28a745;
+    margin: 15px 0;
+    transition: color 0.3s ease;
+}
+
+.grid-item:hover .room-price {
+    color: #1e7e34;
+}
+
+.book-button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 15px 0;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.book-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+footer p {
+    text-align: center;
+    font-size: 1.0em;
+    margin: 1px auto; 
+    color: #fff;
+    width: 100%;
+    display: block; 
+}
+/*for modal*/
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.5);
+z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: modalSlideDown 0.3s ease-out;
+}
+
+@keyframes modalSlideDown {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.total-price {
+    font-size: 1.2em;
+    margin: 20px 0;
+    color: #28a745;
+}
+
+.room-image-link {
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.room-image-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
+    transform: skewX(-25deg);
+    z-index: 1;
+    transition: 0.75s;
+}
+
+.room-image-link:hover::before {
+    animation: shine 0.75s;
+}
+
+.room-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.room-image-link:hover .room-image {
+    transform: scale(1.15);
+}
+
+@keyframes shine {
+    100% {
+        left: 125%;
+    }
+}
+.room-image-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.room-image-link::after {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.room-image-link:hover .room-image {
+    filter: blur(3px);
+    transform: scale(1.05);
+}
+
+.room-image-link:hover::after {
+    opacity: 1;
+}
+
+.room-image {
+    transition: all 0.3s ease;
+    width: 100%;
+    height: auto;
+}
+
+
+/*for image modal*/
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    transition: 0.3s ease-out;
+}
+
+.image-modal-content {
+    margin: auto;
+    display: block;
+    width: 90%;
+    max-width: 900px;
+    max-height: 80vh;
+    object-fit: contain;
+    animation: zoomIn 0.6s ease-out;
+}
+
+.image-modal-close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#imageCaption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.modal-image-content {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.compact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}

@@ -39,6 +39,9 @@ class Connector{
             echo "Error: " . $e->getMessage();
             return false;
         }
+    }  // Add this getter method
+    public function getConnection() {
+        return $this->conn;
     }
 }
 
