@@ -385,7 +385,7 @@
         transform: translateY(10px);
         opacity: 0;
         transition: all 0.3s ease;
-        margin-top: 20px;
+        margin-top: 15px;
     }
 
     .dropdown-content a {
