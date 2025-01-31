@@ -1,122 +1,94 @@
 <?php
-require_once '../model/connector.php';
-require_once '../model/roomModel.php';
-
-$connector = new Connector();
-$roomModel = new RoomModel($connector->getConnection());
-$rooms = $roomModel->getAllRooms();
+    include_once 'nav/homenav.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Marcos - Room Reservation</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .reservation-form {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 800px;
-        }
-        .form-control:focus {
-            border-color: rgb(102, 67, 35);
-            box-shadow: 0 0 0 0.2rem rgba(102, 67, 35, 0.25);
-        }
-        .btn-primary {
-            background-color: rgb(102, 67, 35);
-            border-color: rgb(102, 67, 35);
-        }
-        .btn-primary:hover {
-            background-color: rgb(163, 99, 15);
-            border-color: rgb(163, 99, 15);
-        }
-    </style>
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/res.css">
+    <link rel="stylesheet" href="../assets/css/rooms.css">
 </head>
-<body class="bg-light">
+<body>
+    <div class="container mx-auto p-4" >
+      
+        <div style="margin-top: 250px;">
+        <div class="row mt-4" >
+            <div class="col-md-6 mb-4">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" class="room-picture" alt="Room Picture">
+            </div>
+            <div class="col-md-6 mb-4">
+                <h3 class="text-xl font-bold mb-3">Book Your Stay</h3>
+                <p><strong>Required fields are followed by *:</strong></p>
+                <form>
+                    <div class="mb-4">
+                        <label class="form-label" for="check-in">Check-in *</label>
+                        <input type="date" id="check-in" class="form-control" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="check-out">Check-out *</label>
+                        <input type="date" id="check-out" class="form-control" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="guests">Guests *</label>
+                        <select id="guests" class="form-select" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
 
-<div class="container py-5">
-    <h2 class="text-center mb-4" style="color: rgb(102, 67, 35); font-family: 'impact';">
-        Room Reservation
-        <span class="d-block mx-auto" style="width: 80px; height: 3px; background: rgb(163, 99, 15); margin-top: 1rem;"></span>
-    </h2>
-
-    <div class="reservation-form">
-        <form action="../controller/reservationController.php" method="POST">
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label class="form-label">First Name</label>
-                    <input type="text" class="form-control" name="first_name" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" name="last_name" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Phone</label>
-                    <input type="tel" class="form-control" name="phone" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Check-in Date</label>
-                    <input type="date" class="form-control" name="check_in" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Check-out Date</label>
-                    <input type="date" class="form-control" name="check_out" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Room Type</label>
-                    <select class="form-select" name="room_id" required>
-                        <option value="">Select a room</option>
-                        <?php foreach ($rooms as $room): ?>
-                            <option value="<?php echo $room['id']; ?>">
-                                <?php echo $room['name']; ?> - $<?php echo $room['price']; ?>/night
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Number of Guests</label>
-                    <select class="form-select" name="guests" required>
-                        <option value="1">1 Guest</option>
-                        <option value="2">2 Guests</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4 Guests</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <label class="form-label">Special Requests</label>
-                    <textarea class="form-control" name="special_requests" rows="3"></textarea>
-                </div>
-                <div class="col-12 text-center mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg px-5">Confirm Reservation</button>
+        <!-- Room Details Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-card p-4 mt-4">
+                    <h2 class="text-xl font-bold text-foreground">Regular Superior Room</h2>
+                    <p class="mt-2 text-muted-foreground booking-summary">
+                        Superior Room from <span class="font-semibold room-price">₱ 2,988</span>. Choice of Twin or Queen Bed, Wifi in Rooms, Writing Desk, Turn Down Service, Room Service, Breakfast Included.
+                    </p>
+                    <div class="mt-4">
+                    <ul class="list-disc">
+                        <li>Guests: <span class="font-semibold">2</span></li>
+                        <li>Amenities: <span class="font-semibold">Breakfast Included, Non-smoking, Smart LED TV, Streaming Movies, Wifi in Room, Work desk</span></li>
+                        <li>Size: <span class="font-semibold">21m²</span></li>
+                        <li>Bed Type: <span class="font-semibold">Twin Beds or Queen Sized Bed</span></li>
+                        <li>Categories: <span class="font-semibold">Regular Rate Rooms</span></li>
+                    </ul>
+                    </div>
+                    <div class="mt-6">
+                    <p class="font-semibold">Prices start at: <span class="text-lg room-price">₱ 2,988</span> per night</p>
+                    </div>
+                    <div class="mt-4 d-flex align-items-center">
+                    <input type="number" min="1" max="15" value="1" class="form-control me-2 w-25" />
+                    <span class="mx-2">of 15 accommodations available.</span>
+                    <button class="btn btn-primary">Book</button>
+                    </div>
                 </div>
             </div>
-        </form>
+        </div>
+        </div>
     </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Add date validation to ensure check-out is after check-in
-    document.querySelector('form').addEventListener('submit', function(e) {
-        const checkIn = new Date(document.querySelector('input[name="check_in"]').value);
-        const checkOut = new Date(document.querySelector('input[name="check_out"]').value);
-        
-        if (checkOut <= checkIn) {
-            e.preventDefault();
-            alert('Check-out date must be after check-in date');
-        }
-    });
-</script>
-
+    <footer>
+        <p>© 2025 Casa Marcos. All rights reserved.</p>
+    </footer>   
+    <script>
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

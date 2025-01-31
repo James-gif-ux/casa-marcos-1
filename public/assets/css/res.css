@@ -1,0 +1,48 @@
+body {
+    background-color: #f0f4f8;
+}
+.room-picture {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.bg-card {
+    background-color: #fff; /* Card background */
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.text-muted-foreground {
+    color: #6c757d; /* Bootstrap muted text color */
+}
+.room-price {
+    font-size: 1.5rem;
+    color: #ff4081; /* Highlight price */
+}
+.btn-primary {
+    background-color: #ff4081;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #e91e63;
+}
+.room-details {
+    padding: 20px;
+}
+.section-title {
+    margin-top: 2rem;
+    font-weight: bold;
+    font-size: 1.75rem; /* Increase font size */
+    color: #333;
+}
+label {
+    font-weight: bold;
+    color: #444;
+}
+.booking-summary {
+    font-weight: 500;
+}
+.list-disc {
+    list-style-type: disc;
+    margin-left: 1.5rem; /* Add margin for list */
+}
