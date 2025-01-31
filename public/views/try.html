@@ -62,7 +62,15 @@
         
         <div class="row mt-4">
             <div class="col-md-6 mb-4">
-                <img src="https://source.unsplash.com/600x400/?hotel-room" class="room-picture" alt="Room Picture">
+                <div id="room-selection">
+                    <button class="btn btn-secondary me-2" onclick="selectRoom('Superior Room', 2988)">Select Superior Room</button>
+                    <button class="btn btn-secondary me-2" onclick="selectRoom('Deluxe Room', 3588)">Select Deluxe Room</button>
+                    <button class="btn btn-secondary" onclick="selectRoom('Suite Room', 4588)">Select Suite Room</button>
+                </div>
+                <div class="room-details" id="room-details">
+                    <img src="https://source.unsplash.com/600x400/?hotel-room" class="room-picture" alt="Room Picture">
+                    <p id="room-description"></p>
+                </div>
             </div>
             <div class="col-md-6 mb-4">
                 <h3 class="text-xl font-bold mb-3">Book Your Stay</h3>
@@ -99,22 +107,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="bg-card p-4 mt-4">
-                    <h2 class="text-xl font-bold text-foreground">Regular Superior Room</h2>
-                    <p class="mt-2 text-muted-foreground booking-summary">
-                        Superior Room from <span class="font-semibold room-price">₱ 2,988</span>. Choice of Twin or Queen Bed, Wifi in Rooms, Writing Desk, Turn Down Service, Room Service, Breakfast Included.
-                    </p>
-                    <div class="mt-4">
-                    <ul class="list-disc">
-                        <li>Guests: <span class="font-semibold">2</span></li>
-                        <li>Amenities: <span class="font-semibold">Breakfast Included, Non-smoking, Smart LED TV, Streaming Movies, Wifi in Room, Work desk</span></li>
-                        <li>Size: <span class="font-semibold">21m²</span></li>
-                        <li>Bed Type: <span class="font-semibold">Twin Beds or Queen Sized Bed</span></li>
-                        <li>Categories: <span class="font-semibold">Regular Rate Rooms</span></li>
-                    </ul>
-                    </div>
-                    <div class="mt-6">
-                    <p class="font-semibold">Prices start at: <span class="text-lg room-price">₱ 2,988</span> per night</p>
-                    </div>
+                    <h2 class="text-xl font-bold text-foreground">Room Details</h2>
+                    <p class="mt-2 text-muted-foreground booking-summary">Select a room to see the details</p>
                 </div>
             </div>
         </div>
@@ -147,8 +141,9 @@
                         <li><strong>Check-out:</strong> <span id="confirm-check-out"></span></li>
                         <li><strong>Guests:</strong> <span id="confirm-guests"></span></li>
                         <li><strong>Rooms:</strong> <span id="confirm-rooms"></span></li>
+                        <li><strong>Room Selected:</strong> <span id="confirm-room"></span></li>
                     </ul>
-                    <p class="font-semibold room-price">Total Price: <span id="confirm-price">₱ 2,988</span> per night</p>
+                    <p class="font-semibold room-price">Total Price: <span id="confirm-price">₱ 0</span> per night</p>
                     <div class="mt-4">
                         <h5 class="text-xl">Payment Method</h5>
                         <div class="mb-3">
@@ -202,7 +197,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Script to fill in the modal with booking details
+        // Function to select a room
+        function selectRoom(roomName, roomPrice) {
+            // Update room details
+            document.getElementById('room-description').innerText = roomName + " selected.";
+            document.getElementById('confirm-room').innerText = roomName;
+            document.getElementById('confirm-price').innerText = '₱ ' + roomPrice;
+            document.getElementById('num-accommodations').value = 1; // Reset to 1 if room selected
+        }
+
         const confirmBookingBtn = document.getElementById('confirm-booking');
         const paymentMethodSelect = document.getElementById('payment-method');
         const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
