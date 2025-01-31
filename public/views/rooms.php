@@ -89,8 +89,8 @@
         transition: all 0.4s ease;
         border: 1px solid #eee;
         position: relative;
-        margin-top: 200px;
-        margin-bottom: 100px;
+        margin-top: 150px;
+        margin-bottom: 20px;
         padding: none;
     }
 
@@ -145,42 +145,51 @@
         transform: translateY(-3px);
         box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
     }
+
+    footer p {
+        text-align: center;
+        font-size: 1.0em;
+        margin: 1px auto; 
+        color: #fff;
+        width: 100%;
+        display: block; 
+    }
     </style>
    <!-- Rooms Section -->
 
     <div class="grid-container">
         <div class="grid-item">
-            <img src="https://picsum.photos/300/200?random=1" alt="Room 1">
+            <img src="../images/room.jpg" alt="Room 1">
             <p>Deluxe Room</p>
             <div class="room-price">$200/night</div>
             <a href="#" class="book-button">Book Now</a>
         </div>
         <div class="grid-item">
-            <img src="https://picsum.photos/300/200?random=2" alt="Room 2">
+            <img src="../images/room.jpg" alt="Room 2">
             <p>Standard Room</p>
             <div class="room-price">$150/night</div>
             <a href="#" class="book-button">Book Now</a>
         </div>
         <div class="grid-item">
-            <img src="https://picsum.photos/300/200?random=3" alt="Room 3">
+            <img src="../images/room.jpg" alt="Room 3">
             <p>Executive Suite</p>
             <div class="room-price">$350/night</div>
             <a href="#" class="book-button">Book Now</a>
         </div>
         <div class="grid-item">
-            <img src="https://picsum.photos/300/200?random=4" alt="Room 4">
+            <img src="../images/room.jpg" alt="Room 4">
             <p>Family Suite</p>
             <div class="room-price">$300/night</div>
             <a href="#" class="book-button">Book Now</a>
         </div>
         <div class="grid-item">
-            <img src="https://picsum.photos/300/200?random=5" alt="Room 5">
+            <img src="../images/room.jpg" alt="Room 5">
             <p>Honeymoon Suite</p>
             <div class="room-price">$400/night</div>
             <a href="#" class="book-button">Book Now</a>
         </div>
         <div class="grid-item">
-            <img src="https://picsum.photos/300/200?random=6" alt="Room 6">
+            <img src="../images/room.jpg" alt="Room 6">
             <p>Single Room</p>
             <div class="room-price">$100/night</div>
             <a href="#" class="book-button">Book Now</a>
