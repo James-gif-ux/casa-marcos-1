@@ -31,7 +31,7 @@
 
         <section style="padding: 5rem 2rem; background-color: rgba(172, 144, 117, 0.89)">
             <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-                <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact';">Our History</h2>
+                <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact';">About Us</h2>
                 <div style="display: flex; gap: 3rem; align-items: center;">
                     <div style="flex: 1;">
                         <img src="../images/history.jpg" alt="Resort History" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">

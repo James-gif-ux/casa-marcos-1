@@ -503,8 +503,6 @@
                 <a href="aboutus.php" class="dropbtn <?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
                 <div class="dropdown-content">
                     <a href="aboutus.php#seasonal">Resort Areas</a>
-                    <a href="aboutus.php#seasonal">Events</a>
-                    <a href="aboutus.php#seasonal">Seminars</a>
                 </div>
             </li>
             <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact</a></li>
