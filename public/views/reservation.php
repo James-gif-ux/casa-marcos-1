@@ -74,58 +74,60 @@ if (empty($rooms)) {
         
             <div class="row mt-4">
        
-                <div class="container">
+                <div class="container mx-auto p-4">
                     <h1>Select a Room</h1>
                     
-                    <!-- Room selection dropdown -->
-                    <div class="mb-4">
-                        <label class="form-label" for="room-select">Select Room *</label>
-                        <select id="room-select" class="form-select" required>
-                            <?php foreach ($rooms as $index => $room): ?>
-                                <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                    <div class="row mt-4">
+                        <!-- Left Column: Room Image -->
+                        <div class="col-lg-6">
+                            <div class="mb-4">
+                                <label class="form-label" for="room-select">Select Room *</label>
+                                <select id="room-select" class="form-select " required>
+                                    <?php foreach ($rooms as $index => $room): ?>
+                                        <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="mt-3">
+                                    <img id="room-image" src="" class="room-picture w-100" alt="Room Image">
+                                </div>
+                            </div>
+                        </div>
 
-                    <!-- Room details display -->
-                    <div id="room-details" class="room-card">
-                        <img id="room-image" src="" class="room-picture" alt="Room Image">
-                        <h2 id="room-name"></h2>
-                        <p id="room-summary" class="mt-2 text-muted-foreground booking-summary"></p>
+                        <!-- Right Column: Booking Form -->
+                        <div class="col-lg-6">
+                            <form id="bookingForm">
+                                <div class="mb-4">
+                                    <label class="form-label" for="check-in">Check-in *</label>
+                                    <input type="date" id="check-in" class="form-control " required />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="check-out">Check-out *</label>
+                                    <input type="date" id="check-out" class="form-control " required />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="guests">Guests *</label>
+                                    <select id="guests" class="form-select " required>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div class="mt-4 d-flex align-items-center">
+                                    <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" required />
+                                    <span class="mx-2">of 15 accommodations available.</span>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Book</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-                <form id="bookingForm">
-                    <div class="mb-4">
-                        <label class="form-label" for="check-in">Check-in *</label>
-                        <input type="date" id="check-in" class="form-control" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="check-out">Check-out *</label>
-                        <input type="date" id="check-out" class="form-control" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="guests">Guests *</label>
-                        <select id="guests" class="form-select" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <div class="mt-4 d-flex align-items-center">
-                        <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" required/>
-                        <span class="mx-2">of 15 accommodations available.</span>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Book</button>
-                    </div>
-                </form>
             </div>
-        </div>
 
         <!-- Room Details Section -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 ">
                 <div class="bg-card p-4 mt-4">
                     <h2 class="text-xl font-bold text-foreground">Regular Superior Room</h2>
                     <p class="mt-2 text-muted-foreground booking-summary">
