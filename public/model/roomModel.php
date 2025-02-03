@@ -12,6 +12,13 @@ class RoomModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function get_Rooms() {
+        $query = "SELECT * FROM rooms ORDER BY created_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 
     public function getRoomById($id) {
         $query = "SELECT * FROM rooms WHERE id = :id";
@@ -62,5 +69,24 @@ class RoomModel {
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+
+    public function insertRooms($name, $description, $price, $image, $capacity, $status, $room_type) {
+        $query = "INSERT INTO rooms (name, description, price, image, capacity, status, room_type, created_at, updated_at) 
+                  VALUES (:name, :description, :price, :image, :capacity, :status, :room_type, NOW(), NOW())";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':image', $image);
+        $stmt->bindParam(':capacity', $capacity);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':room_type', $room_type);
+    
+        return $stmt->execute();
+    }
+    
+    
 }
 ?>

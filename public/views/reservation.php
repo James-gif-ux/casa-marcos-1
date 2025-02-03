@@ -1,3 +1,14 @@
+<?php
+require_once '../model/connector.php';
+require_once '../model/roomModel.php';
+$connector = new Connector();
+$roomModel = new RoomModel($connector->getConnection());
+$rooms = $roomModel->get_Rooms();
+
+if (empty($rooms)) {
+    $rooms = [];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,13 +71,29 @@
     <div class="container mx-auto p-4">
         <h2 class="section-title">5 Accommodations Found for 31 January 2025 - 1 February 2025</h2>
         
-        <div class="row mt-4">
-            <div class="col-md-6 mb-4">
-                <img src="https://source.unsplash.com/600x400/?hotel-room" class="room-picture" alt="Room Picture">
-            </div>
-            <div class="col-md-6 mb-4">
-                <h3 class="text-xl font-bold mb-3">Book Your Stay</h3>
-                <p><strong>Required fields are followed by *:</strong></p>
+            <div class="row mt-4">
+       
+                <div class="container">
+                    <h1>Select a Room</h1>
+                    
+                    <!-- Room selection dropdown -->
+                    <div class="mb-4">
+                        <label class="form-label" for="room-select">Select Room *</label>
+                        <select id="room-select" class="form-select" required>
+                            <?php foreach ($rooms as $index => $room): ?>
+                                <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <!-- Room details display -->
+                    <div id="room-details" class="room-card">
+                        <img id="room-image" src="" class="room-picture" alt="Room Image">
+                        <h2 id="room-name"></h2>
+                        <p id="room-summary" class="mt-2 text-muted-foreground booking-summary"></p>
+                    </div>
+                </div>
+
                 <form id="bookingForm">
                     <div class="mb-4">
                         <label class="form-label" for="check-in">Check-in *</label>
@@ -202,6 +229,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Assuming 'rooms' array is accessible here as a JSON object
+        const rooms = <?php echo json_encode($rooms); ?>;
+
+        document.getElementById('room-select').addEventListener('change', function () {
+            const selectedIndex = this.value;
+            const selectedRoom = rooms[selectedIndex];
+
+            // Update room details
+            document.getElementById('room-image').src = selectedRoom.image || 'default_room_image.jpg'; //provide a default image
+            document.getElementById('room-name').innerText = selectedRoom.name;
+            document.getElementById('room-summary').innerText = `Superior Room from ₱${selectedRoom.price}`;
+        });
+
+        // Trigger the change event on page load to show the first room's details
+        document.getElementById('room-select').dispatchEvent(new Event('change'));
+    </script>
+    <script>
         // Script to fill in the modal with booking details
         const confirmBookingBtn = document.getElementById('confirm-booking');
         const paymentMethodSelect = document.getElementById('payment-method');
@@ -267,6 +311,31 @@
             modal.hide(); // Hide the modal
             alert(`Booking confirmed for ${name}!\nEmail: ${email}\nPhone: ${phone}\nPayment Method: ${paymentMethod}\nPayment Details: ${paymentDetails}`); // Placeholder for actual confirmation Logic
         });
+
+        
+    </script>
+    <script>
+        // Add to the existing script section
+function calculateTotalPrice() {
+    const pricePerNight = <?php echo $room_price; ?>;
+    const checkIn = new Date(document.getElementById('check-in').value);
+    const checkOut = new Date(document.getElementById('check-out').value);
+    const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+    const numRooms = document.getElementById('num-accommodations').value;
+    
+    return pricePerNight * nights * numRooms;
+}
+
+// Update the price display when dates or rooms change
+document.getElementById('check-in').addEventListener('change', updatePrice);
+document.getElementById('check-out').addEventListener('change', updatePrice);
+document.getElementById('num-accommodations').addEventListener('change', updatePrice);
+
+function updatePrice() {
+    const totalPrice = calculateTotalPrice();
+    document.getElementById('confirm-price').innerText = `₱ ${totalPrice}`;
+}
+
     </script>
 </body>
 </html>
