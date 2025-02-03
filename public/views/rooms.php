@@ -6,10 +6,10 @@
     $connector = new Connector();
     $roomModel = new RoomModel($connector->getConnection());
     $rooms = $roomModel->getAllRooms();
-
 if (empty($rooms)) {
     $rooms = [];
 }
+ 
 ?>
 
     <link rel="stylesheet" href="../assets/css/rooms.css">
@@ -30,12 +30,12 @@ if (empty($rooms)) {
 <!-- Modal -->
 <div id="imageModal" class="modal">
     <div class="modal-content">
-        <span class="close" style="cursor:pointer;">&times;</span>
-        <img class="modal-image-content" id="modalImage" src="" alt="">
-        <h2 id="modalRoomName"></h2>
-        <div id="modalRoomPrice"></div>
-        
-        <form action="reservation.php" method="post" id="bookingForm" class="compact-form">
+        <a href="#" class="btn btn-secondary" onclick="closeModal()" style="position: absolute; top: 20px; right: 20px; padding: 8px 15px; border-radius: 8px; background: rgb(102, 67, 35); color: white; text-decoration: none; font-weight: 600;">&times;</a>
+        <img class="modal-image-content" id="modalImage" src="" alt="Room Image">
+        <p id="modalRoomName"></p>
+        <form action="reservation.php" method="POST" id="bookingForm" class="compact-form">
+            <input type="hidden" name="roomName" id="selectedRoomName">
+            <input type="hidden" name="roomPrice" id="selectedRoomPrice">
             <div class="form-group">
                 <input type="date" id="checkIn" name="checkIn" required placeholder="Check-in">
                 <input type="date" id="checkOut" name="checkOut" required placeholder="Check-out">
@@ -61,6 +61,21 @@ if (empty($rooms)) {
 </footer>
 
 <script>
+    function openModal(image, name, price) {
+        document.getElementById('modalImage').src = image;
+        document.getElementById('modalRoomName').innerText = name;
+        document.getElementById('selectedRoomName').value = name;
+        document.getElementById('selectedRoomPrice').value = price;
+
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+    }
+
     window.addEventListener('scroll', function () {
         const header = document.querySelector('header');
         if (window.scrollY > 50) {
