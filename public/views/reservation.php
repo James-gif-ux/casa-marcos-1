@@ -134,8 +134,8 @@ if (empty($rooms)) {
                         <!-- Left Column: Room Image -->
                         <div class="col-lg-6">
                             <div class="mb-4">
-                                <label class="form-label" for="room-select" style="font-family: Impact;">Select Rooms</label>
-                                <select id="room-select" class="form-select " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; " required>
+                                <label class="form-label" for="room-select">Select Room *</label>
+                                <select id="room-select" class="form-select " required>
                                     <?php foreach ($rooms as $index => $room): ?>
                                         <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
                                     <?php endforeach; ?>
@@ -182,21 +182,12 @@ if (empty($rooms)) {
         <div class="row">
             <div class="col-12 ">
                 <div class="bg-card p-4 mt-4">
-                    <h2 class="text-xl font-bold text-foreground"><?php echo $index; ?><?php echo htmlspecialchars($room['name']); ?></h2>
+                    <h2 class="text-xl font-bold text-foreground">Regular Superior Room</h2>
                     <p class="mt-2 text-muted-foreground booking-summary">
-                        Superior Room from <span class="font-semibold room-price">₱ 2,988</span>. Choice of Twin or Queen Bed, Wifi in Rooms, Writing Desk, Turn Down Service, Room Service, Breakfast Included.
+                        <span class="font-semibold">Description:</span> <?php echo htmlspecialchars($room['description']); ?>
                     </p>
-                    <div class="mt-4">
-                    <ul class="list-disc">
-                        <li>Guests: <span class="font-semibold">2</span></li>
-                        <li>Amenities: <span class="font-semibold">Breakfast Included, Non-smoking, Smart LED TV, Streaming Movies, Wifi in Room, Work desk</span></li>
-                        <li>Size: <span class="font-semibold">21m²</span></li>
-                        <li>Bed Type: <span class="font-semibold">Twin Beds or Queen Sized Bed</span></li>
-                        <li>Categories: <span class="font-semibold">Regular Rate Rooms</span></li>
-                    </ul>
-                    </div>
                     <div class="mt-6">
-                    <p class="font-semibold">Prices start at: <span class="text-lg room-price">₱ 2,988</span> per night</p>
+                    <p class="font-semibold">Prices start at: <span class="text-lg room-price">₱ <?php echo htmlspecialchars($room['price']); ?></span> per night</p>
                     </div>
                 </div>
             </div>
