@@ -19,24 +19,27 @@ if (empty($rooms)) {
     <style>
         body {
             background-color: #f0f4f8;
+            font-family: Arial, sans-serif;
         }
         .room-picture {
             width: 100%;
             height: 300px;
             object-fit: cover;
             border-radius: 10px;
+            margin-bottom: 1rem;
         }
         .bg-card {
-            background-color: #fff; /* Card background */
+            background-color: #ffffff;
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
         .text-muted-foreground {
-            color: #6c757d; /* Bootstrap muted text color */
+            color: #6c757d;
         }
         .room-price {
             font-size: 1.5rem;
-            color: #ff4081; /* Highlight price */
+            color: #ff4081;
         }
         .btn-primary {
             background-color: #ff4081;
@@ -51,8 +54,10 @@ if (empty($rooms)) {
         .section-title {
             margin-top: 2rem;
             font-weight: bold;
-            font-size: 1.75rem; /* Increase font size */
+            font-size: 2rem;
             color: #333;
+            border-bottom: 2px solid #ff4081;
+            padding-bottom: 1rem;
         }
         label {
             font-weight: bold;
@@ -63,84 +68,89 @@ if (empty($rooms)) {
         }
         .list-disc {
             list-style-type: disc;
-            margin-left: 1.5rem; /* Add margin for list */
+            margin-left: 1.5rem;
+        }
+        .modal-content {
+            border-radius: 12px;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #ff4081;
         }
     </style>
 </head>
 <body>
     <div class="container mx-auto p-4">
         <h2 class="section-title">5 Accommodations Found for 31 January 2025 - 1 February 2025</h2>
-        
-            <div class="row mt-4">
-       
-                <div class="container">
-                    <h1>Select a Room</h1>
-                    
-                    <!-- Room selection dropdown -->
-                    <div class="mb-4">
-                        <label class="form-label" for="room-select">Select Room *</label>
-                        <select id="room-select" class="form-select" required>
-                            <?php foreach ($rooms as $index => $room): ?>
-                                <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
 
-                    <!-- Room details display -->
-                    <div id="room-details" class="room-card">
-                        <img id="room-image" src="" class="room-picture" alt="Room Image">
-                        <h2 id="room-name"></h2>
-                        <p id="room-summary" class="mt-2 text-muted-foreground booking-summary"></p>
-                    </div>
+        <div class="row mt-4">
+            <div class="container">
+                <h1>Select a Room</h1>
+
+                <!-- Room selection dropdown -->
+                <div class="mb-4">
+                    <label class="form-label" for="room-select">Select Room *</label>
+                    <select id="room-select" class="form-select" required>
+                        <?php foreach ($rooms as $index => $room): ?>
+                            <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> – ₱<?php echo htmlspecialchars($room['price']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
-                <form id="bookingForm">
-                    <div class="mb-4">
-                        <label class="form-label" for="check-in">Check-in *</label>
-                        <input type="date" id="check-in" class="form-control" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="check-out">Check-out *</label>
-                        <input type="date" id="check-out" class="form-control" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="guests">Guests *</label>
-                        <select id="guests" class="form-select" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <div class="mt-4 d-flex align-items-center">
-                        <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" required/>
-                        <span class="mx-2">of 15 accommodations available.</span>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Book</button>
-                    </div>
-                </form>
+                <!-- Room details display -->
+                <div id="room-details" class="room-card">
+                    <img id="room-image" src="" class="room-picture" alt="Room Image">
+                    <h2 id="room-name" class="mt-2"></h2>
+                    <p id="room-summary" class="mt-2 text-muted-foreground booking-summary"></p>
+                </div>
             </div>
+
+            <form id="bookingForm" class="mt-4">
+                <div class="mb-4">
+                    <label class="form-label" for="check-in">Check-in *</label>
+                    <input type="date" id="check-in" class="form-control" required />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="check-out">Check-out *</label>
+                    <input type="date" id="check-out" class="form-control" required />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="guests">Guests *</label>
+                    <select id="guests" class="form-select" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="mt-4 d-flex align-items-center">
+                    <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" required/>
+                    <span class="mx-2">of 15 accommodations available.</span>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Book</button>
+                </div>
+            </form>
         </div>
 
         <!-- Room Details Section -->
         <div class="row">
             <div class="col-12">
-                <div class="bg-card p-4 mt-4">
-                    <h2 class="text-xl font-bold text-foreground">Regular Superior Room</h2>
+                <div class="bg-card mt-4">
+                    <h2 class="text-xl font-bold text-foreground">Room Details</h2>
                     <p class="mt-2 text-muted-foreground booking-summary">
                         Superior Room from <span class="font-semibold room-price">₱ 2,988</span>. Choice of Twin or Queen Bed, Wifi in Rooms, Writing Desk, Turn Down Service, Room Service, Breakfast Included.
                     </p>
                     <div class="mt-4">
-                    <ul class="list-disc">
-                        <li>Guests: <span class="font-semibold">2</span></li>
-                        <li>Amenities: <span class="font-semibold">Breakfast Included, Non-smoking, Smart LED TV, Streaming Movies, Wifi in Room, Work desk</span></li>
-                        <li>Size: <span class="font-semibold">21m²</span></li>
-                        <li>Bed Type: <span class="font-semibold">Twin Beds or Queen Sized Bed</span></li>
-                        <li>Categories: <span class="font-semibold">Regular Rate Rooms</span></li>
-                    </ul>
+                        <ul class="list-disc">
+                            <li>Guests: <span class="font-semibold">2</span></li>
+                            <li>Amenities: <span class="font-semibold">Breakfast Included, Non-smoking, Smart LED TV, Streaming Movies, Wifi in Room, Work desk</span></li>
+                            <li>Size: <span class="font-semibold">21m²</span></li>
+                            <li>Bed Type: <span class="font-semibold">Twin Beds or Queen Sized Bed</span></li>
+                            <li>Categories: <span class="font-semibold">Regular Rate Rooms</span></li>
+                        </ul>
                     </div>
                     <div class="mt-6">
-                    <p class="font-semibold">Prices start at: <span class="text-lg room-price">₱ 2,988</span> per night</p>
+                        <p class="font-semibold">Prices start at: <span class="text-lg room-price">₱ 2,988</span> per night</p>
                     </div>
                 </div>
             </div>
@@ -229,36 +239,29 @@ if (empty($rooms)) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Assuming 'rooms' array is accessible here as a JSON object
         const rooms = <?php echo json_encode($rooms); ?>;
 
         document.getElementById('room-select').addEventListener('change', function () {
             const selectedIndex = this.value;
             const selectedRoom = rooms[selectedIndex];
 
-            // Update room details
-            document.getElementById('room-image').src = selectedRoom.image || 'default_room_image.jpg'; //provide a default image
+            document.getElementById('room-image').src = selectedRoom.image || 'default_room_image.jpg';
             document.getElementById('room-name').innerText = selectedRoom.name;
             document.getElementById('room-summary').innerText = `Superior Room from ₱${selectedRoom.price}`;
         });
 
-        // Trigger the change event on page load to show the first room's details
         document.getElementById('room-select').dispatchEvent(new Event('change'));
-    </script>
-    <script>
-        // Script to fill in the modal with booking details
+
         const confirmBookingBtn = document.getElementById('confirm-booking');
         const paymentMethodSelect = document.getElementById('payment-method');
         const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
 
         document.querySelector('[data-bs-toggle="modal"]').addEventListener('click', function () {
-            // Fetch booking details
             const checkIn = document.getElementById('check-in').value;
             const checkOut = document.getElementById('check-out').value;
             const guests = document.getElementById('guests').value;
             const numRooms = document.getElementById('num-accommodations').value;
 
-            // Set booking details in modal
             document.getElementById('confirm-check-in').innerText = checkIn;
             document.getElementById('confirm-check-out').innerText = checkOut;
             document.getElementById('confirm-guests').innerText = guests;
@@ -306,36 +309,28 @@ if (empty($rooms)) {
                 paymentDetails = `Bank Transfer: Account ${bankTransferAccount}, Bank ${bankTransferBank}`;
             }
 
-            // Logic for confirming booking can be added here
-            // For example, sending the data to a server or displaying a success message
-            modal.hide(); // Hide the modal
-            alert(`Booking confirmed for ${name}!\nEmail: ${email}\nPhone: ${phone}\nPayment Method: ${paymentMethod}\nPayment Details: ${paymentDetails}`); // Placeholder for actual confirmation Logic
+            modal.hide();
+            alert(`Booking confirmed for ${name}!\nEmail: ${email}\nPhone: ${phone}\nPayment Method: ${paymentMethod}\nPayment Details: ${paymentDetails}`);
         });
 
-        
-    </script>
-    <script>
-        // Add to the existing script section
-function calculateTotalPrice() {
-    const pricePerNight = <?php echo $room_price; ?>;
-    const checkIn = new Date(document.getElementById('check-in').value);
-    const checkOut = new Date(document.getElementById('check-out').value);
-    const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
-    const numRooms = document.getElementById('num-accommodations').value;
-    
-    return pricePerNight * nights * numRooms;
-}
+        function calculateTotalPrice() {
+            const pricePerNight = <?php echo $room_price; ?>;
+            const checkIn = new Date(document.getElementById('check-in').value); 
+            const checkOut = new Date(document.getElementById('check-out').value);
+            const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+            const numRooms = document.getElementById('num-accommodations').value;
 
-// Update the price display when dates or rooms change
-document.getElementById('check-in').addEventListener('change', updatePrice);
-document.getElementById('check-out').addEventListener('change', updatePrice);
-document.getElementById('num-accommodations').addEventListener('change', updatePrice);
+            return pricePerNight * nights * numRooms;
+        }
 
-function updatePrice() {
-    const totalPrice = calculateTotalPrice();
-    document.getElementById('confirm-price').innerText = `₱ ${totalPrice}`;
-}
+        document.getElementById('check-in').addEventListener('change', updatePrice);
+        document.getElementById('check-out').addEventListener('change', updatePrice);
+        document.getElementById('num-accommodations').addEventListener('change', updatePrice);
 
+        function updatePrice() {
+            const totalPrice = calculateTotalPrice();
+            document.getElementById('confirm-price').innerText = `₱ ${totalPrice}`;
+        }
     </script>
 </body>
 </html>
