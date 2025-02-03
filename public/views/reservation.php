@@ -1,4 +1,5 @@
 <?php
+include_once 'nav/homenav.php';
 require_once '../model/connector.php';
 require_once '../model/roomModel.php';
 $connector = new Connector();
@@ -17,15 +18,23 @@ if (empty($rooms)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Booking</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/rooms.css">
     <style>
+         * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
         body {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             font-family: 'Playfair Display', serif;
+            line-height: 1.4;
         }
         .container {
             max-width: 1200px;
             margin: 2rem auto;
         }
+        
         .room-picture { 
             width: 100%;
             height: 400px;
@@ -273,6 +282,26 @@ if (empty($rooms)) {
         </div>
     </div>
 
+    <!--footer srart here--->
+    <footer>
+        <p>© 2025 Casa Marcos. All rights reserved.</p>
+    </footer>
+    <!--footer end here--->
+
+    <!--script for header srart here--->
+    <script>
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+    <!----script for header--->
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Assuming 'rooms' array is accessible here as a JSON object
@@ -385,3 +414,4 @@ function updatePrice() {
     </script>
 </body>
 </html>
+
