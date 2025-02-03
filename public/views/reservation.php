@@ -19,70 +19,123 @@ if (empty($rooms)) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f0f4f8;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Playfair Display', serif;
         }
-        .room-picture {
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        .room-picture { 
             width: 100%;
-            height: 300px;
+            height: 400px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
         }
+       
         .bg-card {
-            background-color: #fff; /* Card background */
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(134, 6, 6, 0.05);
+            border: 1px solid rgba(220, 220, 220, 0.3);
+            padding: 2.5rem;
+            margin: 1.5rem 0;
         }
         .text-muted-foreground {
-            color: #6c757d; /* Bootstrap muted text color */
+            color: #4a4a4a;
+            line-height: 1.8;
+            font-family: 'Lato', sans-serif;
         }
         .room-price {
-            font-size: 1.5rem;
-            color: #ff4081; /* Highlight price */
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.6rem;
         }
         .btn-primary {
-            background-color: #ff4081;
+            background: rgb(102, 67, 35);
             border: none;
+            padding: 14px 28px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
         .btn-primary:hover {
-            background-color: #e91e63;
+            background: rgb(218, 191, 156);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(70, 168, 5, 0.2);
         }
-        .room-details {
-            padding: 20px;
+        .form-control, .form-select {
+            border-radius: 4px;
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            background: #ffffff;
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
         }
-        .section-title {
-            margin-top: 2rem;
-            font-weight: bold;
-            font-size: 1.75rem; /* Increase font size */
-            color: #333;
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 0 0 2px rgba(112, 30, 219, 0.1);
+            border-color: #2c3e50;
         }
         label {
-            font-weight: bold;
-            color: #444;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-family: 'Lato', sans-serif;
         }
         .booking-summary {
-            font-weight: 500;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            line-height: 1.8;
         }
         .list-disc {
-            list-style-type: disc;
-            margin-left: 1.5rem; /* Add margin for list */
+            padding-left: 1.5rem;
+            color: #2c3e50;
         }
+        .list-disc li {
+            margin: 12px 0;
+            padding-left: 10px;
+            font-family: 'Lato', sans-serif;
+        }
+        .modal-content {
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+        }
+        .modal-header {
+            background: rgb(102, 67, 35);
+            color: white;
+            border-radius: 8px 8px 0 0;
+            padding: 1.5rem;
+        }
+        .modal-title {
+            font-weight: 500;
+            
+        }
+        .section-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1.8rem;
+            font-size: 2.2rem;
+            font-family: 'Playfair Display', serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;500&display=swap');
     </style>
 </head>
 <body>
     <div class="container mx-auto p-4">
-        <h2 class="section-title">5 Accommodations Found for 31 January 2025 - 1 February 2025</h2>
+   
         
             <div class="row mt-4">
        
                 <div class="container mx-auto p-4">
-                    <h1>Select a Room</h1>
                     
                     <div class="row mt-4">
                         <!-- Left Column: Room Image -->
                         <div class="col-lg-6">
                             <div class="mb-4">
-                                <label class="form-label" for="room-select">Select Room *</label>
-                                <select id="room-select" class="form-select " required>
+                                <label class="form-label" for="room-select" style="font-family: Impact;">Select Rooms</label>
+                                <select id="room-select" class="form-select " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; " required>
                                     <?php foreach ($rooms as $index => $room): ?>
                                         <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
                                     <?php endforeach; ?>
@@ -97,16 +150,16 @@ if (empty($rooms)) {
                         <div class="col-lg-6">
                             <form id="bookingForm">
                                 <div class="mb-4">
-                                    <label class="form-label" for="check-in">Check-in *</label>
-                                    <input type="date" id="check-in" class="form-control " required />
+                                    <label class="form-label" for="check-in" style="font-family: Impact;" >Check-in </label>
+                                    <input type="date" id="check-in" class="form-control " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; " required />
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label" for="check-out">Check-out *</label>
-                                    <input type="date" id="check-out" class="form-control " required />
+                                    <label class="form-label" for="check-out" style="font-family: Impact;">Check-out </label>
+                                    <input type="date" id="check-out" class="form-control " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label" for="guests">Guests *</label>
-                                    <select id="guests" class="form-select " required>
+                                    <label class="form-label" for="guests" style="font-family: Impact;" >Guests </label>
+                                    <select id="guests" class="form-select " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -115,7 +168,7 @@ if (empty($rooms)) {
                                     </select>
                                 </div>
                                 <div class="mt-4 d-flex align-items-center">
-                                    <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" required />
+                                    <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                                     <span class="mx-2">of 15 accommodations available.</span>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Book</button>
                                 </div>
@@ -129,7 +182,7 @@ if (empty($rooms)) {
         <div class="row">
             <div class="col-12 ">
                 <div class="bg-card p-4 mt-4">
-                    <h2 class="text-xl font-bold text-foreground">Regular Superior Room</h2>
+                    <h2 class="text-xl font-bold text-foreground"><?php echo $index; ?><?php echo htmlspecialchars($room['name']); ?></h2>
                     <p class="mt-2 text-muted-foreground booking-summary">
                         Superior Room from <span class="font-semibold room-price">₱ 2,988</span>. Choice of Twin or Queen Bed, Wifi in Rooms, Writing Desk, Turn Down Service, Room Service, Breakfast Included.
                     </p>
@@ -155,22 +208,21 @@ if (empty($rooms)) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Your Booking</h5>
+                    <h5 class="modal-title" id="confirmationModalLabel" style="font-family: Impact;" >Confirm Your Booking</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="text-xl">Booking Details</h5>
                     <div class="mb-3">
-                        <label class="form-label" for="customer-name">Name *</label>
-                        <input type="text" id="customer-name" class="form-control" required />
+                        <label class="form-label" for="customer-name" style="font-family: Impact;">Name </label>
+                        <input type="text" id="customer-name" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="customer-email">Email *</label>
-                        <input type="email" id="customer-email" class="form-control" required />
+                        <label class="form-label" for="customer-email" style="font-family: Impact;">Email </label>
+                        <input type="email" id="customer-email" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="customer-phone">Phone Number *</label>
-                        <input type="tel" id="customer-phone" class="form-control" required />
+                        <label class="form-label" for="customer-phone" style="font-family: Impact;">Phone Number </label>
+                        <input type="tel" id="customer-phone" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                     </div>
                     <ul class="list-unstyled mt-3">
                         <li><strong>Check-in:</strong> <span id="confirm-check-in"></span></li>
@@ -183,7 +235,7 @@ if (empty($rooms)) {
                         <h5 class="text-xl">Payment Method</h5>
                         <div class="mb-3">
                             <label class="form-label" for="payment-method">Select Payment Method *</label>
-                            <select id="payment-method" class="form-select" required>
+                            <select id="payment-method" class="form-select" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required>
                                 <option value="">Select an option</option>
                                 <option value="credit-card">Credit Card</option>
                                 <option value="paypal">PayPal</option>
@@ -222,7 +274,7 @@ if (empty($rooms)) {
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" >
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="confirm-booking">Confirm Booking</button>
                 </div>
