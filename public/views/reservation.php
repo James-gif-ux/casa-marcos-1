@@ -134,7 +134,7 @@ if (empty($rooms)) {
                         <!-- Left Column: Room Image -->
                         <div class="col-lg-6">
                             <div class="mb-4">
-                                <label class="form-label" for="room-select">Select Room *</label>
+                                <label class="form-label" for="room-select" style="font-family: Impact;">Select Room</label>
                                 <select id="room-select" class="form-select " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; " required>
                                     <?php foreach ($rooms as $index => $room): ?>
                                         <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
