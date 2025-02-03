@@ -20,19 +20,10 @@ if (empty($rooms)) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/rooms.css">
     <style>
-         * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        }
-        body {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            font-family: 'Playfair Display', serif;
-            line-height: 1.4;
-        }
+      
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
+            margin: 0;
         }
         
         .room-picture { 
@@ -133,12 +124,8 @@ if (empty($rooms)) {
 </head>
 <body>
     <div class="container mx-auto p-4">
-   
-        
             <div class="row mt-4">
-       
-                <div class="container mx-auto p-4">
-                    
+                <div class="container mx-auto p-4" style="margin-top: 120px;">
                     <div class="row mt-4">
                         <!-- Left Column: Room Image -->
                         <div class="col-lg-6">
