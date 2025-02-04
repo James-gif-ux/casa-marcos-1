@@ -14,16 +14,7 @@ if (empty($rooms)) {
 
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: #f7f7f7;
-        font-family: Arial, sans-serif;
-    }
+ 
 
     .slider {
         position: relative;
@@ -159,37 +150,35 @@ if (empty($rooms)) {
 </style>
 
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<div class="counter-container">
-    <div id="roomSlider" class="carousel slide mt-50" data-ride="carousel" >
-        <div class="carousel-inner">
-            <?php foreach ($rooms as $index => $room): ?>
-                <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                    <img src="../images/room.jpg" class="d-block w-100" alt="<?php echo $room['name']; ?>">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5><?php echo $room['name']; ?></h5>
-                        <p><?php echo $room['description']; ?></p>
-                        <p class="price">$<?php echo $room['price']; ?>/night</p>
+<section >
+    <div class="slider" >
+        <div id="roomSlider" class="carousel slide" data-ride="carousel" >
+            <div class="carousel-inner">
+                <?php foreach ($rooms as $index => $room): ?>
+                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                        <img src="../images/room.jpg" class="d-block w-100" alt="<?php echo $room['name']; ?>">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5><?php echo $room['name']; ?></h5>
+                            <p><?php echo $room['description']; ?></p>
+                            <p class="price">$<?php echo $room['price']; ?>/night</p>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
+            <a class="carousel-control-prev" href="#roomSlider" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#roomSlider" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <a class="carousel-control-prev" href="#roomSlider" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#roomSlider" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
-</div>
+</section>
 
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   
