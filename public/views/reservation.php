@@ -17,7 +17,7 @@ if (empty($rooms)) {
 $bookingModel = new Booking_Model();
 
 // Get all services
-$services = $bookingModel->get_room();
+$rooms = $bookingModel->get_room();
 
 // Include the Connector class
 require_once '../model/connector.php';
@@ -29,14 +29,15 @@ $bookings = $connector->executeQuery($sql);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $number = $_POST['number'];
-    $date = $_POST['date'];
-    $room_id = $_POST['room_id'];  // Get the selected service ID from the form
+    // Get form data with validation and sanitization
+    $fullname = !empty($_POST['fullname']) ? trim(strip_tags($_POST['fullname'])) : null;
+    $email = !empty($_POST['email']) ? trim(strip_tags($_POST['email'])) : null;
+    $number = !empty($_POST['number']) ? trim(strip_tags($_POST['number'])) : null;
+    $room_id = !empty($_POST['room_id']) ? intval($_POST['room_id']) : null; // Ensure it is an integer
+    $date = !empty($_POST['date']) ? trim(strip_tags($_POST['date'])) : null;
 
-    // Attempt to insert the booking
+
+    // Attempt to insert the booking. Ensure that insert_booking handles the room ID validation.
     $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $room_id);
 
     if ($result === true) {
