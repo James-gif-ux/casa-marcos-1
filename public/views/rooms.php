@@ -18,7 +18,7 @@ if (empty($rooms)) {
    <div class="grid-container">
     <?php foreach ($rooms as $room): ?>
         <div class="grid-item">
-            <a href="#" class="room-image-link view-room" data-id="room-select<?php echo $room['room_id']; ?>" data-name="<?php echo $room['name']; ?>" data-price="<?php echo $room['price']; ?>" data-image="<?php echo $room['image']; ?>">
+            <a href="#" class="room-image-link view-room" data-id="<?php echo $room['id']; ?>" data-name="<?php echo $room['name']; ?>" data-price="<?php echo $room['price']; ?>" data-image="<?php echo $room['image']; ?>">
                 <img src="<?php echo $room['image']; ?>" alt="<?php echo $room['name']; ?>" class="room-image">
             </a>
             <p><?php echo $room['name']; ?></p>
@@ -40,39 +40,18 @@ if (empty($rooms)) {
                 <input type="date" id="checkIn" name="checkIn" required placeholder="Check-in">
                 <input type="date" id="checkOut" name="checkOut" required placeholder="Check-out">
             </div>
-            <select id="guests" name="guests" required>
-                <option value="1">1 Guest</option>
-                <option value="2">2 Guests</option>
-                <option value="3">3 Guests</option>
-                <option value="4">4 Guests</option>
-            </select>
-            <input type="hidden" id="roomId" name="roomId">
-            <input type="hidden" id="roomPrice" name="roomPrice">
-            <button type="submit" class="book-button">Search Bookings</button>
-        </form>
+        </div>
+        <div class="dots">
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+            <div class="dot" onclick="goToSlide(2)"></div>
+            <div class="dot" onclick="goToSlide(3)"></div>
+        </div>
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
     </div>
-</div>
-
-
-</main>
-
-<footer>
-    <p>© 2025 Casa Marcos. All rights reserved.</p>
-</footer>
 
 <script>
-     const rooms = <?php echo json_encode($rooms); ?>;
-
-    document.getElementById('room-select').addEventListener('change', function () {
-    const selectedIndex = this.value;
-    const selectedRoom = rooms[selectedIndex];
-    });
-
-    // Update room details
-    document.getElementById('room-image').src = selectedRoom.image || 'default_room_image.jpg'; //provide a default image
-    document.getElementById('room-name').innerText = selectedRoom.name;
-    document.getElementById('room-summary').innerText = `Superior Room from ₱${selectedRoom.price}`;
-
     function openModal(image, name, price) {
         document.getElementById('modalImage').src = image;
         document.getElementById('modalRoomName').innerText = name;
@@ -114,57 +93,24 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.remove('active');
             header.classList.remove('menu-open');
         }
-    });
-});
-</script>
-
-<script>
-    // Get all room image links
-    const roomLinks = document.querySelectorAll('.view-room');
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const closeButton = document.querySelector('.close');
-    const modalRoomName = document.getElementById('modalRoomName');
-    const modalRoomPrice = document.getElementById('modalRoomPrice');
-
-    roomLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            const roomId = link.getAttribute('data-id');
-            const roomName = link.getAttribute('data-name');
-            const roomPrice = link.getAttribute('data-price');
-            const roomImage = link.getAttribute('data-image');
-
-            // Set modal image and room details
-            modalImage.src = roomImage;
-            modalRoomName.textContent = roomName;
-            modalRoomPrice.textContent = `Price: $${roomPrice} per night`;
-
-            // Set the room ID and price in the form
-            document.getElementById('roomId').value = roomId;
-            document.getElementById('roomPrice').value = roomPrice;
-
-            // Display the modal
-            modal.style.display = "block";
-        });
-    });
-
-    // Close the modal when the close button is clicked
-    closeButton.addEventListener('click', () => {
-        modal.style.display = "none";
-    });
-
-    // Close the modal if the user clicks outside of the modal content
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+            
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
         }
-    };
-</script>
 
-<script src="../assets/js/modal.js"></script>
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
 
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
 </body>
-
 </html>
