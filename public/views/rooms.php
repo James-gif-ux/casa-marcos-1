@@ -12,14 +12,7 @@ if (empty($rooms)) {
  
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Image Slider</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+
 <style>
     * {
         box-sizing: border-box;
@@ -30,10 +23,6 @@ if (empty($rooms)) {
         padding: 0;
         background-color: #f7f7f7;
         font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
     }
 
     .slider {
@@ -168,60 +157,42 @@ if (empty($rooms)) {
         box-shadow: 0 6px 20px rgba(0,0,0,0.3);
     }
 </style>
-<body>
-    <div class="slider">
-        <div class="slides">
-            <div class="slide active">
-            <img src="../images/room.jpg" alt="Image 1">
-            <div class="slide-info">
-                <h3>Deluxe Room</h3>
-                <p>Spacious room with ocean view</p>
-                <p>Features king-size bed, premium linens, and a private bathroom with rainfall shower</p>
-                <p>Includes complimentary breakfast and WiFi</p>
-                <p class="price">$199/night</p>
-            </div>
-            </div>
-            <div class="slide">
-            <img src="../images/room.jpg" alt="Image 2">
-            <div class="slide-info">
-                <h3>Suite Room</h3>
-                <p>Luxury suite with private balcony</p>
-                <p>Separate living area, kitchenette, and master bedroom with en-suite bathroom</p>
-                <p>Stunning ocean views and access to exclusive lounge</p>
-                <p class="price">$299/night</p>
-            </div>
-            </div>
-            <div class="slide">
-            <img src="../images/room.jpg" alt="Image 3">
-            <div class="slide-info">
-                <h3>Family Room</h3>
-                <p>Perfect for family gatherings</p>
-                <p>Two bedrooms with connecting door, children's play area</p>
-                <p>Includes family meal package and access to kids' club</p>
-                <p class="price">$399/night</p>
-            </div>
-            </div>
-            <div class="slide">
-            <img src="../images/room.jpg" alt="Image 4">
-            <div class="slide-info">
-                <h3>Presidential Suite</h3>
-                <p>Ultimate luxury experience</p>
-                <p>Three bedrooms, private dining room, and butler service</p>
-                <p>Includes airport transfer, spa access, and personalized concierge</p>
-                <p class="price">$599/night</p>
-            </div>
-            </div>
-        </div>
-        <div class="dots">
-            <div class="dot active" onclick="goToSlide(0)"></div>
-            <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
-            <div class="dot" onclick="goToSlide(3)"></div>
-        </div>
-        <button class="prev" onclick="prevSlide()">&#10094;</button>
-        <button class="next" onclick="nextSlide()">&#10095;</button>
-    </div>
 
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<div class="counter-container">
+    <div id="roomSlider" class="carousel slide mt-50" data-ride="carousel" >
+        <div class="carousel-inner">
+            <?php foreach ($rooms as $index => $room): ?>
+                <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                    <img src="../images/room.jpg" class="d-block w-100" alt="<?php echo $room['name']; ?>">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><?php echo $room['name']; ?></h5>
+                        <p><?php echo $room['description']; ?></p>
+                        <p class="price">$<?php echo $room['price']; ?>/night</p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <a class="carousel-control-prev" href="#roomSlider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#roomSlider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
@@ -253,5 +224,19 @@ if (empty($rooms)) {
         // Auto slide every 5 seconds
         setInterval(nextSlide, 5000);
     </script>
-</body>
-</html>
+<!-- footer -->
+    <footer>
+        <p>© 2025 Casa Marcos. All rights reserved.</p>
+    </footer>
+<!-- script for header start -->
+    <script>
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+    <!-- script for header end -->
