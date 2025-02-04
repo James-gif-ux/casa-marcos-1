@@ -164,7 +164,7 @@
         transform: scale(1.1);
     }
 
-    .room-title {
+    .room-card .room-title {
         margin: 2rem 1.5rem 1rem;
         font-size: 2rem;
         color: rgb(102, 67, 35);
@@ -172,12 +172,22 @@
         letter-spacing: 1px;
     }
 
-    .room-description {
+    .room-card .room-description {
         margin: 0 1.5rem 2rem;
         font-size: 1.1rem;
         color: #5d4037;
         line-height: 1.6;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .room-card:hover .room-description {
+        opacity: 1;
+        height: auto;
+        margin-bottom: 2rem;
     }
 
     .btn-room {

@@ -12,215 +12,94 @@ if (empty($rooms)) {
  
 ?>
 
-
-<style>
- 
-
-    .slider {
-        position: relative;
-        width: 900px; /* Increased width */
-        height: 500px; /* Increased height */
-        overflow: hidden;
-        margin: auto;
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .slides {
-        display: flex;
-        transition: transform 0.8s ease-in-out; /* Smooth transition */
-        width: 400%;
-        height: 100%;
-    }
-
-    .slide {
-        min-width: 25%;
-        position: relative; /* Required for absolute positioning of the info box */
-        transition: all 0.8s ease;
-    }
-
-    .slide img {
-        width: 100%;
-        height: 100%;
-    }
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    .prev, .next {
-        position: absolute;
-        bottom: 30px; /* Position below the slider */
-        background-color: rgba(255, 255, 255, 0.9);
-        border: 2px solid #4CAF50; 
-        padding: 10px;
-        cursor: pointer;
-        font-size: 28px;
-        color: #333;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-        border-radius: 5px;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .prev {
-        left: 35%;
-        bottom: 20px; /* Closer to the bottom */
-    }
-
-    .next {
-        right: 35%;
-        bottom: 20px; /* Closer to the bottom */
-    }
-
-    .prev:hover, .next:hover {
-        background-color: rgba(255, 255, 255, 1);
-        transform: scale(1.05);
-    }
-
-    .dots {
-        position: absolute;
-        bottom: 40px; /* Position above buttons */
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 5px;
-    }
-
-    .dot {
-        height: 15px;
-        width: 15px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .dot.active {
-        background-color: #4CAF50; /* Active dot color */
-    }
-
-    .slide-info {
-        position: absolute;
-        bottom: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
-        background: linear-gradient(to right, #4CAF50, #45a049);
-        color: white;
-        padding: 20px 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        text-align: left;
-        opacity: 0; /* Hide by default */
-        transition: all 0.4s ease;
-        pointer-events: none; /* Prevents flickering when moving mouse */
-    }
-
-    .slide-info h3 {
-        margin: 0 0 10px 0;
-        font-size: 24px;
-        color: #fff;
-        border-bottom: 2px solid rgba(255,255,255,0.3);
-        padding-bottom: 8px;
-    }
-
-    .slide-info p {
-        margin: 5px 0;
-        font-size: 16px;
-        line-height: 1.4;
-    }
-
-    .slide-info .price {
-        font-size: 20px;
-        font-weight: bold;
-        color: #ffeb3b;
-        margin-top: 10px;
-    }
-
-    .slide:hover .slide-info {
-        opacity: 1; /* Show on hover */
-        transform: translateX(-50%) translateY(-10px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    }
-</style>
-
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<section >
-    <div class="slider" >
-        <div id="roomSlider" class="carousel slide" data-ride="carousel" >
-            <div class="carousel-inner">
-                <?php foreach ($rooms as $index => $room): ?>
-                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                        <img src="<?php echo $room['image']; ?>" >
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5><?php echo $room['name']; ?></h5>
-                            <p><?php echo $room['description']; ?></p>
-                            <p class="price">$/night</p>
+    <!-- Rooms Section -->
+    <section class="rooms">
+            <!-- Carousel Container -->
+            <div class="carousel-container">
+                <!-- Carousel Slides -->
+                <div class="carousel-wrapper">
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Grand Living Room</div>
+                            <div class="room-description">Relax in style with plush seating, warm textures, and carefully curated decor.</div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Opulent Bedroom</div>
+                            <div class="room-description">An oasis of peace with soft hues, velvet throws, and the finest linens.</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Elegant Dining Room</div>
+                            <div class="room-description">A space designed for unforgettable dinners, featuring luxurious furniture.</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Chic Study</div>
+                            <div class="room-description">Where productivity meets comfort. A sophisticated workspace perfect for focus.</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
+                        <div class="room-details">
+                            <div class="room-title">Luxurious Bathroom</div>
+                            <div class="room-description">Pamper yourself with a spa-like experience, featuring modern elegance.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="prev" onclick="moveSlide(-1)">❮</button>
+                <button class="next" onclick="moveSlide(1)">❯</button>
+
+                <!-- Dots Navigation -->
+                <div class="dots-container">
+                    <span class="dot active-dot" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
             </div>
-            <a class="carousel-control-prev" href="#roomSlider" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#roomSlider" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-</section>
+
+            <div style="max-width: 1000px; margin:  auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); ">
+                <form action="/reservation/submit" method="POST">
+                    <!-- Check-in and Check-out Section -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
+                            <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                        </div>
+                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
+                            <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div style="display: flex; justify-content: center;">
+                        <button type="submit" style="width: 50%; padding: 1rem; margin-top: 2rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
+                            Search Booking
+                        </button>
+                    </div>
+                </form>
+            </div>
+        
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        </section>
 
-  
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        function showSlide(index) {
-            const slidesContainer = document.querySelector('.slides');
-            slidesContainer.style.transform = `translateX(-${index * 25}%)`;
-            dots.forEach((dot, i) => {
-                dot.classList.remove('active');
-            });
-            dots[index].classList.add('active');
-        }
-            
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
+           
+    </main>
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            showSlide(currentSlide);
-        }
-
-        // Auto slide every 5 seconds
-        setInterval(nextSlide, 5000);
-    </script>
-<!-- footer -->
     <footer>
         <p>© 2025 Casa Marcos. All rights reserved.</p>
     </footer>
-<!-- script for header start -->
+
     <script>
         window.addEventListener('scroll', function () {
             const header = document.querySelector('header');
@@ -231,4 +110,58 @@ if (empty($rooms)) {
             }
         });
     </script>
-    <!-- script for header end -->
+
+    <script>
+        let currentIndex = 0;
+
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function moveSlide(step) {
+            currentIndex += step;
+            if (currentIndex >= slides.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = slides.length - 1;
+            updateCarousel();
+        }
+
+        function currentSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            // Move the carousel wrapper
+            document.querySelector('.carousel-wrapper').style.transform = `translateX(-${currentIndex * 100}%)`;
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.remove('active-dot');
+                if (i === currentIndex) {
+                    dot.classList.add('active-dot');
+                }
+            });
+        }
+    </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const header = document.querySelector('header');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        header.classList.toggle('menu-open');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            navLinks.classList.remove('active');
+            header.classList.remove('menu-open');
+        }
+    });
+});
+</script>
+</body>
+
+</html>
