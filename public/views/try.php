@@ -3,168 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8.0.7/swiper-bundle.min.css" />
-    <style>
-      body {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    <title>Enhanced Image Slider</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
         margin: 0;
-        padding: 20px;
-        min-height: 100vh;
-      }
+        padding: 0;
+        background-color: #f7f7f7;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-      .swiper-container {
-        width: 100%;
-        height: 650px;
-        padding: 60px 0;
-      }
-
-      .swiper-slide {
-        width: 320px;
-        height: 420px;
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
+    .slider {
         position: relative;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-      }
+        width: 900px; /* Increased width */
+        height: 500px; /* Increased height */
+        overflow: hidden;
+        margin: auto;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-      .swiper-slide img {
+    .slides {
+        display: flex;
+        transition: transform 0.8s ease-in-out; /* Smooth transition */
+        width: 400%;
+        height: 100%;
+    }
+
+    .slide {
+        min-width: 25%;
+        position: relative; /* Required for absolute positioning of the info box */
+        transition: all 0.8s ease;
+    }
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+    }
+
+    img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: all 0.5s ease;
-      }
+        border-radius: 10px;
+    }
 
-      .swiper-slide-active {
-        transform: scale(1.2);
-        width: 480px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      }
-
-      .swiper-slide-active img {
-        transform: scale(1.1);
-      }
-
-      .description {
+    .prev, .next {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        color: black;
-        padding: 35px 25px 25px;
-        opacity: 0;
-        text-align: center;
-        font-family: impact;
-        font-size: 15px;
-        line-height: 1.7;
-        letter-spacing: 0.4px;
-        backdrop-filter: blur(8px);
-      }
+        bottom: 30px; /* Position below the slider */
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 2px solid #4CAF50; 
+        padding: 10px;
+        cursor: pointer;
+        font-size: 28px;
+        color: #333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
 
-      .swiper-slide:hover .description {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .prev {
+        left: 35%;
+        bottom: 20px; /* Closer to the bottom */
+    }
 
-      .swiper-button-next,
-      .swiper-button-prev {
-        color: #ffffff;
-        background: rgba(0, 0, 0, 0.5);
-        width: 50px;
-        height: 50px;
+    .next {
+        right: 35%;
+        bottom: 20px; /* Closer to the bottom */
+    }
+
+    .prev:hover, .next:hover {
+        background-color: rgba(255, 255, 255, 1);
+        transform: scale(1.05);
+    }
+
+    .dots {
+        position: absolute;
+        bottom: 40px; /* Position above buttons */
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+    }
+
+    .dot {
+        height: 15px;
+        width: 15px;
+        background-color: #bbb;
         border-radius: 50%;
-        transition: all 0.3s ease;
-      }
+        display: inline-block;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-      .swiper-button-next:hover,
-      .swiper-button-prev:hover {
-        background: rgba(0, 0, 0, 0.8);
-        transform: scale(1.1);
-      }
+    .dot.active {
+        background-color: #4CAF50; /* Active dot color */
+    }
 
-      .swiper-pagination-bullet {
-        width: 12px;
-        height: 12px;
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
-      }
+    .slide-info {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        background: linear-gradient(to right, #4CAF50, #45a049);
+        color: white;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-align: left;
+        opacity: 0; /* Hide by default */
+        transition: all 0.4s ease;
+        pointer-events: none; /* Prevents flickering when moving mouse */
+    }
 
-      .swiper-pagination-bullet-active {
-        background:rgb(0, 0, 0);
-        transform: scale(1.2);
-        border: 2px solid #fff;
-      }
-    </style>
-</head>
+    .slide-info h3 {
+        margin: 0 0 10px 0;
+        font-size: 24px;
+        color: #fff;
+        border-bottom: 2px solid rgba(255,255,255,0.3);
+        padding-bottom: 8px;
+    }
+
+    .slide-info p {
+        margin: 5px 0;
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .slide-info .price {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffeb3b;
+        margin-top: 10px;
+    }
+
+    .slide:hover .slide-info {
+        opacity: 1; /* Show on hover */
+        transform: translateX(-50%) translateY(-10px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+</style>
 <body>
-<div class="swiper-container">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img src="../images/room.jpg" alt="Nature" />
-            <span class="description">Image 1: Beautiful Nature Scene - A stunning landscape showcasing Earth's natural beauty with rolling hills and vibrant colors.</span>
+    <div class="slider">
+        <div class="slides">
+            <div class="slide active">
+            <img src="../images/room.jpg" alt="Image 1">
+            <div class="slide-info">
+                <h3>Deluxe Room</h3>
+                <p>Spacious room with ocean view</p>
+                <p>Features king-size bed, premium linens, and a private bathroom with rainfall shower</p>
+                <p>Includes complimentary breakfast and WiFi</p>
+                <p class="price">$199/night</p>
+            </div>
+            </div>
+            <div class="slide">
+            <img src="../images/room.jpg" alt="Image 2">
+            <div class="slide-info">
+                <h3>Suite Room</h3>
+                <p>Luxury suite with private balcony</p>
+                <p>Separate living area, kitchenette, and master bedroom with en-suite bathroom</p>
+                <p>Stunning ocean views and access to exclusive lounge</p>
+                <p class="price">$299/night</p>
+            </div>
+            </div>
+            <div class="slide">
+            <img src="../images/room.jpg" alt="Image 3">
+            <div class="slide-info">
+                <h3>Family Room</h3>
+                <p>Perfect for family gatherings</p>
+                <p>Two bedrooms with connecting door, children's play area</p>
+                <p>Includes family meal package and access to kids' club</p>
+                <p class="price">$399/night</p>
+            </div>
+            </div>
+            <div class="slide">
+            <img src="../images/room.jpg" alt="Image 4">
+            <div class="slide-info">
+                <h3>Presidential Suite</h3>
+                <p>Ultimate luxury experience</p>
+                <p>Three bedrooms, private dining room, and butler service</p>
+                <p>Includes airport transfer, spa access, and personalized concierge</p>
+                <p class="price">$599/night</p>
+            </div>
+            </div>
         </div>
-        <div class="swiper-slide">
-            <img src="../images/room.jpg" alt="City" />
-            <span class="description">Image 2: Urban City Life - A modern cityscape featuring towering skyscrapers, bustling streets, and architectural marvels.</span>
+        <div class="dots">
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+            <div class="dot" onclick="goToSlide(2)"></div>
+            <div class="dot" onclick="goToSlide(3)"></div>
         </div>
-        <div class="swiper-slide">
-            <img src="../images/room.jpg" alt="Beach" />
-            <span class="description">Image 3: Tropical Beach Paradise - Crystal clear waters meeting white sandy shores, with palm trees swaying in the ocean breeze.</span>
-        </div>
-        <div class="swiper-slide">
-            <img src="../images/room.jpg" alt="Mountain" />
-            <span class="description">Image 4: Majestic Mountains - Snow-capped peaks reaching into the clouds, offering breathtaking views of rugged terrain.</span>
-        </div>
-        <div class="swiper-slide">
-            <img src="../images/room.jpg" alt="Forest" />
-            <span class="description">Image 5: Dense Forest - Ancient woodland filled with towering trees, rich biodiversity, and mysterious shadows.</span>
-        </div>
-        <div class="swiper-slide">
-            <img src="../images/room.jpg" alt="Forest" />
-            <span class="description">Image 5: Dense Forest - Ancient woodland filled with towering trees, rich biodiversity, and mysterious shadows.</span>
-        </div>
-        <div class="swiper-slide">
-            <img src="../images/room.jpg" alt="Forest" />
-            <span class="description">Image 5: Dense Forest - Ancient woodland filled with towering trees, rich biodiversity, and mysterious shadows.</span>
-        </div>
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
     </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
 
-<script src="https://unpkg.com/swiper@8.0.7/swiper-bundle.min.js"></script>
-<script>
-    const swiper = new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        loop: true,
-    });
-</script>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        function showSlide(index) {
+            const slidesContainer = document.querySelector('.slides');
+            slidesContainer.style.transform = `translateX(-${index * 25}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.remove('active');
+            });
+            dots[index].classList.add('active');
+        }
+            
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
 </body>
 </html>
