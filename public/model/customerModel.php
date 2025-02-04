@@ -1,49 +1,33 @@
 <?php
-require_once 'connector.php';
-class Database extends Connector {
-
-    public function getConnection() {
-
-        $host = "localhost";
-
-        $dbname = "resort_db";
-
-        $username = "root";
-
-        $password = "";
-
-        
-
-        try {
-
-            return new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-        } catch(PDOException $e) {
-
-            error_log($e->getMessage());
-
-            throw $e;
-
-        }
-
-    }
-}
+require_once 'Connector.php';
 
 class CustomerModel {
     private $conn;
-    
+
     public function __construct() {
-        $database = new Database();
+        $database = new Connector();
         $this->conn = $database->getConnection();
     }
-    
+
+    public function addCustomer($name, $email, $otherData) {
+        try {
+            $query = "INSERT INTO customer_tb (cstm_name, cstm_email, cstm_approved) VALUES (?, ?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $approved = 0; // Change this if you want to set different approval state
+            return $stmt->execute([$name, $email, $approved]);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
     public function getCustomers() {
         try {
-            $query = "SELECT * FROM customer_tb WHERE cstm_approved = 1";
+            $query = "SELECT * FROM customer_tb";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             error_log($e->getMessage());
             return [];
         }
@@ -54,10 +38,27 @@ class CustomerModel {
             $query = "UPDATE customer_tb SET cstm_approved = 1 WHERE cstm_id = ?";
             $stmt = $this->conn->prepare($query);
             return $stmt->execute([$customerId]);
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
         }
     }
+
+    public function close() {
+        $this->conn = null; // Close the connection
+    }
+
+    public function insert_customer($name, $email, $otherData) {
+        try {
+            $query = "INSERT INTO customer_tb (cstm_name, cstm_email, cstm_approved) VALUES (?, ?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $approved = 0; // Change this if you want to set different approval state
+            return $stmt->execute([$name, $email, $approved]);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+    
 }
 ?>

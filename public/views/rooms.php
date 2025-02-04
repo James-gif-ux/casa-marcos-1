@@ -18,7 +18,7 @@ if (empty($rooms)) {
    <div class="grid-container">
     <?php foreach ($rooms as $room): ?>
         <div class="grid-item">
-            <a href="#" class="room-image-link view-room" data-id="<?php echo $room['id']; ?>" data-name="<?php echo $room['name']; ?>" data-price="<?php echo $room['price']; ?>" data-image="<?php echo $room['image']; ?>">
+            <a href="#" class="room-image-link view-room" data-id="room-select<?php echo $room['room_id']; ?>" data-name="<?php echo $room['name']; ?>" data-price="<?php echo $room['price']; ?>" data-image="<?php echo $room['image']; ?>">
                 <img src="<?php echo $room['image']; ?>" alt="<?php echo $room['name']; ?>" class="room-image">
             </a>
             <p><?php echo $room['name']; ?></p>
@@ -61,6 +61,18 @@ if (empty($rooms)) {
 </footer>
 
 <script>
+     const rooms = <?php echo json_encode($rooms); ?>;
+
+    document.getElementById('room-select').addEventListener('change', function () {
+    const selectedIndex = this.value;
+    const selectedRoom = rooms[selectedIndex];
+    });
+
+    // Update room details
+    document.getElementById('room-image').src = selectedRoom.image || 'default_room_image.jpg'; //provide a default image
+    document.getElementById('room-name').innerText = selectedRoom.name;
+    document.getElementById('room-summary').innerText = `Superior Room from ₱${selectedRoom.price}`;
+
     function openModal(image, name, price) {
         document.getElementById('modalImage').src = image;
         document.getElementById('modalRoomName').innerText = name;

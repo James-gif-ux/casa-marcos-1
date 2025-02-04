@@ -16,17 +16,19 @@ $customers = $customerModel->getCustomers();
                     <th class="px-4 py-3">Booking ID</th>
                     <th class="px-4 py-3">Phone Number</th>
                     <th class="px-4 py-3">Email</th>
-                    <th class="px-4 py-3">Feedback</th>
+                    <th class="px-4 py-3">Check in</th>
+                    <th class="px-4 py-3">Check out</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 <?php foreach ($customers as $customer): ?>
                 <tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_name']); ?></td>
-                    <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_booking_id']); ?></td>
+                    <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_room_id']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_number']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_email']); ?></td>
-                    <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_feedback']); ?></td>
+                    <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_check_in']); ?></td>
+                    <td class="px-4 py-3"><?php echo htmlspecialchars($customer['cstm_check_out']); ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

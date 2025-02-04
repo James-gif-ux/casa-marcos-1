@@ -44,6 +44,6 @@ class Connector{
         return $this->conn;
     }
 }
-
+?>
 
 

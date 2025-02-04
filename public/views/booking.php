@@ -52,7 +52,7 @@
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 <?php foreach ($bookings as $bookings): ?>
                 <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_id']); ?></td>
+                    <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_room_id']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_fullname']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_email']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_number']); ?></td>
