@@ -3,7 +3,6 @@
 include_once 'nav/homenav.php';
 require_once '../model/connector.php';
 require_once '../model/roomModel.php';
-require_once '../model/customerModel.php';
 require_once '../model/Booking_Model.php';
 
 $connector = new Connector();
@@ -15,23 +14,30 @@ if (empty($rooms)) {
     $rooms = [];
 }
 
-$model = new Booking_Model();
-$bookings = $model->get_rooms();
-$sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date, booking_time FROM booking_tb WHERE booking_status = 'pending'";
+$bookingModel = new Booking_Model();
+
+// Get all services
+$services = $bookingModel->get_room();
+
+// Include the Connector class
+require_once '../model/connector.php';
+$connector = new Connector();
+
+// Fetch all bookings that are pending approval
+$sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
 $bookings = $connector->executeQuery($sql);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check if the required keys exist in the $_POST array
-    $fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $number = isset($_POST['number']) ? $_POST['number'] : '';
-    $date = isset($_POST['date']) ? $_POST['date'] : '';
-    $time = isset($_POST['time']) ? $_POST['time'] : '';
-    $room_id = isset($_POST['room_id']) ? $_POST['room_id'] : '';  // Ensure room_id is also checked
+    // Get form data
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $number = $_POST['number'];
+    $date = $_POST['date'];
+    $room_id = $_POST['room_id'];  // Get the selected service ID from the form
 
     // Attempt to insert the booking
-    $result = $model->insert_booking($fullname, $email, $number, $date, $time, $room_id);
+    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $room_id);
 
     if ($result === true) {
         echo "Booking successfully added!";
@@ -163,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="form-label" for="room-select" style="font-family: Impact;">Select Room</label>
                                 <select id="room-select" class="form-select " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; " required>
                                     <?php foreach ($rooms as $index => $room): ?>
-                                        <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
+                                        <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['room_name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <div class="mt-3">
@@ -200,34 +206,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </form>
                             <!-- The confirmation modal -->
-                            <div class="modal fade" id="confirmationModal<?php $room['room_id']; ?>" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                    <form action="../pages/booking.php" method="post">
+                                    <form action="../pages/submit-booking.php" method="POST">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="confirmationModalLabel<?php $room['room_id']; ?>" style="font-family: Impact;">Confirm Your Booking</h5>
+                                            <h5 class="modal-title" id="confirmationModalLabel<?php echo htmlspecialchars($room['room_id']); ?>" style="font-family: Impact;">Confirm Your Booking</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <label class="form-label" for="customer-name" style="font-family: Impact;">Name </label>
-                                                <input type="text" id="customer-name" value="<?php $room['room_id']; ?>" name="cstm-name" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
+                                                <label class="form-label"  style="font-family: Impact;">Name </label>
+                                                <input type="text"  value="<?php echo htmlspecialchars($room['room_id']); ?>" name="Fullname" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="customer-email" style="font-family: Impact;">Email </label>
-                                                <input type="email" id="customer-email" name="cstm-email" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
+                                                <label class="form-label"  style="font-family: Impact;">Email </label>
+                                                <input type="email"  name="Email" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="customer-phone" style="font-family: Impact;">Phone Number </label>
-                                                <input type="tel" id="customer-phone" name="cstm-phone" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
+                                                <label class="form-label"  style="font-family: Impact;">Phone Number </label>
+                                                <input type="tel"  name="PhoneNumber" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="customer-phone" style="font-family: Impact;">Date</label>
-                                                <input type="date" id="customer-phone" name="" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="customer-phone" style="font-family: Impact;">Time </label>
-                                                <input type="time" id="customer-phone" name="" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
+                                                <label class="form-label"  style="font-family: Impact;">Date</label>
+                                                <input type="date"  name="Date" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                                             </div>
                                             <input type="hidden" id="check-in" name="cstm_check-in" required />
                                             <input type="hidden" id="check-out" name="cstm_check-out" required />
@@ -238,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 <li><strong>Check-in:</strong> <span id="confirm-check-in"></span></li>
                                                 <li><strong>Check-out:</strong> <span id="confirm-check-out"></span></li>
                                                 <li><strong>Guests:</strong> <span id="confirm-guests"></span></li>
-                                                <li><strong>Rooms:</strong> <span id="room-name"></span></li>
+                                                <li><strong>Rooms:</strong> <span id="room-na"><?php echo htmlspecialchars($room['room_name']); ?></span></li>
                                             </ul>
                                             <p class="font-semibold room-price">Total Price: <span id="room-price">₱ <?php echo htmlspecialchars($room['price']); ?> </span> per night</p>
                                         </div>
@@ -325,6 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             const selectedIndex = this.value;
             const selectedRoom = rooms[selectedIndex];
             document.getElementById('room-price').innerText = `₱${selectedRoom.price}`;
+            document.getElementById('room-na').innerText = selectedRoom.room_name; // Update room name here
         });
         document.getElementById('room-select').addEventListener('change', function () {
             const selectedIndex = this.value;
@@ -335,6 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Trigger the change event on page load to show the first room's details
         document.getElementById('room-select').dispatchEvent(new Event('change'));
+       
 
         
     </script>
@@ -370,12 +374,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Event handler for the booking form
     const bookingForm = document.getElementById('bookingForm');
+
     bookingForm.addEventListener('submit', function(event) {
-        // Prevent actual form submission
+        // Prevent actual form submission for debugging
         event.preventDefault();
 
-        // Store input values
+        // Create a FormData object from the form
         const formData = new FormData(bookingForm);
+        console.log('Form Data:', Object.fromEntries(formData));
+
+        // Store input values
         const checkInDate = formData.get('check-in');
         const checkOutDate = formData.get('check-out');
         const guestsCount = formData.get('guests');
@@ -385,11 +393,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $('#confirmationModal').modal('show');
 
         // Set input values in the modal
-        document.getElementById('check-in').value = checkInDate;
-        document.getElementById('check-out').value = checkOutDate;
-        document.getElementById('guests').value = guestsCount;
-        document.getElementById('num-accommodations').value = accommodationsCount;
+        document.getElementById('confirm-check-in').innerText = checkInDate; // Update modal text
+        document.getElementById('confirm-check-out').innerText = checkOutDate; // Update modal text
+        document.getElementById('confirm-guests').innerText = guestsCount; // Update modal text
+        document.getElementById('num-accommodations').innerText = accommodationsCount; // Update modal text
     });
+
 </script>
     <!--script for modal end here-->
 
