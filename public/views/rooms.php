@@ -19,33 +19,38 @@ if (empty($rooms)) {
                 <!-- Carousel Slides -->
                 <div class="carousel-wrapper">
                     <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                        <div class="room-details">
-                            <div class="room-title">Grand Living Room</div>
-                            <div class="room-description">Relax in style with plush seating, warm textures, and carefully curated decor.</div>
+                        <div class="room-details" style="background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 10px; max-width: 400px; margin: 2rem;">
+                            <div class="room-title" style="font-size: 1.8rem; color: #926d45; font-weight: bold; margin-bottom: 1rem; font-family: 'Impact';">Grand Living Room</div>
+                            <div class="room-description" style="font-size: 1.1rem; color: #666; margin-bottom: 1rem; line-height: 1.6;">Relax in style with plush seating, warm textures, and carefully curated decor.</div>
+                            <div class="room-price" style="font-size: 1.4rem; color: #926d45; font-weight: bold;">₱5,000 per night</div>
                         </div>
                     </div>
                     <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                        <div class="room-details">
-                            <div class="room-title">Opulent Bedroom</div>
-                            <div class="room-description">An oasis of peace with soft hues, velvet throws, and the finest linens.</div>
+                        <div class="room-details" style="background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 10px; max-width: 400px; margin: 2rem;">
+                            <div class="room-title" style="font-size: 1.8rem; color: #926d45; font-weight: bold; margin-bottom: 1rem; font-family: 'Impact';">Opulent Bedroom</div>
+                            <div class="room-description" style="font-size: 1.1rem; color: #666; margin-bottom: 1rem; line-height: 1.6;">An oasis of peace with soft hues, velvet throws, and the finest linens. Perfect for couples seeking luxury and comfort.</div>
+                            <div class="room-price" style="font-size: 1.4rem; color: #926d45; font-weight: bold;">₱3,500 per night</div>
                         </div>
                     </div>
                     <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                        <div class="room-details">
-                            <div class="room-title">Elegant Dining Room</div>
-                            <div class="room-description">A space designed for unforgettable dinners, featuring luxurious furniture.</div>
+                        <div class="room-details" style="background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 10px; max-width: 400px; margin: 2rem;">
+                            <div class="room-title" style="font-size: 1.8rem; color: #926d45; font-weight: bold; margin-bottom: 1rem; font-family: 'Impact';">Elegant Dining Room</div>
+                            <div class="room-description" style="font-size: 1.1rem; color: #666; margin-bottom: 1rem; line-height: 1.6;">A space designed for unforgettable dinners, featuring luxurious furniture and state-of-the-art amenities.</div>
+                            <div class="room-price" style="font-size: 1.4rem; color: #926d45; font-weight: bold;">₱4,000 per night</div>
                         </div>
                     </div>
                     <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                        <div class="room-details">
-                            <div class="room-title">Chic Study</div>
-                            <div class="room-description">Where productivity meets comfort. A sophisticated workspace perfect for focus.</div>
+                        <div class="room-details" style="background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 10px; max-width: 400px; margin: 2rem;">
+                            <div class="room-title" style="font-size: 1.8rem; color: #926d45; font-weight: bold; margin-bottom: 1rem; font-family: 'Impact';">Chic Study</div>
+                            <div class="room-description" style="font-size: 1.1rem; color: #666; margin-bottom: 1rem; line-height: 1.6;">Where productivity meets comfort. A sophisticated workspace perfect for focus, equipped with high-speed internet.</div>
+                            <div class="room-price" style="font-size: 1.4rem; color: #926d45; font-weight: bold;">₱2,500 per night</div>
                         </div>
                     </div>
                     <div class="carousel-slide" style="background-image: url('../images/room.jpg');">
-                        <div class="room-details">
-                            <div class="room-title">Luxurious Bathroom</div>
-                            <div class="room-description">Pamper yourself with a spa-like experience, featuring modern elegance.</div>
+                        <div class="room-details" style="background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 10px; max-width: 400px; margin: 2rem;">
+                            <div class="room-title" style="font-size: 1.8rem; color: #926d45; font-weight: bold; margin-bottom: 1rem; font-family: 'Impact';">Luxurious Bathroom</div>
+                            <div class="room-description" style="font-size: 1.1rem; color: #666; margin-bottom: 1rem; line-height: 1.6;">Pamper yourself with a spa-like experience, featuring modern elegance and premium toiletries.</div>
+                            <div class="room-price" style="font-size: 1.4rem; color: #926d45; font-weight: bold;">₱3,000 per night</div>
                         </div>
                     </div>
                 </div>
@@ -64,17 +69,17 @@ if (empty($rooms)) {
                 </div>
             </div>
 
-            <div style="max-width: 1000px; margin:  auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); ">
+            <div style="max-width: 1000px; margin: 7rem auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); ">
                 <form action="/reservation/submit" method="POST">
                     <!-- Check-in and Check-out Section -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                         <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
+                            <h3 style="color:  #926d45; margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
                             <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                             <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                         </div>
                         <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
+                            <h3 style="color: #926d45; margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
                             <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                             <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                         </div>
