@@ -118,7 +118,7 @@
     /* Room Section */
     .rooms {
         background-color: #f9f6f2;
-        padding: 8rem 0;
+        padding: 8  rem 0;
         position: relative;
     }
 
