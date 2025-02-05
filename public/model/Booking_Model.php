@@ -17,114 +17,47 @@ class Booking_Model {
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
-
-    // Fetch all available services from the database
-    public function get_room() {
+    // Get all rooms from the database
+    public function get_Rooms() {
         $sql = "SELECT * FROM rooms";
         $result = $this->conn->query($sql);
-        $rooms = [];
-
+        $rooms = array();
+        
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+            while($row = $result->fetch_assoc()) {
                 $rooms[] = $row;
             }
         }
-
         return $rooms;
     }
-
-    // Check if a service exists by its ID
-    public function get_room_name_by_id($room_id) {
-        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM rooms WHERE room_id = ?");
-        $stmt->bind_param("i", $room_id);  // "i" for integer
-        $stmt->execute();
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        $stmt->close();
-
-        return $count > 0;  // Return true if the service exists, false otherwise
-    }
-
     // Insert a new booking into the database
     public function insert_booking($fullname, $email, $number, $date, $room_id, $status = 'pending') {
-        // Validate if the service exists
-        if (!$this->get_room_name_by_id($room_id)) {
-            return false;
-        }
-
         // Use prepared statements to prevent SQL injection
-        $stmt = $this->conn->prepare("INSERT INTO booking_tb (booking_fullname, booking_email, booking_number, booking_date, booking_rooom_id, booking_status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO booking_tb (booking_fullname, booking_email, booking_number, booking_date, booking_room_id, booking_status) VALUES (?, ?, ?, ?, ?, ?)");
         
         // Bind the parameters
-        $stmt->bind_param("sssssss", $fullname, $email, $number, $date, $room_id, $status);
+        $stmt->bind_param("ssssss", $fullname, $email, $number, $date, $room_id, $status);
         
         // Execute the query and check if it was successful
         if ($stmt->execute()) {
-            // If successful, return true
             $stmt->close();
             return true;
         } else {
-            // If there was an error, return an error message
             $error = $stmt->error;
             $stmt->close();
             return "Error: " . $error;
         }
     }
 
-    // Fetch booking details by booking ID
-    public function get_booking_by_id($booking_id) {
-        $stmt = $this->conn->prepare("SELECT * FROM booking_tb WHERE booking_id = ?");
-        $stmt->bind_param("i", $booking_id);
+    // Fetch room name by ID
+    public function get_room_name_by_id($room_id) {
+        $stmt = $this->conn->prepare("SELECT room_name FROM rooms WHERE room_id = ?");
+        $stmt->bind_param("i", $room_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        } else {
-            return null; // No booking found
-        }
-
+        $stmt->bind_result($room_name);
+        $stmt->fetch();
         $stmt->close();
-    }
-
-    // Get all bookings that are pending approval
-    public function get_pending_bookings() {
-        $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
-        $result = $this->conn->query($sql);
-        $bookings = [];
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $bookings[] = $row;
-            }
-        }
-
-        return $bookings;
-    }
-
-    // Update booking status (approve or reject)
-    public function update_booking_status($booking_id, $status) {
-        // Ensure the status is either 'approved' or 'rejected'
-        if (!in_array($status, ['approved', 'rejected'])) {
-            return "Invalid status provided.";
-        }
-
-        $stmt = $this->conn->prepare("UPDATE booking_tb SET booking_status = ? WHERE booking_id = ?");
-        $stmt->bind_param("si", $status, $booking_id);
-
-        if ($stmt->execute()) {
-            $stmt->close();
-            return true;
-        } else {
-            $error = $stmt->error;
-            $stmt->close();
-            return "Error: " . $error;
-        }
-    }
-
-    // Close the database connection
-    public function close_connection() {
-        $this->conn->close();
+        return $room_name;
     }
 }
 ?>

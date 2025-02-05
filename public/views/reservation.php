@@ -8,7 +8,7 @@ require_once '../model/Booking_Model.php';
 $connector = new Connector();
 $conn = $connector->getConnection();
 $roomModel = new RoomModel($conn);
-$rooms = $roomModel->get_Rooms();
+$rooms = $roomModel->get_Rooms();  // Fetch rooms using RoomModel
 
 if (empty($rooms)) {
     $rooms = [];
@@ -16,33 +16,31 @@ if (empty($rooms)) {
 
 $bookingModel = new Booking_Model();
 
-// Get all services
-$rooms = $bookingModel->get_room();
-
-// Include the Connector class
-require_once '../model/connector.php';
-$connector = new Connector();
-
 // Fetch all bookings that are pending approval
 $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
 $bookings = $connector->executeQuery($sql);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $number = $_POST['number'];
-    $date = $_POST['date'];
-    $room_id = $_POST['room_id'];  // Get the selected service ID from the form
+    // Check if all required fields are present
+    if (isset($_POST['fullname'], $_POST['email'], $_POST['number'], $_POST['date'], $_POST['room_id'])) {
+        // Get form data
+        $fullname = $_POST['fullname'];
+        $email = $_POST['email'];
+        $number = $_POST['number'];
+        $date = $_POST['date'];
+        $room_id = $_POST['room_id'];  // Get the selected service ID from the form
 
-    // Attempt to insert the booking
-    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
+        // Attempt to insert the booking
+        $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $room_id);
 
-    if ($result === true) {
-        echo "Booking successfully added!";
+        if ($result === true) {
+            echo "Booking successfully added!";
+        } else {
+            echo $result;  // Display error message if any
+        }
     } else {
-        echo $result;  // Display error message if any
+        echo "All fields are required";
     }
 }
 ?>
@@ -56,10 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     
     <style>
-      
         .container {
             max-width: 1200px;
-            margin: 0;
+            margin: 0 auto;
         }
         
         .room-picture { 
@@ -146,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         .modal-title {
             font-weight: 500;
-            
         }
         .section-title {
             color: #2c3e50;
@@ -160,106 +156,115 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <div class="container mx-auto p-4">
-            <div class="row mt-4">
-                <div class="container mx-auto p-4" style="margin-top: 120px;">
-                    <div class="row mt-4">
-                        <!-- Left Column: Room Image -->
-                        <div class="col-lg-6">
-                            <div class="mb-4">
-                                <label class="form-label" for="room-select" style="font-family: Impact;">Select Room</label>
-                                <select id="room-select" class="form-select " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; " required>
-                                    <?php foreach ($rooms as $index => $room): ?>
-                                        <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['room_name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <div class="mt-3">
-                                    <img id="room-image" src="" class="room-picture w-100" alt="Room Image">
-                                </div>
+        <div class="row mt-4">
+            <div class="container mx-auto p-4" style="margin-top: 120px;">
+                <div class="row mt-4">
+                    <!-- Left Column: Room Image -->
+                    <div class="col-lg-6">
+                        <div class="mb-4">
+                            <label class="form-label" for="room-select" style="font-family: Impact;">Select Room</label>
+                            <select id="room-select" class="form-select" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required>
+                                <?php foreach ($rooms as $index => $room): ?>
+                                    <option value="<?php echo $index; ?>"><?php echo htmlspecialchars($room['room_name']); ?> - ₱<?php echo htmlspecialchars($room['price']); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <div class="mt-3">
+                                <img id="room-image" src="" class="room-picture w-100" alt="Room Image">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Right Column: Booking Form -->
-                        <div class="col-lg-6">
-                            <form id="bookingForm">
-                                <div class="mb-4">
-                                    <label class="form-label" for="check-out" style="font-family: Impact;">Check-in: </label>
-                                    <input type="date" id="check-in"  style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; "required placeholder="Check-in"/>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label" for="check-out" style="font-family: Impact;">Check-out: </label>
-                                    <input type="date" id="check-out"  style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required placeholder="Check-out" />
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label" for="guests" style="font-family: Impact;" >Guests </label>
-                                    <select id="guests" class="form-select " style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div class="mt-4 d-flex align-items-center">
-                                    <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
-                                    <span class="mx-2">of 15 accommodations available.</span>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Book</button>
-                                </div>
-                            </form>
-                            <!-- The confirmation modal -->
-                            <div class="modal fade" id="confirmationModal<?php $room['room_id']; ?>" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                    <form action="../pages/submit-booking.php" method="POST">
-                                        <input type="text" name="fullname" placeholder="Full Name">
-                                        <input type="email" name="email" placeholder="Email">
-                                        <input type="text" name="number" placeholder="Phone Number">
-                                        <input type="date" name="date">
-                                        <input type="time" name="time">
-                                        <input type="hidden" name="room_id" value="123">
-                                        <button type="submit">Submit</button>
+                    <!-- Right Column: Booking Form -->
+                    <div class="col-lg-6">
+                        <form id="bookingForm">
+                            <div class="mb-4">
+                                <label class="form-label" for="check-in" style="font-family: Impact;">Check-in: </label>
+                                <input type="date" id="check-in" class="form-control" required placeholder="Check-in"/>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="check-out" style="font-family: Impact;">Check-out: </label>
+                                <input type="date" id="check-out" class="form-control" required placeholder="Check-out" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="guests" style="font-family: Impact;">Guests </label>
+                                <select id="guests" class="form-select" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="mt-4 d-flex align-items-center">
+                                <input type="number" min="1" max="15" id="num-accommodations" value="1" class="form-control me-2 w-25" required />
+                                <span class="mx-2">of 15 accommodations available.</span>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Book</button>
+                            </div>
+                        </form>
+                        <!-- The confirmation modal -->
+                        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form action="../pages/submit-booking.php" method="POST" class="p-4">
+                                        <div class="mb-3">
+                                            <input type="text" name="fullname" class="form-control" placeholder="Full Name" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="tel" name="number" class="form-control" placeholder="Phone Number" pattern="[0-9]+" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="date" name="date" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="time" name="time" class="form-control" required>
+                                        </div>
+                                        <input type="hidden" name="room_id" id="selected_room_id">
+                                        <div class="mb-3">
+                                            <p>Selected Room: <span id="selected-room-name"></span></p>
+                                            <input type="hidden" name="room_id" id="modal_room_id">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Confirm Booking</button>
                                     </form>
-                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         <!-- Room Details Section -->
         <div class="row">
-           <!-- Room Details Section -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-4">
-                        <div class="bg-card p-4 mt-4" style="border: 2px solid #d4b696; border-radius: 8px;">
-                            <h2 class="text-xl font-bold text-foreground" style="font-family: Impact;">Description:</h2>
-                            <p class="mt-2 text-muted-foreground booking-summary" style="padding: 0.8rem; margin: 0.5rem 0; font-size: 1rem;">
-                                <span id="room-description" class="font-semibold"><?php echo htmlspecialchars($room['description']); ?></span> 
+            <div class="col-12">
+                <div class="mb-4">
+                    <div class="bg-card p-4 mt-4" style="border: 2px solid #d4b696; border-radius: 8px;">
+                        <h2 class="text-xl font-bold text-foreground" style="font-family: Impact;">Description:</h2>
+                        <p class="mt-2 text-muted-foreground booking-summary" style="padding: 0.8rem; margin: 0.5rem 0; font-size: 1rem;">
+                            <span id="room-description" class="font-semibold"></span> 
+                        </p>
+                        <div class="mt-6">
+                            <p class="font-semibold text-center" style="font-family: Impact;">
+                                Prices start at: <br> 
+                                <span id="room-sales" class="text-lg room-price" style="transition: all 0.3s ease;"></span> 
+                                per night
                             </p>
-                            <div class="mt-6">
-                                <p class="font-semibold text-center" style="font-family: Impact;">
-                                    Prices start at: <br> 
-                                    <span id="room-sales" class="text-lg room-price" style="transition: all 0.3s ease;">₱ <?php echo htmlspecialchars($room['price']); ?></span> 
-                                    per night
-                                </p>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!--footer srart here--->
+    <!--footer start here-->
     <footer>
         <p>© 2025 Casa Marcos. All rights reserved.</p>
     </footer>
-    <!--footer end here--->
+    <!--footer end here-->
 
-    <!--script for header srart here--->
+    <!--script for header start here-->
     <script>
         window.addEventListener('scroll', function () {
             const header = document.querySelector('header');
@@ -270,11 +275,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         });
     </script>
-    <!----script for header--->
+    <!--script for header end here-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <!--script for rooms start here-->
@@ -289,86 +293,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Update room details
             document.getElementById('room-image').src = selectedRoom.image || 'default_room_image.jpg'; //provide a default image
             document.getElementById('room-description').innerText = selectedRoom.description || 'This luxurious room offers a comfortable stay with modern amenities.';
-            document.getElementById('room-name').innerText = selectedRoom.name;
-            document.getElementById('room-summary').innerText = `Superior Room from ₱${selectedRoom.price}`;
-        });
-        document.getElementById('room-select').addEventListener('change', function () {
-            const selectedIndex = this.value;
-            const selectedRoom = rooms[selectedIndex];
-            document.getElementById('room-price').innerText = `₱${selectedRoom.price}`;
-            document.getElementById('room-na').innerText = selectedRoom.room_name; // Update room name here
-        });
-        document.getElementById('room-select').addEventListener('change', function () {
-            const selectedIndex = this.value;
-            const selectedRoom = rooms[selectedIndex];
             document.getElementById('room-sales').innerText = `₱${selectedRoom.price}`;
+            document.getElementById('selected-room-name').innerText = selectedRoom.room_name || 'Selected Room';
         });
-
 
         // Trigger the change event on page load to show the first room's details
         document.getElementById('room-select').dispatchEvent(new Event('change'));
-       
-
-        
     </script>
     <!--script for rooms end here-->
 
     <!--script for modal start here-->
     <script>
-    function showModal() {
-        const checkInDate = document.getElementById('check-in').value;
-        const checkOutDate = document.getElementById('check-out').value;
-        const guestsCount = document.getElementById('guests').value;
-        const accommodationsCount = document.getElementById('num-accommodations').value;
+        function showModal() {
+            const checkInDate = document.getElementById('check-in').value;
+            const checkOutDate = document.getElementById('check-out').value;
+            const guestsCount = document.getElementById('guests').value;
+            const accommodationsCount = document.getElementById('num-accommodations').value;
 
-        // Set values in the modal
-        document.getElementById('confirm-check-in').innerText = checkInDate;
-        document.getElementById('confirm-check-out').innerText = checkOutDate;
-        document.getElementById('confirm-guests').innerText = guestsCount;
-        document.getElementById('confirm-rooms').innerText = accommodationsCount;
-    }
+            // Set values in the modal
+            document.getElementById('confirm-check-in').innerText = checkInDate;
+            document.getElementById('confirm-check-out').innerText = checkOutDate;
+            document.getElementById('confirm-guests').innerText = guestsCount;
+            document.getElementById('confirm-rooms').innerText = accommodationsCount;
+        }
 
-    // Event handler for the Book button
-    document.getElementById('check-out').addEventListener('click', showModal);
-    const bookButton = document.querySelector('.btn.btn-primary');
-    bookButton.addEventListener('click', showModal);
+        // Event handler for the Book button
+        document.querySelector('.btn.btn-primary').addEventListener('click', showModal);
 
-    // document.getElementById('confirm-booking').addEventListener('click', function() {
-    //     // Perform booking confirmation logic here
-    //     alert("Your booking has been confirmed!");
+        // Event handler for the booking form
+        const bookingForm = document.getElementById('bookingForm');
 
-    //     // Optionally, hide the modal after confirmation
-    //     $('#confirmationModal').modal('hide');
-    // });
+        bookingForm.addEventListener('submit', function(event) {
+            // Prevent actual form submission for debugging
+            event.preventDefault();
 
-    // Event handler for the booking form
-    const bookingForm = document.getElementById('bookingForm');
+            // Create a FormData object from the form
+            const formData = new FormData(bookingForm);
+            console.log('Form Data:', Object.fromEntries(formData));
 
-    bookingForm.addEventListener('submit', function(event) {
-        // Prevent actual form submission for debugging
-        event.preventDefault();
+            // Store input values
+            const checkInDate = formData.get('check-in');
+            const checkOutDate = formData.get('check-out');
+            const guestsCount = formData.get('guests');
+            const accommodationsCount = formData.get('num-accommodations');
 
-        // Create a FormData object from the form
-        const formData = new FormData(bookingForm);
-        console.log('Form Data:', Object.fromEntries(formData));
+            // Show the modal with the input values
+            $('#confirmationModal').modal('show');
 
-        // Store input values
-        const checkInDate = formData.get('check-in');
-        const checkOutDate = formData.get('check-out');
-        const guestsCount = formData.get('guests');
-        const accommodationsCount = formData.get('num-accommodations');
-
-        // Show the modal with the input values
-        $('#confirmationModal').modal('show');
-
-        // Set input values in the modal
-        document.getElementById('confirm-check-in').innerText = checkInDate; // Update modal text
-        document.getElementById('confirm-check-out').innerText = checkOutDate; // Update modal text
-        document.getElementById('confirm-guests').innerText = guestsCount; // Update modal text
-        document.getElementById('num-accommodations').innerText = accommodationsCount; // Update modal text
-    });
-
-</script>
+            // Set input values in the modal
+            document.getElementById('confirm-check-in').innerText = checkInDate; // Update modal text
+            document.getElementById('confirm-check-out').innerText = checkOutDate; // Update modal text
+            document.getElementById('confirm-guests').innerText = guestsCount; // Update modal text
+            document.getElementById('num-accommodations').innerText = accommodationsCount; // Update modal text
+        });
+    </script>
     <!--script for modal end here-->
 
     <!--script for price calculation start here-->
@@ -393,9 +371,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             const totalPrice = calculateTotalPrice();
             document.getElementById('confirm-price').innerText = `₱ ${totalPrice}`;
         }
-
     </script>
     <!--script for price calculation end here-->
 </body>
 </html>
-

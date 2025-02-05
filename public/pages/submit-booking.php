@@ -3,7 +3,7 @@
 include_once '../model/Booking_Model.php';  // Assuming this contains logic for booking insertion
 session_start();  // Start session to store confirmation data
 
-$bookingModel = new Booking_Model();       // Create an instance of the booking model
+$bookingModel = new Booking_Model();  // Create an instance of the booking model
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -12,11 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $number = $_POST['number'];
     $date = $_POST['date'];
-    $time = $_POST['time'];
-    $room_id = $_POST['room_id'];  // Get the selected service ID from the form
+    $room_id = $_POST['room_id'];  // Get the selected room ID from the form
+
+    // Validate required fields
+    if (empty($fullname) || empty($email) || empty($number) || empty($date) || empty($room_id)) {
+        die("Error: All fields are required");
+    }
 
     // Insert the booking into the database
     $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $room_id);
+
+    // Clear any existing session messages
+    unset($_SESSION['booking_success']);
+    unset($_SESSION['booking_error']);
 
     if ($result === true) {
         // Set session variables to display in confirmation page
@@ -24,14 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['fullname'] = $fullname;
         $_SESSION['email'] = $email;
         $_SESSION['number'] = $number;
-        $_SESSION['room_name'] = $bookingModel->get_room_name_by_id($room_id);  // Assuming this method exists to get the service name
         $_SESSION['date'] = $date;
+        $_SESSION['room_name'] = $bookingModel->get_room_name_by_id($room_id);
+        
 
         // Redirect to confirmation page
         header("Location: ../views/confirmation.php");
         exit();
     } else {
-        // Handle errors (optional)
-        echo "Error: " . $result;
+        // Store error in session and redirect
+        $_SESSION['booking_error'] = "Failed to create booking. Please try again.";
+        header("Location: ../views/booking.php");
+        exit();
     }
 }
+?>

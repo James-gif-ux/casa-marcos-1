@@ -1,12 +1,13 @@
 <?php
   include_once './nav/header.php';
   require_once '../model/connector.php';
+  require_once '../model/Booking_Model.php';
 
   // Instantiate the Connector class
   $connector = new Connector();
 
   // Fetch all bookings that are pending approval
-  $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved','completed')";
+  $sql = "SELECT booking_id, booking_room_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved','completed')";
 
   $bookings = $connector->executeQuery($sql);
 ?>
