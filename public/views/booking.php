@@ -6,7 +6,7 @@
   $connector = new Connector();
 
   // Fetch all bookings that are pending approval
-  $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date, booking_time, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved','completed')";
+  $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved','completed')";
 
   $bookings = $connector->executeQuery($sql);
 ?>
@@ -44,7 +44,6 @@
                     <th class="px-4 py-3">Booking Email</th>
                     <th class="px-4 py-3">Booking Number</th>
                     <th class="px-4 py-3">Booking Date</th>
-                    <th class="px-4 py-3">Booking Time</th>
                     <th class="px-4 py-3">Booking Status</th>
                     <th colspan="2" class="px-4 py-3">Action</th>
                 </tr>
@@ -57,7 +56,6 @@
                     <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_email']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_number']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_date']); ?></td>
-                    <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_time']); ?></td>
                     <td class="px-4 py-3"><?php echo htmlspecialchars($bookings['booking_status']); ?></td>
                 </tr>
                 <?php endforeach; ?>

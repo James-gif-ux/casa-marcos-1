@@ -1,6 +1,4 @@
 <?php
-require_once 'connector.php';
-
 class Booking_Model {
     private $conn;
 
@@ -20,9 +18,9 @@ class Booking_Model {
         }
     }
 
-    // Fetch all available rooms from the database
-    public function get_rooms() {
-        $sql = "SELECT * FROM rooms"; 
+    // Fetch all available services from the database
+    public function get_room() {
+        $sql = "SELECT * FROM rooms";
         $result = $this->conn->query($sql);
         $rooms = [];
 
@@ -35,33 +33,38 @@ class Booking_Model {
         return $rooms;
     }
 
-    // Check if a room exists by its ID
+    // Check if a service exists by its ID
     public function get_room_name_by_id($room_id) {
         $stmt = $this->conn->prepare("SELECT COUNT(*) FROM rooms WHERE room_id = ?");
-        $stmt->bind_param("i", $room_id);
+        $stmt->bind_param("i", $room_id);  // "i" for integer
         $stmt->execute();
         $stmt->bind_result($count);
         $stmt->fetch();
         $stmt->close();
 
-        return $count > 0;  // Return true if the room exists, false otherwise
+        return $count > 0;  // Return true if the service exists, false otherwise
     }
 
     // Insert a new booking into the database
-    public function insert_booking($fullname, $email, $number, $date, $time, $room_id, $status = 'pending') {
-        // Validate if the room exists
+    public function insert_booking($fullname, $email, $number, $date, $room_id, $status = 'pending') {
+        // Validate if the service exists
         if (!$this->get_room_name_by_id($room_id)) {
-            return "Error: The selected room does not exist.";
+            return false;
         }
 
-        $stmt = $this->conn->prepare("INSERT INTO booking_tb (booking_fullname, booking_email, booking_number, booking_date, booking_time, booking_room_id, booking_status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        // Use prepared statements to prevent SQL injection
+        $stmt = $this->conn->prepare("INSERT INTO booking_tb (booking_fullname, booking_email, booking_number, booking_date, booking_rooom_id, booking_status) VALUES (?, ?, ?, ?, ?, ?, ?)");
         
-        $stmt->bind_param("sssssss", $fullname, $email, $number, $date, $time, $room_id, $status);
+        // Bind the parameters
+        $stmt->bind_param("sssssss", $fullname, $email, $number, $date, $room_id, $status);
         
+        // Execute the query and check if it was successful
         if ($stmt->execute()) {
+            // If successful, return true
             $stmt->close();
             return true;
         } else {
+            // If there was an error, return an error message
             $error = $stmt->error;
             $stmt->close();
             return "Error: " . $error;
@@ -75,18 +78,18 @@ class Booking_Model {
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $booking = null;
         if ($result->num_rows > 0) {
-            $booking = $result->fetch_assoc();
+            return $result->fetch_assoc();
+        } else {
+            return null; // No booking found
         }
 
         $stmt->close();
-        return $booking; // Return the booking or null if not found
     }
 
     // Get all bookings that are pending approval
     public function get_pending_bookings() {
-        $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date, booking_time FROM booking_tb WHERE booking_status = 'pending'";
+        $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
         $result = $this->conn->query($sql);
         $bookings = [];
 
@@ -101,6 +104,7 @@ class Booking_Model {
 
     // Update booking status (approve or reject)
     public function update_booking_status($booking_id, $status) {
+        // Ensure the status is either 'approved' or 'rejected'
         if (!in_array($status, ['approved', 'rejected'])) {
             return "Invalid status provided.";
         }

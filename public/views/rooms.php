@@ -1,15 +1,5 @@
 <?php
-    include_once 'nav/homenav.php';
-    require_once '../model/connector.php';
-    require_once '../model/roomModel.php';
-    
-    $connector = new Connector();
-    $roomModel = new RoomModel($connector->getConnection());
-    $rooms = $roomModel->getAllRooms();
-if (empty($rooms)) {
-    $rooms = [];
-}
- 
+    include_once 'nav/homenav.php'; 
 ?>
 
     <!-- Rooms Section -->
@@ -69,7 +59,7 @@ if (empty($rooms)) {
                 </div>
             </div>
 
-            <div style="max-width: 1000px; margin: 7rem auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); ">
+            <div style="max-width: 1000px; margin:  auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); ">
                 <form action="/reservation/submit" method="POST">
                     <!-- Check-in and Check-out Section -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
