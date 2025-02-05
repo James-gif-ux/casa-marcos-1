@@ -29,16 +29,15 @@ $bookings = $connector->executeQuery($sql);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data with validation and sanitization
-    $fullname = !empty($_POST['fullname']) ? trim(strip_tags($_POST['fullname'])) : null;
-    $email = !empty($_POST['email']) ? trim(strip_tags($_POST['email'])) : null;
-    $number = !empty($_POST['number']) ? trim(strip_tags($_POST['number'])) : null;
-    $room_id = !empty($_POST['room_id']) ? intval($_POST['room_id']) : null; // Ensure it is an integer
-    $date = !empty($_POST['date']) ? trim(strip_tags($_POST['date'])) : null;
+    // Get form data
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $number = $_POST['number'];
+    $date = $_POST['date'];
+    $room_id = $_POST['room_id'];  // Get the selected service ID from the form
 
-
-    // Attempt to insert the booking. Ensure that insert_booking handles the room ID validation.
-    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $room_id);
+    // Attempt to insert the booking
+    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
 
     if ($result === true) {
         echo "Booking successfully added!";
@@ -207,38 +206,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </form>
                             <!-- The confirmation modal -->
-                            <div class="modal fade" id="confirmationModal<?php echo htmlspecialchars($room['room_id']); ?>" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="confirmationModal<?php $room['room_id']; ?>" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                     <form action="../pages/submit-booking.php" method="POST">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="confirmationModalLabel<?php echo htmlspecialchars($room['room_id']); ?>" style="font-family: Impact;">Confirm Your Booking</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label class="form-label"  style="font-family: Impact;">Name </label>
-                                                <input type="text"  value="<?php echo htmlspecialchars($room['room_id']); ?>" name="Fullname" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label"  style="font-family: Impact;">Email </label>
-                                                <input type="email"  name="Email" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label"  style="font-family: Impact;">Phone Number </label>
-                                                <input type="tel"  name="PhoneNumber" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label"  style="font-family: Impact;">Date</label>
-                                                <input type="date"  name="Date" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
-                                            </div>
-                                        
-                                       
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary" id="confirm-booking">Confirm Booking</button>
-                                        </div>
+                                        <input type="text" name="fullname" placeholder="Full Name">
+                                        <input type="email" name="email" placeholder="Email">
+                                        <input type="text" name="number" placeholder="Phone Number">
+                                        <input type="date" name="date">
+                                        <input type="time" name="time">
+                                        <input type="hidden" name="room_id" value="123">
+                                        <button type="submit">Submit</button>
                                     </form>
                                     </div>
                                 </div>
@@ -355,13 +333,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     const bookButton = document.querySelector('.btn.btn-primary');
     bookButton.addEventListener('click', showModal);
 
-    document.getElementById('confirm-booking').addEventListener('click', function() {
-        // Perform booking confirmation logic here
-        alert("Your booking has been confirmed!");
+    // document.getElementById('confirm-booking').addEventListener('click', function() {
+    //     // Perform booking confirmation logic here
+    //     alert("Your booking has been confirmed!");
 
-        // Optionally, hide the modal after confirmation
-        $('#confirmationModal').modal('hide');
-    });
+    //     // Optionally, hide the modal after confirmation
+    //     $('#confirmationModal').modal('hide');
+    // });
 
     // Event handler for the booking form
     const bookingForm = document.getElementById('bookingForm');
