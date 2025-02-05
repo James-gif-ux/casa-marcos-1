@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </form>
                             <!-- The confirmation modal -->
-                            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="confirmationModal<?php echo htmlspecialchars($room['room_id']); ?>" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                     <form action="../pages/submit-booking.php" method="POST">
@@ -232,18 +232,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 <label class="form-label"  style="font-family: Impact;">Date</label>
                                                 <input type="date"  name="Date" class="form-control" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;" required />
                                             </div>
-                                            <input type="hidden" id="check-in" name="cstm_check-in" required />
-                                            <input type="hidden" id="check-out" name="cstm_check-out" required />
-                                            <input type="hidden" id="guests" name="cstm-guests" required /> <!-- Updated here -->
-                                            <input type="hidden" id="room-select" name="room-select" required />
-                                            
-                                            <ul class="list-unstyled mt-3">
-                                                <li><strong>Check-in:</strong> <span id="confirm-check-in"></span></li>
-                                                <li><strong>Check-out:</strong> <span id="confirm-check-out"></span></li>
-                                                <li><strong>Guests:</strong> <span id="confirm-guests"></span></li>
-                                                <li><strong>Rooms:</strong> <span id="room-na"><?php echo htmlspecialchars($room['room_name']); ?></span></li>
-                                            </ul>
-                                            <p class="font-semibold room-price">Total Price: <span id="room-price">₱ <?php echo htmlspecialchars($room['price']); ?> </span> per night</p>
+                                        
+                                       
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
