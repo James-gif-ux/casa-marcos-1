@@ -1,6 +1,6 @@
 <?php
 // At the top of header.php
-require_once '../model/connector.php';
+require_once '../model/server.php';
 // Initialize connector
 $connector = new Connector();
 // First mark messages as read
@@ -52,6 +52,47 @@ if ($unread_count < 0) {
     <script src="../assets/js/charts-lines.js" defer></script>
     <script src="../assets/js/charts-pie.js" defer></script>
   </head>
+  <style>
+    /* General styles for the buttons */
+.btn-approve, .btn-danger {
+    padding: 10px 15px; /* Padding for buttons */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold font */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Style specifically for the approve button */
+.btn-approve {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+}
+
+/* Style specifically for the delete button */
+.btn-danger {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+}
+
+/* Hover effects for buttons */
+.btn-approve:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.btn-danger:hover {
+    background-color: #e53935; /* Darker red on hover */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .btn-approve, .btn-danger {
+        padding: 8px 12px; /* Adjust padding */
+        font-size: 14px; /* Smaller font */
+    }
+}
+  </style>
   <body>
     <div
       class="flex h-screen bg-gray-50 dark:bg-gray-900"

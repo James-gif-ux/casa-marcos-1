@@ -1,5 +1,5 @@
 <?php
-require_once 'Connector.php';
+require_once 'server.php';
 
 class CustomerModel {
     private $conn;

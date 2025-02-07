@@ -1,15 +1,15 @@
 <?php
 	//import model
-
-	$page_info['page'] = 'rooms'; //for page that needs to be called
-	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'rooms'; //for function to be loaded
+	include_once '../model/roomModel.php';
+	$page_info['page'] = 'roomstry'; //for page that needs to be called
+	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'roomstry'; //for function to be loaded
 		
 	
 	try {//used try to catch unfortunate errors
 		//check for active function
 		
 		//no active function, use the default page to view
-		new rooms ($page_info);
+		new roomstry ($page_info);
 		
 	}catch (Throwable $e){ //get the encountered error
 		echo '<h1>ERROR 404</h1>';
@@ -20,7 +20,7 @@
 	//-----------------------//
 	//--  Class Navigation --//
 	//-----------------------//
-	class rooms {
+	class roomstry {
 		//set default page info
 		private $page = '';
 		private $sub_page = '';
@@ -37,9 +37,10 @@
 		
 		//-----------------------------//
 		//--   function start here   --//
-		function rooms(){
-			include '../views/rooms.php';
+		function roomstry(){
+			include '../views/roomstry.php';
 		}
         
 	}
+
 ?>
