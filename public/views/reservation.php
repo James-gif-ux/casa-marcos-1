@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $room_id = $_POST['room_id'];  // Get the selected service ID from the form
 
         // Attempt to insert the booking
-        $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $room_id);
+        // $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $room_id);
 
         if ($result === true) {
             echo "Booking successfully added!";

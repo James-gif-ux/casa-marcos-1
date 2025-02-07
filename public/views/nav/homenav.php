@@ -7,6 +7,7 @@
     <title>CASA MARCOS</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <style>
@@ -115,100 +116,7 @@
         outline: none;
     }
 
-    /* Room Section */
-    .rooms {
-        background-color: #f9f6f2;
-        padding: 8  rem 0;
-        position: relative;
-    }
-
-    .rooms-header {
-        margin-bottom: 4rem;
-        position: relative;
-    }
-
-    .room-cards {
-        display: flex;
-        justify-content: center;
-        gap: 3rem;
-        max-width: 1600px;
-        margin: 0 auto;
-        padding: 0 4rem;
-    }
-
-    .room-card {
-        background-color: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        width: calc(25% - 2.25rem);
-        text-align: center;
-        padding: 0;
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
-        position: relative;
-    }
-
-    .room-card:hover {
-        transform: translateY(-15px);
-        box-shadow: 0 15px 40px rgba(102, 67, 35, 0.2);
-    }
-
-    .room-img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        transition: transform 0.6s ease;
-    }
-
-    .room-card:hover .room-img {
-        transform: scale(1.1);
-    }
-
-    .room-card .room-title {
-        margin: 2rem 1.5rem 1rem;
-        font-size: 2rem;
-        color: rgb(102, 67, 35);
-        font-family: 'impact';
-        letter-spacing: 1px;
-    }
-
-    .room-card .room-description {
-        margin: 0 1.5rem 2rem;
-        font-size: 1.1rem;
-        color: #5d4037;
-        line-height: 1.6;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .room-card:hover .room-description {
-        opacity: 1;
-        height: auto;
-        margin-bottom: 2rem;
-    }
-
-    .btn-room {
-        background: linear-gradient(135deg, rgb(102, 67, 35) 0%, rgb(163, 99, 15) 100%);
-        color: white;
-        border: none;
-        border-radius: 30px;
-        padding: 1rem 2.5rem;
-        cursor: pointer;
-        margin: 0 1.5rem 2rem;
-        transition: all 0.3s ease;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .btn-room:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(102, 67, 35, 0.3);
-    }
-
+   
     /* Container for the Carousel */
     .carousel-container {
         width: 80%;
@@ -487,6 +395,7 @@
     }
 }
 
+
 </style>
 
 <body>
@@ -497,7 +406,7 @@
         </div>
         <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
         <ul class="nav-links" style="width: 100%; align-items: center;">
-            <li><a href="rooms.php" class="<?php echo ($current_page == 'rooms.php') ? 'active' : ''; ?>">Our Rooms</a></li>
+            <li><a href="roomstry.php" class="<?php echo ($current_page == 'roomstry.php') ? 'active' : ''; ?>">Our Rooms</a></li>
             <li class="dropdown">
                 <a href="offers.php" class="dropbtn <?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Offers <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
                 <div class="dropdown-content">

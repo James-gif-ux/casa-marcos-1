@@ -132,13 +132,13 @@ if (isset($_SESSION['booking_success']) && $_SESSION['booking_success'] === true
                 <li><strong>Name:</strong> <?= $_SESSION['fullname'] ?? 'N/A' ?></li>
                 <li><strong>Email:</strong> <?= $_SESSION['email'] ?? 'N/A' ?></li>
                 <li><strong>Phone Number:</strong> <?= $_SESSION['number'] ?? 'N/A' ?></li>
-                <li><strong>Service:</strong> <?= $_SESSION['room_name'] ?? 'N/A' ?></li>
+                <li><strong>Service:</strong> <?= $_SESSION['service_name'] ?? 'N/A' ?></li>
                 <li><strong>Booking Date:</strong> <?= $_SESSION['date'] ?? 'N/A' ?></li>
             </ul>
         </div>
 
         <!-- Optional: Provide a link to the home page or service listings -->
-        <a href="reservation.php" class="btn">Back to Services</a>
+        <a href="roomstry.php" class="btn">Back to Services</a>
     </div>
 </body>
 </html>

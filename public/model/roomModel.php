@@ -1,4 +1,5 @@
 <?php
+require_once 'connector.php';
 class RoomModel {
     private $conn;
 
