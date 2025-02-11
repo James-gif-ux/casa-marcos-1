@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 /* Container for the images and text */
 .image-container {
-    width: 100%;
-    max-width: 1200px;
+    width: 200%;
+    max-width: 1500px;
     position: relative;
     overflow: hidden; /* Ensures no overflow when sliding */
 }
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        <section class="image-slider-section" style = "padding: 15rem 2rem; ">
+        <section class="image-slider-section" style = "padding: 10rem 1rem; background-color:rgb(255, 255, 255);">
             <div class="relative flex items-center justify-center">
                 <div class="image-container">
                     <div class="infinite-scroll-container">
