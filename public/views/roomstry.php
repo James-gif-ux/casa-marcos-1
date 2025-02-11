@@ -36,12 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-  <style>
-  //* Section Styling */
-  .image-slider-section {
-      padding: 5rem 2rem;
-      background-color: #f4f4f4;
-  }
+
+<style>
+//* Section Styling */
+.image-slider-section {
+    padding: 5rem 2rem;
+    background-color: #f4f4f4;
+}
 
   /* Flexbox for positioning and layout */
   .relative {
@@ -166,86 +167,59 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       font-family: 'Playfair Display', serif;
   }
 
-  .room-details {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 25px;
-      border-radius: 15px 15px 0 0;
-      transform: translateY(100%);
-      transition: transform 0.4s ease;
-  }
+.room-details {
+    font-size: 1rem;
+    line-height: 1.5;
+}
 
-  .room-card:hover .room-details {
-      transform: translateY(0);
-  }
+/* Show description and price on hover */
+.image:hover .image-description,
+.image:hover {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+}
 
-  .room-price {
-      font-size: 1.8rem;
-      color: rgb(102, 67, 35);
-      font-weight: 700;
-      margin-bottom: 15px;
-  }
+/* Darken overlay only on hover */
+.overlay-dark {
+    background-color: rgba(51, 51, 51, 0);
+    transition: background-color 0.3s ease;
+}
 
-  .room-features {
-      display: flex;
-      gap: 15px;
-      margin: 15px 0;
-  }
 
-  .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #666;
-  }
 
-  .book-button {
-      background: rgb(102, 67, 35);
-      color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-  }
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    /* Stack the images vertically */
+    .image-wrapper {
+        flex-direction: column; /* Stack images vertically */
+        gap: 2rem; /* Add space between images */
+    }
 
-  .book-button:hover {
-      background: rgb(218, 191, 156);
-      transform: translateY(-2px);
-  }
+    .image {
+        width: 100%; /* Make images full-width on small screens */
+    }
 
-  /* Responsive Design for Smaller Screens */
-  @media (max-width: 768px) {
-      /* Stack the images vertically */
-      .image-wrapper {
-          flex-direction: column; /* Stack images vertically */
-          gap: 2rem; /* Add space between images */
-      }
+    .image-description {
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        padding: 15px;
+        max-width: 95%;
+    }
 
-      .image {
-          width: 100%; /* Make images full-width on small screens */
-      }
+    .room-title {
+        font-size: 1.5rem; /* Adjust title font size */
+    }
 
-      .image-description {
-          bottom: 20px;
-          left: 20px;
-          right: 20px;
-          padding: 15px;
-          max-width: 95%;
-      }
+    .room-details {
+        font-size: 0.9rem; /* Adjust details font size */
+    }
 
-      .room-title {
-          font-size: 1.5rem; /* Adjust title font size */
-      }
-
-      .room-details {
-          font-size: 0.9rem; /* Adjust details font size */
-      }
-
-  }
-  </style>
+    .price-section {
+        font-size: 1.5rem; /* Adjust price text size */
+    }
+}
+</style>
 
 
         <section class="hera">
