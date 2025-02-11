@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <style>
-//* Section Styling */
+/* Section Styling */
 .image-slider-section {
     padding: 5rem 2rem;
     background-color: #f4f4f4;
@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     justify-content: space-between; /* Adds space between images */
     position: relative;
     transition: transform 1s ease-in-out; /* Smooth sliding transition */
+    animation: scroll 20s linear infinite;
 }
 
 /* Styling for each image */
@@ -158,6 +159,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     transition: background-color 0.3s ease;
 }
 
+/* Add animation keyframes */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    10% {
+        transform: translateX(10);
+    }
+    30% {
+        transform: translateX(20);
+    }
+    50% {
+        transform: translateX(40);
+    }
+    80% {
+        transform: translateX(60);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Add container for infinite scroll */
+.infinite-scroll-container {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Clone for seamless loop */
+.image-wrapper:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: inherit;
+}
+
+/* Pause on hover */
 
 
 /* Responsive Design for Smaller Screens */
@@ -166,6 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     .image-wrapper {
         flex-direction: column; /* Stack images vertically */
         gap: 2rem; /* Add space between images */
+        animation-duration: 15s; /* Faster on mobile */
     }
 
     .image {
@@ -226,72 +269,74 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <section class="image-slider-section" style = "padding: 15rem 2rem; ">
             <div class="relative flex items-center justify-center">
                 <div class="image-container">
-                    <!-- Image Wrapper (Two columns for left and right images) -->
-                    <div class="image-wrapper">
-                        <!-- Left Column Image -->
-                        <div class="image left-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Deluxe Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-left"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Deluxe Room</h2>
-                                <p class="room-details">A luxurious and spacious room designed for ultimate comfort. Experience a blend of elegance and modern amenities, ideal for those seeking a premium getaway.</p>
+                    <div class="infinite-scroll-container">
+                        <!-- Image Wrapper (Two columns for left and right images) -->
+                        <div class="image-wrapper">
+                            <!-- Left Column Image -->
+                            <div class="image left-image">
+                                <img src="../images/room.jpg" alt="Holiday Tier Deluxe Room" />
+                                <div class="overlay-dark"></div>
+                                <div class="overlay-light-left"></div>
+                                <div class="image-description">
+                                    <h2 class="room-title">Holiday Tier Deluxe Room</h2>
+                                    <p class="room-details">A luxurious and spacious room designed for ultimate comfort. Experience a blend of elegance and modern amenities, ideal for those seeking a premium getaway.</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Right Column Image -->
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            <!-- Right Column Image -->
+                            <div class="image right-image">
+                                <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                                <div class="overlay-dark"></div>
+                                <div class="overlay-light-right"></div>
+                                <div class="image-description">
+                                    <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                    <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            <div class="image right-image">
+                                <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                                <div class="overlay-dark"></div>
+                                <div class="overlay-light-right"></div>
+                                <div class="image-description">
+                                    <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                    <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            <div class="image right-image">
+                                <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                                <div class="overlay-dark"></div>
+                                <div class="overlay-light-right"></div>
+                                <div class="image-description">
+                                    <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                    <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                                </div>
                             </div>
-                        </div>
 
 
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            <div class="image right-image">
+                                <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                                <div class="overlay-dark"></div>
+                                <div class="overlay-light-right"></div>
+                                <div class="image-description">
+                                    <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                    <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            <div class="image right-image">
+                                <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                                <div class="overlay-dark"></div>
+                                <div class="overlay-light-right"></div>
+                                <div class="image-description">
+                                    <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                    <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                                </div>
                             </div>
-                        </div>
 
-                        
+                            
+                        </div>
                     </div>
                 </div>
             </div>
