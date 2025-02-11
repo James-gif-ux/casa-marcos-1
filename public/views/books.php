@@ -19,12 +19,11 @@ $bookings = $connector->executeQuery($sql);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $number = $_POST['number'];
-    $date = $_POST['date'];
-    $service_id = $_POST['service_id'];  // Get the selected service ID from the form
+    $fullname = isset($data['fullname']) ? $data['fullname'] : 'Default Name';
+    $email = isset($data['email']) ? $data['email'] : 'default@example.com';
+    $number = isset($data['number']) ? $data['number'] : 'Default Number';
+    $date = isset($data['date']) ? $data['date'] : 'Default Date';
+    $service_id = isset($data['service_id']) ? $data['service_id'] : 'Default Service ID';
 
     // Attempt to insert the booking
     $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
@@ -34,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo $result;  // Display error message if any
     }
+
 }
 ?>
 

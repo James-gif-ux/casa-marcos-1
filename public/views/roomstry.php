@@ -1,40 +1,40 @@
 <?php
     include_once 'nav/homenav.php';
     include_once '../model/BookingModel.php';
-include_once '../model/Booking_Model.php';
+    include_once '../model/Booking_Model.php';
 
-$model = new BookingModel();
-$bookingModel = new Booking_Model();
+    $model = new BookingModel();
+    $bookingModel = new Booking_Model();
 
-// Get all services
-$services = $bookingModel->get_service();
+    // Get all services
+    $services = $bookingModel->get_service();
 
-// Include the Connector class
-require_once '../model/server.php';
-$connector = new Connector();
+    // Include the Connector class
+    require_once '../model/server.php';
+    $connector = new Connector();
 
-// Fetch all bookings that are pending approval
-$sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
-$bookings = $connector->executeQuery($sql);
+    // Fetch all bookings that are pending approval
+    $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
+    $bookings = $connector->executeQuery($sql);
 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $number = $_POST['number'];
-    $date = $_POST['date'];
-    $service_id = $_POST['service_id'];  // Get the selected service ID from the form
+    // Handle form submission
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get form data
+        $fullname = $_POST['fullname'];
+        $email = $_POST['email'];
+        $number = $_POST['number'];
+        $date = $_POST['date'];
+        $service_id = $_POST['service_id'];  // Get the selected service ID from the form
 
-    // Attempt to insert the booking
-    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
+        // Attempt to insert the booking
+        $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
 
-    if ($result === true) {
-        echo "Booking successfully added!";
-    } else {
-        echo $result;  // Display error message if any
+        if ($result === true) {
+            echo "Booking successfully added!";
+        } else {
+            echo $result;  // Display error message if any
+        }
     }
-}
 ?>
 
 <style>
@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         display: flex;
         flex-direction: row;
         width: 100%;
-        animation: continuousSlide 3s linear infinite;
+        animation: continuousSlide 20s linear infinite;
     }
 @keyframes continuousSlide {
             0% {
@@ -231,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             100% {
                 /* Move left by 50% of the width to show the duplicate set */
-                transform: translateX(-50%);
+                transform: translateX(-210%);
             }
         }
 </style>
@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <section class="hera">
             <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 1rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-            <form action="/reservation/submit" method="POST">
+            <form action="../pages/books.php" method="POST">
                     <!-- Check-in and Check-out Section -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                         <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
@@ -269,70 +269,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="image-container">
                     <!-- Image Wrapper (Two columns for left and right images) -->
                     <div class="image-wrapper">
-                        <!-- Left Column Image -->
-                        <div class="image left-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Deluxe Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-left"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Deluxe Room</h2>
-                                <p class="room-details">A luxurious and spacious room designed for ultimate comfort. Experience a blend of elegance and modern amenities, ideal for those seeking a premium getaway.</p>
+                       
+                        <?php foreach ($services as $srvc): ?>
+                            <div class="image">
+                                <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                                <div class="room-content">
+                                    <h3 class="room-title" style="background-color: #d4b696;"><?= $srvc['services_name'] ?></h3>
+                                    <div class="image-description">
+                                        <p class="room-details"><?= $srvc['services_description'] ?></p>
+                                    </div>
+                                    <div class="image-price">
+                                        <p class="room-details"><?= $srvc['services_price'] ?></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- Right Column Image -->
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
-                            </div>
-                        </div>
-
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
-                            </div>
-                        </div>
-
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
-                            </div>
-                        </div>
-
-
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
-                            </div>
-                        </div>
-
-                        <div class="image right-image">
-                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
-                            <div class="overlay-dark"></div>
-                            <div class="overlay-light-right"></div>
-                            <div class="image-description">
-                                <h2 class="room-title">Holiday Tier Superior Room</h2>
-                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
-                            </div>
-                        </div>
-
-                        
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

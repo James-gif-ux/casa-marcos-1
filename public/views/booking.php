@@ -1,76 +1,14 @@
 <?php
 require_once '../model/server.php';
-require 'PHPMailer-master/src/PHPMailer.php'; // Adjust the path as necessary
-require 'PHPMailer-master/src/SMTP.php'; // Adjust the path as necessary
-require 'PHPMailer-master/src/Exception.php'; // Adjust the path as necessary
+include_once 'nav/header.php';
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// Instantiate the Connector class
+$connector = new Connector();
 
-if (isset($_GET['booking_id']) && isset($_GET['action'])) {
-    $booking_id = $_GET['booking_id'];
-    $action = $_GET['action'];
-    $connector = new Connector();
-    $email_sent = false; // Flag for tracking if email was sent
+// Fetch all bookings that are pending approval
+$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved')";
 
-    if ($action === 'approve') {
-        $sql = "UPDATE booking_tb SET booking_status = 'approved' WHERE booking_id = :booking_id";
-        
-        if ($connector->executeUpdate($sql, [':booking_id' => $booking_id])) {
-            // Send an email upon approval
-            $email_sent = sendEmail($booking_id, 'approved');
-            header("Location: ../views/booking.php?approved=true&email_sent=" . ($email_sent ? '1' : '0'));
-        } else {
-            header("Location: ../views/booking.php?approved=false");
-        }
-    } elseif ($action === 'delete') {
-        $sql = "DELETE FROM booking_tb WHERE booking_id = :booking_id";
-
-        if ($connector->executeUpdate($sql, [':booking_id' => $booking_id])) {
-            // Send an email upon deletion
-            $email_sent = sendEmail($booking_id, 'deleted');
-            header("Location: ../views/booking.php?deleted=true&email_sent=" . ($email_sent ? '1' : '0'));
-        } else {
-            header("Location: ../views/booking.php?deleted=false");
-        }
-    }
-    exit();
-}
-
-function sendEmail($booking_id, $action) {
-    $mail = new PHPMailer(true);
-    
-    try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.example.com'; // Set the SMTP server to send through
-        $mail->SMTPAuth   = true; 
-        $mail->Username   = 'your_email@example.com'; // SMTP username
-        $mail->Password   = 'your_email_password'; // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
-        $mail->Port       = 587; 
-        
-        // Recipients
-        $mail->setFrom('your_email@example.com', 'Your Name');
-        $mail->addAddress('recipient_email@example.com'); // Add a recipient
-        $mail->addReplyTo('your_email@example.com', 'Your Name'); // Add a reply-to address
-
-        // Content
-        if ($action === 'approved') {
-            $mail->Subject = 'Booking Approved';
-            $mail->Body    = "Your booking with ID $booking_id has been approved.";
-        } elseif ($action === 'deleted') {
-            $mail->Subject = 'Booking Deleted';
-            $mail->Body    = "Your booking with ID $booking_id has been deleted.";
-        }
-
-        $mail->send();
-        return true; // Successfully sent email
-    } catch (Exception $e) {
-        error_log("Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
-        return false; // Email not sent
-    }
-}
+$bookings = $connector->executeQuery($sql);
 ?>
 
     <script>
@@ -94,26 +32,32 @@ function sendEmail($booking_id, $action) {
             const url = window.location.href.split('?')[0];
             window.history.replaceState({}, document.title, url);
         }
-    </script>
-<!-- New Table -->
-<div class="w-full overflow-hidden rounded-lg shadow-xs">
-    <div class="w-full overflow-x-auto">
+        </script>
+    <!-- New Table -->
+    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+        <div class="w-full overflow-x-auto">
         <table class="w-full whitespace-no-wrap">
             <thead>
-                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3 text-center">Booking ID</th>
-                    <th class="px-4 py-3 text-center">Booking Name</th>
-                    <th class="px-4 py-3 text-center">Booking Email</th>
-                    <th class="px-4 py-3 text-center">Booking Number</th>
-                    <th class="px-4 py-3 text-center">Booking Date</th>
-                    <th class="px-4 py-3 text-center">Booking Status</th>
-                    <th class="px-4 py-3 text-center">Action</th>
-                </tr>
+            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="px-4 py-3 text-center">Rooms Name</th>
+                <th class="px-4 py-3 text-center">Customers Name</th>
+                <th class="px-4 py-3 text-center">Booking Email</th>
+                <th class="px-4 py-3 text-center">Booking Number</th>
+                <th class="px-4 py-3 text-center">Booking Date</th>
+                <th class="px-4 py-3 text-center">Booking Status</th>
+                <th class="px-4 py-3 text-center">Action</th>
+            </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <?php foreach ($bookings as $bookings): ?>
-                <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_services_id']); ?></td>
+            <?php foreach ($bookings as $bookings): ?>
+            <tr class="text-gray-700 dark:text-gray-400">
+                <td class="px-4 py-3 text-center">
+                <?php 
+                $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $bookings['booking_services_id'];
+                $service = $connector->executeQuery($service_sql);
+                echo htmlspecialchars($service[0]['services_name'] ?? 'N/A'); 
+                ?>
+                </td>
                     <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_fullname']); ?></td>
                     <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_email']); ?></td>
                     <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_number']); ?></td>

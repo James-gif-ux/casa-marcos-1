@@ -1,7 +1,8 @@
 <?php
-	include '../model/BookingModel.php';	//set page variables
-	$page_info['page'] = 'services'; //for page that needs to be called
-	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'services'; //for function to be loaded
+	include '../model/Booking_Model.php';	
+	include '../model/BookingModel.php';//set page variables
+	$page_info['page'] = 'confirmBooking'; //for page that needs to be called
+	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'confirmBooking'; //for function to be loaded
 
 	//--   home page       --//
 
@@ -31,10 +32,10 @@
 			$this->{$page_info['sub_page']}();
 		}
 
-        function services(){
-            include "../views/services.php";
-        }
-		
+        
+		function confirmBooking(){
+			include '../views/confirmBooking.php';
+		}
     }
 
 
