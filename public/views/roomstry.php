@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <style>
-//* Section Styling */
+/* Section Styling */
 .image-slider-section {
     padding: 5rem 2rem;
     background-color: #f4f4f4;
@@ -219,6 +219,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         font-size: 1.5rem; /* Adjust price text size */
     }
 }
+.image-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        animation: continuousSlide 3s linear infinite;
+    }
+@keyframes continuousSlide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* Move left by 50% of the width to show the duplicate set */
+                transform: translateX(-50%);
+            }
+        }
 </style>
 
 
