@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <style>
-//* Section Styling */
+/* Section Styling */
 .image-slider-section {
     padding: 5rem 2rem;
     background-color: #f4f4f4;
