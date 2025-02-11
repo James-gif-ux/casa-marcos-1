@@ -1,38 +1,38 @@
 <?php
-include_once 'nav/homenav.php';
-include_once '../model/BookingModel.php';
+    include_once 'nav/homenav.php';
+    include_once '../model/BookingModel.php';
 include_once '../model/Booking_Model.php';
 
-$model = new BookingModel();
-$bookingModel = new Booking_Model();
+    $model = new BookingModel();
+    $bookingModel = new Booking_Model();
 
-// Get all services
-$services = $bookingModel->get_service();
+    // Get all services
+    $services = $bookingModel->get_service();
 
-// Include the Connector class
-require_once '../model/server.php';
-$connector = new Connector();
+    // Include the Connector class
+    require_once '../model/server.php';
+    $connector = new Connector();
 
-// Fetch all bookings that are pending approval
-$sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
-$bookings = $connector->executeQuery($sql);
+    // Fetch all bookings that are pending approval
+    $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
+    $bookings = $connector->executeQuery($sql);
 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $number = $_POST['number'];
-    $date = $_POST['date'];
-    $service_id = $_POST['service_id'];  // Get the selected service ID from the form
+    // Handle form submission
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get form data
+        $fullname = $_POST['fullname'];
+        $email = $_POST['email'];
+        $number = $_POST['number'];
+        $date = $_POST['date'];
+        $service_id = $_POST['service_id'];  // Get the selected service ID from the form
 
-    // Attempt to insert the booking
-    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
+        // Attempt to insert the booking
+        $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
 
     if ($result === true) {
         echo "Booking successfully added!";
     } else {
-        echo $result; // Display error message if any
+        echo $result;  // Display error message if any
     }
 }
 ?>
@@ -151,36 +151,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         display: flex;
         flex-direction: row;
         width: 100%;
-        animation: continuousSlide 30s linear infinite;
+        animation: continuousSlide 3s linear infinite;
     }
-
-    @keyframes continuousSlide {
-        0% {
-            transform: translateX(0);
+@keyframes continuousSlide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* Move left by 50% of the width to show the duplicate set */
+                transform: translateX(-50%);
+            }
         }
-        100% {
-            /* Move left by 50% of the width to show the duplicate set */
-            transform: translateX(-263%);
-        }
-    }
 </style>
 
-<section class="hera">
-    <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 1rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-        <form action="/reservation/submit" method="POST">
-            <!-- Check-in and Check-out Section -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                    <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
-                    <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                    <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                </div>
-                <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                    <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
-                    <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                    <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                </div>
-            </div>
+        <section class="hera">
+            <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 1rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
+            <form action="/reservation/submit" method="POST">
+                    <!-- Check-in and Check-out Section -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
+                            <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                        </div>
+                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
+                            <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                            <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                        </div>
+                    </div>
 
             <!-- Submit Button -->
             <button type="submit" style="width: 50%; padding: 1rem; margin-top: 2rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
@@ -190,91 +189,96 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </section>
 
-<section class="image-slider-section" style="padding: 5rem 1rem; background-color: rgb(218, 191, 156);">
-    <div class="relative flex items-center justify-center">
-        <div class="image-container">
-            <!-- Image Wrapper (Two columns for left and right images) -->
-            <div class="image-wrapper">
-                <div class="image left-image">
-                    <img src="../images/3.jpg"/>
-                    <div class="overlay-dark"></div>
-                    <div class="overlay-light-left"></div>
-                    <div class="room-details" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background-color: rgba(0, 0, 0, 0.5);">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Sapphira Villas 6 Pax</h3>
-                        <p style="font-size: 1.2rem; color: #d4b696;">A two story villa with 1 Queen-size bed & 4 single beds, 2 private bathrooms, large private living room, TV, Wi-Fi & air conditioning.</p>
-                        <p style="font-size: 1.2rem; color: #d4b696;">₱8,999/night</p>
-                    </div>
-                </div>
 
-                <div class="image right-image">
-                    <img src="../images/11.jpg"/>
-                    <div class="overlay-dark"></div>
-                    <div class="overlay-light-right"></div>
-                    <div class="room-details" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background-color: rgba(0, 0, 0, 0.5);">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Sapphira Villas 8 Pax</h3>
-                        <p style="font-size: 1.2rem; color: #d4b696;">A two story villa with 1 Queen-size bed & 8 single-size beds, 2 private bathrooms, large private living room, TV, Wi-Fi & air conditioning.</p>
-                        <p style="font-size: 1.2rem; color: #d4b696;">₱11,999/night</p>
-                    </div>
-                </div>
 
-                <div class="image right-image">
-                    <img src="../images/room.jpg"/>
-                    <div class="overlay-dark"></div>
-                    <div class="overlay-light-right"></div>
-                    <div class="room-details" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background-color: rgba(0, 0, 0, 0.5); ">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Matrimonial</h3>
-                        <p style="font-size: 1.2rem; color: #d4b696;">Queen-size bed, private bathroom, TV, Wi-Fi, air conditioning</p>
-                        <p style="font-size: 1.2rem; color: #d4b696;">₱4,999/night</p>
-                    </div>
-                </div>
+        <section class="image-slider-section" style = "padding: 10rem 1rem; background-color:rgb(255, 255, 255);">
+            <div class="relative flex items-center justify-center">
+                <div class="image-container">
+                    <!-- Image Wrapper (Two columns for left and right images) -->
+                    <div class="image-wrapper">
+                        <!-- Left Column Image -->
+                        <div class="image left-image">
+                            <img src="../images/room.jpg" alt="Holiday Tier Deluxe Room" />
+                            <div class="overlay-dark"></div>
+                            <div class="overlay-light-left"></div>
+                            <div class="image-description">
+                                <h2 class="room-title">Holiday Tier Deluxe Room</h2>
+                                <p class="room-details">A luxurious and spacious room designed for ultimate comfort. Experience a blend of elegance and modern amenities, ideal for those seeking a premium getaway.</p>
+                            </div>
+                        </div>
 
-                <div class="image right-image">
-                    <img src="../images/mp.jpg"/>
-                    <div class="overlay-dark"></div>
-                    <div class="overlay-light-right"></div>
-                    <div class="room-details" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background-color: rgba(0, 0, 0, 0.5); ">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Matrimonial Plus</h3>
-                        <p style="font-size: 1.2rem; color: #d4b696;">Queen-size bed, larger room, larger private bathroom, TV, Wi-Fi, air conditioning</p>
-                        <p style="font-size: 1.2rem; color: #d4b696;">₱5,399/night</p>
-                    </div>
-                </div>
+                        <!-- Right Column Image -->
+                        <div class="image right-image">
+                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                            <div class="overlay-dark"></div>
+                            <div class="overlay-light-right"></div>
+                            <div class="image-description">
+                                <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            </div>
+                        </div>
 
-                <div class="image right-image">
-                    <img src="../images/barkada.jpg"/>
-                    <div class="overlay-dark"></div>
-                    <div class="overlay-light-right"></div>
-                    <div class="room-details" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background-color: rgba(0, 0, 0, 0.5); ">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Barkada</h3>
-                        <p style="font-size: 1.2rem; color: #d4b696;">4 Twin-sized bed, private bathroom, TV, Wi-Fi, air conditioning</p>
-                        <p style="font-size: 1.2rem; color: #d4b696;">₱7,999/night</p>
-                    </div>
-                </div>
+                        <div class="image right-image">
+                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                            <div class="overlay-dark"></div>
+                            <div class="overlay-light-right"></div>
+                            <div class="image-description">
+                                <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            </div>
+                        </div>
 
-                <div class="image right-image">
-                    <img src="../images/CV4.jpg"/>
-                    <div class="overlay-dark"></div>
-                    <div class="overlay-light-right"></div>
-                    <div class="room-details" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background-color: rgba(0, 0, 0, 0.5); ">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">CV Room 4 Pax</h3>
-                        <p style="font-size: 1.2rem; color: #d4b696;">2 Queen-sized bed, Shared bathroom, TV, Wi-Fi, air conditioning</p>
-                        <p style="font-size: 1.2rem; color: #d4b696;">₱3,999/night</p>
-                    </div>
-                </div>
+                        <div class="image right-image">
+                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                            <div class="overlay-dark"></div>
+                            <div class="overlay-light-right"></div>
+                            <div class="image-description">
+                                <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            </div>
+                        </div>
 
-                <div class="image right-image">
-                    <img src="../images/CVP.jpg"/>
-                    <div class="overlay-dark"></div>
-                    <div class="overlay-light-right"></div>
-                    <div class="room-details" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background-color: rgba(0, 0, 0, 0.5); ">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">CV Room 8 Pax</h3>
-                        <p style="font-size: 1.2rem; color: #d4b696;">8 Single-sized bed, shared bathroom, TV, Wi-Fi, air conditioning</p>
-                        <p style="font-size: 1.2rem; color: #d4b696;">₱5,999/night</p>
+
+                        <div class="image right-image">
+                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                            <div class="overlay-dark"></div>
+                            <div class="overlay-light-right"></div>
+                            <div class="image-description">
+                                <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            </div>
+                        </div>
+
+                        <div class="image right-image">
+                            <img src="../images/room.jpg" alt="Holiday Tier Superior Room" />
+                            <div class="overlay-dark"></div>
+                            <div class="overlay-light-right"></div>
+                            <div class="image-description">
+                                <h2 class="room-title">Holiday Tier Superior Room</h2>
+                                <p class="room-details">Enjoy a perfect stay with exceptional amenities in our superior room, featuring modern furnishings and a serene atmosphere for a relaxing experience.</p>
+                            </div>
+                        </div>
+
+                        
                     </div>
                 </div>
             </div>
-        </div>    
-    </div>
-</section>
+       </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <footer>
     <p>© 2025 Casa Marcos. All rights reserved.</p>

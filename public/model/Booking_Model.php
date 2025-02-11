@@ -49,7 +49,7 @@ class Booking_Model {
     public function insert_booking($fullname, $email, $number, $date, $services_id, $status = 'pending') {
         // Validate if the service exists
         if (!$this->get_service_name_by_id($services_id)) {
-            return "Error: The selected service does not exist.";
+            return "";
         }
 
         // Use prepared statements to prevent SQL injection
