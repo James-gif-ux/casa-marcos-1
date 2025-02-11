@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 .image:hover .image-description,
 .image:hover {
     opacity: 1;
-    transform: translateY(0) translateX(0);
+    transform: translateX(0) translateX(0);
 }
 
 /* Darken overlay only on hover */
@@ -162,36 +162,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 /* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
-    /* Stack the images vertically */
+    .image-container {
+        width: 100%;
+        overflow: hidden;
+    }
+    
     .image-wrapper {
-        flex-direction: column; /* Stack images vertically */
-        gap: 2rem; /* Add space between images */
+        display: flex;
+        flex-direction: row;
+        width: 600%;
+      
     }
-
+    
     .image {
-        width: 100%; /* Make images full-width on small screens */
+        width: 100%;
+        flex: 0 0 16.666%;
     }
-
+    
     .image-description {
         bottom: 20px;
-        left: 20px;
-        right: 20px;
+        left: 10px;
+        right: 10px;
         padding: 15px;
-        max-width: 95%;
     }
-
+    
     .room-title {
-        font-size: 1.5rem; /* Adjust title font size */
+        font-size: 1.5rem;
     }
-
+    
     .room-details {
-        font-size: 0.9rem; /* Adjust details font size */
-    }
-
-    .price-section {
-        font-size: 1.5rem; /* Adjust price text size */
+        font-size: 0.9rem;
     }
 }
+.image-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        animation: continuousSlide 3s linear infinite;
+    }
+@keyframes continuousSlide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* Move left by 50% of the width to show the duplicate set */
+                transform: translateX(-50%);
+            }
+        }
 </style>
 
 
