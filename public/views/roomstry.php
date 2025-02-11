@@ -36,164 +36,216 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+  <style>
+  //* Section Styling */
+  .image-slider-section {
+      padding: 5rem 2rem;
+      background-color: #f4f4f4;
+  }
 
-<style>
-//* Section Styling */
-.image-slider-section {
-    padding: 5rem 2rem;
-    background-color: #f4f4f4;
-}
+  /* Flexbox for positioning and layout */
+  .relative {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 
-/* Flexbox for positioning and layout */
-.relative {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+  /* Container for the images and text */
+  .image-container {
+      width: 200%;
+      max-width: 1500px;
+      position: relative;
+      overflow: hidden; /* Ensures no overflow when sliding */
+  }
 
-/* Container for the images and text */
-.image-container {
-    width: 200%;
-    max-width: 1500px;
-    position: relative;
-    overflow: hidden; /* Ensures no overflow when sliding */
-}
+  /* Wrapper for the left, right, and additional images */
+  .image-wrapper {
+      display: flex; /* Display images side by side */
+      justify-content: space-between; /* Adds space between images */
+      position: relative;
+      transition: transform 1s ease-in-out; /* Smooth sliding transition */
+  }
 
-/* Wrapper for the left, right, and additional images */
-.image-wrapper {
-    display: flex; /* Display images side by side */
-    justify-content: space-between; /* Adds space between images */
-    position: relative;
-    transition: transform 1s ease-in-out; /* Smooth sliding transition */
-}
+  /* Styling for each image */
+  .image {
+      width: 48%; /* Make each image take up 48% of the width, leaving space between */
+      flex-shrink: 0; /* Prevent images from shrinking */
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px; /* Round the corners of the images */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow around images */
+      margin: 0 1%; /* Add margin on the left and right of each image */
+  }
 
-/* Styling for each image */
-.image {
-    width: 48%; /* Make each image take up 48% of the width, leaving space between */
-    flex-shrink: 0; /* Prevent images from shrinking */
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px; /* Round the corners of the images */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow around images */
-    margin: 0 1%; /* Add margin on the left and right of each image */
-}
+  /* Image styling */
+  .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease; /* Smooth transition */
+  }
 
-/* Image styling */
-.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease; /* Smooth transition */
-}
+  /* Dark Overlay */
+  .overlay-dark {
+      background-color: rgba(51, 51, 51, 0.6);
+      position: absolute;
+      inset: 0;
+      border-radius: 12px; /* Round the overlay to match the image */
+  }
 
-/* Dark Overlay */
-.overlay-dark {
-    background-color: rgba(51, 51, 51, 0.6);
-    position: absolute;
-    inset: 0;
-    border-radius: 12px; /* Round the overlay to match the image */
-}
+  /* Light Overlay on the left image */
+  .overlay-light-left {
+      background-color: rgba(243, 244, 246, 0.8);
+      position: absolute;
+      inset-y: 0;
+      width: 50%;
+      left: 0;
+      border-radius: 12px 0 0 12px; /* Rounded corners on the left */
+  }
 
-/* Light Overlay on the left image */
-.overlay-light-left {
-    background-color: rgba(243, 244, 246, 0.8);
-    position: absolute;
-    inset-y: 0;
-    width: 50%;
-    left: 0;
-    border-radius: 12px 0 0 12px; /* Rounded corners on the left */
-}
+  /* Light Overlay on the right image */
+  .overlay-light-right {
+      background-color: rgba(243, 244, 246, 0.8);
+      position: absolute;
+      inset-y: 0;
+      width: 50%;
+      right: 0;
+      border-radius: 0 12px 12px 0; /* Rounded corners on the right */
+  }
 
-/* Light Overlay on the right image */
-.overlay-light-right {
-    background-color: rgba(243, 244, 246, 0.8);
-    position: absolute;
-    inset-y: 0;
-    width: 50%;
-    right: 0;
-    border-radius: 0 12px 12px 0; /* Rounded corners on the right */
-}
+  /* Description Styling */
+  .image-description {
+      position: absolute;
+      bottom: 30px;
+      left: 20px;
+      right: 20px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 90%;
+  }
 
-/* Description Styling - Initially Hidden */
-.image-description {
-    position: absolute;
-    bottom: 30px;
-    left: 20px;
-    right: 20px;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 8px;
-    max-width: 90%;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-}
+  .room-card {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+  }
 
-.room-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif;
-    letter-spacing: 1px;
-}
+  .room-card:hover {
+      transform: translateY(-5px);
+  }
 
-.room-details {
-    font-size: 1rem;
-    line-height: 1.5;
-}
+  .room-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+  }
 
-/* Show description and price on hover */
-.image:hover .image-description,
-.image:hover {
-    opacity: 1;
-    transform: translateY(0) translateX(0);
-}
+  .room-content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  }
 
-/* Darken overlay only on hover */
-.overlay-dark {
-    background-color: rgba(51, 51, 51, 0);
-    transition: background-color 0.3s ease;
-}
+  .room-title {
+      padding: 25px;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Playfair Display', serif;
+  }
 
+  .room-details {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 15px 15px 0 0;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+  }
 
+  .room-card:hover .room-details {
+      transform: translateY(0);
+  }
 
-/* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
-    /* Stack the images vertically */
-    .image-wrapper {
-        flex-direction: column; /* Stack images vertically */
-        gap: 2rem; /* Add space between images */
-    }
+  .room-price {
+      font-size: 1.8rem;
+      color: rgb(102, 67, 35);
+      font-weight: 700;
+      margin-bottom: 15px;
+  }
 
-    .image {
-        width: 100%; /* Make images full-width on small screens */
-    }
+  .room-features {
+      display: flex;
+      gap: 15px;
+      margin: 15px 0;
+  }
 
-    .image-description {
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-        padding: 15px;
-        max-width: 95%;
-    }
+  .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+  }
 
-    .room-title {
-        font-size: 1.5rem; /* Adjust title font size */
-    }
+  .book-button {
+      background: rgb(102, 67, 35);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+  }
 
-    .room-details {
-        font-size: 0.9rem; /* Adjust details font size */
-    }
+  .book-button:hover {
+      background: rgb(218, 191, 156);
+      transform: translateY(-2px);
+  }
 
-    .price-section {
-        font-size: 1.5rem; /* Adjust price text size */
-    }
-}
-</style>
+  /* Responsive Design for Smaller Screens */
+  @media (max-width: 768px) {
+      /* Stack the images vertically */
+      .image-wrapper {
+          flex-direction: column; /* Stack images vertically */
+          gap: 2rem; /* Add space between images */
+      }
 
+      .image {
+          width: 100%; /* Make images full-width on small screens */
+      }
+
+      .image-description {
+          bottom: 20px;
+          left: 20px;
+          right: 20px;
+          padding: 15px;
+          max-width: 95%;
+      }
+
+      .room-title {
+          font-size: 1.5rem; /* Adjust title font size */
+      }
+
+      .room-details {
+          font-size: 0.9rem; /* Adjust details font size */
+      }
+
+  }
+  </style>
 
 
         <section class="hera">
@@ -326,33 +378,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         });
     </script>
-   
-   <script>
-    let currentIndex = 0; // Initialize the current index
-    const images = document.querySelectorAll('.image'); // Get all image elements
-    const totalImages = images.length; // Get the total number of images
+        <script>
+            let currentIndex = 0;
+            const slider = document.querySelector('.image-wrapper');
+            const images = document.querySelectorAll('.image');
+            const totalImages = images.length;
 
-    // Function to change slide
-    function changeSlide() {
-        currentIndex = (currentIndex + 1) % totalImages;  // Increment index and loop back to 0 after last image
-        const slider = document.querySelector('.image-wrapper');
-        slider.style.transition = "transform 1s ease-in-out"; // Add smooth transition for slide movement
-        slider.style.transform = `translateX(-${currentIndex * 100}%)`; // Move the slider to the correct position
-    }
+            // Set initial styles
+            slider.style.transition = "transform 1s ease-in-out";
 
-    // Automatically change slide every 4 seconds
-    setInterval(changeSlide, 4000);
+            function changeSlide() {
+                if (currentIndex === totalImages - 1) {
+                    // Reset to first image
+                    currentIndex = 0;
+                    slider.style.transition = "none";
+                    slider.style.transform = `translateX(0)`;
+                    
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            slider.style.transition = "transform 1s ease-in-out";
+                        });
+                    });
+                } else {
+                    currentIndex++;
+                    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }
+            }
 
-    // Optional: Reset the transition after 3 slides to make it smooth when looping back
-    slider.addEventListener("transitionend", function() {
-        if (currentIndex === totalImages - 1) {
-            setTimeout(() => {
-                const slider = document.querySelector('.image-wrapper');
-                slider.style.transition = "none"; // Disable transition briefly
-                slider.style.transform = `translateX(0%)`; // Jump back to the first image instantly
-                currentIndex = 0; // Reset to first image
-            }, 500  ); // Wait for a brief moment before jumping back to the start
-        }
-    });
+            // Start automatic sliding
+            const slideInterval = setInterval(changeSlide, 3000);
 
-   </script>
+            // Add hover controls
+            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slider.addEventListener('mouseleave', () => setInterval(changeSlide, 3000));
+
+            // Add touch support
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            slider.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            slider.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) {
+                    changeSlide();
+                }
+            });
+        </script>
