@@ -64,6 +64,7 @@
   .image-wrapper {
       display: flex; /* Display images side by side */
       justify-content: space-between; /* Adds space between images */
+      height: 600px; /* Set the height of the image container */
       position: relative;
       transition: transform 1s ease-in-out; /* Smooth sliding transition */
   }
@@ -77,6 +78,7 @@
       border-radius: 12px; /* Round the corners of the images */
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow around images */
       margin: 0 1%; /* Add margin on the left and right of each image */
+      height: 600px; /* Make images take up the full height of the container */
   }
 
   /* Image styling */
@@ -147,83 +149,76 @@
   }
 
   .room-content {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-  }
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)); /* Dark gradient */
+    display: flex;
+    flex-direction: column; /* Stack the content vertically */
+    justify-content: space-between; /* Space between name, description, and price */
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-  .room-title {
-      padding: 25px;
-      font-size: 2rem;
-      font-weight: 600;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      font-family: 'Playfair Display', serif;
-  }
+.room-header {
+    margin-top: 300px;
+    background: rgba(212, 182, 150, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.room-title {
+    font-size: 2rem;
+    color: #fff;
+    font-family: 'Impact';
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px; /* Space between room name and description */
+}
 
 .room-details {
-    font-size: 1rem;
-    line-height: 1.5;
+    height: 100px;
+    font-size: 1.2rem;
+    position: relative;
+    color: #fff;
+    padding: 10px 20px;
+    background: transparent;
+    border-radius: 8px;
+    line-height: 1.6;
+    text-align: center;
+    margin: 10px 0; /* Space between description and price */
 }
 
-/* Show description and price on hover */
-.image:hover .image-description,
-.image:hover {
-    opacity: 1;
-    transform: translateY(0) translateX(0);
+.price-tag {
+    background: rgb(102, 67, 35);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-align: center;
+    width: fit-content;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 10px; /* Space above price */
 }
 
-/* Darken overlay only on hover */
-.overlay-dark {
-    background-color: rgba(51, 51, 51, 0);
-    transition: background-color 0.3s ease;
+.room-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 1px;
 }
 
 
 
-/* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
-    /* Stack the images vertically */
-    .image-wrapper {
-        flex-direction: column; /* Stack images vertically */
-        gap: 2rem; /* Add space between images */
-    }
 
-    .image {
-        width: 100%; /* Make images full-width on small screens */
-    }
-
-    .image-description {
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-        padding: 15px;
-        max-width: 95%;
-    }
-
-    .room-title {
-        font-size: 1.5rem; /* Adjust title font size */
-    }
-
-    .room-details {
-        font-size: 0.9rem; /* Adjust details font size */
-    }
-
-    .price-section {
-        font-size: 1.5rem; /* Adjust price text size */
-    }
-}
 .image-wrapper {
         display: flex;
         flex-direction: row;
         width: 100%;
-        animation: continuousSlide 20s linear infinite;
+        animation: continuousSlide 50s linear infinite;
     }
 @keyframes continuousSlide {
             0% {
@@ -231,7 +226,7 @@
             }
             100% {
                 /* Move left by 50% of the width to show the duplicate set */
-                transform: translateX(-210%);
+                transform: translateX(-263%);
             }
         }
 </style>
@@ -264,30 +259,30 @@
 
 
 
-        <section class="image-slider-section" style = "padding: 10rem 1rem; background-color:rgb(255, 255, 255);">
-            <div class="relative flex items-center justify-center">
-                <div class="image-container">
-                    <!-- Image Wrapper (Two columns for left and right images) -->
-                    <div class="image-wrapper">
-                       
-                        <?php foreach ($services as $srvc): ?>
-                            <div class="image">
-                                <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
-                                <div class="room-content">
-                                    <h3 class="room-title" style="background-color: #d4b696;"><?= $srvc['services_name'] ?></h3>
-                                    <div class="image-description">
-                                        <p class="room-details"><?= $srvc['services_description'] ?></p>
-                                    </div>
-                                    <div class="image-price">
-                                        <p class="room-details"><?= $srvc['services_price'] ?></p>
-                                    </div>
+<section class="image-slider-section" style="padding: 5rem 1rem; background-color: rgb(218, 191, 156);">
+    <div class="relative flex items-center justify-center">
+        <div class="image-container">
+            <!-- Image Wrapper (Two columns for left and right images) -->
+            <div class="image-wrapper">
+                <?php foreach ($services as $srvc): ?>
+                    <div class="image">
+                        <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                        <div class="room-content">
+                            <!-- Combined Title, Description, and Price -->
+                            <div class="room-header">
+                                <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
+                                <p class="room-details"><?= $string = substr($srvc['services_description'],0,200); ?></p> <!-- Description between title and price -->
+                                <div class="price-tag">
+                                    <p class="room-price">₱<?= $srvc['services_price'] ?>/night</p>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
-       </section>
+        </div>
+    </div>
+</section>
 
 
 
@@ -304,7 +299,9 @@
 
 
 
-        <footer>
+
+
+    <footer>
         <p>© 2025 Casa Marcos. All rights reserved.</p>
     </footer>
 

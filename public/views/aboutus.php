@@ -26,20 +26,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <section style="padding: 15rem 2rem; position: relative; overflow: hidden;">
     <style>
+        @media (max-width: 1024px) {
+            .history-container {
+                gap: 2rem;
+                padding: 2rem;
+            }
+            
+            .history-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .history-content p {
+                font-size: 1rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .history-container {
-                flex-direction: column !important;
-                padding: 2rem !important;
-                gap: 2rem !important;
+                flex-direction: column;
+                padding: 1.5rem;
             }
+            
             .history-image {
-                width: 100% !important;
+                width: 100%;
+                margin-bottom: 2rem;
             }
+            
             .history-content {
-                text-align: center !important;
+                text-align: center;
+                padding: 0 1rem;
             }
+            
             section {
-                padding: 8rem 1rem !important;
+                padding: 6rem 1rem;
+            }
+            
+            .video-container {
+                padding-bottom: 75%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 4rem 1rem;
+            }
+            
+            .history-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .history-content p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+            
+            .video-title {
+                font-size: 1.3rem;
             }
         }
     </style>

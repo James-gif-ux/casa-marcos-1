@@ -386,53 +386,13 @@
             text-align: center;
         }
     }
-    .dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-        min-width: 150px;
-        border-radius: 8px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        transform: translateY(10px);
-        opacity: 0;
-        transition: all 0.3s ease;
-        margin-top: 15px;
-    }
-
-    .dropdown-content a {
-        color: rgb(218, 191, 156) !important;
-        padding: 12px 20px;
-        display: block;
-        text-align: left;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .dropdown-content a:last-child {
-        border-bottom: none;
-    }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
-        transform: translateY(0);
-        opacity: 1;
-    }
-
+    
     nav ul li a.active {
         border-bottom: 2px solid rgb(218, 191, 156);
         color:  rgb(218, 191, 156);
         transform: translateY(-2px);
     }
-    .dropbtn.active {
-        transform: scale(1.05);
-    }  
+  
     .mobile-menu-btn {
     display: none;
     font-size: 1.5rem;
@@ -488,12 +448,7 @@
         font-size: 0.9rem;
     }
 
-    .dropdown-content {
-        position: relative;
-        background: transparent;
-        box-shadow: none;
-        margin-top: 0;
-    }
+   
 }
 
 
@@ -508,23 +463,13 @@
         <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
         <ul class="nav-links" style="width: 100%; align-items: center;">
             <li><a href="roomstry.php" class="<?php echo ($current_page == 'roomstry.php') ? 'active' : ''; ?>">Our Rooms</a></li>
-            <li class="dropdown">
-                <a href="offers.php" class="dropbtn <?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Offers <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
-                <div class="dropdown-content">
-                    <a href="offers.php#seasonal">Food Menu</a>
-                </div>
-            </li>
+            <li><a href="offers.php" class="<?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Food Menu</a></li>
             <a href="home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
                 <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
                     <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
                 </h1>
             </a>
-            <li class="dropdown">
-                <a href="aboutus.php" class="dropbtn <?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About <i class="fas fa-caret-down" style="margin-left: 7px;"></i></a>
-                <div class="dropdown-content">
-                    <a href="aboutus.php#seasonal">Resort Areas</a>
-                </div>
-            </li>
+            <li><a href="aboutus.php" class="<?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About us</a></li>
             <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact</a></li>
         </ul>
     </nav>
