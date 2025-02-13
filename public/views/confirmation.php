@@ -138,7 +138,7 @@ if (isset($_SESSION['booking_success']) && $_SESSION['booking_success'] === true
         </div>
 
         <!-- Optional: Provide a link to the home page or service listings -->
-        <a href="roomstry.php" class="btn">Back to Our Rooms</a>
+        <a href="Cash.php" class="btn">Proceed for Payment</a>
     </div>
 </body>
 </html>
