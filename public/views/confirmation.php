@@ -11,6 +11,18 @@ if (isset($_SESSION['booking_success']) && $_SESSION['booking_success'] === true
     header("Location: booking.php");
     exit;
 }
+
+
+require_once '../model/server.php';
+
+
+// Instantiate the Connector class
+$connector = new Connector();
+
+// Fetch all bookings that are pending approval
+$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved')";
+
+$bookings = $connector->executeQuery($sql);
 ?>
 
 <!DOCTYPE html>
