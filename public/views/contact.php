@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <!-- Contact Form Side -->
                     <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 1;">
-                    <form action="../pages/phpmailer.php" method="POST" style="display: grid; gap: 1.5rem;">
+                    <form action="../../send_mail.php" method="POST" style="display: grid; gap: 1.5rem;">
                             <div class="input-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                                 <div style="position: relative;">
                                     <i class="fas fa-user" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>

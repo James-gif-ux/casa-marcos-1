@@ -132,7 +132,11 @@ if (isset($_SESSION['booking_success']) && $_SESSION['booking_success'] === true
                 <li><strong>Name:</strong> <?= $_SESSION['fullname'] ?? 'N/A' ?></li>
                 <li><strong>Email:</strong> <?= $_SESSION['email'] ?? 'N/A' ?></li>
                 <li><strong>Phone Number:</strong> <?= $_SESSION['number'] ?? 'N/A' ?></li>
-                <li><strong>Service:</strong> <?= $_SESSION['service_name'] ?? 'N/A' ?></li>
+                <?php 
+                        $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $bookings['booking_services_id'];
+                        $service = $connector->executeQuery($service_sql);
+                        echo htmlspecialchars($service[0]['services_name'] ?? 'N/A'); 
+                        ?>
                 <li><strong>Booking Date:</strong> <?= $_SESSION['date'] ?? 'N/A' ?></li>
             </ul>
         </div>
