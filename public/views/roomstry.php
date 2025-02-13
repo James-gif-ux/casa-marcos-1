@@ -273,7 +273,7 @@
                                 <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
                                 <p class="room-details"><?= $string = substr($srvc['services_description'],0,200); ?></p> <!-- Description between title and price -->
                                 <div class="price-tag">
-                                    <p class="room-price">₱<?= $srvc['services_price'] ?>/night</p>
+                                    <p class="room-price">₱<?= $string = substr($srvc['services_price'],0,200); ?>/night</p>
                                 </div>
                             </div>
                         </div>
