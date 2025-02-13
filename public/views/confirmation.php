@@ -141,15 +141,23 @@ $bookings = $connector->executeQuery($sql);
         <div class="booking-details">
             <h3>Booking Details:</h3>
             <ul>
-                <li><strong>Name:</strong> <?= $_SESSION['fullname'] ?? 'N/A' ?></li>
-                <li><strong>Email:</strong> <?= $_SESSION['email'] ?? 'N/A' ?></li>
-                <li><strong>Phone Number:</strong> <?= $_SESSION['number'] ?? 'N/A' ?></li>
-                <?php 
-                        $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $bookings['booking_services_id'];
-                        $service = $connector->executeQuery($service_sql);
-                        echo htmlspecialchars($service[0]['services_name'] ?? 'N/A'); 
-                        ?>
-                <li><strong>Booking Date:</strong> <?= $_SESSION['date'] ?? 'N/A' ?></li>
+            <?php 
+            if (!empty($bookings) && is_array($bookings)) {
+                $latestBooking = end($bookings);
+                // Fetch service name
+                $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $latestBooking['booking_services_id'];
+                $service = $connector->executeQuery($service_sql);
+            ?>
+                <li><strong>Name:</strong> <?= htmlspecialchars($latestBooking['booking_fullname'] ?? 'N/A') ?></li>
+                <li><strong>Email:</strong> <?= htmlspecialchars($latestBooking['booking_email'] ?? 'N/A') ?></li>
+                <li><strong>Phone Number:</strong> <?= htmlspecialchars($latestBooking['booking_number'] ?? 'N/A') ?></li>
+                <li><strong>Service:</strong> <?= htmlspecialchars($service[0]['services_name'] ?? 'N/A') ?></li>
+                <li><strong>Booking Date:</strong> <?= htmlspecialchars($latestBooking['booking_date'] ?? 'N/A') ?></li>
+            <?php 
+            } else {
+                echo "<li>No booking details available.</li>";
+            }
+            ?>
             </ul>
         </div>
 
