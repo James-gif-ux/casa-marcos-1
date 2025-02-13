@@ -262,19 +262,23 @@
 <section class="image-slider-section" style="padding: 5rem 1rem; background-color: rgb(218, 191, 156);">
     <div class="relative flex items-center justify-center">
         <div class="image-container">
-            <!-- Image Wrapper (Two columns for left and right images) -->
             <div class="image-wrapper">
                 <?php foreach ($services as $srvc): ?>
                     <div class="image">
-                        <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                        <img src="../images/<?= htmlspecialchars($srvc['services_image']) ?>" 
+                             alt="<?= htmlspecialchars($srvc['services_name']) ?>" 
+                             class="room-image">
                         <div class="room-content">
-                            <!-- Combined Title, Description, and Price -->
                             <div class="room-header">
-                                <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
-                                <p class="room-details"><?= $string = substr($srvc['services_description'],0,200); ?></p> <!-- Description between title and price -->
+                                <h3 class="room-title"><?= htmlspecialchars($srvc['services_name']) ?></h3>
+                                <p class="room-details">
+                                    <?= htmlspecialchars(substr($srvc['services_description'], 0, 200)) . 
+                                        (strlen($srvc['services_description']) > 200 ? '...' : '') ?>
+                                </p>
                                 <div class="price-tag">
-                                    <p class="room-price">₱<?= $string = substr($srvc['services_price'],0,200); ?>/night</p>
+                                    <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
