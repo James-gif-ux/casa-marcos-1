@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </section>
 
 <!-- Video Section with Responsive Design -->
-<section style="padding: 4rem 2rem; background: linear-gradient(145deg, rgba(250, 245, 240, 0.9), rgba(255, 255, 255, 0.9)); position: relative;">
+<section style="background: linear-gradient(145deg, rgba(250, 245, 240, 0.9), rgba(255, 255, 255, 0.9)); position: relative;">
     <style>
         @media (max-width: 768px) {
             .video-container {
@@ -148,25 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
     </style>
 
     <!-- Decorative Elements -->
-    <div style="position: absolute; top: -30px; right: 20px; width: 50px; height: 50px; background: rgba(218, 191, 156, 0.2); border-radius: 50%;"></div>
-    <div style="position: absolute; bottom: -20px; left: -20px; width: 70px; height: 70px; background: rgba(102, 67, 35, 0.1); border-radius: 50%;"></div>
-    
-    <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
-        <h2 class="video-title" style="color: rgb(102, 67, 35); font-size: 2rem; margin-bottom: 1.5rem; font-family: 'Impact'; text-transform: uppercase; letter-spacing: 2px;">
-            Experience Casa Marcos
-        </h2>
-        <div class="video-container" style="position: relative; padding-bottom: 60%; height: 0; overflow: hidden; border-radius: 20px; 
-                box-shadow: 0 20px 40px rgba(0,0,0,0.2); transition: all 0.3s ease; max-width: 950px; margin: 0 auto;"> 
-                <video style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border: none;" 
-                        autoplay 
-                        muted 
-                        loop
-                        poster="your-poster-image.jpg">
-                        <source src="../images/casa.mp4" type="video/mp4">
-                        Your browser does not support the video tag. Please update your browser or check your video source.
-                </video>
-       </div>
+<div style="position: relative; width: 100%; height: 80vh; overflow: hidden;">
+
+    <div class="video-container" style=" position: absolute;  top: 0; left: 0;  width: 100%;  height: 100%;  overflow: hidden; z-index: 0;">
+        <video style="width: 100%; height: 100%;  object-fit: cover; " autoplay muted loop poster="your-poster-image.jpg">
+            <source src="../images/casa.mp4" type="video/mp4">
+            Your browser does not support the video tag. Please update your browser or check your video source.
+        </video>
     </div>
+</div>
 </section>
      
 

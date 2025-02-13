@@ -101,6 +101,14 @@
         background-position: center;
     }
 
+    .off {
+        text-align: center;
+        padding: 20rem;
+        background-image: url('../images/7.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
     footer {
         background-color: #2c3e50;
         color: #fff;
