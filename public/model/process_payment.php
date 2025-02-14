@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 require_once 'server.php'; // Assuming this file contains your database connection parameters
 
 class PaymentProcessor {
@@ -14,25 +15,45 @@ class PaymentProcessor {
             // Start transaction
             $this->conn->beginTransaction();
 
-            // Create payment record
-            $paymentQuery = "INSERT INTO payment_tb (payment_amount, payment_status, payment_transaction_date) 
-                             VALUES (:amount, :status, NOW())";
+            // Create payment record with all required fields
+            $paymentQuery = "INSERT INTO payment_tb (
+                payment_amount, 
+                payment_status, 
+                payment_method,
+                reference_number,
+                payment_proof,
+                payment_transaction_date
+            ) VALUES (
+                :amount, 
+                'pending',
+                :payment_method,
+                :reference_number,
+                :payment_proof,
+                NOW()
+            )";
             
             $stmt = $this->conn->prepare($paymentQuery);
-            $stmt->execute([
-                'payment_amount' => $paymentData['payment_amount'],
-                'payment_status' => 'completed'
+            $result = $stmt->execute([
+                'amount' => $paymentData['payment_amount'],
+                'payment_method' => $paymentData['payment_method'],
+                'reference_number' => $paymentData['reference_number'],
+                'payment_proof' => $paymentData['payment_proof']
             ]);
 
-            // Commit transaction
-            $this->conn->commit();
-            return true;
+            if ($result) {
+                $this->conn->commit();
+                return json_encode(['success' => true, 'message' => 'Payment processed successfully']);
+            } else {
+                throw new Exception("Failed to process payment");
+            }
 
         } catch (Exception $e) {
-            // Rollback transaction on error
             $this->conn->rollBack();
-            error_log("Payment processing error: " . $e->getMessage()); // Log the error
-            return false;
+            error_log("Payment Error: " . $e->getMessage());
+            return json_encode([
+                'success' => false, 
+                'error' => "Payment processing failed. Please try again."
+            ]);
         }
     }
 
@@ -43,6 +64,4 @@ class PaymentProcessor {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
-
-echo "Payment processed successfully!";
 ?>

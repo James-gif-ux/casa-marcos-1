@@ -1,5 +1,4 @@
 <?php
-// Include necessary files and start a session if needed
 session_start();
 
 // Check if there was a successful booking
@@ -8,7 +7,7 @@ if (isset($_SESSION['booking_success']) && $_SESSION['booking_success'] === true
     unset($_SESSION['booking_success']);
 } else {
     // Redirect back to the booking page if no successful booking
-    header("Location: booking.php");
+    header("Location: roomstry.php");
     exit;
 }
 
@@ -19,12 +18,11 @@ require_once '../model/server.php';
 // Instantiate the Connector class
 $connector = new Connector();
 
-// Fetch only the latest booking for the current session
-$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status 
-        FROM booking_tb 
-        WHERE booking_id = (SELECT MAX(booking_id) FROM booking_tb)";
+// Fetch all bookings that are pending approval
+$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved')";
 
-$booking = $connector->executeQuery($sql);
+$bookings = $connector->executeQuery($sql);
+$bookingData = $bookings->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -135,37 +133,29 @@ $booking = $connector->executeQuery($sql);
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <h2>Your booking has been successfully confirmed!</h2>
         <p>Thank you for booking with us. Your service will be scheduled as per your selected time and date.</p>
-
-        <!-- Optional: Display the booking details -->
-        <div class="booking-details">
+    <div class="booking-details">
+        <h3>Booking Details:</h3>
+        <ul>
+            <li><strong>Name:</strong> <?= $_SESSION['fullname'] ?? 'N/A' ?></li>
+            <li><strong>Email:</strong> <?= $_SESSION['email'] ?? 'N/A' ?></li>
+            <li><b>Room Name:</b>
             <?php 
-            if (!empty($booking) && is_array($booking)) {
-                $latestBooking = $booking[0];
-                // Fetch service name
-                $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $latestBooking['booking_services_id'];
-                $service = $connector->executeQuery($service_sql);
-            ?>
-                $service = $connector->executeQuery($service_sql);
-            ?>
-                <li><strong>Name:</strong> <?= htmlspecialchars($latestBooking['booking_fullname'] ?? 'N/A') ?></li>
-                <li><strong>Email:</strong> <?= htmlspecialchars($latestBooking['booking_email'] ?? 'N/A') ?></li>
-                <li><strong>Phone Number:</strong> <?= htmlspecialchars($latestBooking['booking_number'] ?? 'N/A') ?></li>
-                <li><strong>Service:</strong> <?= htmlspecialchars($service[0]['services_name'] ?? 'N/A') ?></li>
-                <li><strong>Booking Date:</strong> <?= htmlspecialchars($latestBooking['booking_date'] ?? 'N/A') ?></li>
-            <?php 
-            } else {
-                echo "<li>No booking details available.</li>";
-            }
-            ?>
-            </ul>
-        </div>
-
-        <!-- Optional: Provide a link to the home page or service listings -->
-        <a href="Cash.php" class="btn">Proceed for Payment</a>
+            
+                    $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $bookingData['booking_services_id'];
+                    $service = $connector->executeQuery($service_sql);
+                    $serviceData = $service->fetch(PDO::FETCH_ASSOC);
+                    echo htmlspecialchars($serviceData['services_name'] ?? 'N/A'); 
+                    ?>
+                   </li>
+            <li><strong>Booking Date:</strong> <?= $_SESSION['date'] ?? 'N/A' ?></li>
+        </ul>
     </div>
+    <!-- Optional: Provide a link to the home page or service listings -->
+    <a href="Cash.php" class="btn">Proceed for Payment</a>
+</div>
 
 </body>
 </html>
