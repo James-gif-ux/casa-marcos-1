@@ -24,6 +24,7 @@
             echo "<script>alert('Error sending message.');</script>";
         }
     }
+    
 ?>
 
 <script>
