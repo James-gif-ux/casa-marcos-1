@@ -63,9 +63,9 @@ try {
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_date']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
                         <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                            <a href="../../sendMail_layout.php" class="btn btn-primary d-flex align-items-center justify-content-center" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" fill="currentColor" class="bi bi-chat-right" viewBox="0 0 16 16">
-                                <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-                                </svg>
+                            <a href="../../sendMail_layout.php" class="btn btn-primary d-flex align-items-center justify-content-center" ><svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="grey" class="bi bi-chat-square-dots-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                    </svg>
                             </a>
                             |
                             <a href="../../sendMail_layout.php?booking_id=<?echo $booking['booking_id']; ?>&action=approve" class="btn-approve"></i>Approve</a>
