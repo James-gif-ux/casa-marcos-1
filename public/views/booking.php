@@ -63,7 +63,12 @@ try {
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_date']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
                         <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                            <a href="../../sendMail_layout.php?booking_id=<?echo $booking['booking_id']; ?>&action=approve" class="btn-approve"><i class="bi bi-hand-thumbs-up-fill"></i>Approve</a>
+                            <a href="../../sendMail_layout.php" class="btn btn-primary d-flex align-items-center justify-content-center" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" fill="currentColor" class="bi bi-chat-right" viewBox="0 0 16 16">
+                                <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                                </svg>
+                            </a>
+                            |
+                            <a href="../../sendMail_layout.php?booking_id=<?echo $booking['booking_id']; ?>&action=approve" class="btn-approve"></i>Approve</a>
                             |
                             <a href="../pages/admin-client.php?booking_id=<?php echo $booking['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                         </td>
