@@ -292,6 +292,14 @@ h2 {
         font-size: 0.9rem;
     }
 }
+footer p {
+    text-align: center;
+    font-size: 1.0em;
+    margin: 1px auto; 
+    color: #fff;
+    width: 100%;
+    display: block; 
+}
 </style>
 
 <div class="content-wrapper">
@@ -415,6 +423,8 @@ h2 {
     });
 </script>
 
-
+<footer>
+        <p>© 2025 Casa Marcos. All rights reserved.</p>
+    </footer>
 </body>
 </html>

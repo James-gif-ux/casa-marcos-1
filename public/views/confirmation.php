@@ -166,5 +166,6 @@ $booking = $connector->executeQuery($sql);
         <!-- Optional: Provide a link to the home page or service listings -->
         <a href="Cash.php" class="btn">Proceed for Payment</a>
     </div>
+
 </body>
 </html>
