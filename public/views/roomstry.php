@@ -620,5 +620,5 @@
             });
         </script>
 
-<!-- Then your icon should work -->
-<i class="fas fa-bars"></i>
+
+

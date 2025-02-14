@@ -6,7 +6,7 @@
         try {
             $connector = new Connector();
             
-            $sql = "INSERT INTO messages (sender_email, subject, message_content) 
+            $sql = "INSERT INTO messages (recipient_email, subject, message_content) 
                     VALUES (?, ?, ?)";
             
             $params = [

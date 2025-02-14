@@ -63,7 +63,7 @@ try {
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_date']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
                         <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                            <a href="../pages/approvedBooking.php?booking_id=<?php echo $booking['booking_id']; ?>&action=approve" class="btn-approve"><i class="bi bi-hand-thumbs-up-fill"></i>Approve</a>
+                            <a href="../../sendMail_layout.php?booking_id=<?echo $booking['booking_id']; ?>&action=approve" class="btn-approve"><i class="bi bi-hand-thumbs-up-fill"></i>Approve</a>
                             |
                             <a href="../pages/admin-client.php?booking_id=<?php echo $booking['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                         </td>
