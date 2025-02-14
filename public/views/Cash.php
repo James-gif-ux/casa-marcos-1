@@ -260,11 +260,35 @@ label {
 
     <script>
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     
+    // Check all required fields
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+    const paymentProof = document.querySelector('input[name="payment_proof"]');
+    const paymentAmount = document.querySelector('input[name="payment_amount"]');
+    const referenceNumber = document.querySelector('input[name="reference_number"]');
+    
+    // Validate fields
+    if (!paymentMethod) {
+        alert('Please select a payment method');
+        return;
+    }
+    if (!paymentProof.files[0]) {
+        alert('Please upload payment proof');
+        return;
+    }
+    if (!paymentAmount.value) {
+        alert('Please enter payment amount');
+        return;
+    }
+    if (!referenceNumber.value) {
+        alert('Please enter reference number');
+        return;
+    }
+
     const formData = new FormData(this);
     
-    fetch('Cash.php', {
+    fetch('../model/process_payment.php', {
         method: 'POST',
         body: formData
     })
@@ -278,7 +302,7 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
         }
     })
     .catch(error => {
-        alert('Error processing payment');
+        alert('Error processing payment. Please try again.');
         console.error('Error:', error);
     });
 });
