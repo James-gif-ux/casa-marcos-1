@@ -37,6 +37,9 @@
     }
 ?>
 
+<!-- Add this in the <head> section -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
 /* Section Styling */
 .image-slider-section {
@@ -229,6 +232,275 @@
                 transform: translateX(-263%);
             }
         }
+
+/* Base styles */
+:root {
+    --primary-color: rgb(218, 191, 156);
+    --dark-brown: rgb(102, 67, 35);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1024px) {
+    .image-container {
+        width: 100%;
+    }
+    
+    .image {
+        width: 100%;
+        height: 500px;
+    }
+    
+    .room-header {
+        margin-top: 200px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hera form {
+        padding: 0.5rem;
+        margin: 0 10px;
+    }
+    
+    .hera div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    button[type="submit"] {
+        width: 100% !important;
+    }
+    
+    .image-slider-section {
+        padding: 2rem 0.5rem;
+    }
+    
+    .image {
+        height: 400px;
+    }
+    
+    .room-title {
+        font-size: 1.5rem;
+    }
+    
+    .room-details {
+        font-size: 1rem;
+        height: auto;
+    }
+    
+    .price-tag {
+        padding: 8px 16px;
+    }
+    
+    .room-price {
+        font-size: 1.2rem;
+    }
+
+    .room-content {
+        padding: 15px;
+        height: 100%;
+        justify-content: flex-end;
+    }
+
+    .room-header {
+        margin-top: auto;
+        background: rgba(212, 182, 150, 0.95);
+        padding: 15px;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .room-details {
+        height: auto;
+        min-height: 60px;
+        font-size: 0.9rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin: 8px 0;
+    }
+
+    .room-title {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+
+    .price-tag {
+        position: relative;
+        bottom: 0;
+        margin: 10px auto;
+    }
+
+    .image-wrapper {
+        animation: none;
+        transform: none;
+        flex-direction: column;
+        gap: 1rem;
+        height: auto;
+        width: 100%;
+    }
+
+    .image {
+        width: 100%;
+        height: 300px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .image {
+        height: 300px;
+    }
+    
+    .room-header {
+        margin-top: 150px;
+        padding: 15px;
+    }
+    
+    .room-title {
+        font-size: 1.2rem;
+    }
+    
+    .room-details {
+        font-size: 0.9rem;
+    }
+    
+    .image-wrapper {
+        animation: continuousSlide 30s linear infinite;
+    }
+    
+    @keyframes continuousSlide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-200%); }
+    }
+}
+
+/* Touch device optimization */
+@media (hover: none) {
+    .room-card:hover {
+        transform: none;
+    }
+    
+    .image img {
+        transition: none;
+    }
+}
+
+/* Mobile-first responsive styles */
+@media screen and (max-width: 1024px) {
+    .image-container {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .image-wrapper {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .image {
+        width: 100%;
+        height: 400px;
+        margin: 10px 0;
+    }
+    
+    .room-header {
+        margin-top: 150px;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hera {
+        padding: 1rem;
+    }
+
+    .hera form {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .hera div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    input[type="date"],
+    input[type="time"] {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .room-title {
+        font-size: 1.5rem;
+    }
+    
+    .room-details {
+        font-size: 0.9rem;
+        height: auto;
+        padding: 10px;
+    }
+    
+    .price-tag {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    button[type="submit"] {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .image-slider-section {
+        padding: 1rem 0;
+    }
+    
+    .image {
+        height: 250px;
+    }
+    
+    .room-header {
+        margin-top: 100px;
+        padding: 10px;
+    }
+    
+    .room-title {
+        font-size: 1.2rem;
+    }
+    
+    .room-content {
+        padding: 10px;
+    }
+    
+    .price-tag {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .image-wrapper {
+        animation: continuousSlide 20s linear infinite;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Touch device optimization */
+@media (hover: none) {
+    .room-card:hover {
+        transform: none;
+    }
+    
+    .image img {
+        transition: none;
+    }
+}
 </style>
 
 
@@ -283,23 +555,6 @@
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <footer>
         <p>© 2025 Casa Marcos. All rights reserved.</p>
@@ -364,3 +619,6 @@
                 }
             });
         </script>
+
+<!-- Then your icon should work -->
+<i class="fas fa-bars"></i>
