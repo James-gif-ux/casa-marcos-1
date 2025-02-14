@@ -1,5 +1,29 @@
 <?php
     include_once 'nav/homenav.php';
+    require_once '../model/server.php';
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        try {
+            $connector = new Connector();
+            
+            $sql = "INSERT INTO messages (sender_email, subject, message_content) 
+                    VALUES (?, ?, ?)";
+            
+            $params = [
+                $_POST['email'],
+                $_POST['subject'],
+                $_POST['message']
+            ];
+            
+            $result = $connector->executeQuery($sql, $params);
+            
+            if ($result) {
+                echo "<script>alert('Message sent successfully!');</script>";
+            }
+        } catch (Exception $e) {
+            echo "<script>alert('Error sending message.');</script>";
+        }
+    }
 ?>
 
 <script>
@@ -77,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <!-- Contact Form Side -->
                     <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 1;">
-                    <form action="../../send_mail.php" method="POST" style="display: grid; gap: 1.5rem;">
+                    <form method="POST" action="contact.php" style="display: grid; gap: 1.5rem;">
                             <div class="input-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                                 <div style="position: relative;">
                                     <i class="fas fa-user" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>

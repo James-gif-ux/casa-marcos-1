@@ -5,22 +5,22 @@ require_once '../model/server.php';
 $connector = new Connector();
 // First mark messages as read
 // Remove or comment out this query that marks all messages as read
-$updateSql = "UPDATE messages SET is_read = 1 WHERE is_read = 0";
+$updateSql = "UPDATE messages SET status = 1 WHERE status = 0";
 $connector->executeQuery($updateSql);
 
 
-// Then get the count (which will now be 0)
-$sql = "SELECT COUNT(*) as unread_count FROM messages WHERE is_read = 1";
-$result = $connector->executeQuery($sql);
-$unread_count = $result[0]['unread_count'];
-// When a new message is sent
-$unread_count++;
+// Then get the count of unread messages
+// $sql = "SELECT COUNT(*) as unread_count FROM messages WHERE status = 0";
+// $result = $connector->executeQuery($sql);
+// $unread_count = ($result && isset($result[0]['unread_count'])) ? $result[0]['unread_count'] : 0;
+// // When a new message is sent
+// $unread_count++;
 
-// When an existing message is read
-$unread_count--;
-if ($unread_count < 0) {
-    $unread_count = 0;
-}
+// // When an existing message is read
+// $unread_count--;
+// if ($unread_count < 0) {
+//     $unread_count = 0;
+// }
 
 ?>
 

@@ -2,37 +2,26 @@
 require_once '../model/server.php';
 include_once 'nav/header.php';
 
-// Instantiate the Connector class
-$connector = new Connector();
-
-// Fetch all bookings that are pending approval
-$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved')";
-
-$bookings = $connector->executeQuery($sql);
-?>
+try {
+    $connector = new Connector();
+    
+    // Fetch all bookings
+    $sql = "SELECT b.*, s.services_name 
+            FROM booking_tb b 
+            LEFT JOIN services_tb s ON b.booking_services_id = s.services_id 
+            WHERE b.booking_status IN ('pending', 'approved')";
+    
+    $stmt = $connector->executeQuery($sql);
+    $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
 
     <script>
-        // // Check the URL for the "approved" query parameter
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const urlParams = new URLSearchParams(window.location.search);
-        //     const approved = urlParams.get('approved');
-            
-        //     // Show the alert if the 'approved' parameter is set to true
-        //     if (approved === 'true') {
-        //         alert('Booking has been approved!');
-        //         clearUrlParams();
-        //     } else if (approved === 'false') {
-        //         alert('There was an error approving the booking.');
-        //         clearUrlParams();
-        //     }
-        // });
-
         // Function to clear URL parameters
         function clearUrlParams() {
             const url = window.location.href.split('?')[0];
             window.history.replaceState({}, document.title, url);
         }
-        </script>
+    </script>
     <!-- New Table -->
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="w-full overflow-x-auto">
@@ -49,30 +38,33 @@ $bookings = $connector->executeQuery($sql);
             </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <form action="../../send_mail.php" method="POST">
-                <?php foreach ($bookings as $bookings): ?>
+                <?php foreach ($bookings as $booking): ?>
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-center">
-                        <?php 
-                        $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $bookings['booking_services_id'];
-                        $service = $connector->executeQuery($service_sql);
-                        echo htmlspecialchars($service[0]['services_name'] ?? 'N/A'); 
-                        ?>
+                            <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
                         </td>
-                            <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_fullname']); ?></td>
-                            <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_email']); ?></td>
-                            <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_number']); ?></td>
-                            <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_date']); ?></td>
-                            <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($bookings['booking_status']); ?></td>
-                            <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                                <a href="../pages/admin-client.php?booking_id=<?php echo $bookings['booking_id']; ?>&action=approve" class="btn-approve" >Approve</a>
-                                |
-                                <a href="../pages/admin-client.php?booking_id=<?php echo $bookings['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
-                            </td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_date']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
+                        <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
+                            <a href="../pages/approvedBooking.php?booking_id=<?php echo $booking['booking_id']; ?>&action=approve" class="btn-approve">Approve</a>
+                            |
+                            <a href="../pages/completeBooking.php?booking_id=<?php echo $booking['booking_id']; ?>&action=complete" class="btn-complete btn-primary">Complete</a>
+                            |
+                            <a href="../pages/admin-client.php?booking_id=<?php echo $booking['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
-                </form>
+               
             </tbody>
         </table>
     </div>
 </div>
+
+<?php
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
