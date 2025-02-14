@@ -18,7 +18,7 @@
             $result = $connector->executeQuery($sql, $params);
             
             if ($result) {
-                echo "<script>alert('Message sent successfully!');</script>";
+                echo "<script>alert('Please wait for an update to be sent to your email..');</script>";
             }
         } catch (Exception $e) {
             echo "<script>alert('Error sending message.');</script>";

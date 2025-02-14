@@ -76,13 +76,12 @@ class PaymentProcessor {
                     throw new Exception("Database error: " . print_r($stmt->errorInfo(), true));
                 }
 
-                $_SESSION['success'] = "Payment submitted successfully!";
-                header("Location: confirmation.php");
+                echo json_encode(['success' => true, 'message' => 'Payment submitted successfully!']);
                 exit();
 
             } catch (Exception $e) {
-                $_SESSION['error'] = $e->getMessage();
-                header("Location: Cash.php");
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => $e->getMessage()]);
                 exit();
             }
         }
@@ -97,6 +96,9 @@ class PaymentProcessor {
 // Usage:
 $paymentProcessor = new PaymentProcessor();
 $paymentProcessor->processPayment();
+
+
+
 
 ?>
 
@@ -201,7 +203,7 @@ label {
             </div>
         <?php endif; ?>
 
-        <form action="../model/process_payment.php" method="POST" enctype="multipart/form-data">
+        <form action="../model/process_payment.php" method="POST" enctype="multipart/form-data" id="paymentForm">
             <div class="payment-method">
                 <h3>Bank Transfer</h3>
                 <div class="payment-details">
@@ -224,11 +226,25 @@ label {
                     <label>Pay via GCash</label>
                 </div>
             </div>
-
+            
             <div class="payment-proof">
                 <label>Upload Payment Proof:</label>
                 <input type="file" name="payment_proof" accept="image/jpeg,image/png,image/jpg" required>
                 
+            </div>
+            <div class="payment-amount" style="margin: 20px 0;">
+                <label style="color: #555; display: block; margin-bottom: 5px;">Amount:</label>
+                <input type="number" 
+                       name="payment_amount" 
+                       step="0.01" 
+                       min="0" 
+                       required
+                       style="width: 100%;
+                              padding: 10px;
+                              border: 1px solid #ddd;
+                              border-radius: 4px;
+                              font-size: 16px;
+                              box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
             </div>
 
             <div class="payment-reference">
@@ -241,5 +257,32 @@ label {
             <button type="submit" class="btn btn-success">Submit Payment</button>
         </form>
     </div>
+
+    <script>
+document.getElementById('paymentForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+    
+    const formData = new FormData(this);
+    
+    fetch('Cash.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Payment submitted successfully!');
+            window.location.href = 'confirmation.php';
+        } else {
+            alert(data.error || 'Error processing payment');
+        }
+    })
+    .catch(error => {
+        alert('Error processing payment');
+        console.error('Error:', error);
+    });
+});
+</script>
+
 </body>
 </html>

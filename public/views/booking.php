@@ -68,7 +68,7 @@ try {
                                     </svg>
                             </a>
                             |
-                            <a href="../../sendMail_layout.php?booking_id=<?echo $booking['booking_id']; ?>&action=approve" class="btn-approve"></i>Approve</a>
+                            <a href="../pages/approvedBooking.php?echo $booking['booking_id']; ?>&action=approve" class="btn-approve"></i>Approve</a>
                             |
                             <a href="../pages/admin-client.php?booking_id=<?php echo $booking['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                         </td>
