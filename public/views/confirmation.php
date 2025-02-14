@@ -19,10 +19,12 @@ require_once '../model/server.php';
 // Instantiate the Connector class
 $connector = new Connector();
 
-// Fetch all bookings that are pending approval
-$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved')";
+// Fetch only the latest booking for the current session
+$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status 
+        FROM booking_tb 
+        WHERE booking_id = (SELECT MAX(booking_id) FROM booking_tb)";
 
-$bookings = $connector->executeQuery($sql);
+$booking = $connector->executeQuery($sql);
 ?>
 
 <!DOCTYPE html>
@@ -139,13 +141,13 @@ $bookings = $connector->executeQuery($sql);
 
         <!-- Optional: Display the booking details -->
         <div class="booking-details">
-            <h3>Booking Details:</h3>
-            <ul>
             <?php 
-            if (!empty($bookings) && is_array($bookings)) {
-                $latestBooking = end($bookings);
+            if (!empty($booking) && is_array($booking)) {
+                $latestBooking = $booking[0];
                 // Fetch service name
                 $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $latestBooking['booking_services_id'];
+                $service = $connector->executeQuery($service_sql);
+            ?>
                 $service = $connector->executeQuery($service_sql);
             ?>
                 <li><strong>Name:</strong> <?= htmlspecialchars($latestBooking['booking_fullname'] ?? 'N/A') ?></li>
