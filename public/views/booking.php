@@ -22,6 +22,20 @@ try {
             window.history.replaceState({}, document.title, url);
         }
     </script>
+    <style>
+        .btn-complete {
+            background-color:rgb(8, 17, 189);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+            width: 50px;
+        }
+
+      
+    </style>
     <!-- New Table -->
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="w-full overflow-x-auto">
@@ -49,9 +63,7 @@ try {
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_date']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
                         <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                            <a href="../pages/approvedBooking.php?booking_id=<?php echo $booking['booking_id']; ?>&action=approve" class="btn-approve">Approve</a>
-                            |
-                            <a href="../pages/completeBooking.php?booking_id=<?php echo $booking['booking_id']; ?>&action=complete" class="btn-complete btn-primary">Complete</a>
+                            <a href="../pages/approvedBooking.php?booking_id=<?php echo $booking['booking_id']; ?>&action=approve" class="btn-approve"><i class="bi bi-hand-thumbs-up-fill"></i>Approve</a>
                             |
                             <a href="../pages/admin-client.php?booking_id=<?php echo $booking['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                         </td>

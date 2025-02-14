@@ -15,7 +15,7 @@ if (isset($_GET['booking_id']) && isset($_GET['action'])) {
     $params = [':booking_id' => $booking_id];
 
     if ($connector->executeUpdate($sql, $params)) {
-        header("Location: ../../sendMail_layout.php?approved=true");
+        header("Location: ../views/booking.php?approved=true");
     } else {
         header("Location: ../views/booking.php?approved=false");
     }

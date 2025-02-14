@@ -1,4 +1,5 @@
 <?php
+require_once 'nav/homenav.php';
 include_once '../model/BookingModel.php';
 include_once '../model/Booking_Model.php';
 
@@ -46,73 +47,91 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Grid Style Example</title>
     <style>
 /* Global Styles */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
-    margin: 0;
-    background-color: #f8f9fa;
-}
-
-#services {
-    padding: 2rem; /* Reduced padding for simplicity */
-}
-
-h2 {
+h2{
     text-align: center;
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1.5rem;
+    color: #2a2a2a;
+    font-size: 80px ;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin-top: 2rem;
+}
+#services {
+    padding: 200px; /* Reduced top/bottom padding, added side padding */
 }
 
 .service-list {
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next row as necessary */
-    justify-content: center; /* Center items */
-    gap: 1.5rem; /* Space between services */
+    display: grid;
+    grid-template-columns: 1fr; /* Single column */
+    gap: 2rem; /* Increased gap between items */
+    max-width: 1200px; /* Maximum width of content */
+    margin: 0 auto; /* Center the container */
 }
 
 .service-item {
-    background: #ffffff; /* White background for service item */
-    border: 1px solid #ddd; /* Light border for separation */
-    border-radius: 5px; /* Slightly rounded edges */
-    padding: 1rem;
-    text-align: center; /* Center text */
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    width: calc(45% - 1.5rem); /* Two columns, accounting for gaps */
-    max-width: 400px; /* Max width to control size */
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns inside service item */
+    gap: 2rem;
+    align-items: center;
+}
+
+.service-item h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+    grid-column: 1 / -1; /* Span full width */
 }
 
 .service-image {
-    width: 100%; /* Full width */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 0.5rem; /* Spacing below image */
+    width: 100%;
+    height: 400px; /* Fixed height */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.service-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .description {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     color: #666;
-    margin: 0.5rem 0; /* Margins for spacing */
+    line-height: 1.6;
 }
 
 .service-price {
-    font-size: 1.1rem;
-    color: #007bff; /* Bootstrap primary color for price */
-    margin: 0.5rem 0; /* Margins for spacing */
+    font-size: 1.5rem;
+    color: #007bff;
+    font-weight: bold;
+    margin: 1rem 0;
 }
 
 .readmore {
-    background-color: #28a745; /* Green button */
+    background-color: #28a745;
     color: #ffffff;
-    padding: 8px 16px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s; /* Smooth transition */
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .readmore:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838;
+    transform: translateY(-2px);
 }
 </style>
 
@@ -124,15 +143,17 @@ h2 {
                 <div class="service-item">
                     <h3><?= $srvc['services_name'] ?></h3>
                     <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="service-image">
-                    <p class="description"><?= $srvc['services_description'] ?></p>
-                    <div class="service-price">
-                        $<?= number_format($srvc['services_price'], 2) ?>
+                    <div class="service-content">
+                        <p class="description"><?= $srvc['services_description'] ?></p>
+                        <div class="service-price">
+                            $<?= number_format($srvc['services_price'], 2) ?>
+                        </div>
+                        <button type="button" class="readmore" data-bs-toggle="modal" data-bs-target="#bookingModal" 
+                            data-id="<?= $srvc['services_id'] ?>" 
+                            data-name="<?= $srvc['services_name'] ?>">
+                            Book Now!
+                        </button>
                     </div>
-                    <button type="button" class="readmore" data-bs-toggle="modal" data-bs-target="#bookingModal" 
-                        data-id="<?= $srvc['services_id'] ?>" 
-                        data-name="<?= $srvc['services_name'] ?>">
-                        Book Now!
-                    </button>
                 </div>
             <?php endforeach; ?>
         </div>

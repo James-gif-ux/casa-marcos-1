@@ -5,6 +5,23 @@ require_once '../model/server.php';
 $connector = new Connector();
 $sql = "SELECT * FROM messages ORDER BY date_sent DESC";
 $messages = $connector->executeQuery($sql);
+
+$sql = "SELECT COUNT(*) as unread_count FROM messages WHERE status = 0";
+$result = $connector->executeQuery($sql);
+$row = $result->fetch(PDO::FETCH_ASSOC);
+$unread_count = ($row && isset($row['unread_count'])) ? $row['unread_count'] : 0;
+// When a new message is sent
+$unread_count++;
+
+// When an existing message is read
+$unread_count--;
+if ($unread_count < 0) {
+    $unread_count = 0;
+}
+$sql = "SELECT * FROM messages 
+    WHERE status IN ('unread', 'read') 
+    ORDER BY date_sent DESC";
+$messages = $connector->executeQuery($sql);
 ?>
 
 <!DOCTYPE html>
@@ -138,10 +155,13 @@ $messages = $connector->executeQuery($sql);
                         <td><?php echo date('Y-m-d H:i', strtotime($message['date_sent'])); ?></td>
                         <td><?php echo htmlspecialchars($message['status']); ?></td>
                         <td>
-                            <form action="../../sendMail_layout.php" method="POST">
-                                <input type="hidden" name="message_id" value="<?php echo $message['message_id']; ?>">
-                                <input type="hidden" name="recipient_email" value="<?php echo $message['sender_email']; ?>">
-                                <button type="submit" class="btn btn-primary">Reply</button>
+                            <form id="messageForm_<?php echo htmlspecialchars($message['message_id']); ?>" 
+                                  action="../../sendMail_layout.php" 
+                                  method="POST">
+                                <input type="hidden" name="message_id" value="<?php echo htmlspecialchars($message['message_id']); ?>">
+                                <input type="hidden" name="recipient_email" value="<?php echo htmlspecialchars($message['recipient_email']); ?>">
+                                <input type="hidden" name="status" value="1">
+                                <button type="submit" class="btn btn-primary" onclick="return updateStatus('<?php echo htmlspecialchars($message['message_id']); ?>')">Reply</button>
                             </form>
                         </td>
                     </tr>
@@ -151,5 +171,28 @@ $messages = $connector->executeQuery($sql);
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function updateStatus(messageId) {
+        const formData = new FormData();
+        formData.append('message_id', messageId);
+        
+        fetch('../model/update_message_status.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const form = document.getElementById('messageForm_' + messageId);
+                const statusCell = form.closest('tr').querySelector('td:nth-child(5)');
+                statusCell.textContent = 'read';
+                form.submit();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+        
+        return false;
+    }
+    </script>
 </body>
 </html>

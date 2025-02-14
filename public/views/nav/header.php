@@ -1,29 +1,16 @@
 <?php
-// At the top of header.php
 require_once '../model/server.php';
-// Initialize connector
-$connector = new Connector();
-// First mark messages as read
-// Remove or comment out this query that marks all messages as read
-$updateSql = "UPDATE messages SET status = 1 WHERE status = 0";
-$connector->executeQuery($updateSql);
 
-
-// Then get the count of unread messages
-// $sql = "SELECT COUNT(*) as unread_count FROM messages WHERE status = 0";
-// $result = $connector->executeQuery($sql);
-// $unread_count = ($result && isset($result[0]['unread_count'])) ? $result[0]['unread_count'] : 0;
-// // When a new message is sent
-// $unread_count++;
-
-// // When an existing message is read
-// $unread_count--;
-// if ($unread_count < 0) {
-//     $unread_count = 0;
-// }
-
+try {
+    $connector = new Connector();
+    $sql = "SELECT COUNT(*) as unread FROM messages_tb WHERE status = 'unread'";
+    $result = $connector->executeQuery($sql);
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $unreadCount = $row['unread'];
+} catch (Exception $e) {
+    $unreadCount = 0;
+}
 ?>
-
 
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
@@ -358,6 +345,7 @@ $connector->executeQuery($updateSql);
                     <!-- Notification badge -->
                   
                   </button>
+                  <!-- Update notification template -->
                   <template x-if="isNotificationsMenuOpen">
                     <ul x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100" 
@@ -369,12 +357,11 @@ $connector->executeQuery($updateSql);
                         <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                           href="messages.php">
                           <span>Messages</span>
-                          <?php if($unread_count > 0): ?>
-                            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                              <?php echo $unread_count; ?>
-                            </span>
+                          <?php if ($unreadCount > 0): ?>
+                              <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
+                                  <?php echo $unreadCount; ?>
+                              </span>
                           <?php endif; ?>
-
                         </a>
                       </li>
                     </ul>
@@ -434,4 +421,3 @@ $connector->executeQuery($updateSql);
             </ul>
           </div>
         </header>
-        
