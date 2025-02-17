@@ -6,6 +6,8 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
+header('Content-Type: application/json');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $recipient = $_POST['email'];
     $subject = $_POST['subject'];
@@ -32,13 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Send Email
         if ($mail->send()) {
-            echo "Email sent successfully!";
+            echo json_encode(['success' => true, 'message' => 'Email sent successfully!']);
         } else {
-            echo "Failed to send email.";
+            echo json_encode(['success' => false, 'message' => 'Failed to send email.']);
         }
         
     } catch (Exception $e) {
-        echo "Mailer Error: " . $mail->ErrorInfo;
+        echo json_encode(['success' => false, 'message' => 'Mailer Error: ' . $mail->ErrorInfo]);
     }
+    exit();
 }
 ?>

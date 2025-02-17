@@ -114,7 +114,7 @@
 <body>
     <div class="container">
         <h2>Confirmation Message</h2>
-        <form action="send_mail.php" method="post">
+        <form id="emailForm" action="send_mail.php" method="post">
             <label for="email">Recipient Email:</label>
             <input type="email" name="email" required>
             <div class="error-message"></div>
@@ -130,5 +130,32 @@
             <button type="submit">Send Email</button>
         </form>
     </div>
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const formData = new FormData(this);
+                
+                const response = await fetch('send_mail.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(data.message);
+                    this.reset(); // Clear form
+                } else {
+                    throw new Error(data.message);
+                }
+
+            } catch (error) {
+                alert(error.message);
+                console.error('Error:', error);
+            }
+        });
+    </script>
 </body>
 </html>
