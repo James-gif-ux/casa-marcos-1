@@ -259,52 +259,48 @@ label {
     </div>
 
     <script>
-document.getElementById('paymentForm').addEventListener('submit', function(e) {
+document.getElementById('paymentForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Check all required fields
-    const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
-    const paymentProof = document.querySelector('input[name="payment_proof"]');
-    const paymentAmount = document.querySelector('input[name="payment_amount"]');
-    const referenceNumber = document.querySelector('input[name="reference_number"]');
-    
-    // Validate fields
-    if (!paymentMethod) {
-        alert('Please select a payment method');
-        return;
-    }
-    if (!paymentProof.files[0]) {
-        alert('Please upload payment proof');
-        return;
-    }
-    if (!paymentAmount.value) {
-        alert('Please enter payment amount');
-        return;
-    }
-    if (!referenceNumber.value) {
-        alert('Please enter reference number');
-        return;
-    }
+    try {
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+        const paymentProof = document.querySelector('input[name="payment_proof"]');
+        const paymentAmount = document.querySelector('input[name="payment_amount"]');
+        const referenceNumber = document.querySelector('input[name="reference_number"]');
+        
+        // Form validation
+        if (!paymentMethod || !paymentProof.files[0] || !paymentAmount.value || !referenceNumber.value) {
+            throw new Error('Please fill in all required fields');
+        }
 
-    const formData = new FormData(this);
-    
-    fetch('../model/process_payment.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
+        const formData = new FormData();
+        formData.append('payment_method', paymentMethod.value);
+        formData.append('payment_proof', paymentProof.files[0]);
+        formData.append('payment_amount', paymentAmount.value);
+        formData.append('reference_number', referenceNumber.value);
+
+        const response = await fetch('../model/process_payment.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        
         if (data.success) {
-            alert('Payment submitted successfully!');
+            alert(data.message);
             window.location.href = 'confirmation.php';
         } else {
-            alert(data.error || 'Error processing payment');
+            throw new Error(data.error || 'Payment processing failed');
         }
-    })
-    .catch(error => {
-        alert('Error processing payment. Please try again.');
+
+    } catch (error) {
+        alert(error.message);
         console.error('Error:', error);
-    });
+    }
 });
 </script>
 

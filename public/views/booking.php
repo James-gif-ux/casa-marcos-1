@@ -13,6 +13,7 @@ try {
     
     $stmt = $connector->executeQuery($sql);
     $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Fetch all messages
     ?>
 
     <script>

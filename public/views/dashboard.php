@@ -1,6 +1,23 @@
 <?php
-  include_once 'nav/header.php';
+require_once '../model/server.php';
+include_once 'nav/header.php';
+
+try {
+    $connector = new Connector();
+    
+    // Fetch all bookings
+    $sql = "SELECT b.*, s.services_name 
+            FROM booking_tb b 
+            LEFT JOIN services_tb s ON b.booking_services_id = s.services_id 
+            WHERE b.booking_status IN ('pending', 'approved')";
+    
+    $stmt = $connector->executeQuery($sql);
+    $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
 ?>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <main class="h-full overflow-y-auto">
           <div class="container px-6 mx-auto grid">
@@ -13,58 +30,58 @@
               <!-- Card -->
               <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" >
                 <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
-                  </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
                 </div>
                 <div>
                   <p
                     class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Customers</p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">0.00</p>
-                </div>
-              </div>
-              <!-- Card -->
-              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11.93V14a1 1 0 11-2 0v-.07a3.001 3.001 0 01-1.995-2.829A1 1 0 019 10h2a1 1 0 110 2H9.5a1.5 1.5 0 000 3h1a1.5 1.5 0 000-3H10a1 1 0 110-2h1a3.001 3.001 0 011.995 2.829A1 1 0 0111 13.93z" ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Payments</p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">0.00</p>
-                </div>
-              </div>
-              <!-- Card -->
-              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Sales
-                  </p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    0.00
-                  </p>
+                    <?php
+                    // Count unique customers by using array_unique on booking_fullname
+                    $uniqueCustomers = array_unique(array_column($bookings, 'booking_id'));
+                    $customerCount = count($uniqueCustomers);
+                    ?>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"><?php echo $customerCount; ?></p>
                 </div>
               </div>
               <!-- Card -->
               <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                 <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                  </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                  <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                </svg>
                 </div>
                 <div>
                   <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                     Pending bookings
                   </p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    0.00
+                    <?php
+                    $pendingCount = count(array_filter($bookings, function($booking) {
+                      return $booking['booking_status'] === 'pending';
+                    }));
+                    ?>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"><?php echo $pendingCount; ?></p>
+                </div>
+              </div>
+              <!-- Card -->
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                  <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                  <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+                </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Approved bookings
                   </p>
+                    <?php
+                    $pendingCount = count(array_filter($bookings, function($booking) {
+                      return $booking['booking_status'] === 'approved';
+                    }));
+                    ?>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"><?php echo $pendingCount; ?></p>
                 </div>
               </div>
             </div>
@@ -75,75 +92,108 @@
               Charts
             </h2>
               <div class="grid gap-6 mb-8 md:grid-cols-2">
-                <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                  <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                    Revenue
-                  <canvas id="barChart"></canvas>
-                  <script>
-                    var ctx = document.getElementById('barChart').getContext('2d');
-                    var barChart = new Chart(ctx, {
-                      type: 'bar',
-                      data: {
-                        labels: ['Customers', 'Sales', 'Payments'],
-                        datasets: [{
-                          label: 'Revenue',
-                          data: [12, 19, 3],
-                          backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                          ],
-                          borderColor: [
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)'
-                          ],
-                          borderWidth: 1
-                        }]
-                      },
-                      options: {
-                        scales: {
-                          y: {
-                            beginAtZero: true
-                          }
-                        }
-                      }
-                    });
-                  </script>
-          
-                  <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
-                      <!-- Chart legend -->
-                      <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"></span>
-                        <span>Customers</span>
-                      </div>
-                      <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"></span>
-                        <span>Sales</span>
-                      </div>
-                      <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
-                        <span>Payments</span>
-                      </div>
-                  </div>
-                </div>
               <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                 <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                  Total
-                </h4>
-                <canvas id="line"></canvas>
-                <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
-                  <!-- Chart legend -->
-                  <div class="flex items-center">
-                    <span class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"></span>
-                    <span>Totat Sales</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
-                    <span>Total bookings</span>
-                  </div>
+                <canvas id="barChart"></canvas>
+                <script>
+                var ctx = document.getElementById('barChart').getContext('2d');
+                var barChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                  labels: ['Customers', 'Approved Bookings'],
+                  datasets: [{ 
+                    data: [<?php echo $customerCount; ?>, <?php echo count(array_filter($bookings, function($booking) { return $booking['booking_status'] === 'approved'; })); ?>],
+                    backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                  }]
+                  },
+                  options: {
+                  scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                  },
+                  plugins: {
+                    legend: {
+                    display: false
+                    }
+                  }
+                  }
+                });
+                </script>
                 </div>
-              </div>
+                <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                  <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+                    Monthly Overview
+                  </h4>
+                  <canvas id="line"></canvas>
+                  <script>
+                  <?php
+                    // Get counts per month
+                    $monthlyData = array_fill(0, 12, ['customers' => 0, 'pending' => 0, 'approved' => 0]);
+                    foreach ($bookings as $booking) {
+                        $month = date('n', strtotime($booking['booking_date'])) - 1; // 0-11
+                        $monthlyData[$month]['customers']++;
+                        if ($booking['booking_status'] === 'pending') {
+                            $monthlyData[$month]['pending']++;
+                        }
+                        if ($booking['booking_status'] === 'approved') {
+                            $monthlyData[$month]['approved']++;
+                        }
+                    }
+                    
+                    $customers = array_column($monthlyData, 'customers');
+                    $pending = array_column($monthlyData, 'pending');
+                    $approved = array_column($monthlyData, 'approved');
+                  ?>
+                  var lineCtx = document.getElementById('line').getContext('2d');
+                  var lineChart = new Chart(lineCtx, {
+                    type: 'line',
+                    data: {
+                      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                      datasets: [{
+                        label: 'Customers',
+                        data: <?php echo json_encode($customers); ?>,
+                        borderColor: 'rgb(124, 58, 237)',
+                        backgroundColor: 'rgba(124, 58, 237, 0.5)',
+                        tension: 0.3,
+                        fill: false
+                      },
+                      {
+                        label: 'Pending',
+                        data: <?php echo json_encode($pending); ?>,
+                        borderColor: 'rgb(234, 179, 8)',
+                        backgroundColor: 'rgba(234, 179, 8, 0.5)',
+                        tension: 0.3,
+                        fill: false
+                      },
+                      {
+                        label: 'Approved',
+                        data: <?php echo json_encode($approved); ?>,
+                        borderColor: 'rgb(34, 197, 94)',
+                        backgroundColor: 'rgba(34, 197, 94, 0.5)',
+                        tension: 0.3,
+                        fill: false
+                      }]
+                    },
+                    options: {
+                      responsive: true,
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  });
+                  </script>
+                </div>
             </div>
           </div>
         </main>
