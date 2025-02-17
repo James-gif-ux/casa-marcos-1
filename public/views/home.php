@@ -7,26 +7,36 @@
     <main>
         <section class="hero">
             <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-                <form action="books.php" method="POST">
-                    <!-- Check-in and Check-out Section -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
-                            <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                            <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                        </div>
-                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
-                            <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                            <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                        </div>
-                    </div>
+            <form action="../pages/books.php" method="POST" style="display: flex; flex-direction: column; align-items: center;">
+            <!-- Check-in and Check-out Section -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; justify-content: center;">
+                <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
+                    <input type="date" id="check_in" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                </div>
+                <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
+                    <input type="date" id="check_out" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+            </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" style="width: 50%; padding: 1rem; margin-top: 2rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
-                        Search Booking
-                    </button>
-                </form>
+            <script>
+                document.getElementById('check_in').addEventListener('change', function() {
+                    const checkIn = new Date(this.value);
+                    const checkOut = new Date(checkIn);
+                    checkOut.setDate(checkOut.getDate() + 1);
+                    
+                    const checkOutInput = document.getElementById('check_out');
+                    checkOutInput.value = checkOut.toISOString().split('T')[0];
+                    checkOutInput.setAttribute('min', checkOut.toISOString().split('T')[0]);
+                    checkOutInput.setAttribute('max', checkOut.toISOString().split('T')[0]);
+                });
+            </script>
+
+            <!-- Submit Button -->
+            <button type="submit" style="width: 100%; margin-left:250px; padding: 1rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
+                Search Booking
+            </button>
+        </form>
             </div>
         </section>
 
