@@ -32,83 +32,96 @@ $messages = $connector->executeQuery($sql);
     <!-- Bootstrap CSS -->
     <!-- Custom CSS -->
     <link href="../assets/css/style.css" rel="stylesheet">
-<style>
-    .messages-container {
-        max-width: 1400px;  /* Increased from 1200px */
-        margin: 2rem auto;
-        padding: 0 30px;    /* Increased from 20px */
-    }
+    <style>
+        .container {
+            max-width: 77.0%; /* Adjust container width for responsiveness, making it larger for wider screens */
+           
+        }
 
-    .table-header {
-        margin-bottom: 3rem;  /* Increased from 2rem */
-    }
+        .table-wrapper { /* Add a wrapper for the table to handle overflow */
+            overflow-x: auto; /* Enable horizontal scrolling on small screens */
+        }
 
-    .table-header h2 {
-        color: #333;
-        font-size: 32px;     /* Increased from 24px */
-        border-bottom: 3px solid #007bff;  /* Increased from 2px */
-        padding-bottom: 15px; /* Increased from 10px */
-    }
+        .table-wrapper table {
+            width: 100%;  /* Table takes the full width of its wrapper */
+            min-width: 600px; /* Ensures table doesn't collapse too much */
+            white-space: nowrap; /* Prevent text wrapping in cells */
 
-    .table-wrapper {
-        background: #fff;
-        border-radius: 12px;  /* Increased from 8px */
-        box-shadow: 0 0 30px rgba(0,0,0,0.1);  /* Increased from 20px */
-        overflow: hidden;
-    }
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+        /* Table Styles */
+        table {
+            border-collapse: collapse;
+        }
 
-    thead {
-        background-color: #007bff;
-        color: white;
-    }
+        thead {
+            color: white;
+            font-weight: 600;
+            background-color: #333;
+        }
 
-    th, td {
-        padding: 16px 20px;  /* Increased from 12px 15px */
-        text-align: left;
-        border-bottom: 2px solid #ddd;  /* Increased from 1px */
-        font-size: 16px;     /* Added font size */
-    }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            color: #555;
+        }
 
-    tbody tr:hover {
-        background-color: #f5f5f5;
-    }
+        tbody tr:hover {
+            background-color: #f0f8ff;
+        }
 
-    .btn-primary {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;  /* Increased from 8px 16px */
-        border-radius: 6px;  /* Increased from 4px */
-        cursor: pointer;
-        transition: background-color 0.3s;
-        font-size: 16px;     /* Added font size */
-    }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-</style>
+
+        /* Responsive Design */
+        @media (max-width: 1200px) { /* Adjust the breakpoint as needed */
+            .container {
+                max-width: 95%; /* Further reduce container width */
+            }
+
+            th, td {
+                padding: 0.6rem;  /* Slightly reduce padding */
+                font-size: 0.85rem; /* Slightly reduce font size */
+            }
+        }
+
+
+        @media (max-width: 900px) { /* Adjust the breakpoint as needed */
+            th, td {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 700px) {  /* Smaller screens:  Important adjustments */
+            .container {
+                max-width: 100%; /* Container takes full width */
+            }
+            th, td {
+                padding: 0.4rem;
+                font-size: 0.75rem;
+            }
+
+             .table-wrapper {
+                overflow-x: auto; /* Ensure horizontal scroll */
+            }
+
+        }
+
+    </style>
 </head>
 <body>
     <div class="messages-container">
-        <div class="table-header">
-            <h2>Messages</h2>
-        </div>
         <div class="table-wrapper">
             <table>
                 <thead>
-                    <tr>
-                        <th>Sender Email</th>
-                        <th>Subject</th>
-                        <th>Message</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                    <tr  class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th>SENDER EMAIL</th>
+                        <th>SUBJECT</th>
+                        <th>MESSAGE</th>
+                        <th>DATE</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,7 +139,7 @@ $messages = $connector->executeQuery($sql);
                                 <input type="hidden" name="message_id" value="<?php echo htmlspecialchars($message['message_id']); ?>">
                                 <input type="hidden" name="recipient_email" value="<?php echo htmlspecialchars($message['recipient_email']); ?>">
                                 <input type="hidden" name="status" value="1">
-                                <button type="submit" class="btn btn-primary" onclick="return updateStatus('<?php echo htmlspecialchars($message['message_id']); ?>')">Reply</button>
+                                <button type="submit" class="btn btn-approve" onclick="return updateStatus('<?php echo htmlspecialchars($message['message_id']); ?>')">Reply</button>
                             </form>
                         </td>
                     </tr>
