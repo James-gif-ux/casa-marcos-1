@@ -139,25 +139,40 @@ document.addEventListener('DOMContentLoaded', () => {
     <style>
         @media (max-width: 768px) {
             .video-container {
-                padding-bottom: 75% !important;
+                padding-bottom: 1% !important; /* Aspect ratio for smaller screens */
             }
             .video-title {
-                font-size: 1.5rem !important;
+                font-size: 1.5rem !important; /* Adjust video title size */
             }
+        }
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the container */
         }
     </style>
 
-    <!-- Decorative Elements -->
-<div style="position: relative; width: 100%; height: 80vh; overflow: hidden;">
-
-    <div class="video-container" style=" position: absolute;  top: 0; left: 0;  width: 100%;  height: 100%;  overflow: hidden; z-index: 0;">
-        <video style="width: 100%; height: 100%;  object-fit: cover; " autoplay muted loop poster="your-poster-image.jpg">
-            <source src="../images/casa.mp4" type="video/mp4">
-            Your browser does not support the video tag. Please update your browser or check your video source.
-        </video>
+    <!-- Video Container -->
+    <div style="position: relative; width: 100%; height: 80vh; overflow: hidden;">
+        <div class="video-container">
+            <video autoplay muted loop poster="your-poster-image.jpg">
+                <source src="../images/casa.mp4" type="video/mp4">
+                Your browser does not support the video tag. Please update your browser or check your video source.
+            </video>
+        </div>
     </div>
-</div>
 </section>
+
      
 
     </main>

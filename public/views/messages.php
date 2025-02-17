@@ -34,95 +34,141 @@ $messages = $connector->executeQuery($sql);
     <link href="../assets/css/style.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff6b6b;
-            --secondary: #4ecdc4;
-            --bg-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-primary: #2d3436;
-            --text-secondary: #636e72;
-            --error-color: #ff4757;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
+        --primary: #ff6b6b;
+        --secondary: #4ecdc4;
+        --bg-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --text-primary: #2d3436;
+        --text-secondary: #636e72;
+        --error-color: #ff4757;
+    }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-gradient);
-            padding: 20px;
-            background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%);
-            min-height: 100vh;
-            padding: 2rem;
-        }
-        .messages-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: linear-gradient(135deg, #f6f8fb 0%, #f1f4f8 100%);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
 
-        .table-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-        }
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-gradient);
+        padding: 20px;
+        background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%);
+        min-height: 100vh;
+        padding: 3rem;
+    }
 
-        .table-header h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #2d3748;
-            font-family: 'Impact', sans-serif;
-            letter-spacing: 1px;
-        }
+    .messages-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 4rem;
+        background: linear-gradient(135deg, #f6f8fb 0%, #f1f4f8 100%);
+        border-radius: 15px;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+    }
 
-        .table-header::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: rgb(102, 67, 35);
-            margin: 1rem auto;
-            border-radius: 2px;
-        }
+    .table-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+    }
 
-        .table-wrapper {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        table {
-            border: 1px solid #e0e0e0;
-            border-collapse: collapse;
-            width: 100%;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    .table-header h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2d3436;
+        font-family: 'Impact', sans-serif;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
 
-        th {
-            background: rgb(102, 67, 35);
-            color: white;
-            font-weight: 600;
-            padding: 12px 15px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
+    .table-header::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: rgb(102, 67, 35);
+        margin: 1rem auto;
+        border-radius: 2px;
+    }
 
-        td {
-            padding: 12px 15px;
-            border: 1px solid #e0e0e0;
-            font-size: 0.9rem;
-            text-align: center;
-        }
+    .table-wrapper {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    table {
+        border: 1px solid #e0e0e0;
+        border-collapse: collapse;
+        width: 100%;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+        background: rgb(102, 67, 35);
+        color: white;
+        font-weight: 600;
+        padding: 15px 20px;
+        text-transform: uppercase;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        text-align: left;
+    }
+
+    td {
+        padding: 15px 20px;
+        border: 1px solid #e0e0e0;
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    td:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 1rem;
+        font-weight: 600;
+        background: #4ecdc4;
+        color: white;
+        border: none;
+        border-radius: 8px;
+    }
+
+    button:hover {
+        background: #ff6b6b;
+    }
+
+    button:active {
+        background: #4ecdc4;
+    }
+
+    a.btn-secondary {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 8px 15px;
+        border-radius: 8px;
+        background: rgb(102, 67, 35);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    a.btn-secondary:hover {
+        background: #ff6b6b;
+    }
+
     </style>
 </head>
 <body>

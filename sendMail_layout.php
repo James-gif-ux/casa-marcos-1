@@ -9,29 +9,26 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            animation: gradientBackground 5s ease infinite;
-            background: linear-gradient(-45deg, rgb(218, 191, 156), rgb(218, 191, 156), rgb(85, 59, 23), rgb(85, 59, 23));
-            background-size: 400% 400%;
+            animation: gradientBackground 10s ease infinite;
+            background: linear-gradient(-45deg, rgb(218, 191, 156), rgb(85, 59, 23));
+            background-size: 200% 200%;
         }
 
         @keyframes gradientBackground {
             0% {
                 background-position: 0% 50%;
             }
-            50% {
-                background-position: 100% 50%;
-            }
             100% {
-                background-position: 0% 50%;
+                background-position: 100% 50%;
             }
         }
 
         .container {
             max-width: 650px;
-            margin: 50px auto;
+            margin: 80px auto;
             background-color: #ffffff;
             border-radius: 12px;
-            padding: 30px;
+            padding: 100px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 

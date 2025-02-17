@@ -1,11 +1,13 @@
 <?php
     include_once 'nav/homenav.php';
+    include_once '../model/BookingModel.php';
+    include_once '../model/Booking_Model.php';
 ?>
 
     <main>
         <section class="hero">
             <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-                <form action="/reservation/submit" method="POST">
+                <form action="books.php" method="POST">
                     <!-- Check-in and Check-out Section -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                         <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px;">
