@@ -154,68 +154,50 @@ try {
                 <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                   <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                     Monthly Overview
-                  </h4>
-                  <canvas id="line"></canvas>
-                  <script>
-                  <?php
-                    // Get counts per month
-                    $monthlyData = array_fill(0, 12, ['customers' => 0, 'pending' => 0, 'approved' => 0]);
+                    </h4>
+                    <canvas id="line"></canvas>
+                    <script>
+                    <?php
+                    // Get customer and booking counts per month
+                    $monthlyCustomers = array_fill(0, 12, 0);
+                    $monthlyBookings = array_fill(0, 12, 0);
                     foreach ($bookings as $booking) {
-                        $month = date('n', strtotime($booking['booking_date'])) - 1; // 0-11
-                        $monthlyData[$month]['customers']++;
-                        if ($booking['booking_status'] === 'pending') {
-                            $monthlyData[$month]['pending']++;
-                        }
-                        if ($booking['booking_status'] === 'approved') {
-                            $monthlyData[$month]['approved']++;
-                        }
+                      $month = date('n', strtotime($booking['booking_date'])) - 1; // 0-11
+                      $monthlyCustomers[$month]++;
+                      if ($booking['booking_status'] === 'approved') {
+                      $monthlyBookings[$month]++;
+                      }
                     }
-                    
-                    $customers = array_column($monthlyData, 'customers');
-                    $pending = array_column($monthlyData, 'pending');
-                    $approved = array_column($monthlyData, 'approved');
-                  ?>
-                  var lineCtx = document.getElementById('line').getContext('2d');
-                  var lineChart = new Chart(lineCtx, {
+                    ?>
+                    var lineCtx = document.getElementById('line').getContext('2d');
+                    var lineChart = new Chart(lineCtx, {
                     type: 'line',
                     data: {
                       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                       datasets: [{
-                        label: 'Customers',
-                        data: <?php echo json_encode($customers); ?>,
-                        borderColor: 'rgb(124, 58, 237)',
-                        backgroundColor: 'rgba(124, 58, 237, 0.5)',
-                        tension: 0.3,
-                        fill: false
+                      label: 'Customers',
+                      data: <?php echo json_encode($monthlyCustomers); ?>,
+                      borderColor: 'rgb(124, 58, 237)',
+                      tension: 0.3
                       },
                       {
-                        label: 'Pending',
-                        data: <?php echo json_encode($pending); ?>,
-                        borderColor: 'rgb(234, 179, 8)',
-                        backgroundColor: 'rgba(234, 179, 8, 0.5)',
-                        tension: 0.3,
-                        fill: false
-                      },
-                      {
-                        label: 'Approved',
-                        data: <?php echo json_encode($approved); ?>,
-                        borderColor: 'rgb(34, 197, 94)',
-                        backgroundColor: 'rgba(34, 197, 94, 0.5)',
-                        tension: 0.3,
-                        fill: false
+                      label: 'Approved Bookings',
+                      data: <?php echo json_encode($monthlyBookings); ?>,
+                      borderColor: 'rgb(52, 211, 153)',
+                      tension: 0.3
                       }]
                     },
                     options: {
                       responsive: true,
                       scales: {
-                        y: {
-                          beginAtZero: true
-                        }
+                      y: {
+                      beginAtZero: true
+                      }
                       }
                     }
-                  });
-                  </script>
-                </div>
+                    });
+                    </script>
+                    </div>
             </div>
           </div>
         </main>
