@@ -1,0 +1,460 @@
+/* Section Styling */
+.image-slider-section {
+    padding: 5rem 2rem;
+    background-color: #f4f4f4;
+}
+
+  /* Flexbox for positioning and layout */
+  .relative {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  /* Container for the images and text */
+  .image-container {
+      width: 200%;
+      max-width: 1500px;
+      position: relative;
+      overflow: hidden; /* Ensures no overflow when sliding */
+  }
+
+  /* Wrapper for the left, right, and additional images */
+  .image-wrapper {
+      display: flex; /* Display images side by side */
+      justify-content: space-between; /* Adds space between images */
+      height: 600px; /* Set the height of the image container */
+      position: relative;
+      transition: transform 1s ease-in-out; /* Smooth sliding transition */
+  }
+
+  /* Styling for each image */
+  .image {
+      width: 48%; /* Make each image take up 48% of the width, leaving space between */
+      flex-shrink: 0; /* Prevent images from shrinking */
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px; /* Round the corners of the images */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow around images */
+      margin: 0 1%; /* Add margin on the left and right of each image */
+      height: 600px; /* Make images take up the full height of the container */
+  }
+
+  /* Image styling */
+  .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease; /* Smooth transition */
+  }
+
+  /* Dark Overlay */
+  .overlay-dark {
+      background-color: rgba(51, 51, 51, 0.6);
+      position: absolute;
+      inset: 0;
+      border-radius: 12px; /* Round the overlay to match the image */
+  }
+
+  /* Light Overlay on the left image */
+  .overlay-light-left {
+      background-color: rgba(243, 244, 246, 0.8);
+      position: absolute;
+      inset-y: 0;
+      width: 50%;
+      left: 0;
+      border-radius: 12px 0 0 12px; /* Rounded corners on the left */
+  }
+
+  /* Light Overlay on the right image */
+  .overlay-light-right {
+      background-color: rgba(243, 244, 246, 0.8);
+      position: absolute;
+      inset-y: 0;
+      width: 50%;
+      right: 0;
+      border-radius: 0 12px 12px 0; /* Rounded corners on the right */
+  }
+
+  /* Description Styling */
+  .image-description {
+      position: absolute;
+      bottom: 30px;
+      left: 20px;
+      right: 20px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 90%;
+  }
+
+  .room-card {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+  }
+
+  .room-card:hover {
+      transform: translateY(-5px);
+  }
+
+  .room-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+  }
+
+  .room-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)); /* Dark gradient */
+    display: flex;
+    flex-direction: column; /* Stack the content vertically */
+    justify-content: space-between; /* Space between name, description, and price */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.room-header {
+    margin-top: 300px;
+    background: rgba(212, 182, 150, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.room-title {
+    font-size: 2rem;
+    color: #fff;
+    font-family: 'Impact';
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px; /* Space between room name and description */
+}
+
+.room-details {
+    height: 100px;
+    font-size: 1.2rem;
+    position: relative;
+    color: #fff;
+    padding: 10px 20px;
+    background: transparent;
+    border-radius: 8px;
+    line-height: 1.6;
+    text-align: center;
+    margin: 10px 0; /* Space between description and price */
+}
+
+.price-tag {
+    background: rgb(102, 67, 35);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-align: center;
+    width: fit-content;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 10px; /* Space above price */
+}
+
+.room-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+
+
+
+.image-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        animation: continuousSlide 50s linear infinite;
+    }
+@keyframes continuousSlide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* Move left by 50% of the width to show the duplicate set */
+                transform: translateX(-263%);
+            }
+        }
+
+/* Base styles */
+:root {
+    --primary-color: rgb(218, 191, 156);
+    --dark-brown: rgb(102, 67, 35);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1024px) {
+    .image-container {
+        width: 100%;
+    }
+    
+    .image {
+        width: 100%;
+        height: 500px;
+    }
+    
+    .room-header {
+        margin-top: 200px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hera form {
+        padding: 0.5rem;
+        margin: 0 10px;
+    }
+    
+    .hera div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    button[type="submit"] {
+        width: 100% !important;
+    }
+    
+    .image-slider-section {
+        padding: 2rem 0.5rem;
+    }
+    
+    .image {
+        height: 400px;
+    }
+    
+    .room-title {
+        font-size: 1.5rem;
+    }
+    
+    .room-details {
+        font-size: 1rem;
+        height: auto;
+    }
+    
+    .price-tag {
+        padding: 8px 16px;
+    }
+    
+    .room-price {
+        font-size: 1.2rem;
+    }
+
+    .room-content {
+        padding: 15px;
+        height: 100%;
+        justify-content: flex-end;
+    }
+
+    .room-header {
+        margin-top: auto;
+        background: rgba(212, 182, 150, 0.95);
+        padding: 15px;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .room-details {
+        height: auto;
+        min-height: 60px;
+        font-size: 0.9rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin: 8px 0;
+    }
+
+    .room-title {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+
+    .price-tag {
+        position: relative;
+        bottom: 0;
+        margin: 10px auto;
+    }
+
+    .image-wrapper {
+        animation: none;
+        transform: none;
+        flex-direction: column;
+        gap: 1rem;
+        height: auto;
+        width: 100%;
+    }
+
+    .image {
+        width: 100%;
+        height: 300px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .image {
+        height: 300px;
+    }
+    
+    .room-header {
+        margin-top: 150px;
+        padding: 15px;
+    }
+    
+    .room-title {
+        font-size: 1.2rem;
+    }
+    
+    .room-details {
+        font-size: 0.9rem;
+    }
+    
+    .image-wrapper {
+        animation: continuousSlide 30s linear infinite;
+    }
+    
+    @keyframes continuousSlide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-200%); }
+    }
+}
+
+/* Touch device optimization */
+@media (hover: none) {
+    .room-card:hover {
+        transform: none;
+    }
+    
+    .image img {
+        transition: none;
+    }
+}
+
+/* Mobile-first responsive styles */
+@media screen and (max-width: 1024px) {
+    .image-container {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .image-wrapper {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .image {
+        width: 100%;
+        height: 400px;
+        margin: 10px 0;
+    }
+    
+    .room-header {
+        margin-top: 150px;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hera {
+        padding: 1rem;
+    }
+
+    .hera form {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .hera div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    input[type="date"],
+    input[type="time"] {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .room-title {
+        font-size: 1.5rem;
+    }
+    
+    .room-details {
+        font-size: 0.9rem;
+        height: auto;
+        padding: 10px;
+    }
+    
+    .price-tag {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    button[type="submit"] {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .image-slider-section {
+        padding: 1rem 0;
+    }
+    
+    .image {
+        height: 250px;
+    }
+    
+    .room-header {
+        margin-top: 100px;
+        padding: 10px;
+    }
+    
+    .room-title {
+        font-size: 1.2rem;
+    }
+    
+    .room-content {
+        padding: 10px;
+    }
+    
+    .price-tag {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .image-wrapper {
+        animation: continuousSlide 20s linear infinite;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Touch device optimization */
+@media (hover: none) {
+    .room-card:hover {
+        transform: none;
+    }
+    
+    .image img {
+        transition: none;
+    }
+}

@@ -154,7 +154,7 @@ $bookingData = $bookings->fetch(PDO::FETCH_ASSOC);
         </ul>
     </div>
     <!-- Optional: Provide a link to the home page or service listings -->
-    <a href="Cash.php" class="btn">Proceed for Payment</a>
+    <a href="books.php" class="btn">Back to bookings</a>
 </div>
 
 </body>
