@@ -28,7 +28,6 @@ try {
             background-color:rgb(8, 17, 189);
             color: white;
             padding: 8px 16px;
-            border-radius: 4px;
             text-decoration: none;
             margin: 0 5px;
             transition: background-color 0.3s ease;
@@ -38,7 +37,7 @@ try {
       
     </style>
     <!-- New Table -->
-    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+    <div class="w-full overflow-hidden">
         <div class="w-full overflow-x-auto">
         <table class="w-full whitespace-no-wrap">
             <thead>
