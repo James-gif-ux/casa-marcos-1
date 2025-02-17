@@ -368,16 +368,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="service-price">
                                     ₱<?= number_format($srvc['services_price'], 2) ?>
                                 </div>
-                                <button type="button" class="readmore" data-bs-toggle="modal" data-bs-target="#bookingModal"
-                                        data-id="<?= $srvc['services_id'] ?>"
-                                        data-name="<?= $srvc['services_name'] ?>">
-                                    Book Now
-                                </button>
-                                <button type="button" class="reserve-now" data-bs-toggle="modal" data-bs-target="#bookingModal"
-                                        data-id="<?= $srvc['services_id'] ?>"
-                                        data-name="<?= $srvc['services_name'] ?>">
-                                    Reserve Now
-                                </button>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <button type="button" class="readmore" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                            data-id="<?= $srvc['services_id'] ?>"
+                                            data-name="<?= $srvc['services_name'] ?>">
+                                        Book Now
+                                    </button>
+                                    <button type="button" class="reserve-now" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                            data-id="<?= $srvc['services_id'] ?>"
+                                            data-name="<?= $srvc['services_name'] ?>">
+                                        Reserve Now
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
