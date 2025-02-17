@@ -87,7 +87,7 @@
 
     .hero {
         text-align: center;
-        padding: 20rem;
+        padding: 23rem;
         background-image: url('../images/11.jpg');
         background-size: cover;
         background-position: center;

@@ -44,357 +44,409 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title>Grid Style Example</title>
     <style>
-/* Global Styles */
-h2 {
-    text-align: center;
-    color: #2a2a2a;
-    font-size: clamp(40px, 5vw, 80px);
-    margin-bottom: clamp(1rem, 3vw, 2rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    margin-top: clamp(1rem, 3vw, 2rem);
-}
+        /* Global Styles */
+        :root {
+            --primary-color: #a0784d; /* Warm, sophisticated primary color */
+            --secondary-color: #f8f0e3; /* Soft, elegant secondary color */
+            --text-color: #333333; /* Darker text for readability */
+            --accent-color: #d4aa7d; /* Accent for highlights */
+            --font-family-heading: 'Playfair Display', serif;
+            --font-family-body: 'Poppins', sans-serif;
+        }
 
-#services {
-    padding: clamp(40px, 5vw, 180px);
-}
 
-.service-list {
-    display: grid;
-    grid-template-columns: 1fr; /* Single column */
-    gap: 2rem; /* Increased gap between items */
-    max-width: 1200px; /* Maximum width of content */
-    margin: 0 auto; /* Center the container */
-}
+        #services {
+            padding: clamp(4rem, 7vw, 8rem);
+        }
 
-.service-item {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 900px; /* Full width */
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns inside service item */
-    gap: 2rem;
-    align-items: center;
-}
+        .service-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+            gap: 3rem; /* Increased gap */
+            max-width: 1400px; /* Wider content area */
+            margin: 0 auto;
+            justify-items: center; /* Center items horizontally */
+        }
 
-.service-item h3 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 1rem;
-    grid-column: 1 / -1; /* Span full width */
-}
+        .service-item {
+            background: #ffffff; /* Pure white background */
+            border: 1px solid rgba(0, 0, 0, 0.08); /* Very subtle border */
+            border-radius: 15px; /* More rounded corners */
+            padding: 2.5rem; /* More padding */
+            text-align: left; /* Keep text left-aligned */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            width: 100%; /* Full width within its grid cell */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.service-image {
-    width: 100%;
-    height: 400px; /* Fixed height */
-    object-fit: cover;
-    border-radius: 8px;
-}
+        .service-item:hover {
+            transform: translateY(-8px); /* More pronounced lift on hover */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Even stronger shadow on hover */
+        }
 
-.service-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+        .service-item h3 {
+            font-family: var(--font-family-heading);
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
 
-.description {
-    font-size: 1.1rem;
-    color: #666;
-    line-height: 1.6;
-}
+        .service-image {
+            width: 100%;
+            height: 350px; /* Increased height */
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
 
-.service-price {
-    font-size: 1.5rem;
-    color: #007bff;
-    font-weight: bold;
-    margin: 1rem 0;
-}
+        .service-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
 
-.readmore {
-    background-color: #28a745;
-    color: #ffffff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    width: fit-content;
-    margin: 0 auto;
-}
+        .description {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.8;
+        }
 
-.readmore:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-}
+        .service-price {
+            font-size: 1.7rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: var(--font-family-heading);
+        }
 
-.booking-sidebar {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 400px;
-    z-index: 1000;
-    margin-right: 20px;
-}
+        .readmore {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            align-self: start; /* Align button to the start of the flex container */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-family: var(--font-family-body);
+            font-weight: 500;
+        }
 
-.booking-form {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-}
+        .readmore:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
 
-.date-inputs {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
+        .reserve-now { /* Style for the Reserve Now button */
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            align-self: start;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-family: var(--font-family-body);
+            font-weight: 500;
+        }
 
-.check-section {
-    background: rgba(250, 240, 230, 0.5);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-}
+        .reserve-now:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
 
-.content-wrapper {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    max-width: 1800px;
-    margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
-}
+        /* Booking Section Styling */
+        .booking-container {
+            background: rgba(255, 255, 255, 0.98); /* Nearly opaque white */
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px); /* Subtle blur */
+            position: sticky;
+            top: 120px; /* Adjust top position */
+            z-index: 10;
+            margin-top: 130px;
+            transition: box-shadow 0.3s ease, height 0.3s ease; /* Smooth shadow and height transition */
+            height: 750px;
+        }
 
-.rooms-container {
-    height: 100%;
-    overflow-y: auto;
-    padding-right: 30px;
-}
+        .booking-container:hover {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+        }
 
-.booking-container {
-    height: fit-content;
-    position: sticky;
-    top: 240px; /* Increased top position */
-    margin-top: 150px; /* Added margin to lower position */
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-}
+        .check-section {
+            background: var(--secondary-color); /* Light background */
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle inset shadow */
+        }
 
-.check-section {
-    background: rgba(250, 240, 230, 0.5);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-}
+        .check-section h3 {
+            font-family: var(--font-family-heading);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
 
-@media (max-width: 1200px) {
-    .content-wrapper {
-        grid-template-columns: 1fr;
-    }
+        input[type="date"],
+        input[type="time"],
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-family: var(--font-family-body);
+            transition: border-color 0.3s ease;
+        }
 
-    .booking-container {
-        position: relative;
-        top: 0;
-        margin-top: 2rem;
-        width: 100%;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
+        input[type="date"]:focus,
+        input[type="time"]:focus,
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border-color: var(--primary-color); /* Highlight on focus */
+            outline: none; /* Remove default focus outline */
+        }
 
-@media (max-width: 768px) {
-    .service-list {
-        gap: 1rem;
-    }
+        /* Submit Button */
+        .booking-container button[type="submit"] {
+            width: 100%;
+            padding: 1.1rem;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Gradient background */
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: var(--font-family-body);
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
 
-    .service-item {
-        grid-template-columns: 1fr;
-        width: 100%; /* Full width for mobile */
-        padding: 1rem;
-    }
+        .booking-container button[type="submit"]:hover {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Reverse gradient on hover */
+            transform: translateY(-3px);
+        }
 
-    .service-image {
-        height: 250px;
-        width: 100%;
-    }
+        /* Content Wrapper and Responsiveness */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 0.6fr; /* Adjusted for a more luxurious feel */
+            gap: 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 6rem 4rem; /* Increased padding */
+            min-height: 100vh;
+        }
 
-    .check-section {
-        padding: 0.8rem;
-    }
+        .rooms-container {
+            overflow-y: auto;
+            padding-right: 2rem;
+        }
 
-    input[type="date"],
-    input[type="time"] {
-        font-size: 0.9rem;
-        padding: 0.6rem;
-        width: 100%;
-    }
 
-    .content-wrapper {
-        padding: 10px;
-    }
+        @media (max-width: 1400px) {
+            .content-wrapper {
+                padding: 4rem 2rem;
+            }
+            .service-list {
+                gap: 2rem;
+            }
+        }
 
-    .booking-container {
-        padding: 1rem;
-        margin-top: 1rem;
-    }
+        @media (max-width: 1200px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
 
-    .service-content {
-        padding: 0.5rem;
-    }
+            .booking-container {
+                position: relative;
+                top: 0;
+                margin-top: 2rem;
+                width: 100%;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-    .description {
-        font-size: 0.95rem;
-    }
+            .rooms-container {
+                padding-right: 0;
+            }
+        }
 
-    .service-price {
-        margin: 0.5rem 0;
-    }
-}
+        @media (max-width: 992px) {
+            .service-item {
+                padding: 2rem;
+            }
+            .service-image {
+                height: 300px;
+                margin-bottom: 1rem;
+            }
+            .description {
+                font-size: 1rem;
+            }
+            .service-price {
+                font-size: 1.5rem;
+            }
+            .readmore {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
 
-@media (max-width: 480px) {
-    h2 {
-        font-size: 32px;
-    }
+            .check-section {
+                padding: 1.5rem;
+            }
+        }
 
-    #services {
-        padding: 20px;
-    }
 
-    .service-image {
-        height: 200px;
-    }
+        @media (max-width: 768px) {
+            .service-list {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
 
-    .description {
-        font-size: 0.9rem;
-    }
+            .service-item {
+                padding: 1.5rem;
+            }
 
-    .service-price {
-        font-size: 1.2rem;
-    }
+            .service-image {
+                height: 250px;
+            }
 
-    .readmore {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-    }
-}
-footer p {
-    text-align: center;
-    font-size: 1.0em;
-    margin: 1px auto; 
-    color: #fff;
-    width: 100%;
-    display: block; 
-}
-</style>
+            .content-wrapper {
+                padding: 2rem 1rem;
+            }
+        }
 
-<div class="content-wrapper">
-    <div class="rooms-container">
-        <!-- Existing rooms section -->
-        <section id="services" class="services section">
-            <div class="container">
-                <h2>Our Rooms</h2>
+        @media (max-width: 576px) {
+            .check-section {
+                padding: 1rem;
+            }
+        }
+
+        footer p {
+            text-align: center;
+            font-size: 1.0em;
+            margin: 1px auto; 
+            color: #fff;
+            width: 100%;
+            display: block; 
+        }
+    </style>
+</head>
+<body>
+    <?php require_once 'nav/homenav.php'; ?>
+
+    <div class="content-wrapper">
+        <div class="rooms-container">
+            <section id="services" class="services section">
                 <div class="service-list">
                     <?php foreach ($services as $srvc): ?>
                         <div class="service-item">
-                            <h3><?= $srvc['services_name'] ?></h3>
                             <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="service-image">
                             <div class="service-content">
+                                <h3><?= $srvc['services_name'] ?></h3>
                                 <p class="description"><?= $srvc['services_description'] ?></p>
                                 <div class="service-price">
-                                ₱<?= number_format($srvc['services_price'], 2) ?>
+                                    ₱<?= number_format($srvc['services_price'], 2) ?>
                                 </div>
-                                <button type="button" class="readmore" data-bs-toggle="modal" data-bs-target="#bookingModal" 
-                                    data-id="<?= $srvc['services_id'] ?>" 
-                                    data-name="<?= $srvc['services_name'] ?>">
-                                    Book Now!
+                                <button type="button" class="readmore" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                        data-id="<?= $srvc['services_id'] ?>"
+                                        data-name="<?= $srvc['services_name'] ?>">
+                                    Book Now
+                                </button>
+                                <button type="button" class="reserve-now" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                        data-id="<?= $srvc['services_id'] ?>"
+                                        data-name="<?= $srvc['services_name'] ?>">
+                                    Reserve Now
                                 </button>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+
+        <div class="booking-container">
+            <form action="../pages/books.php" method="POST">
+                <div class="check-section">
+                    <h3>Check-in</h3>
+                    <input type="date" name="check_in" required>
+                    <input type="time" name="check_in_time" required>
+                </div>
+
+                <div class="check-section">
+                    <h3>Check-out</h3>
+                    <input type="date" name="check_out" required>
+                    <input type="time" name="check_out_time" required>
+                </div>
+
+                <button type="submit">Search Booking</button>
+            </form>
+        </div>
     </div>
 
-    <div class="booking-container">
-        <form action="../pages/books.php" method="POST">
-            <div class="check-section">
-                <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
-                <input type="date" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem;">
-                <input type="time" name="check_in_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem;">
-            </div>
-            
-            <div class="check-section">
-                <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
-                <input type="date" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem;">
-                <input type="time" name="check_out_time" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem;">
-            </div>
+    <!-- Single Modal for all bookings -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">Book Your Service:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../pages/submit-booking.php" method="POST">
+                        <input type="hidden" name="service_id" id="service_id" />
+                        <div class="mb-3">
+                            <label for="fullname" class="form-label">Full Name:</label>
+                            <input type="text" name="fullname" class="form-control" required>
+                        </div>
 
-            <button type="submit" style="width: 100%; padding: 1rem; margin-top: 1rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold;">
-                Search Booking
-            </button>
-        </form>
-    </div>
-</div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
 
-<!-- Single Modal for all bookings -->
-<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="bookingModalLabel">Book Your Service:</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="../pages/submit-booking.php" method="POST">
-                    <input type="hidden" name="service_id" id="service_id" />
-                    <div class="mb-3">
-                        <label for="fullname" class="form-label">Full Name:</label>
-                        <input type="text" name="fullname" class="form-control" required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="number" class="form-label">Phone Number:</label>
+                            <input type="text" name="number" class="form-control" required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="service" class="form-label">Select Service:</label>
+                            <input type="text" id="service_name" name="service" class="form-control" readonly>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="number" class="form-label">Phone Number:</label>
-                        <input type="text" name="number" class="form-control" required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Booking Date:</label>
+                            <input type="date" name="date" class="form-control" required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="service" class="form-label">Select Service:</label>
-                        <input type="text" id="service_name" name="service" class="form-control" readonly>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="date" class="form-label">Booking Date:</label>
-                        <input type="date" name="date" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit Booking</button>
-                </form>
+                        <button type="submit" class="btn btn-primary">Submit Booking</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-   
+
     <script>
         window.addEventListener('scroll', function () {
             const header = document.querySelector('header');
@@ -405,26 +457,26 @@ footer p {
             }
         });
     </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Event delegation to handle dynamic content
-        document.querySelectorAll('.readmore').forEach(button => {
-            button.addEventListener('click', function () {
-                // Get service details from data attributes
-                const serviceId = this.getAttribute('data-id');
-                const serviceName = this.getAttribute('data-name');
-                
-                // Populate the modal with service data
-                document.getElementById('service_id').value = serviceId;
-                document.getElementById('service_name').value = serviceName;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Event delegation to handle dynamic content
+            document.querySelectorAll('.readmore').forEach(button => {
+                button.addEventListener('click', function () {
+                    // Get service details from data attributes
+                    const serviceId = this.getAttribute('data-id');
+                    const serviceName = this.getAttribute('data-name');
+
+                    // Populate the modal with service data
+                    document.getElementById('service_id').value = serviceId;
+                    document.getElementById('service_name').value = serviceName;
+                });
             });
         });
-    });
-</script>
+    </script>
 
-<footer>
-        <p>© 2025 Casa Marcos. All rights reserved.</p>
+    <footer>
+        <p>© 2025 Casa Marcos. All rights reserved</p>
     </footer>
 </body>
 </html>

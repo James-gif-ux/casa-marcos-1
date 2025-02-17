@@ -74,7 +74,7 @@
         </section>
 
 
-        <section style="padding: 5rem 2rem; background-color: rgba(172, 144, 117, 0.89); position: relative; overflow: hidden;">
+        <section style="padding: 6rem 2rem; background-color: rgba(172, 144, 117, 0.89); position: relative; overflow: hidden;">
             <!-- Decorative Elements -->
             <div style="position: absolute; top: 0; left: 0; width: 150px; height: 150px; background: rgba(218, 191, 156, 0.2); border-radius: 50%;"></div>
             <div style="position: absolute; bottom: -50px; right: -50px; width: 200px; height: 200px; background: rgba(218, 191, 156, 0.2); border-radius: 50%;"></div>
@@ -137,7 +137,7 @@
             </div>
         </section>
         <!-- Rooms Section -->
-        <section class="image-slider-section" style="padding: 5rem 1rem; background-color: rgb(218, 191, 156);">
+        <section class="image-slider-section" style="padding: 9rem 1rem;">
             <div class="relative flex items-center justify-center">
                 <div class="image-container">
                     <!-- Image Wrapper (Two columns for left and right images) -->
@@ -183,7 +183,7 @@
         </div>
 
         <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-            <img src="../images/area.jpg" alt="Restaurant and Cafe" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+            <img src="../images/12.jpg" alt="Restaurant and Cafe" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
             <div style="padding: 2rem;">
                 <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Restaurant & Cafe</h3>
                 <p style="color: #666; line-height: 1.6;">Experience exquisite dining in an elegant atmosphere with our diverse culinary offerings.</p>
@@ -191,7 +191,7 @@
         </div>
 
         <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-            <img src="../images/area.jpg" alt="Pool and Gardens" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+            <img src="../images/10.jpg" alt="Pool and Gardens" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
             <div style="padding: 2rem;">
                 <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Pool & Gardens</h3>
                 <p style="color: #666; line-height: 1.6;">Unwind in our luxurious pool or explore our meticulously maintained garden paradise.</p>
@@ -199,7 +199,7 @@
         </div>
 
         <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-            <img src="../images/area.jpg" alt="Conference Areas" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+            <img src="../images/13.jpg" alt="Conference Areas" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
             <div style="padding: 2rem;">
                 <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Conference Areas</h3>
                 <p style="color: #666; line-height: 1.6;">Professional meeting spaces equipped with modern technology for successful events.</p>
