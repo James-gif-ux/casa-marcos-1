@@ -139,6 +139,19 @@ try {
                       <span class="ml-4">Customers</span>
                     </a>
                   </li>
+                  <!-- Example for MEssages -->
+                  <li class="relative px-6 py-3">
+                    <?php if($current_page == 'messages.php'): ?>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    <?php endif; ?>
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'customer.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
+                      href="../views/messages.php">
+                      <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                      </svg>
+                      <span class="ml-4">Inquiries</span>
+                    </a>
+                  </li>
                   
                   <!-- Continue same pattern for remaining menu items -->
                 </ul>
@@ -214,6 +227,19 @@ try {
                       <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                     </svg>
                     <span class="ml-4">Customers</span>
+                  </a>
+                </li>
+                 <!-- Example for Messages -->
+                 <li class="relative px-6 py-3">
+                  <?php if($current_page == 'messages.php'): ?>
+                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                  <?php endif; ?>
+                  <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'customer.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
+                    href="../views/messages.php">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                    <span class="ml-4">Inquiries</span>
                   </a>
                 </li>
                 
@@ -300,49 +326,7 @@ try {
                   </template>
                 </button>
               </li>
-              <!-- Notifications menu -->
-              <li class="relative">
-                  <button
-                    class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
-                    @click="toggleNotificationsMenu(); console.log('Notification button clicked')"
-                    @keydown.escape="closeNotificationsMenu"
-                    aria-label="Notifications"
-                    aria-haspopup="true">
-                    <svg
-                      class="w-5 h-5"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path
-                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
-                      ></path>
-                    </svg>
-                  
-                    <!-- Notification badge -->
-                  
-                  </button>
-                  <!-- Update notification template -->
-                  <template x-if="isNotificationsMenuOpen">
-                    <ul x-transition:leave="transition ease-in duration-150"
-                        x-transition:leave-start="opacity-100" 
-                        x-transition:leave-end="opacity-0"
-                        @click.away="closeNotificationsMenu"
-                        @keydown.escape="closeNotificationsMenu"
-                        class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700">
-                      <li class="flex">
-                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                          href="messages.php">
-                          <span>Messages</span>
-                          <?php if ($unreadCount > 0): ?>
-                              <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                                  <?php echo $unreadCount; ?>
-                              </span>
-                          <?php endif; ?>
-                        </a>
-                      </li>
-                    </ul>
-                  </template>
-                </li>
+              
               <!-- Profile menu -->
               <li class="relative">
                 <button

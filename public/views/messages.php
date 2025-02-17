@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../model/server.php';
+include_once 'nav/header.php';
 
 $connector = new Connector();
 $sql = "SELECT * FROM messages ORDER BY date_sent DESC";
@@ -29,154 +30,72 @@ $messages = $connector->executeQuery($sql);
 <head>
     <title>Messages</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../assets/css/style.css" rel="stylesheet">
-    <style>
-        :root {
-        --primary: #ff6b6b;
-        --secondary: #4ecdc4;
-        --bg-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-        --glass-bg: rgba(255, 255, 255, 0.1);
-        --glass-border: rgba(255, 255, 255, 0.2);
-        --text-primary: #2d3436;
-        --text-secondary: #636e72;
-        --error-color: #ff4757;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', system-ui, sans-serif;
-    }
-
-    body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--bg-gradient);
-        padding: 20px;
-        background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%);
-        min-height: 100vh;
-        padding: 3rem;
-    }
-
+<style>
     .messages-container {
-        width: 100%;
-        max-width: 1200px;
+        max-width: 1400px;  /* Increased from 1200px */
         margin: 2rem auto;
-        padding: 4rem;
-        background: linear-gradient(135deg, #f6f8fb 0%, #f1f4f8 100%);
-        border-radius: 15px;
-        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+        padding: 0 30px;    /* Increased from 20px */
     }
 
     .table-header {
-        text-align: center;
-        margin-bottom: 3rem;
-        position: relative;
+        margin-bottom: 3rem;  /* Increased from 2rem */
     }
 
     .table-header h2 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #2d3436;
-        font-family: 'Impact', sans-serif;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    .table-header::after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 3px;
-        background: rgb(102, 67, 35);
-        margin: 1rem auto;
-        border-radius: 2px;
+        color: #333;
+        font-size: 32px;     /* Increased from 24px */
+        border-bottom: 3px solid #007bff;  /* Increased from 2px */
+        padding-bottom: 15px; /* Increased from 10px */
     }
 
     .table-wrapper {
-        background: white;
-        border-radius: 12px;
+        background: #fff;
+        border-radius: 12px;  /* Increased from 8px */
+        box-shadow: 0 0 30px rgba(0,0,0,0.1);  /* Increased from 20px */
         overflow: hidden;
     }
 
     table {
-        border: 1px solid #e0e0e0;
-        border-collapse: collapse;
         width: 100%;
-        background: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-collapse: collapse;
     }
 
-    th {
-        background: rgb(102, 67, 35);
+    thead {
+        background-color: #007bff;
         color: white;
-        font-weight: 600;
-        padding: 15px 20px;
-        text-transform: uppercase;
-        font-size: 1rem;
-        letter-spacing: 0.5px;
+    }
+
+    th, td {
+        padding: 16px 20px;  /* Increased from 12px 15px */
         text-align: left;
+        border-bottom: 2px solid #ddd;  /* Increased from 1px */
+        font-size: 16px;     /* Added font size */
     }
 
-    td {
-        padding: 15px 20px;
-        border: 1px solid #e0e0e0;
-        font-size: 1rem;
-        text-align: left;
+    tbody tr:hover {
+        background-color: #f5f5f5;
     }
 
-    td:hover {
-        background-color: #f1f1f1;
-        cursor: pointer;
-    }
-
-    button {
-        padding: 8px 15px;
-        font-size: 1rem;
-        font-weight: 600;
-        background: #4ecdc4;
+    .btn-primary {
+        background-color: #007bff;
         color: white;
         border: none;
-        border-radius: 8px;
+        padding: 10px 20px;  /* Increased from 8px 16px */
+        border-radius: 6px;  /* Increased from 4px */
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;     /* Added font size */
     }
 
-    button:hover {
-        background: #ff6b6b;
+    .btn-primary:hover {
+        background-color: #0056b3;
     }
-
-    button:active {
-        background: #4ecdc4;
-    }
-
-    a.btn-secondary {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        padding: 8px 15px;
-        border-radius: 8px;
-        background: rgb(102, 67, 35);
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    a.btn-secondary:hover {
-        background: #ff6b6b;
-    }
-
-    </style>
+</style>
 </head>
 <body>
     <div class="messages-container">
-        <!-- Add this close button at the top -->
-        <a href="../pages/dashboard.php" class="btn btn-secondary" style="position: absolute; top: 20px; right: 20px; padding: 8px 15px; border-radius: 8px; background: rgb(102, 67, 35); color: white; text-decoration: none; font-weight: 600;">
-            Close
-        </a>
         <div class="table-header">
             <h2>Messages</h2>
         </div>
