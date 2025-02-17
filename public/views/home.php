@@ -2,8 +2,41 @@
     include_once 'nav/homenav.php';
     include_once '../model/BookingModel.php';
     include_once '../model/Booking_Model.php';
-?>
 
+    $model = new BookingModel();
+    $bookingModel = new Booking_Model();
+
+    // Get all services
+    $services = $bookingModel->get_service();
+
+    // Include the Connector class
+    require_once '../model/server.php';
+    $connector = new Connector();
+
+    // Fetch all bookings that are pending approval
+    $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
+    $bookings = $connector->executeQuery($sql);
+
+    // Handle form submission
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get form data
+        $fullname = $_POST['fullname'];
+        $email = $_POST['email'];
+        $number = $_POST['number'];
+        $date = $_POST['date'];
+        $service_id = $_POST['service_id'];  // Get the selected service ID from the form
+
+        // Attempt to insert the booking
+        $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
+
+        if ($result === true) {
+            echo "Booking successfully added!";
+        } else {
+            echo $result;  // Display error message if any
+        }
+    }
+?>
+<link rel="stylesheet" href="../assets/css/roomstry.css">
     <main>
         <section class="hero">
             <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 3rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
@@ -103,138 +136,31 @@
             </div>
             </div>
         </section>
-<!-- Rooms Section -->
-<section class="rooms" style="position: relative; overflow: hidden; padding: 5rem 0; background: #f0ece4;">
-    <div style="position: absolute; top: 0; left: 0; right: 0; height: 100%; background: rgba(255, 255, 255, 0.6); z-index: 1;"></div>
-    <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative; z-index: 2;">
-        Our Rooms
-        <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
-    </h2>
-    <!-- Carousel Container -->
-    <div class="carousel-container" style="position: relative; z-index: 2;">
-        <!-- Carousel Slides -->
-        <div class="carousel-wrapper active" style="display: flex; overflow: hidden; transition: transform 0.5s ease;">
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg'); flex: 0 0 100%; background-size: cover; background-position: center;">
-                <div class="room-details" style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 2px 15px rgba(0,0,0,0.2);">
-                    <div class="room-title" style="font-weight: bold; color: rgb(102, 67, 35); font-size: 2rem;">Grand Living Room</div>
-                    <div class="room-description" style="color: #666; margin: 1rem 0;">Relax in style with plush seating, warm textures, and carefully curated decor.</div>
-                    <div class="room-price" style="color: rgb(163, 99, 15); font-size: 1.5rem; font-weight: bold;">$250 per night</div>
-                    <div class="freebies" style="margin-top: 1rem; display: flex; justify-content: center;">
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/wifi-icon.png" alt="Free Wi-Fi" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Wi-Fi</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/breakfast-icon.png" alt="Free Breakfast" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Breakfast</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/parking-icon.png" alt="Free Parking" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Parking</small>
-                        </div>
+        <!-- Rooms Section -->
+        <section class="image-slider-section" style="padding: 5rem 1rem; background-color: rgb(218, 191, 156);">
+            <div class="relative flex items-center justify-center">
+                <div class="image-container">
+                    <!-- Image Wrapper (Two columns for left and right images) -->
+                    <div class="image-wrapper">
+                        <?php foreach ($services as $srvc): ?>
+                            <div class="image">
+                                <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                                <div class="room-content">
+                                    <!-- Combined Title, Description, and Price -->
+                                    <div class="room-header">
+                                        <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
+                                        <p class="room-details"><?= $string = substr($srvc['services_description'],0,200); ?></p> <!-- Description between title and price -->
+                                        <div class="price-tag">
+                                            <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
-            <div class="carousel-slide" style="background-image: url('../images/history.jpg'); flex: 0 0 100%; background-size: cover; background-position: center;">
-                <div class="room-details" style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 2px 15px rgba(0,0,0,0.2);">
-                    <div class="room-title" style="font-weight: bold; color: rgb(102, 67, 35); font-size: 2rem;">Opulent Bedroom</div>
-                    <div class="room-description" style="color: #666; margin: 1rem 0;">An oasis of peace with soft hues, velvet throws, and the finest linens.</div>
-                    <div class="room-price" style="color: rgb(163, 99, 15); font-size: 1.5rem; font-weight: bold;">$300 per night</div>
-                    <div class="freebies" style="margin-top: 1rem; display: flex; justify-content: center;">
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/wifi-icon.png" alt="Free Wi-Fi" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Wi-Fi</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/breakfast-icon.png" alt="Free Breakfast" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Breakfast</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/parking-icon.png" alt="Free Parking" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Parking</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg'); flex: 0 0 100%; background-size: cover; background-position: center;">
-                <div class="room-details" style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 2px 15px rgba(0,0,0,0.2);">
-                    <div class="room-title" style="font-weight: bold; color: rgb(102, 67, 35); font-size: 2rem;">Elegant Dining Room</div>
-                    <div class="room-description" style="color: #666; margin: 1rem 0;">A space designed for unforgettable dinners, featuring luxurious furniture.</div>
-                    <div class="room-price" style="color: rgb(163, 99, 15); font-size: 1.5rem; font-weight: bold;">$200 per night</div>
-                    <div class="freebies" style="margin-top: 1rem; display: flex; justify-content: center;">
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/wifi-icon.png" alt="Free Wi-Fi" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Wi-Fi</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/breakfast-icon.png" alt="Free Breakfast" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Breakfast</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/parking-icon.png" alt="Free Parking" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Parking</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg'); flex: 0 0 100%; background-size: cover; background-position: center;">
-                <div class="room-details" style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 2px 15px rgba(0,0,0,0.2);">
-                    <div class="room-title" style="font-weight: bold; color: rgb(102, 67, 35); font-size: 2rem;">Chic Study</div>
-                    <div class="room-description" style="color: #666; margin: 1rem 0;">Where productivity meets comfort. A sophisticated workspace perfect for focus.</div>
-                    <div class="room-price" style="color: rgb(163, 99, 15); font-size: 1.5rem; font-weight: bold;">$180 per night</div>
-                    <div class="freebies" style="margin-top: 1rem; display: flex; justify-content: center;">
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/wifi-icon.png" alt="Free Wi-Fi" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Wi-Fi</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/breakfast-icon.png" alt="Free Breakfast" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Breakfast</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/parking-icon.png" alt="Free Parking" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Parking</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('../images/room.jpg'); flex: 0 0 100%; background-size: cover; background-position: center;">
-                <div class="room-details" style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 2px 15px rgba(0,0,0,0.2);">
-                    <div class="room-title" style="font-weight: bold; color: rgb(102, 67, 35); font-size: 2rem;">Luxurious Bathroom</div>
-                    <div class="room-description" style="color: #666; margin: 1rem 0;">Pamper yourself with a spa-like experience, featuring modern elegance.</div>
-                    <div class="room-price" style="color: rgb(163, 99, 15); font-size: 1.5rem; font-weight: bold;">$150 per night</div>
-                    <div class="freebies" style="margin-top: 1rem; display: flex; justify-content: center;">
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/wifi-icon.png" alt="Free Wi-Fi" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Wi-Fi</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/breakfast-icon.png" alt="Free Breakfast" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Breakfast</small>
-                        </div>
-                        <div style="margin: 0 15px; text-align: center;">
-                            <img src="../images/parking-icon.png" alt="Free Parking" style="width: 40px; height: 40px;">
-                            <small style="display: block; color: #666;">Free Parking</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation Arrows -->
-        <button class="prev" onclick="moveSlide(-1)" style="position: absolute; top: 50%; left: 20px; background: rgba(255, 255, 255, 0.8); border: none; border-radius: 50%; padding: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 3;">❮</button>
-        <button class="next" onclick="moveSlide(1)" style="position: absolute; top: 50%; right: 20px; background: rgba(255, 255, 255, 0.8); border: none; border-radius: 50%; padding: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 3;">❯</button>
-
-        <!-- Dots Navigation -->
-        <div class="dots-container" style="text-align: center; z-index: 2; margin-top: 1rem;">
-            <span class="dot active-dot" onclick="currentSlide(0)" style="height: 12px; width: 12px; margin: 0 4px; background-color: rgb(163, 99, 15); border-radius: 50%; display: inline-block; cursor: pointer;"></span>
-            <span class="dot" onclick="currentSlide(1)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #ccc; border-radius: 50%; display: inline-block; cursor: pointer;"></span>
-            <span class="dot" onclick="currentSlide(2)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #ccc; border-radius: 50%; display: inline-block; cursor: pointer;"></span>
-            <span class="dot" onclick="currentSlide(3)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #ccc; border-radius: 50%; display: inline-block; cursor: pointer;"></span>
-            <span class="dot" onclick="currentSlide(4)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #ccc; border-radius: 50%; display: inline-block; cursor: pointer;"></span>
-        </div>
-    </div>
-</section>
+        </section>
 
 
 
