@@ -40,6 +40,18 @@
 		function dashboard(){
 			include '../views/dashboard.php';
 		}
+		function booking(){
+			include '../views/booking.php';
+		}
+		function customer(){
+			include '../views/customer.php';
+		}
+		function messages(){
+			include '../views/messages.php';
+		}
+		function payment(){
+			include '../views/payment.php';
+		}
         
 	}
 ?>

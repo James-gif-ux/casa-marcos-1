@@ -10,6 +10,9 @@ try {
 } catch (Exception $e) {
     $unreadCount = 0;
 }
+
+// Add this at the top of the file
+$active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 ?>
 
 <!DOCTYPE html>
@@ -79,6 +82,44 @@ try {
         font-size: 14px; /* Smaller font */
     }
 }
+
+.menu-item.active {
+    background-color: rgba(107, 70, 193, 0.1);
+}
+
+.menu-item.active a {
+    color: #6B46C1;
+}
+
+.active-indicator {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+.menu-item.active {
+    background-color: rgba(107, 70, 193, 0.1);
+}
+
+.menu-item.active a {
+    color: #1a1c23 !important; /* Dark text color */
+}
+
+.menu-item.active svg {
+    color: #6B46C1; /* Purple icon color */
+}
+
+.active-indicator {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
   </style>
   <body>
     <div
@@ -99,12 +140,12 @@ try {
                 <ul class="mt-6">
                   <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
                   
-                  <li class="relative px-6 py-3">
+                  <li class="relative px-6 py-3 menu-item" data-page="dashboard">
                     <?php if($current_page == 'dashboard.php'): ?>
-                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                     <?php endif; ?>
                     <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'dashboard.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                      href="../views/dashboard.php">
+                      href="../pages/dashboard.php">
                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                       </svg>
@@ -112,12 +153,12 @@ try {
                     </a>
                   </li>
 
-                  <li class="relative px-6 py-3">
+                  <li class="relative px-6 py-3 menu-item" data-page="booking">
                     <?php if($current_page == 'booking.php'): ?>
-                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                     <?php endif; ?>
                     <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'booking.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                      href="../views/booking.php">
+                      href="../pages/dashboard.php?sub_page=booking">
                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                       </svg>
@@ -127,12 +168,12 @@ try {
 
                   <!-- Repeat similar pattern for other menu items -->
                   <!-- Example for Customers -->
-                  <li class="relative px-6 py-3">
+                  <li class="relative px-6 py-3 menu-item" data-page="customer">
                     <?php if($current_page == 'customer.php'): ?>
-                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                     <?php endif; ?>
                     <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'customer.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                      href="../views/customer.php">
+                      href="../pages/dashboard.php?sub_page=customer">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
                         <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
                       </svg>
@@ -140,17 +181,30 @@ try {
                     </a>
                   </li>
                   <!-- Example for MEssages -->
-                  <li class="relative px-6 py-3">
+                  <li class="relative px-6 py-3 menu-item" data-page="messages">
                     <?php if($current_page == 'messages.php'): ?>
-                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                     <?php endif; ?>
                     <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'messages.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                      href="../views/messages.php">
+                      href="../pages/dashboard.php?sub_page=messages">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16">
                         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                         <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
                       </svg>
                       <span class="ml-4">Inquiries</span>
+                    </a>
+                  </li>
+                  <!-- Example for payments -->
+                  <li class="relative px-6 py-3 menu-item" data-page="payment">
+                    <?php if($current_page == 'messages.php'): ?>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
+                    <?php endif; ?>
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'messages.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
+                      href="../pages/dashboard.php?sub_page=payment">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                        <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                      </svg>
+                      <span class="ml-4">Payments</span>
                     </a>
                   </li>
                   
@@ -190,12 +244,12 @@ try {
               <ul class="mt-6">
                 <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
                 
-                <li class="relative px-6 py-3">
+                <li class="relative px-6 py-3 menu-item" data-page="dashboard">
                   <?php if($current_page == 'dashboard.php'): ?>
-                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                   <?php endif; ?>
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'dashboard.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                    href="../views/dashboard.php">
+                    href="../pages/dashboard.php">
                     <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                       <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
@@ -203,12 +257,12 @@ try {
                   </a>
                 </li>
 
-                <li class="relative px-6 py-3">
+                <li class="relative px-6 py-3 menu-item" data-page="booking">
                   <?php if($current_page == 'booking.php'): ?>
-                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                   <?php endif; ?>
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'booking.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                    href="../views/booking.php">
+                    href="../pages/dashboard.php?sub_page=booking">
                     <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                       <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                     </svg>
@@ -218,12 +272,12 @@ try {
 
                 <!-- Repeat similar pattern for other menu items -->
                 <!-- Example for Customers -->
-                <li class="relative px-6 py-3">
+                <li class="relative px-6 py-3 menu-item" data-page="customer">
                   <?php if($current_page == 'customer.php'): ?>
-                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                   <?php endif; ?>
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'customer.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                    href="../views/customer.php">
+                    href="../pages/dashboard.php?sub_page=customer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
                       <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
                     </svg>
@@ -231,12 +285,12 @@ try {
                   </a>
                 </li>
                  <!-- Example for Messages -->
-                 <li class="relative px-6 py-3">
+                 <li class="relative px-6 py-3 menu-item" data-page="messages">
                   <?php if($current_page == 'messages.php'): ?>
-                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
                   <?php endif; ?>
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'messages.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                    href="../views/messages.php">
+                    href="../pages/dashboard.php?sub_page=messages">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16">
                       <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                       <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
@@ -244,7 +298,19 @@ try {
                     <span class="ml-4">Inquiries</span>
                   </a>
                 </li>
-                
+                <!-- Example for payments -->
+                <li class="relative px-6 py-3 menu-item" data-page="payment">
+                    <?php if($current_page == 'messages.php'): ?>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
+                    <?php endif; ?>
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'messages.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
+                      href="../pages/dashboard.php?sub_page=payment">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                        <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                      </svg>
+                      <span class="ml-4">Payments</span>
+                    </a>
+                  </li>
                 
                 <!-- Continue same pattern for remaining menu items -->
               </ul>
@@ -383,3 +449,46 @@ try {
             </ul>
           </div>
         </header>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuItems = document.querySelectorAll('.menu-item');
+    
+    function setActiveMenuItem(item) {
+        // Remove active class from all items
+        menuItems.forEach(menuItem => {
+            menuItem.classList.remove('active');
+            menuItem.querySelector('a').classList.remove('text-gray-800', 'dark:text-gray-100');
+            const indicator = menuItem.querySelector('.active-indicator');
+            if (indicator) indicator.remove();
+        });
+
+        // Add active class to clicked item
+        item.classList.add('active');
+        item.querySelector('a').classList.add('text-gray-800', 'dark:text-gray-100');
+        
+        // Add indicator
+        const indicator = document.createElement('span');
+        indicator.className = 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator';
+        item.insertBefore(indicator, item.firstChild);
+        
+        // Store active state
+        localStorage.setItem('activeMenuItem', item.dataset.page);
+    }
+
+    // Add click handlers
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            setActiveMenuItem(this);
+        });
+    });
+
+    // Set active state on page load
+    const activeMenuId = localStorage.getItem('activeMenuItem');
+    if (activeMenuId) {
+        const activeItem = document.querySelector(`[data-page="${activeMenuId}"]`);
+        if (activeItem) setActiveMenuItem(activeItem);
+    }
+});
+</script>
+</body>
+</html>
