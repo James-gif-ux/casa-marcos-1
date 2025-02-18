@@ -206,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         /* Booking Section Styling */
         .booking-container {
             background: rgba(255, 255, 255, 0.98); /* Nearly opaque white */
-            padding: 2rem;
+            padding: 4rem;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px); /* Subtle blur */
@@ -215,7 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             z-index: 10;
             margin-top: 130px;
             transition: box-shadow 0.3s ease, height 0.3s ease; /* Smooth shadow and height transition */
-            height: 750px;
+            height: 680px;
         }
 
         .booking-container:hover {
