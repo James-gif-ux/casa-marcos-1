@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'nav/homenav.php';
 include_once '../model/BookingModel.php';
 include_once '../model/Booking_Model.php';
@@ -16,6 +17,12 @@ $connector = new Connector();
 // Fetch all bookings that are pending approval
 $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
 $bookings = $connector->executeQuery($sql);
+
+// Store POST data if available
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['check_in'] = $_POST['checkin_date'];
+    $_SESSION['check_out'] = $_POST['checkout_date'];
+}
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -37,41 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php
-require_once '../model/server.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    try {
-        $connector = new Connector();
-        
-        // Validate dates
-        $check_in = $_POST['check_in'];
-        $check_out = $_POST['check_out'];
-        
-        
-        if (strtotime($check_out) <= strtotime($check_in)) {
-            throw new Exception("Check-out date must be after check-in date");
-        }
-
-        // Insert into checkin_tb
-        $sql = "INSERT INTO checkin_tb (check_booking_id, `check-in`, `check-out`) 
-                VALUES (?, ?, ?)";
-
-        
-
-      
-
-        if ($result) {
-            $_SESSION['success'] = "Booking dates saved successfully!";
-            header("Location: confirmation.php");
-            exit();
-        }
-
-    } catch (Exception $e) {
-        $_SESSION['error'] = $e->getMessage();
-    }
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -429,12 +402,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
                 <div class="check-section">
                     <h3>Check-in</h3>
-                    <input type="date" name="check_in" required min="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" name="check_in" 
+                           value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : '2025-02-18'; ?>"
+                           required min="<?= date('Y-m-d') ?>">
                 </div>
 
                 <div class="check-section">
                     <h3>Check-out</h3>
-                    <input type="date" name="check_out" required>
+                    <input type="date" name="check_out" 
+                           value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : '2025-02-19'; ?>"
+                           required>
                 </div>
                 <button type="submit">Search Booking</button>
         </div>

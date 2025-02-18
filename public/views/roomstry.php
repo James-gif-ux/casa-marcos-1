@@ -17,24 +17,7 @@
     $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
     $bookings = $connector->executeQuery($sql);
 
-    // Handle form submission
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Get form data
-        $fullname = $_POST['fullname'];
-        $email = $_POST['email'];
-        $number = $_POST['number'];
-        $date = $_POST['date'];
-        $service_id = $_POST['service_id'];  // Get the selected service ID from the form
 
-        // Attempt to insert the booking
-        $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
-
-        if ($result === true) {
-            echo "Booking successfully added!";
-        } else {
-            echo $result;  // Display error message if any
-        }
-    }
 ?>
 
 <!-- Add this in the <head> section -->
@@ -42,42 +25,67 @@
 <link rel="stylesheet" href="../assets/css/roomstry.css">
 
 
+<?php
+require_once '../model/server.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    try {
+        $connector = new Connector();
+        
+        // Get form data
+        $checkin_date = $_POST['checkin_date'];
+        $checkout_date = $_POST['checkout_date'];
+        
+        // Updated SQL without booking_id
+        $sql = "INSERT INTO checkin_tb (`checkin`, `checkout`) 
+                VALUES (:checkin, :checkout)";
+        
+        $stmt = $connector->getConnection()->prepare($sql);
+        $result = $stmt->execute([
+            ':checkin' => $checkin_date,
+            ':checkout' => $checkout_date
+        ]);
+
+       
+        
+    } catch (PDOException $e) {
+        echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
+    }
+}
+?>
+
 <section class="hera">
     <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 1rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-    <form action="../pages/books.php" method="POST" style="display: flex; flex-direction: column; align-items: center;">
-            <!-- Check-in and Check-out Section -->
+        <form method="POST" action="../pages/books.php" style="display: flex; flex-direction: column; align-items: center;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; justify-content: center;">
                 <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
                     <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
-                    <input type="date" id="check_in" name="check_in" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                    <input type="date" id="checkin" name="checkin_date" required 
+                           min="<?php echo date('Y-m-d'); ?>"
+                           style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                 </div>
                 <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
                     <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
-                    <input type="date" id="check_out" name="check_out" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                    <input type="date" id="checkout" name="checkout_date" required
+                           style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                </div>
             </div>
-
-            <script>
-                document.getElementById('check_in').addEventListener('change', function() {
-                    const checkIn = new Date(this.value);
-                    const checkOut = new Date(checkIn);
-                    checkOut.setDate(checkOut.getDate() + 1);
-                    
-                    const checkOutInput = document.getElementById('check_out');
-                    checkOutInput.value = checkOut.toISOString().split('T')[0];
-                    checkOutInput.setAttribute('min', checkOut.toISOString().split('T')[0]);
-                    checkOutInput.setAttribute('max', checkOut.toISOString().split('T')[0]);
-                });
-            </script>
-
-            <!-- Submit Button -->
-            <button type="submit" style="width: 100%; margin-left:250px; padding: 1rem; background: linear-gradient(to right, rgb(218, 191, 156), rgb(218, 191, 156)); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
+            <input type="hidden" name="search_dates" value="true">
+            <button type="submit" style="width: 45%; margin: 2rem auto; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; display: block;">
                 Search Booking
             </button>
         </form>
     </div>
 </section>
 
-
+<script>
+document.getElementById('checkin').addEventListener('change', function() {
+    const checkIn = new Date(this.value);
+    const minCheckOut = new Date(checkIn);
+    minCheckOut.setDate(minCheckOut.getDate() + 1);
+    document.getElementById('checkout').min = minCheckOut.toISOString().split('T')[0];
+});
+</script>
 
 <section class="image-slider-section" style="padding: 5rem 1rem; background-color: rgb(218, 191, 156);">
     <div class="relative flex items-center justify-center">

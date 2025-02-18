@@ -5,6 +5,14 @@
 	$page_info['page'] = 'books'; //for page that needs to be called
 	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'books'; //for function to be loaded
 		
+	if(isset($_POST['search_dates'])) {
+	    $checkin_date = $_POST['checkin_date'];
+	    $checkout_date = $_POST['checkout_date'];
+	    
+	    // Store in session for persistence
+	    $_SESSION['checkin_date'] = $checkin_date;
+	    $_SESSION['checkout_date'] = $checkout_date;
+	}
 	
 	try {//used try to catch unfortunate errors
 		//check for active function
