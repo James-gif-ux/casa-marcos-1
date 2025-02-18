@@ -37,6 +37,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+<?php
+require_once '../model/server.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    try {
+        $connector = new Connector();
+        
+        // Validate dates
+        $check_in = $_POST['check_in'];
+        $check_out = $_POST['check_out'];
+        
+        
+        if (strtotime($check_out) <= strtotime($check_in)) {
+            throw new Exception("Check-out date must be after check-in date");
+        }
+
+        // Insert into checkin_tb
+        $sql = "INSERT INTO checkin_tb (check_booking_id, `check-in`, `check-out`) 
+                VALUES (?, ?, ?)";
+
+        
+
+      
+
+        if ($result) {
+            $_SESSION['success'] = "Booking dates saved successfully!";
+            header("Location: confirmation.php");
+            exit();
+        }
+
+    } catch (Exception $e) {
+        $_SESSION['error'] = $e->getMessage();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -388,21 +424,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="booking-container">
-            <form action="../pages/books.php" method="POST">
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
+            <?php endif; ?>
                 <div class="check-section">
                     <h3>Check-in</h3>
-                    <input type="date" name="check_in" required>
-                    <input type="time" name="check_in_time" required>
+                    <input type="date" name="check_in" required min="<?php echo date('Y-m-d'); ?>">
                 </div>
 
                 <div class="check-section">
                     <h3>Check-out</h3>
                     <input type="date" name="check_out" required>
-                    <input type="time" name="check_out_time" required>
                 </div>
-
                 <button type="submit">Search Booking</button>
-            </form>
         </div>
     </div>
 
@@ -474,6 +508,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     document.getElementById('service_name').value = serviceName;
                 });
             });
+        });
+
+        document.querySelector('input[name="check_in"]').addEventListener('change', function() {
+            const checkIn = new Date(this.value);
+            const minCheckOut = new Date(checkIn);
+            minCheckOut.setDate(minCheckOut.getDate() + 1);
+            
+            document.querySelector('input[name="check_out"]').min = minCheckOut.toISOString().split('T')[0];
         });
     </script>
 
