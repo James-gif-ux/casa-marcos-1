@@ -74,7 +74,7 @@
         </section>
 
 
-        <section style="padding: 6rem 2rem;  background-color: #f9f6f2;, 144, 117, 0.89); position: relative; overflow: hidden;">
+        <section style="padding: 6rem 2rem;  background-color: #f9f6f2(144, 117, 0.89); position: relative; overflow: hidden;">
             <!-- Decorative Elements -->
           
             
