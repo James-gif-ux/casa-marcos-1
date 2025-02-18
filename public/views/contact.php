@@ -43,10 +43,6 @@
 
 <section style="padding: 15rem 2rem; background: linear-gradient(to bottom, #f9f6f2, #fff);">
                 <div class="contact-grid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; position: relative;">
-                    <!-- Decorative elements -->
-                    <div style="position: absolute; width: 150px; height: 150px; border: 3px solid rgba(163, 99, 15, 0.1); border-radius: 50%; top: -50px; left: -75px; z-index: 0;"></div>
-                    <div style="position: absolute; width: 100px; height: 100px; border: 3px solid rgba(102, 67, 35, 0.1); border-radius: 50%; bottom: -30px; right: -50px; z-index: 0;"></div>
-
                     <!-- Contact Info Side -->
                     <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease; position: relative; z-index: 1;"
                          onmouseover="this.style.transform='translateY(-5px)'" 
