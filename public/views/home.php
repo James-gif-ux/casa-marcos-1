@@ -98,11 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             });
         </script>
 
-        <section style="padding: 6rem 2rem;  background-color: #f9f6f2(144, 117, 0.89); position: relative; overflow: hidden;">
+        <section style="padding: 6rem 2rem;   background-color: #f9f6f2; position: relative; overflow: hidden;">
             <!-- Decorative Elements -->
           
             
-            <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+            <div style=" max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
             <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact'; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
                 About Us
                 <span style="display: block; width: 80px; height: 3px; background: rgb(102, 67, 35); margin: 1rem auto;"></span>
