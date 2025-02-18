@@ -85,22 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     </style>
-
-    <!-- Decorative Elements -->
-    <div style="position: absolute; top: 0; left: 0; width: 150px; height: 150px; background: rgba(218, 191, 156, 0.2); border-radius: 50%;"></div>
-    <div style="position: absolute; bottom: -50px; right: -50px; width: 200px; height: 200px; background: rgba(218, 191, 156, 0.2); border-radius: 50%;"></div>
-    
-    <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
-    
+    <div style=" background-color: #f9f6f2; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
     <div class="history-container" style="display: flex; gap: 4rem; align-items: center; background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 240, 0.95)); 
                 padding: 3rem; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
-        
-        <!-- Decorative elements -->
-        <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; background: rgba(218, 191, 156, 0.2); 
-                    border-radius: 50%; filter: blur(2px);"></div>
-        <div style="position: absolute; bottom: -30px; right: -30px; width: 150px; height: 150px; background: rgba(102, 67, 35, 0.1); 
-                    border-radius: 50%; filter: blur(3px);"></div>
-
         <div class="history-image" style="flex: 1; transition: all 0.5s ease; position: relative;">
             <img src="../images/history.jpg" alt="Resort History" 
                  style="width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 

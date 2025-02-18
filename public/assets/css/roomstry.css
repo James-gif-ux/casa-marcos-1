@@ -124,11 +124,13 @@
 
 .room-header {
     margin-top: 300px;
-    background: rgba(212, 182, 150, 0.9);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(173, 148, 123, 0.089);  /* Use a semi-transparent background */
+    backdrop-filter: blur(2px);  /* Apply a blur effect on the background */
 }
+
 
 .room-title {
     font-size: 2rem;
@@ -154,7 +156,7 @@
 }
 
 .price-tag {
-    background: rgb(102, 67, 35);
+    background: rgb(206, 170, 136);
     color: #fff;
     padding: 10px 20px;
     border-radius: 25px;
