@@ -52,6 +52,8 @@
 		function payment(){
 			include '../views/payment.php';
 		}
-        
+        function reservedBooking(){
+			include '../views/reservedBooking.php';
+		}
 	}
 ?>

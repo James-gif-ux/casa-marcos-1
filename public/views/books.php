@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             data-name="<?= $srvc['services_name'] ?>">
                                         Book Now
                                     </button>
-                                    <a href="reservation.php" type="button" class="readmore" style="text-decoration: none; text-align: center;">
+                                    <a href="reservation.php" type="button" class="readmore" style="text-decoration: none; text-align: center; color:aliceblue ">
                                         Reserve Now
                                     </a>
                                 </div>
