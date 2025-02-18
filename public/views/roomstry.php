@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <section class="hera">
-    <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 1rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
+    <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
         <form method="POST" action="../pages/books.php" style="display: flex; flex-direction: column; align-items: center;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; justify-content: center;">
                 <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
@@ -87,7 +87,7 @@ document.getElementById('checkin').addEventListener('change', function() {
 });
 </script>
 
-<section class="image-slider-section" style="padding: 5rem 1rem; background-color: rgb(218, 191, 156);">
+<section class="image-slider-section" style="padding: 6rem 2rem; background-color: rgb(218, 191, 156);">
     <div class="relative flex items-center justify-center">
         <div class="image-container">
             <!-- Image Wrapper (Two columns for left and right images) -->
