@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                          onmouseout="this.style.transform='rotate(-2deg) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.2)';">
                     <div style="position: absolute; top: -15px; right: -15px; background: rgb(102, 67, 35); color: white; 
                                 padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; transform: rotate(3deg);">
-                        Since 1985
+                        Since 2024
                     </div>
                 </div>
                 
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </h3>
                     <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 1.8rem; 
                              text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
-                        Founded in 1985, Casa Marcos began as a modest family retreat nestled in the heart of nature. 
+                        Founded in 2024, Casa Marcos began as a modest family retreat nestled in the heart of nature. 
                         Over the decades, it has evolved into a premier luxury resort while maintaining its authentic charm 
                         and warm hospitality.
                     </p>
