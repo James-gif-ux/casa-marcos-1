@@ -51,9 +51,7 @@
 		function login(){
 			include '../views/login.php';
 		}
-		function register(){ //register page
-			include "../views/register.php";
-		}
+		
 		function dashboard(){
 			include '../views/dashboard.php';
 		}
@@ -93,9 +91,9 @@
 			
 			if($result){
 				if($result['admin_type'] === 'admin'){
-					header('Location: ../pages/dashboard.php?sub_page=dashboard');
+					header('Location: ../pages/admin_dashboard.php?sub_page=dashboard');
 				}else{
-					header('Location: ../pages/dashboard.php?sub_page=dashboard');
+					header('Location: ../pages/admin_dashboard.php?sub_page=dashboard');
 				}
 			}else{
 				$msg = "Invalid Username or Password!";

@@ -28,6 +28,11 @@
 <?php
 require_once '../model/server.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['check_in'] = $_POST['checkin_date'];
+    $_SESSION['check_out'] = $_POST['checkout_date'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
         $connector = new Connector();
