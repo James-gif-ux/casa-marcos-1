@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 
 // Database connection (adjust these settings according to your database)
@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <style>
-    /* General reset */
+     /* General reset */
 * {
     margin: 0;
     padding: 0;
@@ -58,6 +59,7 @@ body {
     height: 100vh;
     padding: 20px;
 }
+
 
 /* Reservation Page (Flex layout) */
 .reservation-page {
@@ -88,9 +90,6 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
-.room-image:hover {
-    transform: scale(1.05);
-}
 
 h3 {
     margin-top: 15px;

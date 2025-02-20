@@ -88,7 +88,7 @@
     .hero {
         text-align: center;
         padding: 23rem;
-        background-image: url('../images/11.jpg');
+        background-image: url('../images/villas.jpg');
         background-size: cover;
         background-position: center;
     }
@@ -96,7 +96,7 @@
     .hera {
         text-align: center;
         padding: 23rem;
-        background-image: url('../images/11.jpg');
+        background-image: url('../images/villas.jpg');
         background-size: cover;
         background-position: center;
     }
@@ -104,7 +104,7 @@
     .off {
         text-align: center;
         padding: 20rem;
-        background-image: url('../images/7.jpg');
+        background-image: url('../images/restaurant.jpg');
         background-size: cover;
         background-position: center;
     }
