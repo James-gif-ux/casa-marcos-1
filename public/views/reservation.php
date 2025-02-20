@@ -1,32 +1,46 @@
 <?php
 session_start();
+include_once '../model/reservationModel.php';
 
-// Database connection (adjust these settings according to your database)
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "resrot_db";
+$model = new Reservation_Model();
+$reservationModel = new Reservation_Model();
+
+// Get all services
+$services = $reservationModel->get_service();
+
+// Include the Connector class
+require_once '../model/server.php';
+$connector = new Connector();
+
+// Fetch all bookings that are pending approval
+$sql = "SELECT reservation_id, name, email, phone, date, message FROM reservations WHERE status = 'pending'";
+$reservations = $connector->executeQuery($sql);
 
 // Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $stmt = $conn->prepare("INSERT INTO reservations (name, email, phone, date, message) 
-                               VALUES (:name, :email, :phone, :date, :message)");
+        $connector = new Connector();
         
-        $stmt->execute([
+        // Updated SQL to include res_services_id
+        $sql = "INSERT INTO reservations (name, email, phone, date, message, status, res_services_id) 
+                VALUES (:name, :email, :phone, :date, :message, 'pending', :service_id)";
+        
+        $stmt = $connector->getConnection()->prepare($sql);
+        $result = $stmt->execute([
             ':name' => $_POST['name'],
             ':email' => $_POST['email'],
             ':phone' => $_POST['phone'],
             ':date' => $_POST['date'],
-            ':message' => $_POST['message']
+            ':message' => $_POST['message'],
+            ':service_id' => $_POST['service_id'] // This gets the hidden service_id field value
         ]);
 
-        $success_message = "Reservation submitted successfully!";
-    } catch(PDOException $e) {
-        $error_message = "Error: " . $e->getMessage();
+        if ($result) {
+            echo "<script>alert('Reservation submitted successfully!');</script>";
+        }
+        
+    } catch (PDOException $e) {
+        echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
     }
 }
 ?>
@@ -77,14 +91,15 @@ body {
 .room-image-section {
     width: 45%;
     text-align: center;
-    padding-right: 20px;
+    padding: 20px;
 }
 
 .room-image {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    height: 500px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -205,30 +220,212 @@ input:hover, textarea:hover, .submit-btn:hover {
     transform: translateY(-2px);
 }
 
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+    .reservation-page {
+        padding: 20px;
+        max-width: 900px;
+    }
+
+    .room-image {
+        height: 400px;
+        margin-top: 80px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        height: auto;
+        padding: 10px;
+    }
+
+    .reservation-page {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .room-image-section,
+    .reservation-container {
+        width: 100%;
+    }
+
+    .room-image {
+        height: 300px;
+        margin-top: 40px;
+    }
+
+    .right-section {
+        padding-left: 0;
+        margin-top: 30px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .reservation-page {
+        padding: 15px;
+    }
+
+    .room-image {
+        height: 200px;
+        margin-top: 20px;
+    }
+
+    input, textarea, .submit-btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+    input:hover, textarea:hover, .submit-btn:hover {
+        transform: none;
+    }
+
+    .submit-btn {
+        padding: 15px 20px;
+    }
+}
+
+    /* Responsive Design */
+    @media screen and (max-width: 1024px) {
+        .reservation-page {
+            padding: 20px;
+            max-width: 900px;
+        }
+    
+        .room-image {
+            height: 400px;
+            margin-top: 80px;
+        }
+    }
+    
+    @media screen and (max-width: 768px) {
+        body {
+            height: auto;
+            padding: 10px;
+        }
+    
+        .reservation-page {
+            flex-direction: column;
+            padding: 20px;
+        }
+    
+        .room-image-section,
+        .reservation-container {
+            width: 100%;
+        }
+    
+        .room-image {
+            height: 300px;
+            margin-top: 40px;
+        }
+    
+        .right-section {
+            padding-left: 0;
+            margin-top: 30px;
+        }
+    
+        h2 {
+            font-size: 28px;
+        }
+    
+        h3 {
+            font-size: 24px;
+        }
+    }
+    
+    @media screen and (max-width: 480px) {
+        .reservation-page {
+            padding: 15px;
+        }
+    
+        .room-image {
+            height: 200px;
+            margin-top: 20px;
+        }
+    
+        input, textarea, .submit-btn {
+            padding: 12px;
+            font-size: 16px;
+        }
+    
+        label {
+            font-size: 16px;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        h2 {
+            font-size: 24px;
+        }
+    
+        h3 {
+            font-size: 20px;
+        }
+    
+        p {
+            font-size: 16px;
+        }
+    }
+    
+    /* Touch Device Optimizations */
+    @media (hover: none) {
+        input:hover, textarea:hover, .submit-btn:hover {
+            transform: none;
+        }
+    
+        .submit-btn {
+            padding: 15px 20px;
+        }
+    }
 </style>
 <body>
     <div class="reservation-page">
         <!-- Room Image Section -->
+        <?php foreach ($services as $srvc)?>
         <div class="room-image-section">
-            <img src="../images/11.jpg" alt="Room Image" class="room-image">
-            <h3>Deluxe Room</h3>
-            <p>Relax in our luxurious Deluxe Room, featuring a king-sized bed, marble bathrooms, and stunning views. Perfect for an unforgettable getaway.</p>
+            <img src="../images/<?= $srvc['services_image'] ?>" alt="Room Image" class="room-image">
+            <h3><?= $srvc['services_name'] ?></h3>
+            <p><?= $srvc['services_description'] ?></p>
         </div>
-
+        <?php
+            ?>
         <!-- Reservation Form Section -->
         <div class="reservation-container">
             <div class="right-section">
                 <h2>Make a Reservation</h2>
-                
-                <?php if (isset($success_message)): ?>
-                    <div class="alert success"><?php echo $success_message; ?></div>
-                <?php endif; ?>
-
-                <?php if (isset($error_message)): ?>
-                    <div class="alert error"><?php echo $error_message; ?></div>
-                <?php endif; ?>
-
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="reservation-form">
+                <form method="POST" action="books.php" class="reservation-form">
                     <div class="form-group">
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
@@ -254,10 +451,21 @@ input:hover, textarea:hover, .submit-btn:hover {
                         <textarea id="message" name="message" rows="4"></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn">Make Reservation</button>
+                    <input type="hidden" name="service_id" value="<?= $srvc['services_id'] ?>">
+
+                    <button type="submit" class="submit-btn" >Make Reservation</button>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        document.querySelector('.reservation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to make this reservation?')) {
+                this.submit();
+                alert('Reservation submitted successfully!');
+            }
+        });
+    </script>
 </body>
 </html>
