@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include_once '../model/reservationModel.php';
 
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <style>
-     /* General reset */
+    /* General reset */
 * {
     margin: 0;
     padding: 0;
@@ -73,7 +73,6 @@ body {
     height: 100vh;
     padding: 20px;
 }
-
 
 /* Reservation Page (Flex layout) */
 .reservation-page {
@@ -105,6 +104,9 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
+.room-image:hover {
+    transform: scale(1.05);
+}
 
 h3 {
     margin-top: 15px;
@@ -424,7 +426,7 @@ input:hover, textarea:hover, .submit-btn:hover {
         <div class="reservation-container">
             <div class="right-section">
                 <h2>Make a Reservation</h2>
-                <form method="POST" action="books.php" class="reservation-form">
+                <form method="POST" action="reservation.php" class="reservation-form">
                     <div class="form-group">
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>

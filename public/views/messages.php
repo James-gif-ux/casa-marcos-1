@@ -11,6 +11,10 @@ $sql = "SELECT COUNT(*) as unread_count FROM messages WHERE status = 0";
 $result = $connector->executeQuery($sql);
 $row = $result->fetch(PDO::FETCH_ASSOC);
 $unread_count = ($row && isset($row['unread_count'])) ? $row['unread_count'] : 0;
+
+// Check if there are new messages
+
+
 // When a new message is sent
 $unread_count++;
 
@@ -71,7 +75,11 @@ $messages = $connector->executeQuery($sql);
             background-color: #f0f8ff;
         }
 
-
+        /* Highlight Unread Messages */
+        .unread {
+            font-weight: bold;
+            background-color: #f9f9f9;  /* Light Gray or any color you prefer */
+        }
 
         /* Responsive Design */
         @media (max-width: 1200px) { /* Adjust the breakpoint as needed */
@@ -84,7 +92,6 @@ $messages = $connector->executeQuery($sql);
                 font-size: 0.85rem; /* Slightly reduce font size */
             }
         }
-
 
         @media (max-width: 900px) { /* Adjust the breakpoint as needed */
             th, td {
@@ -105,7 +112,6 @@ $messages = $connector->executeQuery($sql);
              .table-wrapper {
                 overflow-x: auto; /* Ensure horizontal scroll */
             }
-
         }
 
     </style>
@@ -126,7 +132,7 @@ $messages = $connector->executeQuery($sql);
                 </thead>
                 <tbody>
                     <?php foreach ($messages as $message): ?>
-                    <tr>
+                    <tr class="<?php echo ($message['status'] === '0') ? 'unread' : ''; ?>">
                         <td><?php echo htmlspecialchars($message['recipient_email']); ?></td>
                         <td><?php echo htmlspecialchars($message['subject']); ?></td>
                         <td><?php echo htmlspecialchars($message['message_content']); ?></td>
@@ -162,6 +168,9 @@ $messages = $connector->executeQuery($sql);
         .then(data => {
             if (data.success) {
                 const form = document.getElementById('messageForm_' + messageId);
+                const row = form.closest('tr');
+                row.classList.remove('unread'); // Remove the 'unread' class
+
                 const statusCell = form.closest('tr').querySelector('td:nth-child(5)');
                 statusCell.textContent = 'read';
                 form.submit();

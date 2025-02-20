@@ -1,15 +1,15 @@
 <?php
 	//import model
 
-	$page_info['page'] = 'dashboard'; //for page that needs to be called
-	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'dashboard'; //for function to be loaded
+	$page_info['page'] = 'admin_dashboard'; //for page that needs to be called
+	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'admin_dashboard'; //for function to be loaded
 		
 	
 	try {//used try to catch unfortunate errors
 		//check for active function
 		
 		//no active function, use the default page to view
-		new Dashboard($page_info);
+		new admin_dashboard($page_info);
 		
 	}catch (Throwable $e){ //get the encountered error
 		echo '<h1>ERROR 404</h1>';
@@ -20,7 +20,7 @@
 	//-----------------------//
 	//--  Class Navigation --//
 	//-----------------------//
-	class Dashboard{
+	class admin_dashboard{
 		//set default page info
 		private $page = '';
 		private $sub_page = '';

@@ -6,13 +6,13 @@ try {
     $connector = new Connector();
     
     // Fetch all bookings
-    $sql = "SELECT b.*, s.services_name 
-            FROM booking_tb b 
-            LEFT JOIN services_tb s ON b.booking_services_id = s.services_id 
-            WHERE b.booking_status IN ('pending', 'approved')";
+    $sql = "SELECT r.*, s.services_name 
+            FROM reservations r 
+            LEFT JOIN services_tb s ON r.res_services_id = s.services_id 
+            WHERE r.status IN ('pending', 'approved')";
     
     $stmt = $connector->executeQuery($sql);
-    $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
     // Fetch all messages
     ?>
 
@@ -52,22 +52,22 @@ try {
             </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <?php foreach ($bookings as $booking): ?>
+                <?php foreach ($reservation as $res): ?>
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-center">
-                            <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
+                            <?php echo htmlspecialchars($res['services_name'] ?? 'N/A'); ?>
                         </td>
-                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
-                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
-                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
-                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_date']); ?></td>
-                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['name']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['email']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['phone']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['date']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['status']); ?></td>
                         <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
                           
+                           
+                            <a href="../pages/admin-client.php?booking_id=<?php echo $res['booking_id']; ?>&action=approve" class="btn-approve">Approve</a>
                             |
-                            <a href="../pages/admin-client.php?booking_id=<?php echo $booking['booking_id']; ?>&action=approve" class="btn-approve">Approve</a>
-                            |
-                            <a href="../pages/admin-client.php?booking_id=<?php echo $booking['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
+                            <a href="../pages/admin-client.php?booking_id=<?php echo $res['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
