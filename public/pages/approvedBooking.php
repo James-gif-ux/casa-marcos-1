@@ -1,23 +1,27 @@
 <?php
 require_once '../model/server.php';
 
-if (isset($_GET['booking_id']) && isset($_GET['action'])) {
-    $booking_id = $_GET['booking_id'];
+if (isset($_GET['reservation_id']) && isset($_GET['action'])) {
+    $reservation_id = $_GET['reservation_id']; // Fixed: changed from booking_id to reservation_id
     $action = $_GET['action'];
     $connector = new Connector();
 
-    if ($action === 'approve') {
-        $sql = "UPDATE booking_tb SET booking_status = 'approved' WHERE booking_id = :booking_id";
-    } elseif ($action === 'delete') {
-        $sql = "DELETE FROM booking_tb WHERE booking_id = :booking_id";
-    }
+    try {
+        if ($action === 'approve') {
+            $sql = "UPDATE reservations SET status = 'confirmed' WHERE reservation_id = :reservation_id";
+        } elseif ($action === 'delete') {
+            $sql = "DELETE FROM reservations WHERE reservation_id = :reservation_id";
+        }
 
-    $params = [':booking_id' => $booking_id];
+        $params = [':reservation_id' => $reservation_id];
 
-    if ($connector->executeUpdate($sql, $params)) {
-        header("Location: ../../sendMail_layout?approved=true");
-    } else {
-        header("Location: ../views/booking.php?approved=false");
+        if ($connector->executeUpdate($sql, $params)) {
+            header("Location: ../views/approvedBooking.php?status=success&action=" . $action);
+        } else {
+            header("Location: ../views/reservedBooking.php?status=error&action=" . $action);
+        }
+    } catch (Exception $e) {
+        header("Location: ../views/reservedBooking.php?status=error&message=" . urlencode($e->getMessage()));
     }
     exit();
 }

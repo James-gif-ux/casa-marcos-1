@@ -1,14 +1,18 @@
 <?php
 require_once '../model/server.php';
 
+// Initialize unreadCount variable
+$unreadCount = 0; // Default value
+
 try {
     $connector = new Connector();
-    $sql = "SELECT COUNT(*) as unread FROM messages_tb WHERE status = 'unread'";
+    $sql = "SELECT COUNT(*) as unread FROM messages WHERE status = 'unread'";
     $result = $connector->executeQuery($sql);
     $row = $result->fetch(PDO::FETCH_ASSOC);
     $unreadCount = $row['unread'];
 } catch (Exception $e) {
-    $unreadCount = 0;
+    // Handle any exceptions if necessary
+    $unreadCount = 0; // Reset to 0 on error
 }
 
 // Add this at the top of the file
@@ -43,6 +47,7 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
     <script src="../assets/js/charts-pie.js" defer></script>
   </head>
   <style>
+    
     /* General styles for the buttons */
 .btn-approve, .btn-danger {
     padding: 10px 15px; /* Padding for buttons */
@@ -336,10 +341,11 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                     <?php endif; ?>
                     <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'reservedBooking.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
                       href="../pages/admin_dashboard.php?sub_page=reservedBooking">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
-                        <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                        <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                       </svg>
-                      <span class="ml-4">Reserved Bookings</span>
+                      <span class="ml-4">Reserved Booking</span>
                     </a>
                   </li>
                 
@@ -425,7 +431,6 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                   </template>
                 </button>
               </li>
-              
               <!-- Profile menu -->
               <li class="relative">
                 <button
@@ -518,6 +523,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (activeMenuId) {
         const activeItem = document.querySelector(`[data-page="${activeMenuId}"]`);
         if (activeItem) setActiveMenuItem(activeItem);
+    }
+});
+
+new Vue({
+    el: '#notificationApp', // bind to your app's root element
+    data: {
+        unreadCount: <?php echo $unreadCount; ?>,
+        isNotificationsOpen: false
+    },
+    methods: {
+        toggleNotifications() {
+            this.isNotificationsOpen = !this.isNotificationsOpen;
+        },
+        closeNotifications() {
+            this.isNotificationsOpen = false;
+        }
     }
 });
 </script>

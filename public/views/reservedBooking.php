@@ -6,10 +6,11 @@ try {
     $connector = new Connector();
     
     // Fetch all bookings
-    $sql = "SELECT r.*, s.services_name 
+    // Update the SQL query
+    $sql = "SELECT reservation_id, r.*, s.services_name 
             FROM reservations r 
             LEFT JOIN services_tb s ON r.res_services_id = s.services_id 
-            WHERE r.status IN ('pending', 'approved')";
+            WHERE r.status IN ('pending', 'confirmed')";
     
     $stmt = $connector->executeQuery($sql);
     $reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,8 +34,31 @@ try {
             transition: background-color 0.3s ease;
             width: 50px;
         }
-
-      
+        .btn-approve {
+            background-color: #10B981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-approve:hover {
+            background-color: #059669;
+        }
+        
+        .btn-danger {
+            background-color: #EF4444;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-danger:hover {
+            background-color: #DC2626;
+        }
     </style>
     <!-- New Table -->
     <div class="w-full overflow-hidden">
@@ -62,12 +86,16 @@ try {
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['phone']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['date']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['status']); ?></td>
-                        <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                          
-                           
-                            <a href="../pages/admin-client.php?booking_id=<?php echo $res['booking_id']; ?>&action=approve" class="btn-approve">Approve</a>
-                            |
-                            <a href="../pages/admin-client.php?booking_id=<?php echo $res['booking_id']; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
+                        <td style="display: flex; justify-content: center; align-items: center; padding: 10px; gap: 8px;">
+                            <?php if (isset($res['reservation_id'])): ?>
+                                <?php if ($res['status'] === 'pending'): ?>
+                                    <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=approve" 
+                                       class="btn-approve">Confirm</a>
+                                <?php endif; ?>
+                                <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=delete" 
+                                   class="btn-danger" 
+                                   onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

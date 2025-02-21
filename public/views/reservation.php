@@ -1,9 +1,29 @@
 <?php
 session_start();
+require_once '../model/server.php';
 include_once '../model/reservationModel.php';
 
 $model = new Reservation_Model();
 $reservationModel = new Reservation_Model();
+$connector = new Connector(); // Initialize connector before using it
+
+// Get specific service based on URL parameter
+if (isset($_GET['service_id'])) {
+    $service_id = $_GET['service_id'];
+    $sql = "SELECT * FROM services_tb WHERE services_id = :service_id";
+    $stmt = $connector->getConnection()->prepare($sql);
+    $stmt->execute([':service_id' => $service_id]);
+    $service = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$service) {
+        header("Location: books.php");
+        exit();
+    }
+} else {
+    // Redirect back to books.php if no service_id is provided
+    header("Location: books.php");
+    exit();
+}
 
 // Get all services
 $services = $reservationModel->get_service();
@@ -414,11 +434,11 @@ input:hover, textarea:hover, .submit-btn:hover {
 <body>
     <div class="reservation-page">
         <!-- Room Image Section -->
-        <?php foreach ($services as $srvc)?>
         <div class="room-image-section">
-            <img src="../images/<?= $srvc['services_image'] ?>" alt="Room Image" class="room-image">
-            <h3><?= $srvc['services_name'] ?></h3>
-            <p><?= $srvc['services_description'] ?></p>
+            <img src="../images/<?= $service['services_image'] ?>" alt="Room Image" class="room-image">
+            <h3><?= $service['services_name'] ?></h3>
+            <p><?= $service['services_description'] ?></p>
+            <p class="service-price">₱<?= number_format($service['services_price'], 2) ?></p>
         </div>
         <?php
             ?>
@@ -426,7 +446,7 @@ input:hover, textarea:hover, .submit-btn:hover {
         <div class="reservation-container">
             <div class="right-section">
                 <h2>Make a Reservation</h2>
-                <form method="POST" action="reservation.php" class="reservation-form">
+                <form method="POST" action="reservation.php?service_id=<?= $service['services_id'] ?>" class="reservation-form">
                     <div class="form-group">
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
@@ -452,7 +472,7 @@ input:hover, textarea:hover, .submit-btn:hover {
                         <textarea id="message" name="message" rows="4"></textarea>
                     </div>
 
-                    <input type="hidden" name="service_id" value="<?= $srvc['services_id'] ?>">
+                    <input type="hidden" name="service_id" value="<?= $service['services_id'] ?>">
 
                     <button type="submit" class="submit-btn" >Make Reservation</button>
                 </form>

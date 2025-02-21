@@ -46,9 +46,9 @@ try {
                 <th class="px-4 py-3 text-center">Customers Name</th>
                 <th class="px-4 py-3 text-center">Booking Email</th>
                 <th class="px-4 py-3 text-center">Contact Number</th>
-                <th class="px-4 py-3 text-center">Booking Date</th>
+                <th colspan="2" class="px-4 py-3 text-center">Booking Date</th>
                 <th class="px-4 py-3 text-center">Booking Status</th>
-                <th class="px-4 py-3 text-center">Action</th>
+                <th colspan="3" class="px-4 py-3 text-center">Action</th>
             </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -60,7 +60,8 @@ try {
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
-                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_date']); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo date('Y-m-d'); ?></td>
+                        <td class="px-4 py-3 text-center"><?php echo date('Y-m-d'); ?></td>
                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
                         <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
                             <a href="../../sendMail_layout.php" class="btn btn-primary d-flex align-items-center justify-content-center" ><svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="grey" class="bi bi-chat-square-dots-fill" viewBox="0 0 16 16">

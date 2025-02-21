@@ -82,7 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             data-name="<?= $srvc['services_name'] ?>">
                                         Book Now
                                     </button>
-                                    <a href="reservation.php" type="button" class="readmore" style="text-decoration: none; text-align: center; color:aliceblue ">
+                                    <a href="reservation.php?service_id=<?= $srvc['services_id'] ?>" 
+                                       class="readmore" 
+                                       style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: white;">
                                         Reserve Now
                                     </a>
                                 </div>
@@ -147,7 +149,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div class="mb-3">
                             <label for="date" class="form-label">Booking Date:</label>
-                            <input type="date" name="date" class="form-control" required>
+                            <input type="date" name="check_in" 
+                           value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : '2025-02-18'; ?>"
+                           required min="<?= date('Y-m-d') ?>">
+                            <input type="date" name="check_out" 
+                           value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : '2025-02-19'; ?>"
+                           required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit Booking</button>
