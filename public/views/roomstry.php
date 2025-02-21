@@ -1,4 +1,5 @@
 <?php
+session_start();
     include_once 'nav/homenav.php';
     include_once '../model/BookingModel.php';
     include_once '../model/Booking_Model.php';
@@ -18,71 +19,107 @@
     $bookings = $connector->executeQuery($sql);
 
 
-?>
-
-<!-- Add this in the <head> section -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="../assets/css/roomstry.css">
-
-
-<?php
 require_once '../model/server.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+    // Store the check-in and check-out dates in session variables
     $_SESSION['check_in'] = $_POST['checkin_date'];
     $_SESSION['check_out'] = $_POST['checkout_date'];
-}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
+        // Create a new database connection
         $connector = new Connector();
-        
-        // Get form data
-        $checkin_date = $_POST['checkin_date'];
-        $checkout_date = $_POST['checkout_date'];
-        
-        // Updated SQL without booking_id
-        $sql = "INSERT INTO checkin_tb (`checkin`, `checkout`) 
-                VALUES (:checkin, :checkout)";
-        
-        $stmt = $connector->getConnection()->prepare($sql);
+        $connection = $connector->getConnection();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Get the check-in and check-out dates from the session
+        $checkin_date = $_SESSION['check_in'];
+        $checkout_date = $_SESSION['check_out'];
+
+        // Prepare the SQL statement
+        $sql = "INSERT INTO checkin_tb (check_in, check_out) VALUES (:check_in, :check_out)";
+        $stmt = $connection->prepare($sql);
+
+        // Execute the statement with the provided values
         $result = $stmt->execute([
-            ':checkin' => $checkin_date,
-            ':checkout' => $checkout_date
+            ':check_in' => $checkin_date,
+            ':check_out' => $checkout_date
         ]);
 
-       
-        
+
+
     } catch (PDOException $e) {
+        // Display error message
         echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
     }
 }
 ?>
-
+<!-- Add this in the <head> section -->
+<link rel="stylesheet" href="../assets/css/roomstry.css">
 <section class="hera">
     <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-        <form method="POST" action="../pages/books.php" style="display: flex; flex-direction: column; align-items: center;">
+        <form method="POST" action="" style="display: flex; flex-direction: column; align-items: center;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; justify-content: center;">
                 <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
                     <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
                     <input type="date" id="checkin" name="checkin_date" required 
                            min="<?php echo date('Y-m-d'); ?>"
+                           value="<?php echo isset($_POST['checkin_date']) ? $_POST['checkin_date'] : ''; ?>"
                            style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                 </div>
                 <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
                     <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
                     <input type="date" id="checkout" name="checkout_date" required
+                           min="<?php echo date('Y-m-d'); ?>"
+                           value="<?php echo isset($_POST['checkout_date']) ? $_POST['checkout_date'] : ''; ?>"
                            style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                 </div>
             </div>
-            <input type="hidden" name="search_dates" value="true">
-            <button type="submit" style="width: 45%; margin: 2rem auto; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; display: block;">
+            <button type="submit" name="submit_dates" style="width: 45%; margin: 2rem auto; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; display: block;">
                 Search Booking
             </button>
         </form>
     </div>
 </section>
 
+<?php
+if (isset($_POST['submit_dates'])) {
+    try {
+        $checkin_date = $_POST['checkin_date'];
+        $checkout_date = $_POST['checkout_date'];
+        
+        // Validate dates
+        $current_date = date('Y-m-d');
+        if ($checkin_date < $current_date) {
+            throw new Exception("Check-in date cannot be in the past.");
+        }
+        if ($checkout_date <= $checkin_date) {
+            throw new Exception("Check-out date must be after check-in date.");
+        }
+
+        // Insert into database without status
+        $sql = "INSERT INTO checkin_tb (check_in, check_out) VALUES (:check_in, :check_out)";
+        $stmt = $connector->getConnection()->prepare($sql);
+        $result = $stmt->execute([
+            ':check_in' => $checkin_date,
+            ':check_out' => $checkout_date
+        ]);
+
+        if ($result) {
+            echo "<script>
+                alert('Dates have been successfully saved!');
+                window.location.href = 'books.php';
+            </script>";
+            $_SESSION['check_in'] = $checkin_date;
+            $_SESSION['check_out'] = $checkout_date;
+        }
+    } catch (Exception $e) {
+        echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
+    }
+}
+?>
 <script>
 document.getElementById('checkin').addEventListener('change', function() {
     const checkIn = new Date(this.value);

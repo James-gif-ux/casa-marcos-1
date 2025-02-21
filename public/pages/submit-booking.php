@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $number = $_POST['number'];
-    $date = $_POST['date'];
-    $service_id = $_POST['service_id'];  // Get the selected service ID from the form
+    $check_in = $_POST['check_in'];  // Changed from date to check_in
+    $check_out = $_POST['check_out']; // Added check_out
+    $service_id = $_POST['service_id'];
 
     // Insert the booking into the database
-    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
+    $result = $bookingModel->insert_booking($fullname, $email, $number, $check_in, $check_out, $service_id);
 
     if ($result === true) {
         // Set session variables to display in confirmation page
@@ -23,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['fullname'] = $fullname;
         $_SESSION['email'] = $email;
         $_SESSION['number'] = $number;
-        $_SESSION['service_name'] = $bookingModel->get_service_name_by_id($services_id);  // Assuming this method exists to get the service name
+        $_SESSION['check_in'] = $check_in;  // Changed from date to check_in
+        $_SESSION['check_out'] = $check_out; // Added check_out
+        $_SESSION['service_name'] = $bookingModel->get_service_name_by_id($service_id);
         $_SESSION['date'] = $date;
         $_SESSION['time'] = $time;
 
