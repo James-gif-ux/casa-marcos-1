@@ -215,7 +215,7 @@
          <div class="flip-card">
              <div class="flip-card-inner">
                  <div class="flip-card-front">
-                     <img src="../images/11.jpg" alt="Special Offer">
+                     <img src="../images/dining.jpg" alt="Special Offer">
                  </div>
                  <div class="flip-card-back">
                      <h3>Special Offer</h3>

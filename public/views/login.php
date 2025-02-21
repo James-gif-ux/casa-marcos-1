@@ -227,7 +227,7 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 
     <div class="container">
-        <div class="left-panel" style="background: url('../images/11.jpg') center center; background-size: cover;">
+        <div class="left-panel" style="background: url('../images/villas.jpg') center center; background-size: cover;">
             <div class="brand-content">
             <img src="../images/logo.jpg" alt="Logo" style="position: absolute; top: 20px; left: 20px; width: 90px; height: 90px; border-radius: 50%; object-fit: cover;">
             </div>
