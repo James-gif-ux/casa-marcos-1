@@ -1,5 +1,6 @@
 <?php
 	//import model
+	require_once '../model/contact_Model.php';
 
 	$page_info['page'] = 'contact'; //for page that needs to be called
 	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'contact'; //for function to be loaded
@@ -7,6 +8,7 @@
 	
 	try {//used try to catch unfortunate errors
 		//check for active function
+		$contact = new ContactModel();
 		
 		//no active function, use the default page to view
 		new contact ($page_info);
@@ -38,6 +40,10 @@
 		//-----------------------------//
 		//--   function start here   --//
 		function contact (){
+			$contact = new ContactModel();
+
+			$info = $contact->contact();
+			
 			include '../views/contact.php';
 		}
         
