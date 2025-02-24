@@ -458,6 +458,15 @@
 
    
 }
+.contact-btn:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+    
+    .message-icon:hover {
+        transform: scale(1.1);
+        transition: transform 0.3s;
+    }
 
 
 </style>
@@ -508,3 +517,9 @@
     </nav>
 </header>
     
+
+<a href="contact.php" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; text-decoration: none;">
+    <div class="message-icon" style="background: #2c3e50; padding: 15px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer;">
+        <i class="fas fa-comment" style="color: white; font-size: 20px;"></i>
+    </div>
+</a>

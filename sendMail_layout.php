@@ -6,45 +6,34 @@
     <title>Send Email</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            animation: gradientBackground 10s ease infinite;
-            background: linear-gradient(-45deg, rgb(218, 191, 156), rgb(85, 59, 23));
-            background-size: 200% 200%;
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
         }
-
-        @keyframes gradientBackground {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
-
+        
         .container {
-            max-width: 650px;
-            margin: 80px auto;
+            max-width: 600px;
+            margin: 170px auto;
             background-color: #ffffff;
-            border-radius: 12px;
-            padding: 100px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         h2 {
             text-align: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #333;
-            font-family: 'impact';
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #2c1810;
+            font-family: 'Georgia', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
             display: block;
         }
 
@@ -52,61 +41,65 @@
         input[type="text"],
         textarea {
             width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 15px;
             box-sizing: border-box;
             transition: all 0.3s ease;
+            background-color: #fafafa;
         }
 
         input[type="email"]:focus,
         input[type="text"]:focus,
         textarea:focus {
-            border-color: rgb(218, 191, 156);
+            border-color: #8b5e3c;
+            background-color: #fff;
             outline: none;
+            box-shadow: 0 0 5px rgba(139, 94, 60, 0.2);
         }
 
         textarea {
-            height: 150px;
+            height: 120px;
             resize: vertical;
         }
 
         .error-message {
-            color: red;
-            font-size: 12px;
-            margin-bottom: 10px;
+            color: #dc3545;
+            font-size: 13px;
+            margin-bottom: 12px;
         }
 
         button[type="submit"] {
-            background-color: rgb(85, 59, 23);
+            background-color: #8b5e3c;
             color: white;
-            padding: 14px 20px;
+            padding: 15px 25px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             width: 100%;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
         }
 
         button[type="submit"]:hover {
-            background-color: rgb(218, 191, 156);
+            background-color: #6d4b2f;
+            transform: translateY(-2px);
         }
 
-        /* Responsive design for small screens */
         @media (max-width: 480px) {
             .container {
-                padding: 20px;
+                margin: 20px;
+                padding: 25px;
             }
 
             h2 {
                 font-size: 24px;
-            }
-
-            button[type="submit"] {
-                font-size: 16px;
+                margin-bottom: 20px;
             }
         }
     </style>

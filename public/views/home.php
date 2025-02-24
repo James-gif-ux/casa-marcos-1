@@ -63,6 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
     }
 }
+
+
 ?>
 <link rel="stylesheet" href="../assets/css/roomstry.css">
     <main>

@@ -27,8 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['check_in'] = $check_in;  // Changed from date to check_in
         $_SESSION['check_out'] = $check_out; // Added check_out
         $_SESSION['service_name'] = $bookingModel->get_service_name_by_id($service_id);
-        $_SESSION['date'] = $date;
-        $_SESSION['time'] = $time;
 
         // Redirect to confirmation page
         header("Location: ../views/confirmation.php");
