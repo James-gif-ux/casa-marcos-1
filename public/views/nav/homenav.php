@@ -474,7 +474,7 @@
 <body>
 <header>
     <nav>
-        <div class="mobile-menu-btn">
+        <div class="mobile-menu-btn" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);">
             <i class="fas fa-bars"></i>
         </div>
         
