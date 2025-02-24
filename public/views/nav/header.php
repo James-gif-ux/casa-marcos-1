@@ -348,7 +348,6 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                       <span class="ml-4">Reserved Booking</span>
                     </a>
                   </li>
-                
                 <!-- Continue same pattern for remaining menu items -->
               </ul>
             </ul>
@@ -437,13 +436,13 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                   class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                   @click="toggleProfileMenu"
                   @keydown.escape="closeProfileMenu"
-                  aria-label="Account"
+                  aria-label="Account" 
                   aria-haspopup="true"
                 >
                   <img
                     class="object-cover w-8 h-8 rounded-full"
                     src="../images/logo.jpg"
-                    alt=""
+                    alt="Profile"
                     aria-hidden="true"
                   />
                 </button>
@@ -459,8 +458,8 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                   >
                     <li class="flex">
                       <a
+                        href="../pages/authentication.php"
                         class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="../pages/authentication.php?sub_page=login"
                       >
                         <svg
                           class="w-4 h-4 mr-3"
@@ -483,8 +482,11 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                 </template>
               </li>
             </ul>
-          </div>
-        </header>
+          </template>
+        </li>
+      </ul>
+    </div>
+  </header>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const menuItems = document.querySelectorAll('.menu-item');
