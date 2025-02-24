@@ -8,6 +8,7 @@
 
     // Get all services
     $services = $bookingModel->get_service();
+    $images = $bookingModel->get_images();
 
     // Include the Connector class
     require_once '../model/server.php';
@@ -16,6 +17,9 @@
     // Fetch all bookings that are pending approval
     $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_check_in, booking_check_out FROM booking_tb WHERE booking_status = 'pending'";
     $bookings = $connector->executeQuery($sql);
+    
+    $sql = "SELECT image_id,image_name, image_img, image_description FROM image_tb WHERE 1";
+    $images = $connector->executeQuery($sql);
 
     // Handle form submission
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -23,11 +27,12 @@
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $number = $_POST['number'];
-        $date = $_POST['date'];
+        $check_in = $_POST['check_in'];
+        $check_out = $_POST['check_out'];
         $service_id = $_POST['service_id'];  // Get the selected service ID from the form
 
         // Attempt to insert the booking
-        $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
+        $result = $bookingModel->insert_booking($fullname, $email, $number, $check_in, $check_out, $service_id);
 
         if ($result === true) {
             echo "Booking successfully added!";
@@ -227,37 +232,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: 0 2rem;">
         
         <!-- Amenity Cards -->
+       <?php foreach ($images as $img): ?>
         <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-            <img src="../images/area.jpg" alt="Fitness Room" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
+            <img src="../images/<?= $img['image_img'] ?>" alt="<?= $img['image_img'] ?>" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
             <div style="padding: 2rem;">
                 <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Fitness Room</h3>
                 <p style="color: #666; line-height: 1.6;">Have a good sweat at the Fitness Center, with state-of-the-art equipment to serve our guests.</p>
             </div>
         </div>
-
-        <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-            <img src="../images/dining.jpg" alt="Restaurant and Cafe" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
-            <div style="padding: 2rem;">
-                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Restaurant & Cafe</h3>
-                <p style="color: #666; line-height: 1.6;">Experience exquisite dining in an elegant atmosphere with our diverse culinary offerings.</p>
-            </div>
-        </div>
-
-        <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-            <img src="../images/front.jpg" alt="Pool and Gardens" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
-            <div style="padding: 2rem;">
-                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Pool & Gardens</h3>
-                <p style="color: #666; line-height: 1.6;">Unwind in our luxurious pool or explore our meticulously maintained garden paradise.</p>
-            </div>
-        </div>
-
-        <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-            <img src="../images/roomtab.jpg" alt="Conference Areas" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
-            <div style="padding: 2rem;">
-                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Conference Areas</h3>
-                <p style="color: #666; line-height: 1.6;">Professional meeting spaces equipped with modern technology for successful events.</p>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 
     <style>

@@ -71,6 +71,16 @@ require_once 'server.php';
 			return $query->fetchAll(PDO::FETCH_ASSOC);
         }
 
+		function get_images(){
+            $sql = "SELECT * FROM `image _tb` ";
+			//prepare query
+			$query = $this->conn->prepare($sql);
+			
+			//execute query
+			$query->execute();
+			//return
+			return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
 
 		function service_update(){
 			try{
