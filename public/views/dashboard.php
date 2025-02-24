@@ -118,15 +118,17 @@ try {
                     </div>
                     <div>
                         <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                            Reserved Bookings
+                          Reservations
                         </p>
                         <?php
-                        $pendingCount = count(array_filter($bookings, function($booking) {
-                            return $booking['booking_status'] === 'pending';
-                        }));
+                        // Fetch reservations from the database
+                        $sql = "SELECT COUNT(*) as reservation_count FROM reservations WHERE status IN ('pending')";
+                        $stmt = $connector->executeQuery($sql);
+                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $reservationCount = $result['reservation_count'];
                         ?>
-                        <p class="text-lg font-semibold <?php echo $pendingCount > 0 ? 'text-red-600 dark:text-red-400 animate-pulse' : 'text-gray-700 dark:text-gray-200'; ?>">
-                            <?php echo $pendingCount; ?>
+                        <p class="text-lg font-semibold <?php echo $reservationCount > 0 ? 'text-red-600 dark:text-red-400 animate-pulse' : 'text-gray-700 dark:text-gray-200'; ?>">
+                            <?php echo $reservationCount; ?>
                         </p>
                     </div>
                 </div>

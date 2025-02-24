@@ -16,7 +16,7 @@ if (isset($_GET['reservation_id']) && isset($_GET['action'])) {
         $params = [':reservation_id' => $reservation_id];
 
         if ($connector->executeUpdate($sql, $params)) {
-            header("Location: ../views/approvedBooking.php?status=success&action=" . $action);
+            header("Location: ../views/reservedBooking.php?status=success&action=" . $action);
         } else {
             header("Location: ../views/reservedBooking.php?status=error&action=" . $action);
         }

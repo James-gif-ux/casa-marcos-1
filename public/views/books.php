@@ -15,7 +15,7 @@ require_once '../model/server.php';
 $connector = new Connector();
 
 // Fetch all bookings that are pending approval
-$sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
+$sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_check_in, booking_check_out FROM booking_tb WHERE booking_status = 'pending'";
 $bookings = $connector->executeQuery($sql);
 
 // Store POST data if available
@@ -26,12 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fullname = isset($data['fullname']) ? $data['fullname'] : 'Default Name';
-    $email = isset($data['email']) ? $data['email'] : 'default@example.com';
-    $number = isset($data['number']) ? $data['number'] : 'Default Number';
-    $check_in = isset($data['check_in']) ? $data['check_in'] : date('Y-m-d');
-    $check_out = isset($data['check_out']) ? $data['check_out'] : date('Y-m-d', strtotime('+1 day'));
-    $service_id = isset($data['service_id']) ? $data['service_id'] : 'Default Service ID';
+    $fullname = isset($_POST['fullname']) ? $_POST['fullname'] : 'Default Name';
+    $email = isset($_POST['email']) ? $_POST['email'] : 'default@example.com';
+    $number = isset($_POST['number']) ? $_POST['number'] : 'Default Number';
+    $check_in = isset($_POST['check_in']) ? $_POST['check_in'] : null;
+    $check_out = isset($_POST['check_out']) ? $_POST['check_out'] : null;
+    $service_id = isset($_POST['service_id']) ? $_POST['service_id'] : null;
 
     // Attempt to insert the booking with check-in and check-out dates
     $result = $bookingModel->insert_booking($fullname, $email, $number, $check_in, $check_out, $service_id);
@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </head>
 <body>
-    <?php require_once 'nav/homenav.php'; ?>
+    
 
     <div class="content-wrapper">
         <div class="rooms-container">
@@ -125,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="bookingModalLabel">Book Your Service:</h5>
+                    <h5 class="modal-title" id="bookingModalLabel">Book Your Room:</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -150,19 +151,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="service" class="form-label">Select Service:</label>
                             <input type="text" id="service_name" name="service" class="form-control" readonly>
                         </div>
-
                         <div class="mb-3">
                             <label for="check_in" class="form-label">Check-in Date:</label>
-                            <input type="date" name="check_in" class="form-control" 
-                                   value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : date('Y-m-d'); ?>"
-                                   required min="<?= date('Y-m-d') ?>">
+                            <input type="date" name="check_in" class="form-control" id="modal_check_in" required 
+                                   min="<?php echo date('Y-m-d') ?>"
+                                   value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : ''; ?>">
                         </div>
-
                         <div class="mb-3">
                             <label for="check_out" class="form-label">Check-out Date:</label>
-                            <input type="date" name="check_out" class="form-control"
-                                   value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : date('Y-m-d', strtotime('+1 day')); ?>"
-                                   required>
+                            <input type="date" name="check_out" class="form-control" id="modal_check_out" required 
+                                   min="<?php echo date('Y-m-d'); ?>"
+                                   value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : ''; ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit Booking</button>
                     </form>
@@ -184,7 +183,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Event delegation to handle dynamic content
+            // Get the check-in and check-out dates from the main form
+            const mainCheckIn = document.querySelector('.booking-container input[name="check_in"]');
+            const mainCheckOut = document.querySelector('.booking-container input[name="check_out"]');
+
+            // Event delegation for the book now buttons
             document.querySelectorAll('.readmore').forEach(button => {
                 button.addEventListener('click', function () {
                     // Get service details from data attributes
@@ -194,22 +197,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Populate the modal with service data
                     document.getElementById('service_id').value = serviceId;
                     document.getElementById('service_name').value = serviceName;
-                });
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Event delegation to handle dynamic content
-            document.querySelectorAll('.readmore').forEach(button => {
-                button.addEventListener('click', function () {
-                    // Get service details from data attributes
-                    const serviceId = this.getAttribute('data-id');
-                    const serviceName = this.getAttribute('data-name');
-    
-                    // Populate the modal with service data
-                    document.getElementById('service_id').value = serviceId;
-                    document.getElementById('service_name').value = serviceName;
+
+                    // Set the modal date inputs with the main form dates
+                    if (mainCheckIn.value) {
+                        document.getElementById('modal_check_in').value = mainCheckIn.value;
+                    }
+                    if (mainCheckOut.value) {
+                        document.getElementById('modal_check_out').value = mainCheckOut.value;
+                    }
                 });
             });
         });

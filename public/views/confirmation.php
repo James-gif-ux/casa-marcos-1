@@ -19,7 +19,7 @@ require_once '../model/server.php';
 $connector = new Connector();
 
 // Fetch all bookings that are pending approval
-$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_date, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved')";
+$sql = "SELECT booking_id, booking_services_id, booking_fullname, booking_email, booking_number, booking_check_in, booking_check_out, booking_status FROM booking_tb WHERE booking_status IN ('pending', 'approved')";
 
 $bookings = $connector->executeQuery($sql);
 $bookingData = $bookings->fetch(PDO::FETCH_ASSOC);
@@ -149,9 +149,8 @@ $bookingData = $bookings->fetch(PDO::FETCH_ASSOC);
                     echo htmlspecialchars($serviceData['services_name'] ?? 'N/A'); 
             ?>
             </li>
-            <li><strong>Booking Date:</strong> <?= $_SESSION['date'] ?? 'N/A' ?></li>
-            <li><strong>Check-in Time:</strong> <?= $_SESSION['check_in'] ?? '2:00 PM' ?></li>
-            <li><strong>Check-out Time:</strong> <?= $_SESSION['check_out'] ?? '12:00 PM' ?></li>
+            <li><strong>Check-in Date:</strong> <?= $_SESSION['check_in'] ?? 'N/A' ?></li>
+            <li><strong>Check-out Date:</strong> <?= $_SESSION['check_out'] ?? 'N/A' ?></li>
         </ul>
     </div>
     <!-- Optional: Provide a link to the home page or service listings -->

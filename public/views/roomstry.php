@@ -15,46 +15,13 @@ session_start();
     $connector = new Connector();
 
     // Fetch all bookings that are pending approval
-    $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_date FROM booking_tb WHERE booking_status = 'pending'";
+    $sql = "SELECT booking_id, booking_fullname, booking_email, booking_number, booking_check_in, booking_check_out FROM booking_tb WHERE booking_status = 'pending'";
     $bookings = $connector->executeQuery($sql);
 
 
 require_once '../model/server.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-    // Store the check-in and check-out dates in session variables
-    $_SESSION['check_in'] = $_POST['checkin_date'];
-    $_SESSION['check_out'] = $_POST['checkout_date'];
-
-    try {
-        // Create a new database connection
-        $connector = new Connector();
-        $connection = $connector->getConnection();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // Get the check-in and check-out dates from the session
-        $checkin_date = $_SESSION['check_in'];
-        $checkout_date = $_SESSION['check_out'];
-
-        // Prepare the SQL statement
-        $sql = "INSERT INTO checkin_tb (check_in, check_out) VALUES (:check_in, :check_out)";
-        $stmt = $connection->prepare($sql);
-
-        // Execute the statement with the provided values
-        $result = $stmt->execute([
-            ':check_in' => $checkin_date,
-            ':check_out' => $checkout_date
-        ]);
-
-
-
-    } catch (PDOException $e) {
-        // Display error message
-        echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
-    }
-}
 ?>
 <!-- Add this in the <head> section -->
 <link rel="stylesheet" href="../assets/css/roomstry.css">
@@ -66,14 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
                     <input type="date" id="checkin" name="checkin_date" required 
                            min="<?php echo date('Y-m-d'); ?>"
-                           value="<?php echo isset($_POST['checkin_date']) ? $_POST['checkin_date'] : ''; ?>"
                            style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                 </div>
                 <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
                     <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
                     <input type="date" id="checkout" name="checkout_date" required
                            min="<?php echo date('Y-m-d'); ?>"
-                           value="<?php echo isset($_POST['checkout_date']) ? $_POST['checkout_date'] : ''; ?>"
                            style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
                 </div>
             </div>

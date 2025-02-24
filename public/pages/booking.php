@@ -8,16 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $booking_fullname = $_POST['fullname'] ?? null;
     $booking_email = $_POST['email'] ?? null;
     $booking_number = $_POST['number'] ?? null;
-    $booking_date = date('Y-m-d H:i:s'); // Current date and time (or from form)
+    $booking_check_in = $_POST['check_in'] ?? null;
+    $booking_check_out = $_POST['check_out'] ?? null;
     $booking_status = 'pending'; // or set based on your application logic
 
     // Validate required fields to avoid SQL errors
     if ($booking_room_id && $booking_fullname && $booking_email && $booking_number) {
         try {
             // Prepare the SQL statement
-            $sql = "INSERT INTO `booking_tb` (`booking_id`, `booking_room_id`, `booking_fullname`, `booking_email`, `booking_number`, `booking_date`, `booking_status`) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $params = [$booking_id, $booking_room_id, $booking_fullname, $booking_email, $booking_number, $booking_date, $booking_status];
+            $sql = "INSERT INTO `booking_tb` (`booking_id`, `booking_room_id`, `booking_fullname`, `booking_email`, `booking_number`, `booking_check_in`, `booking_check_out`, `booking_status`) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $params = [$booking_id, $booking_room_id, $booking_fullname, $booking_email, $booking_number, $booking_check_in, $booking_check_out, $booking_status];
             
             // Execute the SQL insertion
             $connector->executeUpdate($sql, $params);
