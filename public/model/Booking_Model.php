@@ -32,6 +32,19 @@ class Booking_Model {
 
         return $services;
     }
+    public function get_images() {
+        $sql = "SELECT * FROM services_tb";
+        $result = $this->conn->query($sql);
+        $services = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $services[] = $row;
+            }
+        }
+
+        return $services;
+    }
 
     // Check if a service exists by its ID
     public function get_service_name_by_id($services_id) {
