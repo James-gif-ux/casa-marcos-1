@@ -190,13 +190,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 });
             });
         });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        // Event delegation to handle dynamic content
+        document.querySelectorAll('.readmore').forEach(button => {
+            button.addEventListener('click', function () {
+                // Get service details from data attributes
+                const serviceId = this.getAttribute('data-id');
+                const serviceName = this.getAttribute('data-name');
+    
+                // Populate the modal with service data
+                document.getElementById('service_id').value = serviceId;
+                document.getElementById('service_name').value = serviceName;
+            });
+        });
+    });
 
-        document.querySelector('input[name="check_in"]').addEventListener('change', function() {
-            const checkIn = new Date(this.value);
-            const minCheckOut = new Date(checkIn);
-            minCheckOut.setDate(minCheckOut.getDate() + 1);
+        // Handle check-in and check-out date validation
+        const checkInInput = document.querySelector('input[name="check_in"]');
+        const checkOutInput = document.querySelector('input[name="check_out"]');
+    
+        checkInInput.addEventListener('change', function() {
+            const checkInDate = new Date(this.value);
+            const minCheckOutDate = new Date(checkInDate);
+            minCheckOutDate.setDate(minCheckOutDate.getDate() + 1);
             
-            document.querySelector('input[name="check_out"]').min = minCheckOut.toISOString().split('T')[0];
+            checkOutInput.min = minCheckOutDate.toISOString().split('T')[0];
+            
+            // If current check-out date is before new minimum, update it
+            if (new Date(checkOutInput.value) <= checkInDate) {
+                checkOutInput.value = minCheckOutDate.toISOString().split('T')[0];
+            }
         });
     </script>
 
