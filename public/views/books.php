@@ -29,18 +29,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fullname = isset($data['fullname']) ? $data['fullname'] : 'Default Name';
     $email = isset($data['email']) ? $data['email'] : 'default@example.com';
     $number = isset($data['number']) ? $data['number'] : 'Default Number';
-    $date = isset($data['date']) ? $data['date'] : 'Default Date';
+    $check_in = isset($data['check_in']) ? $data['check_in'] : date('Y-m-d');
+    $check_out = isset($data['check_out']) ? $data['check_out'] : date('Y-m-d', strtotime('+1 day'));
     $service_id = isset($data['service_id']) ? $data['service_id'] : 'Default Service ID';
 
-    // Attempt to insert the booking
-    $result = $bookingModel->insert_booking($fullname, $email, $number, $date, $service_id);
+    // Attempt to insert the booking with check-in and check-out dates
+    $result = $bookingModel->insert_booking($fullname, $email, $number, $check_in, $check_out, $service_id);
 
     if ($result === true) {
-        echo "Booking successfully added!";
+        $_SESSION['booking_success'] = true;
+        header("Location: confirmation.php");
+        exit();
     } else {
-        echo $result;  // Display error message if any
+        $_SESSION['error'] = $result;
+        header("Location: books.php");
+        exit();
     }
-
 }
 ?>
 

@@ -7,35 +7,29 @@ $bookingModel = new Booking_Model();
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Validate required fields
-    if (empty($_POST['fullname']) || empty($_POST['email']) || empty($_POST['number']) || 
-        empty($_POST['check_in']) || empty($_POST['check_out']) || empty($_POST['service_id'])) {
-        die("Error: All fields are required");
-    }
-
-    // Get form data with validation
-    $fullname = trim($_POST['fullname']);
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $number = trim($_POST['number']);
-    $check_in = date('Y-m-d', strtotime($_POST['check_in']));
-    $check_out = date('Y-m-d', strtotime($_POST['check_out']));
-    $service_id = (int)$_POST['service_id'];
-
-    // Validate email
-    if (!$email) {
-        die("Error: Invalid email format");
-    }
-
-    // Validate dates
-    if (strtotime($check_in) >= strtotime($check_out)) {
-        die("Error: Check-out date must be after check-in date");
-    }
-
     try {
+        // Get and validate form data
+        $fullname = trim($_POST['fullname']);
+        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+        $number = trim($_POST['number']);
+        $check_in = $_POST['check_in'];
+        $check_out = $_POST['check_out'];
+        $service_id = (int)$_POST['service_id'];
+
+        // Debug information
+        error_log("Attempting to insert booking with data:");
+        error_log("Name: $fullname");
+        error_log("Email: $email");
+        error_log("Number: $number");
+        error_log("Check-in: $check_in");
+        error_log("Check-out: $check_out");
+        error_log("Service ID: $service_id");
+
         // Insert the booking into the database
         $result = $bookingModel->insert_booking($fullname, $email, $number, $check_in, $check_out, $service_id);
 
         if ($result === true) {
+            // Set session variables
             $_SESSION['booking_success'] = true;
             $_SESSION['fullname'] = $fullname;
             $_SESSION['email'] = $email;
@@ -47,9 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ../views/confirmation.php");
             exit();
         } else {
-            die("Error: Booking insertion failed - " . $result);
+            error_log("Booking insertion failed: " . print_r($result, true));
+            throw new Exception("Unable to complete booking. Please try again.");
         }
     } catch (Exception $e) {
-        die("Error: " . $e->getMessage());
+        error_log("Booking error: " . $e->getMessage());
+        $_SESSION['error'] = "Booking failed: " . $e->getMessage();
+        header("Location: ../views/books.php");
+        exit();
     }
 }

@@ -1,4 +1,18 @@
-<?php
+public function insert_booking($fullname, $email, $number, $check_in, $check_out, $service_id) {
+    try {
+        $sql = "INSERT INTO booking_tb (booking_fullname, booking_email, booking_number, 
+                booking_check_in, booking_check_out, booking_services_id, booking_status) 
+                VALUES (?, ?, ?, ?, ?, ?, 'pending')";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$fullname, $email, $number, $check_in, $check_out, $service_id]);
+        
+        return true;
+    } catch (PDOException $e) {
+        error_log("Database Error: " . $e->getMessage());
+        return "Database Error: " . $e->getMessage();
+    }
+}<?php
 class Booking_Model {
     private $conn;
 
