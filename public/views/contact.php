@@ -55,7 +55,7 @@
                                 <i class="fas fa-map-marker-alt" style="color: rgb(163, 99, 15); font-size: 1.5rem; margin-right: 1rem;"></i>
                                 <h4 style="color: rgb(102, 67, 35); font-size: 1.2rem;">Address</h4>
                             </div>
-                            <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;">Brgy SapSap, Pastrana Leyte</p>
+                            <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;"><?=$info['contact_address']?></p>
                         </div>
 
                         <!-- Phone -->
@@ -64,7 +64,7 @@
                                 <i class="fas fa-phone" style="color: rgb(163, 99, 15); font-size: 1.5rem; margin-right: 1rem;"></i>
                                 <h4 style="color: rgb(102, 67, 35); font-size: 1.2rem;">Phone</h4>
                             </div>
-                            <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;">+1 234 567 8900</p>
+                            <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;"><?=$info['contact_number']?></p>
                         </div>
 
                         <!-- Email -->
@@ -73,7 +73,7 @@
                                 <i class="fas fa-envelope" style="color: rgb(163, 99, 15); font-size: 1.5rem; margin-right: 1rem;"></i>
                                 <h4 style="color: rgb(102, 67, 35); font-size: 1.2rem;">Email</h4>
                             </div>
-                            <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;">casamarcosresort@gmail.com</p>
+                            <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;"><?=$info['contact_email']?></p>
                         </div>
                     </div>
 

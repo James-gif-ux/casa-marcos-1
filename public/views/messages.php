@@ -146,7 +146,7 @@ $messages = $connector->executeQuery($sql);
                                 <input type="hidden" name="recipient_email" value="<?php echo htmlspecialchars($message['recipient_email']); ?>">
                                 <input type="hidden" name="status" value="1">
                                 <button type="submit" class="btn btn-approve" onclick="return updateStatus('<?php echo htmlspecialchars($message['message_id']); ?>')">Reply</button>
-                                <button type="button" class="btn btn-danger" onclick="if(confirm('Are you sure you want to delete this message?')) window.location.href='../pages/admin-client.php?message_id=<?php echo htmlspecialchars($message['message_id']); ?>&action=delete'">Delete</button>
+                                <button type="button" class="btn btn-danger" onclick="if(confirm('Are you sure you want to delete this message?')) window.location.href='../pages/messagesdelete.php?message_id=<?php echo htmlspecialchars($message['message_id']); ?>&action=delete'">Delete</button>
                             </form>
                         </td>
                     </tr>

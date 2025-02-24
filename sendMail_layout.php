@@ -106,7 +106,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Confirmation Message</h2>
+        <h2>FeedBack</h2>
         <form id="emailForm" action="send_mail.php" method="post">
             <label for="email">Recipient Email:</label>
             <input type="email" name="email" required>
