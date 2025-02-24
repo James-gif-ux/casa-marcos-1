@@ -143,14 +143,15 @@ $bookingData = $bookings->fetch(PDO::FETCH_ASSOC);
             <li><strong>Email:</strong> <?= $_SESSION['email'] ?? 'N/A' ?></li>
             <li><b>Room Name:</b>
             <?php 
-            
                     $service_sql = "SELECT services_name FROM services_tb WHERE services_id = " . $bookingData['booking_services_id'];
                     $service = $connector->executeQuery($service_sql);
                     $serviceData = $service->fetch(PDO::FETCH_ASSOC);
                     echo htmlspecialchars($serviceData['services_name'] ?? 'N/A'); 
-                    ?>
-                   </li>
+            ?>
+            </li>
             <li><strong>Booking Date:</strong> <?= $_SESSION['date'] ?? 'N/A' ?></li>
+            <li><strong>Check-in Time:</strong> <?= $_SESSION['check_in'] ?? '2:00 PM' ?></li>
+            <li><strong>Check-out Time:</strong> <?= $_SESSION['check_out'] ?? '12:00 PM' ?></li>
         </ul>
     </div>
     <!-- Optional: Provide a link to the home page or service listings -->
