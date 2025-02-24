@@ -236,8 +236,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
             <img src="../images/<?= $img['image_img'] ?>" alt="<?= $img['image_img'] ?>" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
             <div style="padding: 2rem;">
-                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;">Fitness Room</h3>
-                <p style="color: #666; line-height: 1.6;">Have a good sweat at the Fitness Center, with state-of-the-art equipment to serve our guests.</p>
+                <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;"><?= $img['image_name'] ?></h3>
+                <p style="color: #666; line-height: 1.6;"><?= $img['image_description'] ?></p>
             </div>
         </div>
         <?php endforeach; ?>
