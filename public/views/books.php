@@ -148,15 +148,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <div class="mb-3">
-                            <label for="date" class="form-label">Booking Date:</label>
-                            <input type="date" name="check_in" 
-                           value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : '2025-02-18'; ?>"
-                           required min="<?= date('Y-m-d') ?>">
-                            <input type="date" name="check_out" 
-                           value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : '2025-02-19'; ?>"
-                           required>
+                            <label for="check_in" class="form-label">Check-in Date:</label>
+                            <input type="date" name="check_in" class="form-control" 
+                                   value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : date('Y-m-d'); ?>"
+                                   required min="<?= date('Y-m-d') ?>">
                         </div>
 
+                        <div class="mb-3">
+                            <label for="check_out" class="form-label">Check-out Date:</label>
+                            <input type="date" name="check_out" class="form-control"
+                                   value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : date('Y-m-d', strtotime('+1 day')); ?>"
+                                   required>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit Booking</button>
                     </form>
                 </div>
@@ -190,22 +193,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 });
             });
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Event delegation to handle dynamic content
+            document.querySelectorAll('.readmore').forEach(button => {
+                button.addEventListener('click', function () {
+                    // Get service details from data attributes
+                    const serviceId = this.getAttribute('data-id');
+                    const serviceName = this.getAttribute('data-name');
     
-    document.addEventListener('DOMContentLoaded', function () {
-        // Event delegation to handle dynamic content
-        document.querySelectorAll('.readmore').forEach(button => {
-            button.addEventListener('click', function () {
-                // Get service details from data attributes
-                const serviceId = this.getAttribute('data-id');
-                const serviceName = this.getAttribute('data-name');
-    
-                // Populate the modal with service data
-                document.getElementById('service_id').value = serviceId;
-                document.getElementById('service_name').value = serviceName;
+                    // Populate the modal with service data
+                    document.getElementById('service_id').value = serviceId;
+                    document.getElementById('service_name').value = serviceName;
+                });
             });
         });
-    });
-
+    </script>
+    <script>
         // Handle check-in and check-out date validation
         const checkInInput = document.querySelector('input[name="check_in"]');
         const checkOutInput = document.querySelector('input[name="check_out"]');
