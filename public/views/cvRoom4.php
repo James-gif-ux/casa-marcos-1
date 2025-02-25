@@ -3,17 +3,17 @@
 ?>
 
 <div class="hero-section" style="position: relative;">
-    <img src="../images/room.jpg" alt="Barkada Room" style="width: 100%; height: 600px; object-fit: cover;">
+    <img src="../images/CV4.jpg" alt="Barkada Room" style="width: 100%; height: 600px; object-fit: cover;">
 </div>
 
 <div style="max-width: 1500px; margin: -30px auto 50px; padding: 2rem 1rem; position: relative; background-color: #2c3e50; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <div style="text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 2px solid #f0e6dd;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
             <h2 style="color: rgb(218, 191, 156); font-size: 2.8rem; font-family: 'impact'; margin-top:10px; text-transform: uppercase; letter-spacing: 1px;">
-                Matrimonial
+                Cv room 4 pax
             </h2>
             <div style="background: rgb(218, 191, 156); padding: 0.8rem 1.5rem; border-radius: 12px; margin-top: 10px;">
-                <p style="color: white; margin: 0;"><span style="font-size: 2rem; font-weight: bold;">₱4,999</span></p>
+                <p style="color: white; margin: 0;"><span style="font-size: 2rem; font-weight: bold;">₱3,999</span></p>
             </div>
         </div>
     </div>
@@ -22,12 +22,12 @@
         <div style="text-align: center; padding: 3rem; background: #f9f6f2; border-radius: 15px; transition: transform 0.3s; cursor: pointer; border: 1px solid #e6d5c5;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
             <i class="fas fa-bed" style="font-size: 2.5rem; color: rgb(102, 67, 35); margin-bottom: 1.5rem;"></i>
             <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; font-family: 'impact'; margin-bottom: 0.8rem;">Bed</h3>
-            <p style="color: #666; font-size: 1.2rem;">Queen-sized Beds</p>
+            <p style="color: #666; font-size: 1.2rem;">2 Queen-size Beds</p>
         </div>
         <div style="text-align: center; padding: 2.5rem; background: #f9f6f2; border-radius: 15px; transition: transform 0.3s; cursor: pointer; border: 1px solid #e6d5c5;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
             <i class="fas fa-users" style="font-size: 2.5rem; color: rgb(102, 67, 35); margin-bottom: 1.5rem;"></i>
             <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; font-family: 'impact'; margin-bottom: 0.8rem;">Capacity</h3>
-            <p style="color: #666; font-size: 1.2rem;">2 Person</p>
+            <p style="color: #666; font-size: 1.2rem;">4 Person</p>
         </div>
     </div>
 
@@ -36,7 +36,7 @@
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
             <div style="display: flex; align-items: center; gap: 1rem; background: white; padding: 1rem; border-radius: 10px;">
                 <i class="fas fa-check-circle" style="color: rgb(102, 67, 35); font-size: 1.2rem;"></i>
-                <span style="color: #666;">Private Bathroom</span>
+                <span style="color: #666;">Shared Bathroom</span>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem; background: white; padding: 1rem; border-radius: 10px;">
                 <i class="fas fa-check-circle" style="color: rgb(102, 67, 35); font-size: 1.2rem;"></i>
@@ -44,7 +44,7 @@
             </div>
             <div style="display: flex; align-items: center; gap: 1rem; background: white; padding: 1rem; border-radius: 10px;">
                 <i class="fas fa-check-circle" style="color: rgb(102, 67, 35); font-size: 1.2rem;"></i>
-                <span style="color: #666;">Free use of Swmming pool</span>
+                <span style="color: #666;">free use of swimming pool</span>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem; background: white; padding: 1rem; border-radius: 10px;">
                 <i class="fas fa-check-circle" style="color: rgb(102, 67, 35); font-size: 1.2rem;"></i>
@@ -187,7 +187,6 @@ function checkAvailability() {
 // Initialize calendar
 renderCalendar();
 </script>
-
 
 <footer>
     <p>© 2025 Casa Marcos. All rights reserved.</p>
