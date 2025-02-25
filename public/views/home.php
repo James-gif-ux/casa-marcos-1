@@ -105,97 +105,108 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             });
         </script>
 
-        <section style="padding: 6rem 2rem; background-color: #f9f6f2; position: relative; overflow: hidden;">
-            <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
-            <h2 style="color: rgb(102, 67, 35); margin-bottom: 2rem; font-size: 2.5rem; font-family: 'impact'; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
-                About Us
-                <span style="display: block; width: 80px; height: 3px; background: rgb(102, 67, 35); margin: 1rem auto;"></span>
-            </h2>
-            <div class="about-container" style="display: flex; gap: 4rem; align-items: center; background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 240, 0.95)); 
-                    padding: 3rem; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
-                <div class="image-container" style="flex: 1; transition: all 0.5s ease; position: relative;">
-                <img src="../images/history.jpg" alt="Resort History" 
-                     style="width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-                        transform: rotate(-2deg); transition: all 0.5s ease;"
-                     onmouseover="this.style.transform='rotate(0deg) scale(1.03)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.3)';"
-                     onmouseout="this.style.transform='rotate(-2deg) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.2)';">
-                <div style="position: absolute; top: -15px; right: -15px; background: rgb(102, 67, 35); color: white; 
-                        padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; transform: rotate(3deg);">
-                    Since 2024
-                </div>
-                </div>
-                
-                <div class="content-container" style="flex: 1; text-align: left;">
-                <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'impact';">
-                    Our Story
-                </h3>
-                <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 1.8rem; 
-                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
-                    Founded in 2024, Casa Marcos began as a modest family retreat nestled in the heart of nature. 
-                    Over the decades, it has evolved into a premier luxury resort while maintaining its authentic charm 
-                    and warm hospitality.
-                </p>
-                <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 2rem; 
-                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
-                    Today, Casa Marcos stands as a testament to excellence in hospitality, combining traditional values 
-                    with modern luxury. Our commitment to exceptional service and guest satisfaction continues to be 
-                    the cornerstone of our legacy.
-                </p>
-                <div style="display: flex; gap: 1rem;">
-                    <button class="btn-room" style="background: linear-gradient(135deg, rgb(102, 67, 35), rgb(163, 99, 15)); 
-                           color: white; padding: 1rem 2.5rem; border: none; border-radius: 50px; cursor: pointer;
-                           font-size: 1.1rem; transition: all 0.4s ease; text-transform: uppercase;
-                           letter-spacing: 2px; box-shadow: 0 5px 15px rgba(102, 67, 35, 0.3);"
-                    onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 25px rgba(102, 67, 35, 0.4)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(102, 67, 35, 0.3)';"> 
-                    Learn More
-                    </button>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            <style>
-            @media (max-width: 968px) {
-                .about-container {
-                flex-direction: column;
+<section style="padding: 10rem 2rem; position: relative; overflow: hidden; background-color: #f9f6f2;">
+    <style>
+        @media (max-width: 1024px) {
+            .history-container {
                 gap: 2rem;
                 padding: 2rem;
-                }
-                .image-container, .content-container {
-                width: 100%;
-                }
-                h2 {
-                font-size: 2rem !important;
-                }
-                h3 {
-                font-size: 1.5rem !important;
-                }
-                p {
-                font-size: 1rem !important;
-                }
             }
+            
+            .history-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .history-content p {
+                font-size: 1rem;
+            }
+        }
 
-            @media (max-width: 480px) {
-                .about-container {
-                padding: 1rem;
-                }
-                h2 {
-                font-size: 1.8rem !important;
-                }
-                .btn-room {
-                padding: 0.8rem 1.5rem !important;
-                font-size: 0.9rem !important;
-                }
+        @media (max-width: 768px) {
+            .history-container {
+                flex-direction: column;
+                padding: 1.5rem;
             }
-            </style>
-        </section>
+            
+            .history-image {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .history-content {
+                text-align: center;
+                padding: 0 1rem;
+            }
+            
+            section {
+                padding: 6rem 1rem;
+            }
+            
+            .video-container {
+                padding-bottom: 75%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 4rem 1rem;
+            }
+            
+            .history-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .history-content p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+            
+            .video-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    <div style=" background-color: #f9f6f2; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+    <div class="history-container" style="display: flex; gap: 4rem; align-items: center; background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 240, 0.95)); 
+                padding: 3rem; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+        <div class="history-image" style="flex: 1; transition: all 0.5s ease; position: relative;">
+            <img src="../images/history.jpg" alt="Resort History" 
+                 style="width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+                        transform: rotate(-2deg); transition: all 0.5s ease;"
+                 onmouseover="this.style.transform='rotate(0deg) scale(1.03)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.3)';"
+                 onmouseout="this.style.transform='rotate(-2deg) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.2)';">
+            <div style="position: absolute; top: -15px; right: -15px; background: rgb(102, 67, 35); color: white; 
+                        padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; transform: rotate(3deg);">
+                Since 2024
+            </div>
+        </div>
+        
+        <div class="history-content" style="flex: 1; text-align: left;">
+            <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'impact';">
+                Our Story
+            </h3>
+            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 1.8rem; 
+                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
+                Founded in 2024, Casa Marcos began as a modest family retreat nestled in the heart of nature. 
+                Over the decades, it has evolved into a premier luxury resort while maintaining its authentic charm 
+                and warm hospitality.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 2rem; 
+                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
+                Today, Casa Marcos stands as a testament to excellence in hospitality, combining traditional values 
+                with modern luxury. Our commitment to exceptional service and guest satisfaction continues to be 
+                the cornerstone of our legacy.
+            </p>
+        </div>
+    </div>
+    </div>
+</section>
         <!-- Rooms Section -->
         <section class="image-slider-section" style="padding: 8rem 1rem;  background-color: #f9f6f2;">
         <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
         Our Rooms
         <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
-    </h2>
+        </h2>
             <div class="relative flex items-center justify-center">
                 <div class="image-container">
                     <!-- Image Wrapper (Two columns for left and right images) -->
