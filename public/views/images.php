@@ -9,10 +9,6 @@
             padding: 20px;
             border: 1px solid #ccc;
         }
-        .preview-image {
-            max-width: 200px;
-            margin: 10px 0;
-        }
 
         .gallery-grid {
             display: grid;
@@ -152,9 +148,6 @@
         .upload-container {
             backdrop-filter: blur(20px);
             transition: all 0.3s ease;
-        }
-        .preview-image {
-            @apply rounded-lg shadow-md transition-transform duration-300 hover:scale-105;
         }
     </style>
     <div class="upload-container">
