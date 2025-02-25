@@ -22,60 +22,37 @@
     $images = $connector->executeQuery($sql);
 
     // Handle form submission
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Get form data
-        $fullname = $_POST['fullname'];
-        $email = $_POST['email'];
-        $number = $_POST['number'];
-        $check_in = $_POST['check_in'];
-        $check_out = $_POST['check_out'];
-        $service_id = $_POST['service_id'];  // Get the selected service ID from the form
-
-        // Attempt to insert the booking
-        $result = $bookingModel->insert_booking($fullname, $email, $number, $check_in, $check_out, $service_id);
-
-        if ($result === true) {
-            echo "Booking successfully added!";
-        } else {
-            echo $result;  // Display error message if any
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['search_dates'])) {
+        try {
+            $checkin_date = $_POST['checkin_date'];
+            $checkout_date = $_POST['checkout_date'];
+            
+            // Validate dates
+            $current_date = date('Y-m-d');
+            if ($checkin_date < $current_date) {
+                throw new Exception("Check-in date cannot be in the past.");
+            }
+            if ($checkout_date <= $checkin_date) {
+                throw new Exception("Check-out date must be after check-in date.");
+            }
+            // Store dates in session and redirect
+            $_SESSION['check_in'] = $checkin_date;
+            $_SESSION['check_out'] = $checkout_date;
+            
+            echo "<script>
+                window.location.href = 'books.php';
+            </script>";
+        } catch (Exception $e) {
+            echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
         }
     }
 ?>
-<?php
-require_once '../model/server.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    try {
-        $connector = new Connector();
-        
-        // Get form data
-        $checkin_date = $_POST['checkin_date'];
-        $checkout_date = $_POST['checkout_date'];
-        
-        // Updated SQL without booking_id
-        $sql = "INSERT INTO checkin_tb (`checkin`, `checkout`) 
-                VALUES (:checkin, :checkout)";
-        
-        $stmt = $connector->getConnection()->prepare($sql);
-        $result = $stmt->execute([
-            ':checkin' => $checkin_date,
-            ':checkout' => $checkout_date
-        ]);
-
-       
-        
-    } catch (PDOException $e) {
-        echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
-    }
-}
-
-
-?>
 <link rel="stylesheet" href="../assets/css/roomstry.css">
     <main>
         <section class="hera">
             <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-                <form method="POST" action="../pages/books.php" style="display: flex; flex-direction: column; align-items: center;">
+                <form method="POST" action="" style="display: flex; flex-direction: column; align-items: center;">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; justify-content: center;">
                         <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
                             <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
@@ -96,6 +73,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </form>
             </div>
         </section>
+        <?php
+if (isset($_POST['submit_dates'])) {
+    try {
+        $checkin_date = $_POST['checkin_date'];
+        $checkout_date = $_POST['checkout_date'];
+        
+        // Validate dates
+        $current_date = date('Y-m-d');
+        if ($checkin_date < $current_date) {
+            throw new Exception("Check-in date cannot be in the past.");
+        }
+        if ($checkout_date <= $checkin_date) {
+            throw new Exception("Check-out date must be after check-in date.");
+        }
+
+        // Insert into database without status
+        $sql = "INSERT INTO booking_tb (booking_check_in, booking_check_out) VALUES (:check_in, :check_out)";
+        $stmt = $connector->getConnection()->prepare($sql);
+        $result = $stmt->execute([
+            ':check_in' => $checkin_date,
+            ':check_out' => $checkout_date
+        ]);
+
+        if ($result) {
+            echo "<script>
+                alert('Dates have been successfully saved!');
+                window.location.href = 'books.php';
+            </script>";
+            $_SESSION['check_in'] = $checkin_date;
+            $_SESSION['check_out'] = $checkout_date;
+        }
+    } catch (Exception $e) {
+        echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
+    }
+}
+?>
         <script>
             document.getElementById('checkin').addEventListener('change', function() {
                 const checkIn = new Date(this.value);
