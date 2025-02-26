@@ -99,7 +99,7 @@ document.getElementById('checkin').addEventListener('change', function() {
         <div class="image-container">
             <!-- Image Wrapper (Two columns for left and right images) -->
             <div class="image-wrapper">
-            <?php foreach ($services as $srvc): ?>
+                <?php foreach ($services as $srvc): ?>
                     <div class="image">
                         <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
                         <div class="room-content">
@@ -132,7 +132,7 @@ document.getElementById('checkin').addEventListener('change', function() {
                                         left: 0; margin-left: 290px; 
                                         margin-top: 185px; 
                                         background-color:#d4b699; 
-                                        padding: 11px; border-radius: 25px; 
+                                        padding: 12px; border-radius: 25px; 
                                         color: white; font-weight: bold; 
                                         font-size: 22px; 
                                         cursor: pointer;
