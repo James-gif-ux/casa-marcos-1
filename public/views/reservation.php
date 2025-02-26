@@ -474,7 +474,14 @@ input:hover, textarea:hover, .submit-btn:hover {
 
                     <input type="hidden" name="service_id" value="<?= $service['services_id'] ?>">
 
-                    <button type="submit" class="submit-btn" >Make Reservation</button>
+                    <div style="display: flex; gap: 10px; justify-content: space-between;">
+                        <button type="submit" class="submit-btn" style="width: 48%;">Make Reservation</button>
+                        <button type="button" onclick="window.location.href='books.php'" 
+                            class="submit-btn" 
+                            style="width: 48%; background-color: #8B7355;">
+                            Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -484,7 +491,6 @@ input:hover, textarea:hover, .submit-btn:hover {
             e.preventDefault();
             if (confirm('Are you sure you want to make this reservation?')) {
                 this.submit();
-                alert('Reservation submitted successfully!');
             }
         });
     </script>
