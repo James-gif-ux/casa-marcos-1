@@ -203,7 +203,7 @@ try {
                     $monthlyCustomers = array_fill(0, 12, 0);
                     $monthlyBookings = array_fill(0, 12, 0);
                     foreach ($bookings as $booking) {
-                      $month = date('n', strtotime($booking['booking_date'])) - 1; // 0-11
+                      $month = date('n', strtotime($booking['booking_status'])) - 1; // 0-11
                       $monthlyCustomers[$month]++;
                       if ($booking['booking_status'] === 'approved') {
                       $monthlyBookings[$month]++;
@@ -217,7 +217,7 @@ try {
                       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                       datasets: [{
                       label: 'Customers',
-                      data: <?php echo json_encode($monthlyCustomers); ?>,
+                      data: [<?php echo $customerCount; ?>, <?php echo count(array_filter($bookings, function($booking) { return $booking['booking_status'] === 'approved'; })); ?>],
                       borderColor: 'rgb(124, 58, 237)',
                       tension: 0.3
                       },

@@ -46,17 +46,17 @@
         function matrimonialPlus(){
 			include '../views/matrimonialPlus.php';
 		}
-        function room(){
-			include '../views/room.php';
+        function cvRoom8(){
+			include '../views/cvRoom8.php';
 		}
-        function cvRoom(){
-			include '../views/cvRoom.php';
+        function cvRoom4(){
+			include '../views/cvRoom4.php';
 		}
-        function villa(){
-			include '../views/villa.php';
+        function sapphira(){
+			include '../views/sapphira.php';
 		}
-        function saphira(){
-			include '../views/saphira.php';
+		function sapphira8(){
+			include '../views/sapphira8.php';
 		}
 	}
 ?>
