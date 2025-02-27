@@ -244,5 +244,8 @@
           </main>
         </div>
       </div>
+      <footer>
+        <p style=" margin-bottom:20px; background-color: #3333;">ThemeWagon Inc@2025</p>
+      </footer>
     </body>
 </html>
