@@ -160,119 +160,119 @@
                     }
                 }
 
-                @media (max-width: 480px) {
-                    section {
-                        padding: 4rem 1rem;
-                    }
-                    
-                    .history-content h3 {
-                        font-size: 1.3rem;
-                    }
-                    
-                    .history-content p {
-                        font-size: 0.9rem;
-                        line-height: 1.7;
-                    }
-                    
-                    .video-title {
-                        font-size: 1.3rem;
-                    }
-                }
-            </style>
-            <div style=" background-color: #f9f6f2; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
-                <div class="history-container" style="display: flex; gap: 4rem; align-items: center; background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 240, 0.95)); 
-                            padding: 3rem; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
-                        <div class="history-image" style="flex: 1; transition: all 0.5s ease; position: relative;">
-                            <img src="../images/history.jpg" alt="Resort History" 
-                                style="width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-                                        transform: rotate(-2deg); transition: all 0.5s ease;"
-                                onmouseover="this.style.transform='rotate(0deg) scale(1.03)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.3)';"
-                                onmouseout="this.style.transform='rotate(-2deg) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.2)';">
-                            <div style="position: absolute; top: -15px; right: -15px; background: rgb(102, 67, 35); color: white; 
-                                        padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; transform: rotate(3deg);">
-                                Since 2024
+        @media (max-width: 480px) {
+            section {
+                padding: 4rem 1rem;
+            }
+            
+            .history-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .history-content p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+            
+            .video-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    <div style=" background-color: #f9f6f2; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+    <div class="history-container" style="display: flex; gap: 4rem; align-items: center; background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 240, 0.95)); 
+                padding: 3rem; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+        <div class="history-image" style="flex: 1; transition: all 0.5s ease; position: relative;">
+            <img src="../images/history.jpg" alt="Resort History" 
+                 style="width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+                        transform: rotate(-2deg); transition: all 0.5s ease;"
+                 onmouseover="this.style.transform='rotate(0deg) scale(1.03)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.3)';"
+                 onmouseout="this.style.transform='rotate(-2deg) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.2)';">
+            <div style="position: absolute; top: -15px; right: -15px; background: rgb(102, 67, 35); color: white; 
+                        padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; transform: rotate(3deg);">
+                Since 2024
+            </div>
+        </div>
+        
+        <div class="history-content" style="flex: 1; text-align: left;">
+            <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'impact';">
+                Our Story
+            </h3>
+            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 1.8rem; 
+                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
+                Founded in 2024, Casa Marcos began as a modest family retreat nestled in the heart of nature. 
+                Over the decades, it has evolved into a premier luxury resort while maintaining its authentic charm 
+                and warm hospitality.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 2rem; 
+                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
+                Today, Casa Marcos stands as a testament to excellence in hospitality, combining traditional values 
+                with modern luxury. Our commitment to exceptional service and guest satisfaction continues to be 
+                the cornerstone of our legacy.
+            </p>
+        </div>
+    </div>
+    </div>
+</section>
+        <!-- Rooms Section -->
+        <section class="image-slider-section" style="padding: 8rem 1rem;  background-color: #f9f6f2;">
+        <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
+        Our Rooms
+        <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+        </h2>
+            <div class="relative flex items-center justify-center">
+                <div class="image-container">
+                <!-- Image Wrapper (Two columns for left and right images) -->
+                    <div class="image-wrapper">
+                        <?php foreach ($services as $srvc): ?>
+                            <div class="image">
+                                <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                                <div class="room-content">
+                                    <div class="room-header">
+                                        <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
+                                        <p class="room-details"><?= $string = substr($srvc['services_description'],0,200); ?></p>
+                                        <div class="price-tag">
+                                            <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
+                                        </div>
+                                        <div>
+                                            <?php
+                                            // Define room page mapping
+                                            $roomPages = [
+                                                'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
+                                                'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
+                                                'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
+                                                'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
+                                                'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
+                                                'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
+                                                'Barkada' => '../pages/rooms.php?sub_page=barkada',
+                                            ];
+                                            $roomName = trim($srvc['services_name']);
+                                            $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
+                                            ?>
+                                            <button 
+                                                onclick="window.location.href='<?= $pageUrl ?>'"
+                                                class="btn"
+                                                style="text-decoration: none; 
+                                                position:absolute; top: 0; 
+                                                left: 0; margin-left: 290px; 
+                                                margin-top: 185px; 
+                                                background-color:#d4b699; 
+                                                padding: 12px; border-radius: 25px; 
+                                                color: white; font-weight: bold; 
+                                                font-size: 22px; 
+                                                cursor: pointer;
+                                                border: none;">
+                                                View details
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    
-                        <div class="history-content" style="flex: 1; text-align: left;">
-                            <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'impact';">
-                                Our Story
-                            </h3>
-                            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 1.8rem; 
-                                    text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
-                                Founded in 2024, Casa Marcos began as a modest family retreat nestled in the heart of nature. 
-                                Over the decades, it has evolved into a premier luxury resort while maintaining its authentic charm 
-                                and warm hospitality.
-                            </p>
-                            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 2rem; 
-                                    text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
-                                Today, Casa Marcos stands as a testament to excellence in hospitality, combining traditional values 
-                                with modern luxury. Our commitment to exceptional service and guest satisfaction continues to be 
-                                the cornerstone of our legacy.
-                            </p>
-                        </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
         </section>
-                <!-- Rooms Section -->
-                <section class="image-slider-section" style="padding: 8rem 1rem;  background-color: #f9f6f2;">
-                <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
-                Our Rooms
-                <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
-                </h2>
-                    <div class="relative flex items-center justify-center">
-                        <div class="image-container">
-                        <!-- Image Wrapper (Two columns for left and right images) -->
-                            <div class="image-wrapper">
-                                <?php foreach ($services as $srvc): ?>
-                                    <div class="image">
-                                        <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
-                                        <div class="room-content">
-                                            <div class="room-header">
-                                                <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
-                                                <p class="room-details"><?= $string = substr($srvc['services_description'],0,200); ?></p>
-                                                <div class="price-tag">
-                                                    <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
-                                                </div>
-                                                <div>
-                                                    <?php
-                                                    // Define room page mapping
-                                                    $roomPages = [
-                                                        'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
-                                                        'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
-                                                        'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
-                                                        'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
-                                                        'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
-                                                        'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
-                                                        'Barkada' => '../pages/rooms.php?sub_page=barkada',
-                                                    ];
-                                                    $roomName = trim($srvc['services_name']);
-                                                    $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
-                                                    ?>
-                                                    <button 
-                                                        onclick="window.location.href='<?= $pageUrl ?>'"
-                                                        class="btn"
-                                                        style="text-decoration: none; 
-                                                        position:absolute; top: 0; 
-                                                        left: 0; margin-left: 290px; 
-                                                        margin-top: 185px; 
-                                                        background-color:#d4b699; 
-                                                        padding: 12px; border-radius: 25px; 
-                                                        color: white; font-weight: bold; 
-                                                        font-size: 22px; 
-                                                        cursor: pointer;
-                                                        border: none;">
-                                                        View details
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
 
 
