@@ -248,10 +248,12 @@
     
     .price-tag {
         padding: 8px 16px;
+        
     }
     
     .room-price {
         font-size: 1.2rem;
+
     }
 
     .room-content {

@@ -221,56 +221,39 @@ if (isset($_POST['submit_dates'])) {
         <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
         </h2>
             <div class="relative flex items-center justify-center">
-                <div class="image-container">
+            <div class="image-container">
                 <!-- Image Wrapper (Two columns for left and right images) -->
-                    <div class="image-wrapper">
-                        <?php foreach ($services as $srvc): ?>
-                            <div class="image">
-                                <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
-                                <div class="room-content">
-                                    <div class="room-header">
-                                        <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
-                                        <p class="room-details"><?= $string = substr($srvc['services_description'],0,200); ?></p>
-                                        <div class="price-tag">
-                                            <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
-                                        </div>
-                                        <div>
-                                            <?php
-                                            // Define room page mapping
-                                            $roomPages = [
-                                                'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
-                                                'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
-                                                'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
-                                                'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
-                                                'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
-                                                'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
-                                                'Barkada' => '../pages/rooms.php?sub_page=barkada',
-                                            ];
-                                            $roomName = trim($srvc['services_name']);
-                                            $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
-                                            ?>
-                                            <button 
-                                                onclick="window.location.href='<?= $pageUrl ?>'"
-                                                class="btn"
-                                                style="text-decoration: none; 
-                                                position:absolute; top: 0; 
-                                                left: 0; margin-left: 290px; 
-                                                margin-top: 185px; 
-                                                background-color:#d4b699; 
-                                                padding: 12px; border-radius: 25px; 
-                                                color: white; font-weight: bold; 
-                                                font-size: 22px; 
-                                                cursor: pointer;
-                                                border: none;">
-                                                View details
-                                            </button>
-                                        </div>
+                <div class="image-wrapper">
+                    <?php foreach ($services as $srvc): ?>
+                        <?php
+                        // Define room page mapping
+                        $roomPages = [
+                            'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
+                            'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
+                            'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
+                            'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
+                            'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
+                            'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
+                            'Barkada' => '../pages/rooms.php?sub_page=barkada',
+                        ];
+                        $roomName = trim($srvc['services_name']);
+                        $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
+                        ?>
+                        <a href="<?= $pageUrl ?>" class="image" style="text-decoration: none; cursor: pointer;">
+                            <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                            <div class="room-content">
+                                <div class="room-header">
+                                    <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
+                                    <p class="room-details"><?= substr($srvc['services_description'], 0, 200) ?></p>
+                                    <div class="price-tag">
+                                        <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
+        </div>
             </div>
         </section>
 
