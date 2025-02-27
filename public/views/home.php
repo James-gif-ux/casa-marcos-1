@@ -46,6 +46,34 @@
                     echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
                 }
             }
+
+            
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        try {
+            $connector = new Connector();
+            
+            // Updated SQL to include res_services_id
+            $sql = "INSERT INTO reservations (name, email, phone, date, message, status, res_services_id) 
+                    VALUES (:name, :email, :phone, :date, :message, 'pending', :service_id)";
+            
+            $stmt = $connector->getConnection()->prepare($sql);
+            $result = $stmt->execute([
+                ':name' => $_POST['name'],
+                ':email' => $_POST['email'],
+                ':phone' => $_POST['phone'],
+                ':date' => $_POST['date'],
+                ':message' => $_POST['message'],
+                ':service_id' => $_POST['service_id'] // This gets the hidden service_id field value
+            ]);
+
+            if ($result) {
+                echo "<script>alert('Reservation submitted successfully!');</script>";
+            }
+            
+        } catch (PDOException $e) {
+            echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
+        }
+    }
         ?>
 
         <link rel="stylesheet" href="../assets/css/roomstry.css">
@@ -74,41 +102,41 @@
                     </div>
                 </section>
                 <?php
-        if (isset($_POST['submit_dates'])) {
-            try {
-                $checkin_date = $_POST['checkin_date'];
-                $checkout_date = $_POST['checkout_date'];
-                
-                // Validate dates
-                $current_date = date('Y-m-d');
-                if ($checkin_date < $current_date) {
-                    throw new Exception("Check-in date cannot be in the past.");
-                }
-                if ($checkout_date <= $checkin_date) {
-                    throw new Exception("Check-out date must be after check-in date.");
-                }
+                    if (isset($_POST['submit_dates'])) {
+                        try {
+                            $checkin_date = $_POST['checkin_date'];
+                            $checkout_date = $_POST['checkout_date'];
+                            
+                            // Validate dates
+                            $current_date = date('Y-m-d');
+                            if ($checkin_date < $current_date) {
+                                throw new Exception("Check-in date cannot be in the past.");
+                            }
+                            if ($checkout_date <= $checkin_date) {
+                                throw new Exception("Check-out date must be after check-in date.");
+                            }
 
-                // Insert into database without status
-                $sql = "INSERT INTO booking_tb (booking_check_in, booking_check_out) VALUES (:check_in, :check_out)";
-                $stmt = $connector->getConnection()->prepare($sql);
-                $result = $stmt->execute([
-                    ':check_in' => $checkin_date,
-                    ':check_out' => $checkout_date
-                ]);
+                            // Insert into database without status
+                            $sql = "INSERT INTO booking_tb (booking_check_in, booking_check_out) VALUES (:check_in, :check_out)";
+                            $stmt = $connector->getConnection()->prepare($sql);
+                            $result = $stmt->execute([
+                                ':check_in' => $checkin_date,
+                                ':check_out' => $checkout_date
+                            ]);
 
-                if ($result) {
-                    echo "<script>
-                        alert('Dates have been successfully saved!');
-                        window.location.href = 'books.php';
-                    </script>";
-                    $_SESSION['check_in'] = $checkin_date;
-                    $_SESSION['check_out'] = $checkout_date;
-                }
-            } catch (Exception $e) {
-                echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
-            }
-        }
-        ?>
+                            if ($result) {
+                                echo "<script>
+                                    alert('Dates have been successfully saved!');
+                                    window.location.href = 'books.php';
+                                </script>";
+                                $_SESSION['check_in'] = $checkin_date;
+                                $_SESSION['check_out'] = $checkout_date;
+                            }
+                        } catch (Exception $e) {
+                            echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
+                        }
+                    }
+                    ?>
                 <script>
                     document.getElementById('checkin').addEventListener('change', function() {
                         const checkIn = new Date(this.value);

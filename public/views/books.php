@@ -100,25 +100,27 @@
                 </section>
             </div>
 
-            <div class="booking-container">
-                <?php if (isset($_SESSION['error'])): ?>
-                    <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
-                <?php endif; ?>
-                    <div class="check-section">
-                        <h3>Check-in</h3>
-                        <input type="date" name="check_in" 
-                            value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : '2025-02-18'; ?>"
-                            required min="<?= date('Y-m-d') ?>">
-                    </div>
+            <form action="" method="post">
+                <div class="booking-container">
+                    <?php if (isset($_SESSION['error'])): ?>
+                        <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
+                    <?php endif; ?>
+                        <div class="check-section">
+                            <h3>Check-in</h3>
+                            <input type="date" name="check_in" 
+                                value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : '2025-02-18'; ?>"
+                                required min="<?= date('Y-m-d') ?>">
+                        </div>
 
-                    <div class="check-section">
-                        <h3>Check-out</h3>
-                        <input type="date" name="check_out" 
-                            value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : '2025-02-19'; ?>"
-                            required>
-                    </div>
-                    <button type="submit">Search Booking</button>
-            </div>
+                        <div class="check-section">
+                            <h3>Check-out</h3>
+                            <input type="date" name="check_out" 
+                                value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : '2025-02-19'; ?>"
+                                required>
+                        </div>
+                        <button type="submit">Search Booking</button>
+                </div>
+            </form>
         </div>
 
         <!-- Single Modal for all bookings -->

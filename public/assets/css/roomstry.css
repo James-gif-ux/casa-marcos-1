@@ -177,7 +177,7 @@
 
 /*rooms section for continued scrolling*/
 /*start of rooms section*/
-.image-wrapper {
+/* .image-wrapper {
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -189,9 +189,9 @@
             }
             100% {
                 /* Move left by 50% of the width to show the duplicate set */
-                transform: translateX(-263%);
+                /* transform: translateX(-263%);
             }
-        }
+        } */ 
 /*end of rooms section*/
 
 /* Base styles */
@@ -330,14 +330,14 @@
         font-size: 0.9rem;
     }
     
-    .image-wrapper {
+    /* .image-wrapper {
         animation: continuousSlide 30s linear infinite;
-    }
+    } */
     
-    @keyframes continuousSlide {
+    /* @keyframes continuousSlide {
         0% { transform: translateX(0); }
         100% { transform: translateX(-200%); }
-    }
+    } */
 }
 
 /* Touch device optimization */
@@ -445,9 +445,9 @@
         font-size: 0.8rem;
     }
     
-    .image-wrapper {
+    /* .image-wrapper {
         animation: continuousSlide 20s linear infinite;
-    }
+    } */
 
     h3 {
         font-size: 1.2rem !important;
