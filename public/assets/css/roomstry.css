@@ -175,7 +175,8 @@
 
 
 
-
+/*rooms section for continued scrolling*/
+/*start of rooms section*/
 .image-wrapper {
         display: flex;
         flex-direction: row;
@@ -191,6 +192,7 @@
                 transform: translateX(-263%);
             }
         }
+/*end of rooms section*/
 
 /* Base styles */
 :root {
