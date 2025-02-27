@@ -148,51 +148,51 @@
             });
         </script>
             <script>
-                let currentIndex = 0;
-                const slider = document.querySelector('.image-wrapper');
-                const images = document.querySelectorAll('.image');
-                const totalImages = images.length;
+                // let currentIndex = 0;
+                // const slider = document.querySelector('.image-wrapper');
+                // const images = document.querySelectorAll('.image');
+                // const totalImages = images.length;
 
-                // Set initial styles
-                slider.style.transition = "transform 1s ease-in-out";
+                // // Set initial styles
+                // slider.style.transition = "transform 1s ease-in-out";
 
-                function changeSlide() {
-                    if (currentIndex === totalImages - 1) {
-                        // Reset to first image
-                        currentIndex = 0;
-                        slider.style.transition = "none";
-                        slider.style.transform = `translateX(0)`;
+                // function changeSlide() {
+                //     if (currentIndex === totalImages - 1) {
+                //         // Reset to first image
+                //         currentIndex = 0;
+                //         slider.style.transition = "none";
+                //         slider.style.transform = `translateX(0)`;
                         
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                slider.style.transition = "transform 1s ease-in-out";
-                            });
-                        });
-                    } else {
-                        currentIndex++;
-                        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    }
-                }
+                //         requestAnimationFrame(() => {
+                //             requestAnimationFrame(() => {
+                //                 slider.style.transition = "transform 1s ease-in-out";
+                //             });
+                //         });
+                //     } else {
+                //         currentIndex++;
+                //         slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                //     }
+                // }
 
-                // Start automatic sliding
-                const slideInterval = setInterval(changeSlide, 3000);
+                // // Start automatic sliding
+                // const slideInterval = setInterval(changeSlide, 3000);
 
-                // Add hover controls
-                slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                slider.addEventListener('mouseleave', () => setInterval(changeSlide, 3000));
+                // // Add hover controls
+                // slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                // slider.addEventListener('mouseleave', () => setInterval(changeSlide, 3000));
 
-                // Add touch support
-                let touchStartX = 0;
-                let touchEndX = 0;
+                // // Add touch support
+                // let touchStartX = 0;
+                // let touchEndX = 0;
 
-                slider.addEventListener('touchstart', e => {
-                    touchStartX = e.changedTouches[0].screenX;
-                });
+                // slider.addEventListener('touchstart', e => {
+                //     touchStartX = e.changedTouches[0].screenX;
+                // });
 
-                slider.addEventListener('touchend', e => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    if (touchStartX - touchEndX > 50) {
-                        changeSlide();
-                    }
-                });
+                // slider.addEventListener('touchend', e => {
+                //     touchEndX = e.changedTouches[0].screenX;
+                //     if (touchStartX - touchEndX > 50) {
+                //         changeSlide();
+                //     }
+                // });
             </script>

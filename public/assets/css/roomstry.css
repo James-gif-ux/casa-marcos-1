@@ -95,7 +95,7 @@
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      /* transition: transform 0.3s ease; */
   }
 
   .room-card:hover {
@@ -231,9 +231,9 @@
         width: 100% !important;
     }
     
-    .image-slider-section {
+    /* .image-slider-section {
         padding: 2rem 0.5rem;
-    }
+    } */
     
     .image {
         height: 400px;
@@ -419,9 +419,9 @@
 }
 
 @media screen and (max-width: 480px) {
-    .image-slider-section {
+    /* .image-slider-section {
         padding: 1rem 0;
-    }
+    } */
     
     .image {
         height: 250px;
