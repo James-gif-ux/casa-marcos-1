@@ -1,47 +1,47 @@
-<?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+    <?php
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
+    require 'PHPMailer/src/Exception.php';
+    require 'PHPMailer/src/PHPMailer.php';
+    require 'PHPMailer/src/SMTP.php';
 
-header('Content-Type: application/json');
+    header('Content-Type: application/json');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $recipient = $_POST['email'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $recipient = $_POST['email'];
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
 
-    $mail = new PHPMailer(true);
+        $mail = new PHPMailer(true);
 
-    try {
-        // SMTP Configuration
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Change for Yahoo, Outlook, etc.
-        $mail->SMTPAuth = true;
-        $mail->Username = 'jjbright0402@gmail.com'; // Your email
-        $mail->Password = 'tuyh dazt wthj flio'; // Use an App Password
-        $mail->SMTPSecure = 'tls'; // Use 'ssl' for port 465
-        $mail->Port = 587; // Use 465 for SSL
+        try {
+            // SMTP Configuration
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com'; // Change for Yahoo, Outlook, etc.
+            $mail->SMTPAuth = true;
+            $mail->Username = 'jjbright0402@gmail.com'; // Your email
+            $mail->Password = 'tuyh dazt wthj flio'; // Use an App Password
+            $mail->SMTPSecure = 'tls'; // Use 'ssl' for port 465
+            $mail->Port = 587; // Use 465 for SSL
 
-        // Email Settings
-        $mail->setFrom('your-email@gmail.com', 'CASA MARCOS'); 
-        $mail->addAddress($recipient); 
+            // Email Settings
+            $mail->setFrom('your-email@gmail.com', 'CASA MARCOS'); 
+            $mail->addAddress($recipient); 
 
-        $mail->Subject = $subject;
-        $mail->Body    = $message;
+            $mail->Subject = $subject;
+            $mail->Body    = $message;
 
-        // Send Email
-        if ($mail->send()) {
-            echo json_encode(['success' => true, 'message' => 'Email sent successfully!']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to send email.']);
+            // Send Email
+            if ($mail->send()) {
+                echo json_encode(['success' => true, 'message' => 'Email sent successfully!']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to send email.']);
+            }
+            
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Mailer Error: ' . $mail->ErrorInfo]);
         }
-        
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => 'Mailer Error: ' . $mail->ErrorInfo]);
+        exit();
     }
-    exit();
-}
-?>
+    ?>
