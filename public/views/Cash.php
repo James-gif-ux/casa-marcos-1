@@ -1,308 +1,308 @@
-<?php
-session_start();
+    <?php
+    session_start();
 
-class PaymentProcessor {
-    private $conn;
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "resort_db";
+    class PaymentProcessor {
+        private $conn;
+        private $servername = "localhost";
+        private $username = "root";
+        private $password = "";
+        private $dbname = "resort_db";
 
-    public function __construct() {
-        try {
-            $this->conn = new PDO("mysql:host={$this->servername};dbname={$this->dbname}", $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            // Log the error or handle it appropriately
-            error_log("Connection failed: " . $e->getMessage());
-            $_SESSION['error'] = "Database connection error.";
-            header("Location: Cash.php"); // Redirect if connection fails
-            exit();
-        }
-    }
-
-    public function processPayment() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        public function __construct() {
             try {
-                // Validate inputs
-                if (empty($_POST['payment_method']) || empty($_POST['reference_number']) || empty($_FILES['payment_proof']) || empty($_POST['payment_amount'])) {
-                    throw new Exception("All fields are required");
-                }
-
-                // Validate payment amount (example)
-                $payment_amount = filter_var($_POST['payment_amount'], FILTER_VALIDATE_FLOAT);
-                if ($payment_amount === false) {
-                    throw new Exception("Invalid payment amount.");
-                }
-
-                // File upload handling
-                $payment_proof = $_FILES['payment_proof'];
-                $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
-
-                if (!in_array($payment_proof['type'], $allowed_types)) {
-                    throw new Exception("Invalid file type. Only JPG, JPEG & PNG allowed");
-                }
-
-                $target_dir = "../images/";
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true);
-                }
-
-                $file_extension = pathinfo($payment_proof['name'], PATHINFO_EXTENSION);
-                $unique_filename = uniqid() . '.' . $file_extension;
-                $target_file = $target_dir . $unique_filename;
-
-                if (!move_uploaded_file($payment_proof['tmp_name'], $target_file)) {
-                    throw new Exception("Error uploading file");
-                }
-
-                // Database insertion
-                $sql = "INSERT INTO payment_tb (
-                    payment_amount,
-                    payment_status,
-                    payment_method,
-                    reference_number,
-                    payment_proof,
-                    payment_transaction_date
-                ) VALUES (:payment_amount, 'pending', :payment_method, :reference_number, :unique_filename, NOW())";
-
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
-                $stmt->bindParam(':payment_method', $_POST['payment_method'], PDO::PARAM_STR);
-                $stmt->bindParam(':reference_number', $_POST['reference_number'], PDO::PARAM_STR);
-                $stmt->bindParam(':unique_filename', $unique_filename, PDO::PARAM_STR);
-
-                if (!$stmt->execute()) {
-                    throw new Exception("Database error: " . print_r($stmt->errorInfo(), true));
-                }
-
-                echo json_encode(['success' => true, 'message' => 'Payment submitted successfully!']);
-                exit();
-
-            } catch (Exception $e) {
-                http_response_code(400);
-                echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+                $this->conn = new PDO("mysql:host={$this->servername};dbname={$this->dbname}", $this->username, $this->password);
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                // Log the error or handle it appropriately
+                error_log("Connection failed: " . $e->getMessage());
+                $_SESSION['error'] = "Database connection error.";
+                header("Location: Cash.php"); // Redirect if connection fails
                 exit();
             }
         }
+
+        public function processPayment() {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                try {
+                    // Validate inputs
+                    if (empty($_POST['payment_method']) || empty($_POST['reference_number']) || empty($_FILES['payment_proof']) || empty($_POST['payment_amount'])) {
+                        throw new Exception("All fields are required");
+                    }
+
+                    // Validate payment amount (example)
+                    $payment_amount = filter_var($_POST['payment_amount'], FILTER_VALIDATE_FLOAT);
+                    if ($payment_amount === false) {
+                        throw new Exception("Invalid payment amount.");
+                    }
+
+                    // File upload handling
+                    $payment_proof = $_FILES['payment_proof'];
+                    $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
+
+                    if (!in_array($payment_proof['type'], $allowed_types)) {
+                        throw new Exception("Invalid file type. Only JPG, JPEG & PNG allowed");
+                    }
+
+                    $target_dir = "../images/";
+                    if (!file_exists($target_dir)) {
+                        mkdir($target_dir, 0777, true);
+                    }
+
+                    $file_extension = pathinfo($payment_proof['name'], PATHINFO_EXTENSION);
+                    $unique_filename = uniqid() . '.' . $file_extension;
+                    $target_file = $target_dir . $unique_filename;
+
+                    if (!move_uploaded_file($payment_proof['tmp_name'], $target_file)) {
+                        throw new Exception("Error uploading file");
+                    }
+
+                    // Database insertion
+                    $sql = "INSERT INTO payment_tb (
+                        payment_amount,
+                        payment_status,
+                        payment_method,
+                        reference_number,
+                        payment_proof,
+                        payment_transaction_date
+                    ) VALUES (:payment_amount, 'pending', :payment_method, :reference_number, :unique_filename, NOW())";
+
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
+                    $stmt->bindParam(':payment_method', $_POST['payment_method'], PDO::PARAM_STR);
+                    $stmt->bindParam(':reference_number', $_POST['reference_number'], PDO::PARAM_STR);
+                    $stmt->bindParam(':unique_filename', $unique_filename, PDO::PARAM_STR);
+
+                    if (!$stmt->execute()) {
+                        throw new Exception("Database error: " . print_r($stmt->errorInfo(), true));
+                    }
+
+                    echo json_encode(['success' => true, 'message' => 'Payment submitted successfully!']);
+                    exit();
+
+                } catch (Exception $e) {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+                    exit();
+                }
+            }
+        }
+
+        public function __destruct() {
+            // Close the database connection when the object is destroyed
+            $this->conn = null;
+        }
     }
 
-    public function __destruct() {
-        // Close the database connection when the object is destroyed
-        $this->conn = null;
-    }
-}
-
-// Usage:
-$paymentProcessor = new PaymentProcessor();
-$paymentProcessor->processPayment();
+    // Usage:
+    $paymentProcessor = new PaymentProcessor();
+    $paymentProcessor->processPayment();
 
 
 
 
-?>
+    ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Payment Method</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<style>
-    body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 20px;
-}
+    <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Payment Method</title>
+                <link rel="stylesheet" href="../css/styles.css">
+            </head>
+        <style>
+            body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
 
-.payment-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
+        .payment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
 
-h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-}
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-.payment-method {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
+        .payment-method {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
 
-.payment-method h3 {
-    color: #444;
-    margin-top: 0;
-}
+        .payment-method h3 {
+            color: #444;
+            margin-top: 0;
+        }
 
-.payment-details {
-    margin-left: 20px;
-}
+        .payment-details {
+            margin-left: 20px;
+        }
 
-.payment-details p {
-    margin: 5px 0;
-    color: #666;
-}
+        .payment-details p {
+            margin: 5px 0;
+            color: #666;
+        }
 
-.payment-proof, .payment-reference {
-    margin: 20px 0;
-}
+        .payment-proof, .payment-reference {
+            margin: 20px 0;
+        }
 
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 5px;
-}
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
 
-input[type="file"] {
-    margin-top: 5px;
-}
+        input[type="file"] {
+            margin-top: 5px;
+        }
 
-a {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    margin-top: 20px;
-}
+        a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
+        }
 
-.submit-btn,a:hover {
-    background-color: #45a049;
-}
+        .submit-btn,a:hover {
+            background-color: #45a049;
+        }
 
-label {
-    color: #555;
-    display: block;
-    margin-bottom: 5px;
-}
-</style>
-<body>
-    <div class="payment-container">
-        <h2>Select Payment Method</h2>
-        
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger">
-                <?php 
-                    echo $_SESSION['error'];
-                    unset($_SESSION['error']);
-                ?>
-            </div>
-        <?php endif; ?>
-
-        <form action="../model/process_payment.php" method="POST" enctype="multipart/form-data" id="paymentForm">
-            <div class="payment-method">
-                <h3>Bank Transfer</h3>
-                <div class="payment-details">
-                    <p>Bank: BDO</p>
-                    <p>Account Name: Casa Marcos</p>
-                    <p>Account Number: 1234-5678-9012</p>
-                    
-                    <input type="radio" name="payment_method" value="bank_transfer" required>
-                    <label>Pay via Bank Transfer</label>
-                </div>
-            </div>
-
-            <div class="payment-method">
-                <h3>GCash</h3>
-                <div class="payment-details">
-                    <p>GCash Number: 0917-123-4567</p>
-                    <p>Account Name: Casa Marcos</p>
-                    
-                    <input type="radio" name="payment_method" value="gcash" required>
-                    <label>Pay via GCash</label>
-                </div>
-            </div>
-            
-            <div class="payment-proof">
-                <label>Upload Payment Proof:</label>
-                <input type="file" name="payment_proof" accept="image/jpeg,image/png,image/jpg" required>
+        label {
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+        </style>
+        <body>
+            <div class="payment-container">
+                <h2>Select Payment Method</h2>
                 
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger">
+                        <?php 
+                            echo $_SESSION['error'];
+                            unset($_SESSION['error']);
+                        ?>
+                    </div>
+                <?php endif; ?>
+
+                <form action="../model/process_payment.php" method="POST" enctype="multipart/form-data" id="paymentForm">
+                    <div class="payment-method">
+                        <h3>Bank Transfer</h3>
+                        <div class="payment-details">
+                            <p>Bank: BDO</p>
+                            <p>Account Name: Casa Marcos</p>
+                            <p>Account Number: 1234-5678-9012</p>
+                            
+                            <input type="radio" name="payment_method" value="bank_transfer" required>
+                            <label>Pay via Bank Transfer</label>
+                        </div>
+                    </div>
+
+                    <div class="payment-method">
+                        <h3>GCash</h3>
+                        <div class="payment-details">
+                            <p>GCash Number: 0917-123-4567</p>
+                            <p>Account Name: Casa Marcos</p>
+                            
+                            <input type="radio" name="payment_method" value="gcash" required>
+                            <label>Pay via GCash</label>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-proof">
+                        <label>Upload Payment Proof:</label>
+                        <input type="file" name="payment_proof" accept="image/jpeg,image/png,image/jpg" required>
+                        
+                    </div>
+                    <div class="payment-amount" style="margin: 20px 0;">
+                        <label style="color: #555; display: block; margin-bottom: 5px;">Amount:</label>
+                        <input type="number" 
+                            name="payment_amount" 
+                            step="0.01" 
+                            min="0" 
+                            required
+                            style="width: 100%;
+                                    padding: 10px;
+                                    border: 1px solid #ddd;
+                                    border-radius: 4px;
+                                    font-size: 16px;
+                                    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                    </div>
+
+                    <div class="payment-reference">
+                        <label>Reference/Transaction Number:</label>
+                        <input type="text" name="reference_number" pattern="[A-Za-z0-9-]+" required>
+                    </div>
+
+                    <input type="hidden" name="payment_amount" value="<?php echo htmlspecialchars($_GET['payment_amount'] ?? ''); ?>">
+                    
+                    <button type="submit" class="btn btn-success">Submit Payment</button>
+                </form>
             </div>
-            <div class="payment-amount" style="margin: 20px 0;">
-                <label style="color: #555; display: block; margin-bottom: 5px;">Amount:</label>
-                <input type="number" 
-                       name="payment_amount" 
-                       step="0.01" 
-                       min="0" 
-                       required
-                       style="width: 100%;
-                              padding: 10px;
-                              border: 1px solid #ddd;
-                              border-radius: 4px;
-                              font-size: 16px;
-                              box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
-            </div>
 
-            <div class="payment-reference">
-                <label>Reference/Transaction Number:</label>
-                <input type="text" name="reference_number" pattern="[A-Za-z0-9-]+" required>
-            </div>
+                <script>
+            document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                try {
+                    const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+                    const paymentProof = document.querySelector('input[name="payment_proof"]');
+                    const paymentAmount = document.querySelector('input[name="payment_amount"]');
+                    const referenceNumber = document.querySelector('input[name="reference_number"]');
+                    
+                    // Form validation
+                    if (!paymentMethod || !paymentProof.files[0] || !paymentAmount.value || !referenceNumber.value) {
+                        throw new Error('Please fill in all required fields');
+                    }
 
-            <input type="hidden" name="payment_amount" value="<?php echo htmlspecialchars($_GET['payment_amount'] ?? ''); ?>">
-            
-            <button type="submit" class="btn btn-success">Submit Payment</button>
-        </form>
-    </div>
+                    const formData = new FormData();
+                    formData.append('payment_method', paymentMethod.value);
+                    formData.append('payment_proof', paymentProof.files[0]);
+                    formData.append('payment_amount', paymentAmount.value);
+                    formData.append('reference_number', referenceNumber.value);
 
-    <script>
-document.getElementById('paymentForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    try {
-        const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
-        const paymentProof = document.querySelector('input[name="payment_proof"]');
-        const paymentAmount = document.querySelector('input[name="payment_amount"]');
-        const referenceNumber = document.querySelector('input[name="reference_number"]');
-        
-        // Form validation
-        if (!paymentMethod || !paymentProof.files[0] || !paymentAmount.value || !referenceNumber.value) {
-            throw new Error('Please fill in all required fields');
-        }
+                    const response = await fetch('../model/process_payment.php', {
+                        method: 'POST',
+                        body: formData
+                    });
 
-        const formData = new FormData();
-        formData.append('payment_method', paymentMethod.value);
-        formData.append('payment_proof', paymentProof.files[0]);
-        formData.append('payment_amount', paymentAmount.value);
-        formData.append('reference_number', referenceNumber.value);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
 
-        const response = await fetch('../model/process_payment.php', {
-            method: 'POST',
-            body: formData
-        });
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.href = 'confirmation.php';
+                    } else {
+                        throw new Error(data.error || 'Payment processing failed');
+                    }
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+                } catch (error) {
+                    alert(error.message);
+                    console.error('Error:', error);
+                }
+            });
+            </script>
 
-        const data = await response.json();
-        
-        if (data.success) {
-            alert(data.message);
-            window.location.href = 'confirmation.php';
-        } else {
-            throw new Error(data.error || 'Payment processing failed');
-        }
-
-    } catch (error) {
-        alert(error.message);
-        console.error('Error:', error);
-    }
-});
-</script>
-
-</body>
-</html>
+        </body>
+    </html>
