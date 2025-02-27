@@ -186,26 +186,26 @@
                     .video-container {
                         padding-bottom: 75%;
                     }
-                }
+                    }
 
-        @media (max-width: 480px) {
-            section {
-                padding: 4rem 1rem;
-            }
-            
-            .history-content h3 {
-                font-size: 1.3rem;
-            }
-            
-            .history-content p {
-                font-size: 0.9rem;
-                line-height: 1.7;
-            }
-            
-            .video-title {
-                font-size: 1.3rem;
-            }
-        }
+                    @media (max-width: 480px) {
+                        section {
+                            padding: 4rem 1rem;
+                        }
+                        
+                        .history-content h3 {
+                            font-size: 1.3rem;
+                        }
+                        
+                        .history-content p {
+                            font-size: 0.9rem;
+                            line-height: 1.7;
+                        }
+                        
+                        .video-title {
+                            font-size: 1.3rem;
+                        }
+                    }
     </style>
     <div style=" background-color: #f9f6f2; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
     <div class="history-container" style="display: flex; gap: 4rem; align-items: center; background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 240, 0.95)); 

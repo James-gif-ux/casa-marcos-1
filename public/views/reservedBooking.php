@@ -1,6 +1,6 @@
-    <?php
-    require_once '../model/server.php';
-    include_once 'nav/header.php';
+        <?php
+        require_once '../model/server.php';
+        include_once 'nav/header.php';
 
     try {
         $connector = new Connector();
@@ -10,7 +10,7 @@
         $sql = "SELECT reservation_id, r.*, s.services_name 
                 FROM reservations r 
                 LEFT JOIN services_tb s ON r.res_services_id = s.services_id 
-                WHERE r.status IN ('pending', 'confirmed', 'cancelled')";
+                WHERE r.status IN ('pending', 'confirmed')";
         
         $stmt = $connector->executeQuery($sql);
         $reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -71,7 +71,6 @@
                         <th class="px-4 py-3 text-center">Booking Email</th>
                         <th class="px-4 py-3 text-center">Contact Number</th>
                         <th class="px-4 py-3 text-center">Booking Date</th>
-                        <th class="px-4 py-3 text-center">Messages</th>
                         <th class="px-4 py-3 text-center">Booking Status</th>
                         <th class="px-4 py-3 text-center">Action</th>
                     </tr>
@@ -86,7 +85,6 @@
                                 <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['email']); ?></td>
                                 <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['phone']); ?></td>
                                 <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['date']); ?></td>
-                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['message']); ?></td>
                                 <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($res['status']); ?></td>
                                 <td style="display: flex; justify-content: center; align-items: center; padding: 10px; gap: 8px;">
                                     <?php if (isset($res['reservation_id'])): ?>
@@ -94,10 +92,9 @@
                                             <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=approve" 
                                             class="btn-approve">Confirm</a>
                                         <?php endif; ?>
-                                        <?php if ($res['status'] === 'cancelled'): ?>
-                                            <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=approve" 
-                                            class="btn-approve">Cancell</a>
-                                        <?php endif; ?>
+                                        <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=delete" 
+                                        class="btn-danger" 
+                                        onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -108,8 +105,8 @@
             </div>
     </div>
 
-    <?php
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-    ?>
+        <?php
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        ?>
