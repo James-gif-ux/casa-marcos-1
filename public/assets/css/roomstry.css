@@ -61,7 +61,7 @@
   .overlay-light-left {
       background-color: rgba(243, 244, 246, 0.8);
       position: absolute;
-      inset-y: 0;
+      
       width: 50%;
       left: 0;
       border-radius: 12px 0 0 12px; /* Rounded corners on the left */
@@ -71,7 +71,7 @@
   .overlay-light-right {
       background-color: rgba(243, 244, 246, 0.8);
       position: absolute;
-      inset-y: 0;
+     
       width: 50%;
       right: 0;
       border-radius: 0 12px 12px 0; /* Rounded corners on the right */
@@ -279,8 +279,7 @@
         font-size: 0.9rem;
         overflow: hidden;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+      
         margin: 8px 0;
     }
 
