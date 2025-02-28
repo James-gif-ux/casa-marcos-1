@@ -33,7 +33,7 @@
     $connector = new Connector();
 
     // Fetch all bookings that are pending approval
-    $sql = "SELECT reservation_id, name, email, phone, date, message FROM reservations WHERE status = 'pending'";
+    $sql = "SELECT reservation_id, name, email, phone, checkin, checkout, message FROM reservations WHERE status = 'pending'";
     $reservations = $connector->executeQuery($sql);
 
     // Handle form submission
@@ -42,15 +42,16 @@
             $connector = new Connector();
             
             // Updated SQL to include res_services_id
-            $sql = "INSERT INTO reservations (name, email, phone, date, message, status, res_services_id) 
-                    VALUES (:name, :email, :phone, :date, :message, 'pending', :service_id)";
+            $sql = "INSERT INTO reservations (name, email, phone, checkin, checkout, message, status, res_services_id) 
+                    VALUES (:name, :email, :phone, :checkin, :checkout, :message, 'pending', :service_id)";
             
             $stmt = $connector->getConnection()->prepare($sql);
             $result = $stmt->execute([
                 ':name' => $_POST['name'],
                 ':email' => $_POST['email'],
                 ':phone' => $_POST['phone'],
-                ':date' => $_POST['date'],
+                ':checkin' => $_POST['checkin'],
+                ':checkout' => $_POST['checkout'],
                 ':message' => $_POST['message'],
                 ':service_id' => $_POST['service_id'] // This gets the hidden service_id field value
             ]);
@@ -463,8 +464,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="date">Date:</label>
-                                    <input type="date" id="date" name="date" required>
+                                    <label for="checkin">Check in:</label>
+                                    <input type="date" id="checkin" name="checkin" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkout">Check out:</label>
+                                    <input type="date" id="checkout" name="checkout" required>
                                 </div>
 
                                 <div class="form-group">

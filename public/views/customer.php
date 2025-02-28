@@ -6,17 +6,17 @@
     try {
         $connector = new Connector();
         
-        // Fetch all bookings without status restriction
-        $sql = "SELECT b.*, s.services_name 
-                FROM booking_tb b 
-                LEFT JOIN services_tb s ON b.booking_services_id = s.services_id";
+        // Fetch unique customers
+        $sql = "SELECT DISTINCT booking_fullname, booking_email, booking_number 
+                FROM booking_tb 
+                GROUP BY booking_fullname, booking_email, booking_number
+                ORDER BY booking_fullname";
         
         $stmt = $connector->executeQuery($sql);
         $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Debug: Check if we're getting any results
         if (empty($bookings)) {
-            echo "<p>No bookings found in the database.</p>";
+            echo "<p>No customers found in the database.</p>";
         }
         
         ?>

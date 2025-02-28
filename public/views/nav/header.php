@@ -39,6 +39,7 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
     />
+    
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
       defer
