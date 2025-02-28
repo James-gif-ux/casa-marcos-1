@@ -118,11 +118,33 @@
                 </style>
             </head>
             <body>
+                <div class="mb-4 p-4 bg-white rounded shadow flex items-center justify-between">
+                    <div class="flex items-center">
+                        <label class="mr-2">Show</label>
+                        <select id="entriesSelect" class="form-control input-sm px-3 py-1 border rounded" onchange="changeEntries()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <label class="ml-2">entries</label>
+                    </div>
+                    <!-- Existing search and sort controls -->
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search by name or email..." oninput="searchTable()">
+                        <select id="sortSelect" class="sort-select" onchange="searchTable()">
+                            <option value="name">Sort by Name</option>
+                            <option value="date">Sort by Check-in Date</option>
+                            <option value="status">Sort by Status</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="messages-container">
                     <div class="table-wrapper">
                         <table>
                             <thead>
                                 <tr  class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 text-center">No.</th>
                                     <th>SENDER EMAIL</th>
                                     <th>SUBJECT</th>
                                     <th>MESSAGE</th>
@@ -132,9 +154,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $rowNumber = 1;?>
                                 <?php foreach ($messages as $message): ?>
                                 <tr class="<?php echo ($message['status'] === '0' || $message['status'] === 0 || $message['status'] === 'unread') ? 'unread' : ''; ?>"
                                     style="color: <?php echo ($message['status'] === '0' || $message['status'] === 0 || $message['status'] === 'unread') ? '#ff0000' : '#555'; ?>">
+                                    <td class="px-4 py-3 text-center"><?php echo $rowNumber++; ?></td>
                                     <td><?php echo htmlspecialchars($message['recipient_email']); ?></td>
                                     <td><?php echo htmlspecialchars($message['subject']); ?></td>
                                     <td><?php echo htmlspecialchars($message['message_content']); ?></td>
@@ -207,6 +231,50 @@
                         
                         return false;
                     }
+
+
+                    // Modify existing searchTable function
+                        function searchTable() {
+                            currentPage = 1; // Reset to first page when searching
+                            const sortValue = document.getElementById('sortSelect').value;
+                            const tbody = document.querySelector('tbody');
+                            const rows = Array.from(tbody.getElementsByTagName('tr'));
+
+                            // Sort functionality remains the same
+                            rows.sort((a, b) => {
+                                const statusA = a.cells[9].textContent.toLowerCase();
+                                const statusB = b.cells[9].textContent.toLowerCase();
+
+                                // Always keep pending on top
+                                if (statusA === 'pending' && statusB !== 'pending') return -1;
+                                if (statusB === 'pending' && statusA !== 'pending') return 1;
+
+                                switch(sortValue) {
+                                    case 'name':
+                                        return a.cells[1].textContent.localeCompare(b.cells[1].textContent);
+                                    case 'date':
+                                        return new Date(a.cells[5].textContent) - new Date(b.cells[5].textContent);
+                                    case 'status':
+                                        return a.cells[9].textContent.localeCompare(b.cells[9].textContent);
+                                    default:
+                                        return 0;
+                                }
+                            });
+
+                            // Clear and re-append sorted rows
+                            while (tbody.firstChild) {
+                                tbody.removeChild(tbody.firstChild);
+                            }
+                            rows.forEach(row => tbody.appendChild(row));
+
+                            // Update table with pagination
+                            updateTable();
+                        }
+
+                        // Initialize table
+                        document.addEventListener('DOMContentLoaded', function() {
+                            updateTable();
+                        });
                     </script>
             </body>
         </html>

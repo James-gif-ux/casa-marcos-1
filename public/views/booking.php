@@ -96,7 +96,7 @@
     <script src="../assets/js/booking.js"></script>
 
     <script>
-        <!-- Search and Sort Controls -->
+        // <!-- Search and Sort Controls -->
         let currentPage = 1;
     
     function changeEntries() {
@@ -171,12 +171,12 @@
 
         // Update table with pagination
         updateTable();
-    }
+        }
 
-    // Initialize table
-    document.addEventListener('DOMContentLoaded', function() {
-        updateTable();
-    });
+        // Initialize table
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTable();
+        });
     </script>
         <!-- New Table -->
 
@@ -210,11 +210,11 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                             <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3 text-center">No.</th>
-                                <th class="px-4 py-3 text-center">Customers Name</th>
-                                <th class="px-4 py-3 text-center">Booking Email</th>
+                                <th class="px-4 py-3 ">No.</th>
+                                <th class="px-4 py-3 ">Customers Name</th>
+                                <th class="px-4 py-3 ">Booking Email</th>
                                 <th class="px-4 py-3 text-center">Contact Number</th>
-                                <th class="px-4 py-3 text-center">Rooms Name</th>
+                                <th class="px-4 py-3 ">Rooms Name</th>
                                 <th class="px-4 py-3 text-center">Check in</th>
                                 <th class="px-4 py-3 text-center">Check out</th>
                                 <th class="px-4 py-3 text-center">Nights</th>
@@ -227,11 +227,11 @@
                                 <?php $rowNumber = 1; ?>
                                 <?php foreach ($bookings as $booking): ?>
                                     <tr class="text-gray-700 dark:text-gray-400">
-                                        <td class="px-4 py-3 text-center"><?php echo $rowNumber++; ?></td>
-                                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
-                                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
+                                        <td class="px-4 py-3 "><?php echo $rowNumber++; ?></td>
+                                        <td class="px-4 py-3 "><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
+                                        <td class="px-4 py-3 r"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
                                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
-                                        <td class="px-4 py-3 text-center">
+                                        <td class="px-4 py-3 ">
                                             <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
                                         </td>
                                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_check_in']); ?></td>
