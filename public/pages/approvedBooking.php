@@ -9,19 +9,19 @@ if (isset($_GET['reservation_id']) && isset($_GET['action'])) {
     try {
         if ($action === 'approve') {
             $sql = "UPDATE reservations SET status = 'confirmed' WHERE reservation_id = :reservation_id";
-        } elseif ($action === 'delete') {
-            $sql = "DELETE FROM reservations WHERE reservation_id = :reservation_id";
+        } elseif ($action === 'cancel') {
+            $sql = "UPDATE reservations SET status = 'cancelled' WHERE reservation_id = :reservation_id";
         }
 
         $params = [':reservation_id' => $reservation_id];
 
         if ($connector->executeUpdate($sql, $params)) {
-            header("Location: ../views/reservedBooking.php?status=success&action=" . $action);
+            header("Location: ../pages/reservedBooking.php?status=success&action=" . $action);
         } else {
-            header("Location: ../views/reservedBooking.php?status=error&action=" . $action);
+            header("Location: ../pages/reservedBooking.php?status=error&action=" . $action);
         }
     } catch (Exception $e) {
-        header("Location: ../views/reservedBooking.php?status=error&message=" . urlencode($e->getMessage()));
+        header("Location: ../pages/reservedBooking.php?status=error&message=" . urlencode($e->getMessage()));
     }
     exit();
 }

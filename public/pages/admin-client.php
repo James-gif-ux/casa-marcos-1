@@ -8,8 +8,8 @@ if (isset($_GET['booking_id']) && isset($_GET['action'])) {
 
     if ($action === 'approve') {
         $sql = "UPDATE booking_tb SET booking_status = 'approved' WHERE booking_id = :booking_id";
-    } elseif ($action === 'delete') {
-        $sql = "DELETE FROM booking_tb WHERE booking_id = :booking_id";
+    } elseif ($action === 'complete') {
+        $sql = "UPDATE booking_tb SET booking_status = 'completed' WHERE booking_id = :booking_id";
     }
 
     $params = [':booking_id' => $booking_id];

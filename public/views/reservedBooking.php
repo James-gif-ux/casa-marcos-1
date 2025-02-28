@@ -94,9 +94,9 @@
                                             <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=approve" 
                                             class="btn-approve">Confirm</a>
                                         <?php endif; ?>
-                                        <?php if ($res['status'] === 'cancelled'): ?>
-                                            <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=approve" 
-                                            class="btn-approve">Cancell</a>
+                                        <?php if ($res['status'] === 'pending'): ?>
+                                           <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=cancel"
+                                            class="btn-danger">Cancel</a>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 </td>

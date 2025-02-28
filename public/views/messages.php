@@ -1,4 +1,4 @@
-    <?php
+<?php
     session_start();
     require_once '../model/server.php';
     include_once 'nav/header.php';
@@ -36,6 +36,7 @@
                 <!-- Bootstrap CSS -->
                 <!-- Custom CSS -->
                 <link href="../assets/css/style.css" rel="stylesheet">
+                <link rel="stylesheet" href="../assets/css/booking.css">
                 <style>
                     .container {
                         max-width: 77.0%; /* Adjust container width for responsiveness, making it larger for wider screens */
@@ -71,9 +72,9 @@
                         color: #555;
                     }
 
-                    tbody tr:hover {
+                    /* tbody tr:hover {
                         background-color: #f0f8ff;
-                    }
+                    } */
 
                     /* Highlight Unread Messages */
                     .unread {
@@ -132,7 +133,8 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($messages as $message): ?>
-                                <tr class="<?php echo ($message['status'] === '0') ? 'unread' : ''; ?>">
+                                <tr class="<?php echo ($message['status'] === '0' || $message['status'] === 0 || $message['status'] === 'unread') ? 'unread' : ''; ?>"
+                                    style="color: <?php echo ($message['status'] === '0' || $message['status'] === 0 || $message['status'] === 'unread') ? '#ff0000' : '#555'; ?>">
                                     <td><?php echo htmlspecialchars($message['recipient_email']); ?></td>
                                     <td><?php echo htmlspecialchars($message['subject']); ?></td>
                                     <td><?php echo htmlspecialchars($message['message_content']); ?></td>
@@ -140,12 +142,14 @@
                                     <td><?php echo htmlspecialchars($message['status']); ?></td>
                                     <td>
                                         <form id="messageForm_<?php echo htmlspecialchars($message['message_id']); ?>" 
-                                            action="../../sendMail_layout.php" 
+                                            action="" 
                                             method="POST">
                                             <input type="hidden" name="message_id" value="<?php echo htmlspecialchars($message['message_id']); ?>">
                                             <input type="hidden" name="recipient_email" value="<?php echo htmlspecialchars($message['recipient_email']); ?>">
                                             <input type="hidden" name="status" value="1">
-                                            <button type="submit" class="btn btn-approve" onclick="return updateStatus('<?php echo htmlspecialchars($message['message_id']); ?>')">Reply</button>
+                                            <a href="javascript:void(0)" onclick="openModal('<?php echo htmlspecialchars($message['message_id']); ?>', '<?php echo htmlspecialchars($message['recipient_email']); ?>')" 
+                                                class="btn btn-approve d-flex align-items-center justify-content-center" style="margin-right: 15px;">Reply
+                                            </a>
                                             <button type="button" class="btn btn-danger" onclick="if(confirm('Are you sure you want to delete this message?')) window.location.href='../pages/messagesdelete.php?message_id=<?php echo htmlspecialchars($message['message_id']); ?>&action=delete'">Delete</button>
                                         </form>
                                     </td>
@@ -154,7 +158,29 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id="messageModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2>Send Message</h2>
+                            <form class="message-form" id="emailForm" action="../../send_mail.php" method="POST">
+                                <input type="hidden" id="booking_id" name="message_id" value="">
+                                
+                                <label for="email">Recipient Email:</label>
+                                <input type="email" name="email" id="recipient_email" readonly>
+                                
+                                <label for="subject">Subject:</label>
+                                <input type="text" name="subject" required>
+                                
+                                <label for="message">Message:</label>
+                                <textarea name="message" required placeholder="Type your message here..."></textarea>
+                                
+                                <button type="submit">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+               
+                <script src="../assets/js/booking.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
                     <script>
                     function updateStatus(messageId) {
