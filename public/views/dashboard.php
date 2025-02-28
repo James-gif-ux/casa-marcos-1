@@ -244,8 +244,8 @@
           </main>
         </div>
       </div>
-      <footer>
-        <p style=" margin-bottom:20px; background-color: #3333;">ThemeWagon Inc@2025</p>
+      <footer class="text-center py-4 text-gray-600 text-sm">
+        <p> ThemeWagon Inc &copy; 2025</p>
       </footer>
     </body>
 </html>

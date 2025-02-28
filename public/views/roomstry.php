@@ -94,44 +94,87 @@
         });
         </script>
 
-        <section class="image-slider-section" style="padding: 6rem 2rem; background-color: rgb(218, 191, 156);">
-            <div class="relative flex items-center justify-center">
-                <div class="image-container">
-                    <!-- Image Wrapper (Two columns for left and right images) -->
-                    <div class="image-wrapper">
-                        <?php foreach ($services as $srvc): ?>
-                            <?php
-                            // Define room page mapping
-                            $roomPages = [
-                                'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
-                                'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
-                                'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
-                                'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
-                                'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
-                                'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
-                                'Barkada' => '../pages/rooms.php?sub_page=barkada',
-                            ];
-                            $roomName = trim($srvc['services_name']);
-                            $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
-                            ?>
-                            <a href="<?= $pageUrl ?>" class="image" style="text-decoration: none; cursor: pointer;">
-                                <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
-                                <div class="room-content">
-                                    <div class="room-header">
-                                        <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
-                                        <p class="room-details"><?= substr($srvc['services_description'], 0, 200) ?></p>
-                                        <div class="price-tag">
-                                            <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
-                                        </div>
-                                    </div>
+<section class="image-slider-section" style="padding: 8rem 1rem; background-color:rgb(218, 191, 156)">
+                    <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
+                    Our Rooms
+                    <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+                    </h2>
+                        <div class="relative flex items-center justify-center">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <?php foreach ($services as $srvc): ?>
+                                        <?php
+                                        $roomPages = [
+                                            'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
+                                            'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
+                                            'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
+                                            'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
+                                            'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
+                                            'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
+                                            'Barkada' => '../pages/rooms.php?sub_page=barkada',
+                                        ];
+                                        $roomName = trim($srvc['services_name']);
+                                        $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
+                                        ?>
+                                        <a href="<?= $pageUrl ?>" class="image" style="text-decoration: none; cursor: pointer;">
+                                            <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                                            <div class="room-content">
+                                                <div class="room-header">
+                                                    <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
+                                                    <p class="room-details"><?= substr($srvc['services_description'], 0, 200) ?></p>
+                                                    <div class="price-tag">
+                                                        <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <?php endforeach; ?>
                                 </div>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+                            </div>
+                        </div>
+                        <!-- Navigation Dots -->
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <?php foreach ($services as $index => $srvc): ?>
+                                <span class="room-dot" 
+                                      data-index="<?= $index ?>" 
+                                      style="display: inline-block; 
+                                             width: 12px; 
+                                             height: 12px; 
+                                             border-radius: 50%; 
+                                             background-color: #ccc; 
+                                             margin: 0 8px; 
+                                             cursor: pointer;
+                                             transition: background-color 0.3s ease;">
+                                </span>
+                            <?php endforeach; ?>
+                        </div>
+                </section>
+                
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const dots = document.querySelectorAll('.room-dot');
+                        const images = document.querySelectorAll('.image');
+                        
+                        // Set first dot as active
+                        dots[0].style.backgroundColor = 'rgb(163, 99, 15)';
+                        
+                        dots.forEach((dot, index) => {
+                            dot.addEventListener('click', () => {
+                                // Reset all dots
+                                dots.forEach(d => d.style.backgroundColor = '#ccc');
+                                // Activate clicked dot
+                                dot.style.backgroundColor = 'rgb(163, 99, 15)';
+                                
+                                // Scroll to corresponding room
+                                images[index].scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'nearest',
+                                    inline: 'start'
+                                });
+                            });
+                        });
+                    });
+                </script>
 
         <footer>
             <p>© 2025 Casa Marcos. All rights reserved.</p>
