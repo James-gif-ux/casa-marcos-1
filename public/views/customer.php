@@ -1,22 +1,24 @@
-    <?php
-    include_once 'nav/header.php';
-    ?>
-
-    <?php
+  
+<?php
     require_once '../model/server.php';
     include_once 'nav/header.php';
 
     try {
         $connector = new Connector();
         
-        // Fetch all bookings
+        // Fetch all bookings without status restriction
         $sql = "SELECT b.*, s.services_name 
                 FROM booking_tb b 
-                LEFT JOIN services_tb s ON b.booking_services_id = s.services_id 
-                WHERE b.booking_status IN ('pending', 'approved')";
+                LEFT JOIN services_tb s ON b.booking_services_id = s.services_id";
         
         $stmt = $connector->executeQuery($sql);
         $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Debug: Check if we're getting any results
+        if (empty($bookings)) {
+            echo "<p>No bookings found in the database.</p>";
+        }
+        
         ?>
 
         <script>
@@ -45,16 +47,16 @@
                 <table class="w-full whitespace-no-wrap">
                     <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3 text-center">Customers Name</th>
-                        <th class="px-4 py-3 text-center">Booking Email</th>
+                        <th class="px-4 py-3 ">Customers Name</th>
+                        <th class="px-4 py-3 ">Booking Email</th>
                         <th class="px-4 py-3 text-center">Contact Number</th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <?php foreach ($bookings as $booking): ?>
                             <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
-                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
+                                <td class="px-4 py-3 "><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
+                                <td class="px-4 py-3 "><?php echo htmlspecialchars($booking['booking_email']); ?></td>
                                 <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
                             </tr>
                         <?php endforeach; ?>

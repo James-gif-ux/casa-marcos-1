@@ -1,4 +1,4 @@
-  <?php
+<?php
   require_once '../model/server.php';
   include_once 'nav/header.php';
 
@@ -6,10 +6,11 @@
       $connector = new Connector();
       
       // Fetch all bookings
-      $sql = "SELECT b.*, s.services_name 
-              FROM booking_tb b 
-              LEFT JOIN services_tb s ON b.booking_services_id = s.services_id 
-              WHERE b.booking_status IN ('pending', 'approved')";
+      // Modify the initial SQL query at the top of the file
+            $sql = "SELECT b.*, s.services_name 
+                    FROM booking_tb b 
+                    LEFT JOIN services_tb s ON b.booking_services_id = s.services_id 
+                    WHERE b.booking_status IN ('pending', 'approved', 'completed')";
       
       $stmt = $connector->executeQuery($sql);
       $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -74,14 +75,14 @@
                   </div>
                   <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Approved bookings
+                      Complete Bookings
                     </p>
                       <?php
-                      $pendingCount = count(array_filter($bookings, function($booking) {
-                        return $booking['booking_status'] === 'approved';
+                      $completedCount = count(array_filter($bookings, function($booking) {
+                        return $booking['booking_status'] === 'completed';
                       }));
                       ?>
-                      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"><?php echo $pendingCount; ?></p>
+                      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"><?php echo $completedCount; ?></p>
                   </div>
                 </div>
                 <!-- Card -->
@@ -163,9 +164,9 @@
                   var barChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                    labels: ['Customers', 'Approved Bookings'],
+                    labels: ['Customers', 'Complete Bookings'],
                     datasets: [{ 
-                      data: [<?php echo $customerCount; ?>, <?php echo count(array_filter($bookings, function($booking) { return $booking['booking_status'] === 'approved'; })); ?>],
+                      data: [<?php echo $customerCount; ?>, <?php echo count(array_filter($bookings, function($booking) { return $booking['booking_status'] === 'completed'; })); ?>],
                       backgroundColor: [
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(75, 192, 192, 0.2)'
@@ -205,7 +206,7 @@
                       foreach ($bookings as $booking) {
                         $month = date('n', strtotime($booking['booking_status'])) - 1; // 0-11
                         $monthlyCustomers[$month]++;
-                        if ($booking['booking_status'] === 'approved') {
+                        if ($booking['booking_status'] === 'completed') {
                         $monthlyBookings[$month]++;
                         }
                       }
@@ -217,12 +218,12 @@
                         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                         datasets: [{
                         label: 'Customers',
-                        data: [<?php echo $customerCount; ?>, <?php echo count(array_filter($bookings, function($booking) { return $booking['booking_status'] === 'approved'; })); ?>],
+                        data: [<?php echo $customerCount; ?>, <?php echo count(array_filter($bookings, function($booking) { return $booking['booking_status'] === 'completed'; })); ?>],
                         borderColor: 'rgb(124, 58, 237)',
                         tension: 0.3
                         },
                         {
-                        label: 'Approved Bookings',
+                        label: 'Complete Bookings',
                         data: <?php echo json_encode($monthlyBookings); ?>,
                         borderColor: 'rgb(52, 211, 153)',
                         tension: 0.3

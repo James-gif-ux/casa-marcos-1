@@ -1,15 +1,15 @@
 <?php
 	//import model
 
-	$page_info['page'] = 'booking'; //for page that needs to be called
-	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'booking'; //for function to be loaded
+	$page_info['page'] = 'reservedBooking'; //for page that needs to be called
+	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'reservedBooking'; //for function to be loaded
 		
 	
 	try {//used try to catch unfortunate errors
 		//check for active function
 		
 		//no active function, use the default page to view
-		new booking($page_info);
+		new reservedBooking($page_info);
 		
 	}catch (Throwable $e){ //get the encountered error
 		echo '<h1>ERROR 404</h1>';
@@ -20,7 +20,7 @@
 	//-----------------------//
 	//--  Class Navigation --//
 	//-----------------------//
-	class booking{
+	class reservedBooking{
 		//set default page info
 		private $page = '';
 		private $sub_page = '';
@@ -37,8 +37,8 @@
 		
 		//-----------------------------//
 		//--   function start here   --//
-		function booking(){
-			include '../views/booking.php';
+		function reservedBooking(){
+			include '../views/reservedBooking.php';
 		}
         
 	}
