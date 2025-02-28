@@ -1,43 +1,24 @@
 <?php
     include_once 'nav/homenav.php';
 ?>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        const header = document.querySelector('header');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            header.classList.toggle('menu-open');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                navLinks.classList.remove('active');
-                header.classList.remove('menu-open');
-            }
-        });
-    });
-</script>
 
         <div class="hero-section" style="position: relative;">
             <img src="../images/hotel.jpg" alt="Barkada Room" style="width: 100%; height: 600px; object-fit: cover;">
         </div>
 
         <div style="max-width: 1200px; margin: 5rem auto; padding: 2rem;">
-            <h2 style="color: #333; font-size: 2.5rem; margin-bottom: 2rem; text-align: left; font-weight: bold;">Our Story</h2>
+            <h2 style="color: #333; font-size: 2.5rem; margin-bottom: 2rem; text-align: left; font-weight: bold;">Experience and Care</h2>
             <p style="color: #666; font-size: 1.2rem; line-height: 1.8; margin-bottom: 1.5rem; text-align: justify; font-family: 'Roboto', sans-serif;">
-            Casa Marcos, nestled in the heart of natural beauty, has been a cherished destination since its establishment. 
-            What began as a modest retreat has evolved into a premier resort destination, offering a perfect blend of 
-            comfort, luxury, and authentic Filipino hospitality. Our resort stands as a testament to years of dedication 
-            in providing memorable experiences for our guests, surrounded by lush landscapes and modern amenities.
+            At Casa Marcos, we believe in creating extraordinary experiences through exceptional care and attention to detail. 
+            Our dedicated team works tirelessly to ensure every guest feels welcomed and valued, combining professional 
+            service with genuine Filipino warmth. From the moment you arrive, you'll discover a haven of comfort and 
+            relaxation designed to exceed your expectations.
             </p>
             <p style="color: #666; font-size: 1.2rem; line-height: 1.8; text-align: justify; font-family: 'Roboto', sans-serif;">
-            Today, Casa Marcos continues to grow while maintaining its commitment to excellent service and sustainable 
-            practices. We take pride in creating an environment where guests can unwind, reconnect with nature, and 
-            create lasting memories with their loved ones.
+            We pride ourselves on understanding and anticipating our guests' needs, offering personalized services that 
+            make every stay memorable. Our commitment to excellence extends beyond luxury amenities to create meaningful 
+            connections and experiences that will last a lifetime.
             </p>
         </div>
 
