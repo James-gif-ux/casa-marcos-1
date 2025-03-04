@@ -142,108 +142,76 @@
         </script>
     </section>
 
-    <section>
-    <div style="padding: 50px; background-color: #2c3e50; color: white;">
-            <h2 style="font-size: 2.5rem; font-family: 'Cormorant Garamond', 'Times New Roman', serif; text-align: center; color: rgb(218, 191, 156); margin-bottom: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); letter-spacing: 2px; text-transform: uppercase;">
-                Enjoy your meal
-            </h2>
-        
-        <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 40px;">
-            <button class="offer-btn">Popular Breakfast</button>
-            <button class="offer-btn">Special Lunch</button>
-            <button class="offer-btn">Lovely Dinner</button>
-        </div>
-
-        <div id="menu-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 1400px; margin: 0 auto;">
-                    <?php
-                    $menuItems = [
-                        'breakfast' => [
-                            ['name' => 'Classic Pancakes', 'price' => '$12.99', 'image' => 'https://placehold.co/400x300/brown/white?text=Pancakes'],
-                            ['name' => 'Eggs Benedict', 'price' => '$14.99', 'image' => 'https://placehold.co/400x300/yellow/black?text=Eggs'],
-                            ['name' => 'Breakfast Burrito', 'price' => '$11.99', 'image' => 'https://placehold.co/400x300/orange/white?text=Burrito'],
-                            ['name' => 'French Toast', 'price' => '$10.99', 'image' => 'https://placehold.co/400x300/tan/black?text=Toast']
-                        ],
-                        'lunch' => [
-                            ['name' => 'Classic Burger', 'price' => '$15.99', 'image' => 'https://placehold.co/400x300/red/white?text=Burger'],
-                            ['name' => 'Caesar Salad', 'price' => '$12.99', 'image' => 'https://placehold.co/400x300/green/white?text=Salad'],
-                            ['name' => 'Fish & Chips', 'price' => '$16.99', 'image' => 'https://placehold.co/400x300/blue/white?text=Fish'],
-                            ['name' => 'Pasta Carbonara', 'price' => '$18.99', 'image' => 'https://placehold.co/400x300/wheat/black?text=Pasta']
-                        ],
-                        'dinner' => [
-                            ['name' => 'Grilled Salmon', 'price' => '$24.99', 'image' => 'https://placehold.co/400x300/pink/black?text=Salmon'],
-                            ['name' => 'Filet Mignon', 'price' => '$29.99', 'image' => 'https://placehold.co/400x300/maroon/white?text=Steak'],
-                            ['name' => 'Lobster Thermidor', 'price' => '$34.99', 'image' => 'https://placehold.co/400x300/red/white?text=Lobster'],
-                            ['name' => 'Duck Confit', 'price' => '$28.99', 'image' => 'https://placehold.co/400x300/gray/white?text=Duck']
-                        ]    ];
-
-                    foreach ($menuItems['lunch'] as $item): ?>
-                        <div class="menu-item" style="background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; transition: transform 0.3s ease; cursor: pointer; display: flex; gap: 20px; opacity: 0; transform: translateY(20px);" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                            <img src="<?= $item['image'] ?>" alt="<?= $item['name'] ?>" style="width: 180px; height: 120px; object-fit: cover; border-radius: 10px;">
-                            <div style="display: flex; flex-direction: column; justify-content: center;">
-                                <h4 style="font-size: 1.3rem; color: rgb(218, 191, 156); margin-bottom: 10px;"><?= $item['name'] ?></h4>
-                                <p style="color: #ecf0f1; margin-bottom: 10px;">Fresh ingredients prepared with care</p>
-                                <span style="font-size: 1.1rem; color: rgb(218, 191, 156); font-weight: bold;"><?= $item['price'] ?></span>
-                            </div>
+    <section class="menu-section" style="padding: 60px 20px; background: #2c3e50;">
+        <div class="menu-container" style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="text-align: center; color: #DAB89C; font-family: 'Georgia', serif; font-size: 3.5rem; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">Our Menu</h2>
+            
+            <div class="menu-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <!-- Appetizers -->
+                <div class="menu-category" style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+                    <h3 style="color: #DAB89C; font-family: 'Georgia'; border-bottom: 2px solid #DAB89C; padding-bottom: 15px; margin-bottom: 25px; font-size: 1.8rem; text-transform: uppercase;">Appetizers</h3>
+                    
+                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <h4 style="color: #fff; margin: 0;">Garlic Shrimp</h4>
+                            <span style="color: #DAB89C;">₱720</span>
                         </div>
-                    <?php endforeach; ?>
+                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Sautéed shrimp in garlic butter sauce</p>
+                    </div>
+
+                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <h4 style="color: #fff; margin: 0;">Crispy Calamari</h4>
+                            <span style="color: #DAB89C;">₱610</span>
+                        </div>
+                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Served with marinara sauce</p>
+                    </div>
                 </div>
 
-                <style>
-                    .offer-btn.active {
-                        background-color: #DAB89C;
-                        color: white;
-                        transform: scale(1.05);
-                    }
-                </style>
-
-                <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const menuContainer = document.getElementById('menu-container');
-                    const buttons = document.querySelectorAll('.offer-btn');
+                <!-- Main Courses -->
+                <div class="menu-category" style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+                    <h3 style="color: #DAB89C; font-family: 'Georgia'; border-bottom: 2px solid #DAB89C; padding-bottom: 15px; margin-bottom: 25px; font-size: 1.8rem; text-transform: uppercase;">Main Courses</h3>
                     
-                    function showMenu(menuType, clickedButton) {
-                        // Remove active class from all buttons
-                        buttons.forEach(btn => btn.classList.remove('active'));
-                        // Add active class to clicked button
-                        clickedButton.classList.add('active');
+                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <h4 style="color: #fff; margin: 0;">Ribeye Steak</h4>
+                            <span style="color: #DAB89C;">₱1,825</span>
+                        </div>
+                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">12oz grilled ribeye with roasted vegetables</p>
+                    </div>
 
-                        menuContainer.innerHTML = '';
-                        const menu = <?php echo json_encode($menuItems); ?>[menuType];
-                        
-                        menu.forEach(item => {
-                            const div = document.createElement('div');
-                            div.className = 'menu-item';
-                            div.style.cssText = "background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; transition: all 0.3s ease; cursor: pointer; display: flex; gap: 20px; opacity: 0; transform: translateY(20px);";
-                            
-                            div.innerHTML = `
-                                <img src="${item.image}" alt="${item.name}" style="width: 180px; height: 120px; object-fit: cover; border-radius: 10px;">
-                                <div style="display: flex; flex-direction: column; justify-content: center;">
-                                    <h4 style="font-size: 1.3rem; color: rgb(218, 191, 156); margin-bottom: 10px;">${item.name}</h4>
-                                    <p style="color: #ecf0f1; margin-bottom: 10px;">Fresh ingredients prepared with care</p>
-                                    <span style="font-size: 1.1rem; color: rgb(218, 191, 156); font-weight: bold;">${item.price}</span>
-                                </div>
-                            `;
-                            
-                            menuContainer.appendChild(div);
-                            setTimeout(() => {
-                                div.style.opacity = '1';
-                                div.style.transform = 'translateY(0)';
-                            }, 100);
-                        });
-                    }
+                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <h4 style="color: #fff; margin: 0;">Grilled Salmon</h4>
+                            <span style="color: #DAB89C;">₱1,495</span>
+                        </div>
+                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Fresh Atlantic salmon with lemon herb sauce</p>
+                    </div>
+                </div>
 
-                    buttons[0].addEventListener('click', function() { showMenu('breakfast', this); });
-                    buttons[1].addEventListener('click', function() { showMenu('lunch', this); });
-                    buttons[2].addEventListener('click', function() { showMenu('dinner', this); });
+                <!-- Desserts -->
+                <div class="menu-category" style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+                    <h3 style="color: #DAB89C; font-family: 'Georgia'; border-bottom: 2px solid #DAB89C; padding-bottom: 15px; margin-bottom: 25px; font-size: 1.8rem; text-transform: uppercase;">Desserts</h3>
+                    
+                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <h4 style="color: #fff; margin: 0;">Classic Tiramisu</h4>
+                            <span style="color: #DAB89C;">₱495</span>
+                        </div>
+                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Italian coffee-flavored dessert</p>
+                    </div>
 
-                    // Show initial menu with animation and set initial active button
-                    buttons[1].classList.add('active'); // Set lunch button as initially active
-                    showMenu('lunch', buttons[1]);
-                });
-                </script>
-    </div>
+                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <h4 style="color: #fff; margin: 0;">Chocolate Lava Cake</h4>
+                            <span style="color: #DAB89C;">₱550</span>
+                        </div>
+                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Warm chocolate cake with molten center</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
     <script>
         const reserveBtn = document.getElementById('reserveBtn');
         const reservationModal = document.getElementById('reservationModal');

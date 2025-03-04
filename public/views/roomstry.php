@@ -94,7 +94,7 @@
         });
         </script>
 
-<section class="image-slider-section" style="padding: 8rem 1rem; background-color:rgb(218, 191, 156)">
+<section class="image-slider-section" style="padding: 8rem 1rem; background-color:rgb(255, 255, 255)">
                     <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
                     Our Rooms
                     <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
