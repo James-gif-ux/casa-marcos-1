@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if (isset($_SESSION['active_menu'])) {
+        unset($_SESSION['active_menu']);
+    }
     require_once '../model/server.php';
     include_once 'nav/header.php';
 
@@ -171,8 +174,10 @@
                                             <input type="hidden" name="message_id" value="<?php echo htmlspecialchars($message['message_id']); ?>">
                                             <input type="hidden" name="recipient_email" value="<?php echo htmlspecialchars($message['recipient_email']); ?>">
                                             <input type="hidden" name="status" value="1">
-                                            <a href="javascript:void(0)" onclick="openModal('<?php echo htmlspecialchars($message['message_id']); ?>', '<?php echo htmlspecialchars($message['recipient_email']); ?>')" 
-                                                class="btn btn-approve d-flex align-items-center justify-content-center" style="margin-right: 15px;">Reply
+                                            <a href="javascript:void(0)" 
+                                            onclick="markAsReadAndOpenModal('<?php echo htmlspecialchars($message['message_id']); ?>', '<?php echo htmlspecialchars($message['recipient_email']); ?>')" 
+                                            class="btn btn-approve d-flex align-items-center justify-content-center" 
+                                            style="margin-right: 15px;">Reply
                                             </a>
                                             <button type="button" class="btn btn-danger" onclick="if(confirm('Are you sure you want to delete this message?')) window.location.href='../pages/messagesdelete.php?message_id=<?php echo htmlspecialchars($message['message_id']); ?>&action=delete'">Delete</button>
                                         </form>
@@ -275,6 +280,33 @@
                         document.addEventListener('DOMContentLoaded', function() {
                             updateTable();
                         });
+
+
+                        // Add this new function
+                        function markAsReadAndOpenModal(messageId, recipientEmail) {
+                            // First mark as read
+                            const formData = new FormData();
+                            formData.append('message_id', messageId);
+                            
+                            fetch('../model/update_message_status.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Update UI to show message as read
+                                    const row = document.getElementById('messageForm_' + messageId).closest('tr');
+                                    row.classList.remove('unread');
+                                    row.style.color = '#555';
+                                    row.querySelector('td:nth-child(6)').textContent = 'read';
+                                    
+                                    // Then open the modal
+                                    openModal(messageId, recipientEmail);
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                        }
                     </script>
             </body>
         </html>

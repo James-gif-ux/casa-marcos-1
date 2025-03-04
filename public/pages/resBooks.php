@@ -1,9 +1,10 @@
 <?php
+session_start();
 // Include necessary files
 include_once '../model/Booking_Model.php'; 
 include '../model/reservationModel.php';
 include_once '../model/server.php';
-session_start();
+
 
 $bookingModel = new Booking_Model();
 $connector = new Connector();
