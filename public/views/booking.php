@@ -234,8 +234,8 @@
                                         <td class="px-4 py-3 ">
                                             <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
                                         </td>
-                                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_check_in']); ?></td>
-                                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_check_out']); ?></td>
+                                        <td class="px-4 py-3 text-center"><?php echo date('F d, Y', strtotime($booking['booking_check_in'])); ?></td>
+                                        <td class="px-4 py-3 text-center"><?php echo date('F d, Y', strtotime($booking['booking_check_out'])); ?></td>
                                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['total_nights']); ?></td>
                                         <td class="px-4 py-3 text-center">₱<?php echo number_format($booking['total_amount'], 2); ?></td>
                                         <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>

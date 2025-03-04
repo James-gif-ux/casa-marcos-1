@@ -30,11 +30,15 @@
               <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Dashboard
               </h2>
-            
+              
+              <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
               <!-- Cards -->
               <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-5">
+                <?php if($current_page == 'customer.php'): ?>
+                  <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
+                <?php endif; ?>
                 <!-- Card -->
-                <a href="../pages/admin_dashboard.php?sub_page=customer" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                <a href="../pages/admin_dashboard.php?sub_page=customer"  class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150<?php echo $current_page == 'customer.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>">
                   <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
