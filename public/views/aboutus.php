@@ -5,14 +5,11 @@
 
         <!-- Hero Section with Enhanced Design -->
         <div class="hero-section" style="position: relative; overflow: hidden;">
-            <img src="../images/foods.jpg" alt="Barkada Room" 
-            style="width: 100%; height: 100vh; object-fit: cover; 
-            transform: scale(1.1); transition: transform 6s ease-out;"
-            onload="this.style.transform='scale(1)'">
+            <img src="../images/about.jpg" alt="Barkada Room" 
+            style="width: 100%; height: 100vh; object-fit: cover;">
             
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), 
-            linear-gradient(to right, rgba(0,0,0,0.5), transparent 70%);"></div>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+            </div>
             
         </div>
 

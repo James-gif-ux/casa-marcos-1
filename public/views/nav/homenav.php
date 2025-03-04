@@ -104,7 +104,7 @@
     .off {
         text-align: center;
         padding: 20rem;
-        background-image: url('../images/foods.jpg');
+        background-image: url('../images/offers.jpg');
         background-size: cover;
         background-position: center;
     }
