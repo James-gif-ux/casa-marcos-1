@@ -132,23 +132,39 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Navigation Dots -->
-                        <div style="text-align: center; margin-top: 2rem;">
+                        <!-- Enhanced Navigation Dots -->
+                        <div style="text-align: center; margin-top: 3rem;">
                             <?php foreach ($services as $index => $srvc): ?>
                                 <span class="room-dot" 
                                       data-index="<?= $index ?>" 
                                       style="display: inline-block; 
-                                             width: 12px; 
-                                             height: 12px; 
+                                             width: 15px; 
+                                             height: 15px; 
                                              border-radius: 50%; 
-                                             background-color: #ccc; 
-                                             margin: 0 8px; 
+                                             background-color: #e0e0e0; 
+                                             margin: 0 12px; 
                                              cursor: pointer;
-                                             transition: background-color 0.3s ease;">
+                                             transition: all 0.4s ease;
+                                             border: 2px solid rgb(163, 99, 15);
+                                             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                             position: relative;
+                                             transform: scale(1);">
+                                    <span style="position: absolute;
+                                               top: -25px;
+                                               left: 50%;
+                                               transform: translateX(-50%) scale(0);
+                                               background: rgb(163, 99, 15);
+                                               color: white;
+                                               padding: 4px 8px;
+                                               border-radius: 4px;
+                                               font-size: 12px;
+                                               opacity: 0;
+                                               transition: all 0.3s ease;
+                                               white-space: nowrap;"><?= $srvc['services_name'] ?></span>
                                 </span>
                             <?php endforeach; ?>
-                        </div>
-                </section>
+                        </div>    
+                    </section>
                 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {

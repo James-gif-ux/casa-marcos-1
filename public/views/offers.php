@@ -1,5 +1,5 @@
     <?php
-        include_once 'nav/homenav.php';
+    include_once 'nav/homenav.php';
     ?>
     <style>
         .flip-container {
@@ -25,7 +25,7 @@
         }
 
         .flip-card:hover .flip-card-inner {
-            transform: rotateX(180deg); /* Changed from rotateY to rotateX for backflip */
+            transform: rotateX(180deg);
         }
 
         .flip-card-front, .flip-card-back {
@@ -45,9 +45,9 @@
         }
 
         .flip-card-back {
-            background:  #2c3e50;
+            background: #2c3e50;
             color: white;
-            transform: rotateX(180deg); /* Changed from rotateY to rotateX for backflip */
+            transform: rotateX(180deg);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,195 +81,302 @@
             color: white;
             transform: scale(1.05);
         }
-        </style>
+    </style>
 
     <section class="off">
-        <div class="slider-container" style="max-width: 1200px; margin: 0 auto; position: relative; overflow: hidden; background: rgba(255, 255, 255, 0); backdrop-filter: blur(2px); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+        <div class="slider-container" style="max-width: 1200px; margin: 0 auto; position: relative; overflow: hidden; background: rgba(255, 255, 255, 0); backdrop-filter: blur(3px); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
             <div class="slider" style="display: flex; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);">
                 <div class="slide" style="min-width: 100%; padding: 4rem; text-align: center; background: linear-gradient(45deg, rgba(218, 191, 156, 0.1), rgba(163, 99, 15, 0.1));">
-                    <h2 style="color: rgb(218, 191, 156); font-size: 2.5rem; font-family: 'impact'; margin-bottom: 1.5rem;">
-                        Welcome to Casa Marcos Restaurant
-                    </h2>
-                    <p style="color: rgb(240, 240, 240); font-size: 1.5rem; line-height: 1.6; margin: 0 auto; max-width: 600px; font-family: 'Georgia', serif;">
-                        Experience exquisite dining in our elegant atmosphere, where traditional flavors meet modern cuisine.
-                    </p>
-                    <div class="decorative-line" style="width: 150px; height: 3px; background: rgb(218, 191, 156); margin: 2rem auto;"></div>
+                    <h2 style="color: rgba(218, 191, 156, 0.9); font-size: 2.5rem; font-family: 'impact'; margin-bottom: 1.5rem;">Welcome to Casa Marcos Restaurant</h2>
+                    <p style="color: rgb(255, 255, 255); font-size: 1.5rem; line-height: 1.6; margin: 0 auto; max-width: 600px; font-family: 'Georgia', serif;">Experience exquisite dining in our elegant atmosphere, where traditional flavors meet modern cuisine.</p>
+                    <div class="decorative-line" style="width: 150px; height: 3px; background: rgb(255, 255, 255); margin: 2rem auto;"></div>
                 </div>
                 <div class="slide" style="min-width: 100%; padding: 4rem; text-align: center; background: linear-gradient(45deg, rgba(218, 191, 156, 0.1), rgba(163, 99, 15, 0.1));">
-                    <h2 style="color:  rgb(218, 191, 156); font-size: 2.5rem; font-family: 'impact'; margin-bottom: 1.5rem;">
-                        Our Culinary Excellence
-                    </h2>
-                    <p style="color: rgb(240, 240, 240); font-size: 1.5rem; line-height: 1.6; margin: 0 auto; max-width: 600px; font-family: 'Georgia', serif;">
-                        Our expert chefs craft each dish with passion, using only the finest local ingredients.
-                    </p>
-                    <div class="decorative-line" style="width: 150px; height: 3px; background: rgb(218, 191, 156); margin: 2rem auto;"></div>
+                    <h2 style="color: rgba(218, 191, 156, 0.9); font-size: 2.5rem; font-family: 'impact'; margin-bottom: 1.5rem;">Our Culinary Excellence</h2>
+                    <p style="color: rgb(255, 255, 255); font-size: 1.5rem; line-height: 1.6; margin: 0 auto; max-width: 600px; font-family: 'Georgia', serif;">Our expert chefs craft each dish with passion, using only the finest local ingredients.</p>
+                    <div class="decorative-line" style="width: 150px; height: 3px; background: rgb(255, 255, 255); margin: 2rem auto;"></div>
                 </div>
                 <div class="slide" style="min-width: 100%; padding: 4rem; text-align: center; background: linear-gradient(45deg, rgba(218, 191, 156, 0.1), rgba(163, 99, 15, 0.1));">
-                    <h2 style="color:  rgb(218, 191, 156); font-size: 2.5rem; font-family: 'impact'; margin-bottom: 1.5rem;">
-                        Perfect for Every Occasion
-                    </h2>
-                    <p style="color: rgb(240, 240, 240); font-size: 1.5rem; line-height: 1.6; margin: 0 auto; max-width: 600px; font-family: 'Georgia', serif;">
-                        From intimate dinners to special celebrations, we create memorable dining experiences.
-                    </p>
-                    <div class="decorative-line" style="width: 150px; height: 3px; background: rgb(218, 191, 156); margin: 2rem auto;"></div>
+                    <h2 style="color: rgba(218, 191, 156, 0.9); font-size: 2.5rem; font-family: 'impact'; margin-bottom: 1.5rem;">Perfect for Every Occasion</h2>
+                    <p style="color: rgb(255, 255, 255); font-size: 1.5rem; line-height: 1.6; margin: 0 auto; max-width: 600px; font-family: 'Georgia', serif;">From intimate dinners to special celebrations, we create memorable dining experiences.</p>
+                    <div class="decorative-line" style="width: 150px; height: 3px; background: rgb(255, 255, 255); margin: 2rem auto;"></div>
                 </div>
             </div>
             <div style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%);">
-                <button onclick="prevSlide()" style="background: rgba(218, 191, 156, 0.9); border: none; padding: 15px 20px; cursor: pointer; border-radius: 50%; color: white; font-size: 1.2rem; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">←</button>
+                <button onclick="prevSlide()" style="background: rgb(102, 67, 35); border: none; padding: 15px 20px; cursor: pointer; border-radius: 50%; color: white; font-size: 1.2rem; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">←</button>
             </div>
             <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);">
-                <button onclick="nextSlide()" style="background: rgba(218, 191, 156, 0.9); border: none; padding: 15px 20px; cursor: pointer; border-radius: 50%; color: white; font-size: 1.2rem; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">→</button>
+                <button onclick="nextSlide()" style="background: rgb(102, 67, 35); border: none; padding: 15px 20px; cursor: pointer; border-radius: 50%; color: white; font-size: 1.2rem; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">→</button>
             </div>
         </div>
-        <script>
-            const orderBtn = document.getElementById('orderBtn');
-            const orderModal = document.getElementById('orderModal');
-            const orderForm = document.getElementById('orderForm');
-
-            orderBtn.addEventListener('click', () => {
-                orderModal.style.display = 'block';
-            });
-
-            function closeOrderModal() {
-                orderModal.style.display = 'none';
-            }
-
-            orderForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Your order has been placed!');
-                closeOrderModal();
-            });
-        </script>
-    </section>
-
-    <section class="menu-section" style="padding: 60px 20px; background: #2c3e50;">
-        <div class="menu-container" style="max-width: 1200px; margin: 0 auto;">
-            <h2 style="text-align: center; color: #DAB89C; font-family: 'Georgia', serif; font-size: 3.5rem; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">Our Menu</h2>
-            
-            <div class="menu-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                <!-- Appetizers -->
-                <div class="menu-category" style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
-                    <h3 style="color: #DAB89C; font-family: 'Georgia'; border-bottom: 2px solid #DAB89C; padding-bottom: 15px; margin-bottom: 25px; font-size: 1.8rem; text-transform: uppercase;">Appetizers</h3>
-                    
-                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <h4 style="color: #fff; margin: 0;">Garlic Shrimp</h4>
-                            <span style="color: #DAB89C;">₱720</span>
-                        </div>
-                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Sautéed shrimp in garlic butter sauce</p>
-                    </div>
-
-                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <h4 style="color: #fff; margin: 0;">Crispy Calamari</h4>
-                            <span style="color: #DAB89C;">₱610</span>
-                        </div>
-                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Served with marinara sauce</p>
-                    </div>
-                </div>
-
-                <!-- Main Courses -->
-                <div class="menu-category" style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
-                    <h3 style="color: #DAB89C; font-family: 'Georgia'; border-bottom: 2px solid #DAB89C; padding-bottom: 15px; margin-bottom: 25px; font-size: 1.8rem; text-transform: uppercase;">Main Courses</h3>
-                    
-                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <h4 style="color: #fff; margin: 0;">Ribeye Steak</h4>
-                            <span style="color: #DAB89C;">₱1,825</span>
-                        </div>
-                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">12oz grilled ribeye with roasted vegetables</p>
-                    </div>
-
-                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <h4 style="color: #fff; margin: 0;">Grilled Salmon</h4>
-                            <span style="color: #DAB89C;">₱1,495</span>
-                        </div>
-                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Fresh Atlantic salmon with lemon herb sauce</p>
-                    </div>
-                </div>
-
-                <!-- Desserts -->
-                <div class="menu-category" style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
-                    <h3 style="color: #DAB89C; font-family: 'Georgia'; border-bottom: 2px solid #DAB89C; padding-bottom: 15px; margin-bottom: 25px; font-size: 1.8rem; text-transform: uppercase;">Desserts</h3>
-                    
-                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <h4 style="color: #fff; margin: 0;">Classic Tiramisu</h4>
-                            <span style="color: #DAB89C;">₱495</span>
-                        </div>
-                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Italian coffee-flavored dessert</p>
-                    </div>
-
-                    <div class="menu-item" style="margin-bottom: 25px; transition: transform 0.2s;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <h4 style="color: #fff; margin: 0;">Chocolate Lava Cake</h4>
-                            <span style="color: #DAB89C;">₱550</span>
-                        </div>
-                        <p style="color: #bbb; font-style: italic; margin: 0; font-size: 0.95em;">Warm chocolate cake with molten center</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <script>
-        const reserveBtn = document.getElementById('reserveBtn');
-        const reservationModal = document.getElementById('reservationModal');
-        const reservationForm = document.getElementById('reservationForm');
-
-        // Event listener to open the modal
-        reserveBtn.addEventListener('click', () => {
-            reservationModal.style.display = 'flex';
-        });
-
-        // Function to close modal
-        function closeModal() {
-            reservationModal.style.display = 'none';
-        }
-
-        // Prevent default form submission and close modal
-        reservationForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Your reservation has been confirmed!');
-            closeModal();
-        });
-    </script>
-
+    </section>  
+    
+    <section>
     <style>
-        /* Additional Styles */
-        input {
-            font-family: 'Helvetica Neue', sans-serif;
-            font-size: 1rem;
-        }
-    </style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color:rgb(218, 191, 156);
+    }
+    h2 {
+        color:  #2c3e50;
+        text-align: center;
+        margin: 20px 0;
+        font-size: 1.75em;
+        padding-bottom: 10px;
+    }
+
+    .menu-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .menu-nav button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #2c3e50;
+        color: rgb(218, 191, 156);
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 1.1em;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-nav button:hover {
+        background-color:rgb(143, 184, 212);
+    }
+
+    .menu-section {
+        display: none; /* Start hidden */
+        margin-bottom: 40px;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .grid-container > div {
+        background-color: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s;
+        text-align: center;
+        position: relative; /* For the overlay */
+        opacity: 0; /* Start hidden */
+        transform: translateY(20px); /* Start off-position */
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Apply delay for opacity and transform */
+    }
+
+    .grid-container > div.visible {
+        opacity: 1; /* Visible */
+        transform: translateY(0); /* Move to original position */
+    }
+
+    .grid-container > div:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .menu-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .item-name {
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 1.2em;
+        color: #2c3e50;
+    }
+
+    .price {
+        font-size: 1.1em;
+        color: #e74c3c;
+        font-weight: bold;
+    }
+
+    /* Add a Pseudo Element for Overlays */
+    .grid-container > div:after {
+        content: '';
+        background: rgba(255, 255, 255, 0.6);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .grid-container > div:hover:after {
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+
+
+
+<div class="menu-nav">
+    <button onclick="showSection('main')">Main Courses</button>
+    <button onclick="showSection('meats')">Meats & Fish</button>
+    <button onclick="showSection('desserts')">Desserts</button>
+</div>
+
+<div id="main" class="menu-section">
+    <h2>Main Courses</h2>
+    <div class="grid-container">
+        <div>
+            <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
+            <span class="item-name">Pizza</span>
+            <span class="price">$12.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
+            <span class="item-name">Burger</span>
+            <span class="price">$8.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
+            <span class="item-name">Pasta</span>
+            <span class="price">$10.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
+            <span class="item-name">Pizza</span>
+            <span class="price">$12.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
+            <span class="item-name">Burger</span>
+            <span class="price">$8.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
+            <span class="item-name">Pasta</span>
+            <span class="price">$10.99</span>
+        </div>
+    </div>
+</div>
+
+<div id="meats" class="menu-section">
+    <h2>Meats & Fish</h2>
+    <div class="grid-container">
+        <div>
+            <img src="https://placehold.co/300x200" alt="Steak" class="menu-image">
+            <span class="item-name">Steak</span>
+            <span class="price">$24.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Fish" class="menu-image">
+            <span class="item-name">Fish</span>
+            <span class="price">$18.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Grilled Chicken" class="menu-image">
+            <span class="item-name">Grilled Chicken</span>
+            <span class="price">$15.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Steak" class="menu-image">
+            <span class="item-name">Steak</span>
+            <span class="price">$24.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Fish" class="menu-image">
+            <span class="item-name">Fish</span>
+            <span class="price">$18.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Grilled Chicken" class="menu-image">
+            <span class="item-name">Grilled Chicken</span>
+            <span class="price">$15.99</span>
+        </div>
+    </div>
+</div>
+
+<div id="desserts" class="menu-section">
+    <h2>Desserts</h2>
+    <div class="grid-container">
+        <div>
+            <img src="https://placehold.co/300x200" alt="Ice Cream" class="menu-image">
+            <span class="item-name">Ice Cream</span>
+            <span class="price">$5.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Chocolate Cake" class="menu-image">
+            <span class="item-name">Chocolate Cake</span>
+            <span class="price">$6.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Apple Pie" class="menu-image">
+            <span class="item-name">Apple Pie</span>
+            <span class="price">$7.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Ice Cream" class="menu-image">
+            <span class="item-name">Ice Cream</span>
+            <span class="price">$5.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Chocolate Cake" class="menu-image">
+            <span class="item-name">Chocolate Cake</span>
+            <span class="price">$6.99</span>
+        </div>
+        <div>
+            <img src="https://placehold.co/300x200" alt="Apple Pie" class="menu-image">
+            <span class="item-name">Apple Pie</span>
+            <span class="price">$7.99</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSection(section) {
+        const sections = document.querySelectorAll('.menu-section');
+        sections.forEach(sec => sec.style.display = 'none'); // Hide all sections
+        const activeSection = document.getElementById(section);
+        activeSection.style.display = 'block'; // Show selected section
+
+        // Add visible class to items for animation
+        const items = activeSection.querySelectorAll('.grid-container > div');
+        items.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible'); // Add class for animation
+            }, index * 100); // Staggered effect (100ms delay)
+        });
+
+        // Remove visible class from items in other sections
+        sections.forEach(sec => {
+            if (sec.id !== section) {
+                const otherItems = sec.querySelectorAll('.grid-container > div');
+                otherItems.forEach(item => {
+                    item.classList.remove('visible'); // Remove the visible class from other sections
+                });
+            }
+        });
+    }
+
+    // Optionally, show the first section by default
+    showSection('main');
+</script>
     </section>
-
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const slider = document.querySelector('.slider');
-
-        function showSlide(index) {
-            slider.style.transform = `translateX(-${index * 100}%)`;
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        // Auto-advance slides every 5 seconds
-        setInterval(nextSlide, 5000);
-    </script>
-
-
-
-        <div class="flip-container" style="background-color: #2c3e50;">
+       
+    </section>
+        <div class="flip-container" style="background-color:rgb(255, 255, 255);">
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
@@ -284,20 +391,42 @@
             </div>
         </div>
     </section>
-        </section>
-
 
     <footer>
-            <p>© 2025 Casa Marcos. All rights reserved.</p>
-        </footer>
+        <p>© 2025 Casa Marcos. All rights reserved.</p>
+    </footer>
 
-        <script>
-            window.addEventListener('scroll', function () {
-                const header = document.querySelector('header');
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-        </script>
+    <script>
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const slider = document.querySelector('.slider');
+
+            function showSlide(index) {
+                slider.style.transform = `translateX(-${index * 100}%)`;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Auto-advance slides every 5 seconds
+            setInterval(nextSlide, 5000);
+    </script>
+
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
