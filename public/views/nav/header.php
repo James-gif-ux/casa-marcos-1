@@ -243,6 +243,19 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                       <span class="ml-4">Reports</span>
                     </a>
                   </li>
+                  <li class="relative px-6 py-3 menu-item" data-page="roomsUpload">
+                    <?php if($current_page == 'roomsUpload.php'): ?>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
+                    <?php endif; ?>
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'roomsUpload' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
+                      href="../pages/admin_dashboard.php?sub_page=roomsUpload">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+                        <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+                        <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+                      </svg>
+                      <span class="ml-4">Rooms</span>
+                    </a>
+                  </li>
                   <!-- Continue same pattern for remaining menu items -->
                 </ul>
                    
@@ -372,6 +385,19 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                         <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
                       </svg>
                       <span class="ml-4">Reports</span>
+                    </a>
+                  </li>
+                  <li class="relative px-6 py-3 menu-item" data-page="roomsUpload">
+                    <?php if($current_page == 'roomsUpload.php'): ?>
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
+                    <?php endif; ?>
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'roomsUpload' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
+                      href="../pages/admin_dashboard.php?sub_page=roomsUpload">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+                        <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+                        <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+                      </svg>
+                      <span class="ml-4">Rooms</span>
                     </a>
                   </li>
                 <!-- Continue same pattern for remaining menu items -->

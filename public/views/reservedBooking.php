@@ -162,8 +162,8 @@
                                         <td class="px-2 py-3 "><?php echo htmlspecialchars($res['name']); ?></td>
                                         <td class="px-2 py-3 "><?php echo htmlspecialchars($res['email']); ?></td>
                                         <td class="px-2 py-3 text-center"><?php echo htmlspecialchars($res['phone']); ?></td>
-                                        <td class="px-2 py-3 text-center"><?php echo htmlspecialchars(date('F d, Y', strtotime($res['checkin']))); ?></td>
-                                        <td class="px-2 py-3 text-center"><?php echo htmlspecialchars(date('F d, Y', strtotime($res['checkout']))); ?></td>
+                                        <td class="px-2 py-3 text-center"><?php echo htmlspecialchars(date('M. d, Y', strtotime($res['checkin']))); ?></td>
+                                        <td class="px-2 py-3 text-center"><?php echo htmlspecialchars(date('M. d, Y', strtotime($res['checkout']))); ?></td>
                                         <td class="px-2 py-3 "><?php echo htmlspecialchars($res['message']); ?></td>
                                         <td class="px-2 py-3 text-center"><?php echo htmlspecialchars($res['status']); ?></td>
                                         <td style="display: flex; justify-content: center; align-items: center; padding: 10px; gap: 8px;">

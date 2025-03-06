@@ -1,5 +1,4 @@
     <?php
-    session_start();
         include_once 'nav/homenav.php';
         include_once '../model/BookingModel.php';
         include_once '../model/Booking_Model.php';

@@ -61,5 +61,8 @@
 		function reports(){
 			include '../views/reports.php';
 		}
+		function roomsUpload(){
+			include '../views/roomsUpload.php';
+		}
 	}
 ?>
