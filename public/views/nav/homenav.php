@@ -506,11 +506,13 @@
         <ul class="nav-links" style="width: 100%; align-items: center;">
             <li><a href="roomstry.php" class="<?php echo ($current_page == 'roomstry.php') ? 'active' : ''; ?>">Our Rooms</a></li>
             <li><a href="offers.php" class="<?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Food Menu</a></li>
-            <a href="home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
-                <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
-                    <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
-                </h1>
-            </a>
+            <li>
+                <a href="home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
+                    <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
+                        <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
+                    </h1>
+                </a>
+            </li>
             <li><a href="aboutus.php" class="<?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About us</a></li>
             <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact</a></li>
         </ul>
