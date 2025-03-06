@@ -2,27 +2,18 @@
     include 'nav/header.php';
 ?>
 <style>
-    .container{
-        max-width: 100%;
-    }
+   
     .report-container {
-        background: linear-gradient(to right, #f8f9fa, #ffffff);
+       
         padding: 2rem;
-        border-radius: 15px;
-    }
-    .report-header {
-        background: #2c3e50;
-        color: white;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     
     }
     .date-picker-container {
         background: white;
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        width: 50%;
     }
     .generate-btn {
         border-radius: 5px;
@@ -66,13 +57,6 @@
 <div class="container mt-5 report-container">
     <div class="row">
         <div class="col-md-12">
-            <div class="report-header">
-                <h2 class="mb-0">
-                    <i class="fas fa-book me-2"></i>
-                    Booking Reports
-                </h2>
-                <p class="text-light mb-0 mt-2">View and analyze your booking statistics</p>
-            </div>
 
             <div class="card border-0">
                 <div class="card-body date-picker-container">
@@ -103,7 +87,14 @@
                         </div>
                     </form>
 
-                    <?php
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+        <?php
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Get the date range
                         $start_date = $_POST['start_date'];
@@ -137,9 +128,11 @@
                             // Initialize totals
                             $total_revenue = 0;
                             $total_bookings = 0;
-                    ?>
+                    ?>       
+
+
                             <div class="d-flex justify-content-end mb-3">
-                                <button onclick="window.print()" class="btn btn-secondary" style="background-color:rgb(66, 214, 69); padding:5px; border-radius:5px; margin-left: 98%; top:0; left:0; position:relative;" title="Print Reports">
+                                <button onclick="window.print()" class="btn btn-secondary" style="background-color:rgb(66, 214, 69); padding:5px; border-radius:5px; margin-left: 95%; top:0; left:0; position:relative;" title="Print Reports">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-printer" viewBox="0 0 16 16">
                                         <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1"/>
                                         <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
@@ -180,16 +173,13 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
                     <?php
                         } catch (Exception $e) {
                             echo "Error: " . $e->getMessage();
                         }
                     }
                     ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>     
     </div>
 </div>

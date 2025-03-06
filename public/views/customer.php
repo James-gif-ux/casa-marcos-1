@@ -100,7 +100,7 @@
                 .table-container {
                     max-height: 760px;
                     overflow-y: auto;
-                    margin: 20px 0;
+                    margin-top: 1rem;
                     border-radius: 8px;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 }
@@ -169,28 +169,6 @@
                 }
             </style>
            
-
-            <div class="mb-4 p-4 bg-white rounded shadow flex items-center justify-between">
-                <div class="flex items-center">
-                    <label class="mr-2">Show</label>
-                    <select id="entriesSelect" class="form-control input-sm px-3 py-1 border rounded" onchange="changeEntries()">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <label class="ml-2">entries</label>
-                </div>
-                <!-- Existing search and sort controls -->
-                <div class="search-container">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search by name or email..." oninput="searchTable()" style="padding: 7px;">
-                    <select id="sortSelect" class="sort-select" onchange="searchTable()">
-                        <option value="name">Sort by Name</option>
-                        <option value="date">Sort by Check-in Date</option>
-                        <option value="status">Sort by Status</option>
-                    </select>
-                </div>
-            </div>
         <!-- New Table -->
             <div class="w-full overflow-hidden">
                 <div class="w-full overflow-x-auto">
