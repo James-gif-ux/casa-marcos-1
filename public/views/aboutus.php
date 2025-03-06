@@ -63,64 +63,65 @@
             
             <div style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
             <h2 style="color: #2c3e50; font-size: 3.5rem; margin-bottom: 1rem; text-align: center; font-family: 'Playfair Display', serif;">
-                Our Team
+            Our Team
             </h2>
             <span style="display: block; width: 150px; height: 4px; background: linear-gradient(to right, #c8a97e, #e2c9a6); margin: 0 auto 5rem; border-radius: 2px;"></span>
 
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;">
-                <!-- Team Member 1 -->
-                <div style="background: white; padding: 1.2rem 2rem; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out;" 
-                 onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.15)'" 
-                 onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
-                <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
-                    <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
-                    <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
-                </div>
-                <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 2rem; font-family: 'Playfair Display', serif;">John Doe</h3>
-                <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">General Manager</p>
-                <p style="color: #666; text-align: center; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">Leading our team with passion and dedication to create exceptional experiences.</p>
-                <div style="display: flex; justify-content: center; gap: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
-                    <a href="#" style="color: #1DA1F2; font-size: 1.8rem; transition: all 0.3s ease; background:rgb(250, 250, 248); padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="color: #4267B2; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-facebook"></i></a>
-                    <a href="#" style="color: #E1306C; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-instagram"></i></a>
-                </div>
-                </div>
+            <!-- Team Member 1 -->
+            <div style="background: white; padding: 3.5rem 2rem; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out;" 
+             onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.15)'" 
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
+            <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
+                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
+                <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+            </div>
+            <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 1.8rem; font-family: 'Playfair Display', serif;">Maritess Cayaco Marcos</h3>
+            <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Owner</p>
+            <p style="color: #666; text-align: center; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">Leading the vision and strategic direction of Casa Marcos, ensuring excellence in hospitality and guest experiences.</p>
+            <div style="display: flex; justify-content: center; gap: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
+                <a href="#" style="color: #1DA1F2; font-size: 1.8rem; transition: all 0.3s ease; background:rgb(250, 250, 248); padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: #4267B2; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: #E1306C; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-instagram"></i></a>
+            </div>
+            </div>
 
-                <!-- Team Member 2 (copy same enhanced structure as Member 1, change name/title/description) -->
-                <div style="background: white; padding: 3.5rem 2rem; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out;" 
-                 onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.15)'" 
-                 onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
-                <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
-                    <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
-                    <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
-                </div>
-                <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 2rem; font-family: 'Playfair Display', serif;">Jane Smith</h3>
-                <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Operations Director</p>
-                <p style="color: #666; text-align: center; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">Ensuring seamless operations and guest satisfaction at every touchpoint.</p>
-                <div style="display: flex; justify-content: center; gap: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
-                    <a href="#" style="color: #1DA1F2; font-size: 1.8rem; transition: all 0.3s ease; background:rgb(250, 250, 248); padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="color: #4267B2; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-facebook"></i></a>
-                    <a href="#" style="color: #E1306C; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-instagram"></i></a>
-                </div>
-                </div>
 
-                <!-- Team Member 3 (copy same enhanced structure as Member 1, change name/title/description) -->
-                <div style="background: white; padding: 3.5rem 2rem; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out;" 
-                 onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.15)'" 
-                 onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
-                <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
-                    <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
-                    <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
-                </div>
-                <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 2rem; font-family: 'Playfair Display', serif;">Mike Johnson</h3>
-                <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Guest Relations Manager</p>
-                <p style="color: #666; text-align: center; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">Creating memorable experiences and lasting connections with our guests.</p>
-                <div style="display: flex; justify-content: center; gap: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
-                    <a href="#" style="color: #1DA1F2; font-size: 1.8rem; transition: all 0.3s ease; background:rgb(250, 250, 248); padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="color: #4267B2; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-facebook"></i></a>
-                    <a href="#" style="color: #E1306C; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-instagram"></i></a>
-                </div>
-                </div>
+            <!-- Team Member 2 -->
+            <div style="background: white; padding: 3.5rem 2rem; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out;" 
+             onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.15)'" 
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
+            <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
+                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
+                <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+            </div>
+            <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 2rem; font-family: 'Playfair Display', serif;">Nicole Marie Marcos</h3>
+            <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Manager</p>
+            <p style="color: #666; text-align: center; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">Overseeing daily operations and ensuring exceptional service standards across all departments.</p>
+            <div style="display: flex; justify-content: center; gap: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
+                <a href="#" style="color: #1DA1F2; font-size: 1.8rem; transition: all 0.3s ease; background:rgb(250, 250, 248); padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: #4267B2; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: #E1306C; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-instagram"></i></a>
+            </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div style="background: white; padding: 3.5rem 2rem; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out;" 
+             onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.15)'" 
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
+            <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
+                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
+                <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+            </div>
+            <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 2rem; font-family: 'Playfair Display', serif;">Myca Jacinto</h3>
+            <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Front Office</p>
+            <p style="color: #666; text-align: center; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">Providing warm welcomes and professional assistance to guests while managing front desk operations.</p>
+            <div style="display: flex; justify-content: center; gap: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
+                <a href="#" style="color: #1DA1F2; font-size: 1.8rem; transition: all 0.3s ease; background:rgb(250, 250, 248); padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: #4267B2; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: #E1306C; font-size: 1.8rem; transition: all 0.3s ease; background: #f8f9fa; padding: 12px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.2) rotate(10deg)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'"><i class="fab fa-instagram"></i></a>
+            </div>
+            </div>
             </div>
             </div>
         </div>

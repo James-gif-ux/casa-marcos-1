@@ -64,23 +64,6 @@
         .flip-card-back p {
             font-size: 18px;
         }
-
-        .offer-btn {
-            padding: 10px 20px;
-            background-color: white;
-            color: #A3630F;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .offer-btn:hover {
-            background-color: #DAB89C;
-            color: white;
-            transform: scale(1.05);
-        }
     </style>
 
     <section class="off">
@@ -145,10 +128,6 @@
         font-size: 1.1em;
         font-weight: bold;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .menu-nav button:hover {
-        background-color:rgb(143, 184, 212);
     }
 
     .menu-section {
@@ -236,74 +215,73 @@
     <button onclick="showSection('desserts')">Desserts</button>
 </div>
 
-<div id="main" class="menu-section">
-    <h2>Main Courses</h2>
-    <div class="grid-container">
-        <div>
-            <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
-            <span class="item-name">Pizza</span>
-            <span class="price">$12.99</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
-            <span class="item-name">Burger</span>
-            <span class="price">$8.99</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
-            <span class="item-name">Pasta</span>
-            <span class="price">$10.99</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
-            <span class="item-name">Pizza</span>
-            <span class="price">$12.99</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
-            <span class="item-name">Burger</span>
-            <span class="price">$8.99</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
-            <span class="item-name">Pasta</span>
-            <span class="price">$10.99</span>
-        </div>
-    </div>
-</div>
-
+  <div id="main" class="menu-section">
+      <h2>Main Courses</h2>
+      <div class="grid-container">
+          <div>
+              <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
+              <span class="item-name">Pizza</span>
+              <span class="price">₱649.00</span>
+          </div>
+          <div>
+              <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
+              <span class="item-name">Burger</span>
+              <span class="price">₱449.00</span>
+          </div>
+          <div>
+              <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
+              <span class="item-name">Pasta</span>
+              <span class="price">₱549.00</span>
+          </div>
+          <div>
+              <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
+              <span class="item-name">Pizza</span>
+              <span class="price">₱649.00</span>
+          </div>
+          <div>
+              <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
+              <span class="item-name">Burger</span>
+              <span class="price">₱449.00</span>
+          </div>
+          <div>
+              <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
+              <span class="item-name">Pasta</span>
+              <span class="price">₱549.00</span>
+          </div>
+      </div>
+  </div>
 <div id="meats" class="menu-section">
     <h2>Meats & Fish</h2>
     <div class="grid-container">
         <div>
             <img src="https://placehold.co/300x200" alt="Steak" class="menu-image">
             <span class="item-name">Steak</span>
-            <span class="price">$24.99</span>
+            <span class="price">₱1,249.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Fish" class="menu-image">
             <span class="item-name">Fish</span>
-            <span class="price">$18.99</span>
+            <span class="price">₱949.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Grilled Chicken" class="menu-image">
             <span class="item-name">Grilled Chicken</span>
-            <span class="price">$15.99</span>
+            <span class="price">₱799.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Steak" class="menu-image">
             <span class="item-name">Steak</span>
-            <span class="price">$24.99</span>
+            <span class="price">₱1,249.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Fish" class="menu-image">
             <span class="item-name">Fish</span>
-            <span class="price">$18.99</span>
+            <span class="price">₱949.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Grilled Chicken" class="menu-image">
             <span class="item-name">Grilled Chicken</span>
-            <span class="price">$15.99</span>
+            <span class="price">₱799.00</span>
         </div>
     </div>
 </div>
@@ -314,32 +292,32 @@
         <div>
             <img src="https://placehold.co/300x200" alt="Ice Cream" class="menu-image">
             <span class="item-name">Ice Cream</span>
-            <span class="price">$5.99</span>
+            <span class="price">₱299.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Chocolate Cake" class="menu-image">
             <span class="item-name">Chocolate Cake</span>
-            <span class="price">$6.99</span>
+            <span class="price">₱349.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Apple Pie" class="menu-image">
             <span class="item-name">Apple Pie</span>
-            <span class="price">$7.99</span>
+            <span class="price">₱399.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Ice Cream" class="menu-image">
             <span class="item-name">Ice Cream</span>
-            <span class="price">$5.99</span>
+            <span class="price">₱299.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Chocolate Cake" class="menu-image">
             <span class="item-name">Chocolate Cake</span>
-            <span class="price">$6.99</span>
+            <span class="price">₱349.00</span>
         </div>
         <div>
             <img src="https://placehold.co/300x200" alt="Apple Pie" class="menu-image">
             <span class="item-name">Apple Pie</span>
-            <span class="price">$7.99</span>
+            <span class="price">₱399.00</span>
         </div>
     </div>
 </div>
@@ -376,17 +354,27 @@
     </section>
        
     </section>
-        <div class="flip-container" style="background-color:rgb(255, 255, 255);">
+        <div class="flip-container" style="background-color:rgb(218, 191, 156);">
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="../images/dining.jpg" alt="Special Offer">
                     </div>
                     <div class="flip-card-back">
-                        <h3>Special Offer</h3>
-                        <p>Get 20% off on your first visit!</p>
-                        <button class="offer-btn">Claim Offer</button>
-                    </div>
+                        <h3 style="color: #DAC0A3; font-family: 'Georgia', serif; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px;">
+                            Enjoy Fabulous Buffets with your Family <br> 
+                            <span style="font-size: 0.8em; color: #F8F0E5;">Call to Reserve your table</span>
+                        </h3>
+                        <div style="padding: 20px; border-radius: 10px; margin: 15px;">
+                            <p style="color: #F8F0E5; font-size: 20px; margin: 10px 0; font-family: 'Arial', sans-serif;">
+                                <i class="fas fa-sun"></i> Lunch Buffet 
+                                <b style="color: #DAC0A3;">11am to 2pm</b>
+                            </p>
+                            <p style="color: #F8F0E5; font-size: 20px; margin: 10px 0; font-family: 'Arial', sans-serif;">
+                                <i class="fas fa-moon"></i> Dinner Buffet 
+                                <b style="color: #DAC0A3;">6pm to 9pm</b>
+                            </p>
+                        </div>    </div>
                 </div>
             </div>
         </div>
