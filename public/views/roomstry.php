@@ -94,44 +94,103 @@
         });
         </script>
 
-        <section class="image-slider-section" style="padding: 6rem 2rem; background-color: rgb(218, 191, 156);">
-            <div class="relative flex items-center justify-center">
-                <div class="image-container">
-                    <!-- Image Wrapper (Two columns for left and right images) -->
-                    <div class="image-wrapper">
-                        <?php foreach ($services as $srvc): ?>
-                            <?php
-                            // Define room page mapping
-                            $roomPages = [
-                                'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
-                                'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
-                                'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
-                                'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
-                                'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
-                                'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
-                                'Barkada' => '../pages/rooms.php?sub_page=barkada',
-                            ];
-                            $roomName = trim($srvc['services_name']);
-                            $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
-                            ?>
-                            <a href="<?= $pageUrl ?>" class="image" style="text-decoration: none; cursor: pointer;">
-                                <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
-                                <div class="room-content">
-                                    <div class="room-header">
-                                        <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
-                                        <p class="room-details"><?= substr($srvc['services_description'], 0, 200) ?></p>
-                                        <div class="price-tag">
-                                            <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
-                                        </div>
-                                    </div>
+<section class="image-slider-section" style="padding: 8rem 1rem; background-color:rgb(255, 255, 255)">
+                    <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
+                    Our Rooms
+                    <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+                    </h2>
+                        <div class="relative flex items-center justify-center">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <?php foreach ($services as $srvc): ?>
+                                        <?php
+                                        $roomPages = [
+                                            'Sapphira Villa 6 Pax' => '../pages/rooms.php?sub_page=sapphira',
+                                            'Sapphira Villas 8 Pax' => '../pages/rooms.php?sub_page=sapphira8',
+                                            'Matrimonial' => '../pages/rooms.php?sub_page=matrimonial',
+                                            'Matrimonial Plus' => '../pages/rooms.php?sub_page=matrimonialPlus',
+                                            'CV Room 4 Pax' => '../pages/rooms.php?sub_page=cvRoom4',
+                                            'CV Room 8 Pax' => '../pages/rooms.php?sub_page=cvRoom8',
+                                            'Barkada' => '../pages/rooms.php?sub_page=barkada',
+                                        ];
+                                        $roomName = trim($srvc['services_name']);
+                                        $pageUrl = isset($roomPages[$roomName]) ? $roomPages[$roomName] : '#';
+                                        ?>
+                                        <a href="<?= $pageUrl ?>" class="image" style="text-decoration: none; cursor: pointer;">
+                                            <img src="../images/<?= $srvc['services_image'] ?>" alt="<?= $srvc['services_name'] ?>" class="room-image">
+                                            <div class="room-content">
+                                                <div class="room-header">
+                                                    <h3 class="room-title"><?= $srvc['services_name'] ?></h3>
+                                                    <p class="room-details"><?= substr($srvc['services_description'], 0, 200) ?></p>
+                                                    <div class="price-tag">
+                                                        <p class="room-price">₱<?= number_format($srvc['services_price'], 2) ?>/night</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <?php endforeach; ?>
                                 </div>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+                            </div>
+                        </div>
+                        <!-- Enhanced Navigation Dots -->
+                        <div style="text-align: center; margin-top: 3rem;">
+                            <?php foreach ($services as $index => $srvc): ?>
+                                <span class="room-dot" 
+                                      data-index="<?= $index ?>" 
+                                      style="display: inline-block; 
+                                             width: 15px; 
+                                             height: 15px; 
+                                             border-radius: 50%; 
+                                             background-color: #e0e0e0; 
+                                             margin: 0 12px; 
+                                             cursor: pointer;
+                                             transition: all 0.4s ease;
+                                             border: 2px solid rgb(163, 99, 15);
+                                             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                             position: relative;
+                                             transform: scale(1);">
+                                    <span style="position: absolute;
+                                               top: -25px;
+                                               left: 50%;
+                                               transform: translateX(-50%) scale(0);
+                                               background: rgb(163, 99, 15);
+                                               color: white;
+                                               padding: 4px 8px;
+                                               border-radius: 4px;
+                                               font-size: 12px;
+                                               opacity: 0;
+                                               transition: all 0.3s ease;
+                                               white-space: nowrap;"><?= $srvc['services_name'] ?></span>
+                                </span>
+                            <?php endforeach; ?>
+                        </div>    
+                    </section>
+                
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const dots = document.querySelectorAll('.room-dot');
+                        const images = document.querySelectorAll('.image');
+                        
+                        // Set first dot as active
+                        dots[0].style.backgroundColor = 'rgb(163, 99, 15)';
+                        
+                        dots.forEach((dot, index) => {
+                            dot.addEventListener('click', () => {
+                                // Reset all dots
+                                dots.forEach(d => d.style.backgroundColor = '#ccc');
+                                // Activate clicked dot
+                                dot.style.backgroundColor = 'rgb(163, 99, 15)';
+                                
+                                // Scroll to corresponding room
+                                images[index].scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'nearest',
+                                    inline: 'start'
+                                });
+                            });
+                        });
+                    });
+                </script>
 
         <footer>
             <p>© 2025 Casa Marcos. All rights reserved.</p>
@@ -148,51 +207,51 @@
             });
         </script>
             <script>
-                let currentIndex = 0;
-                const slider = document.querySelector('.image-wrapper');
-                const images = document.querySelectorAll('.image');
-                const totalImages = images.length;
+                // let currentIndex = 0;
+                // const slider = document.querySelector('.image-wrapper');
+                // const images = document.querySelectorAll('.image');
+                // const totalImages = images.length;
 
-                // Set initial styles
-                slider.style.transition = "transform 1s ease-in-out";
+                // // Set initial styles
+                // slider.style.transition = "transform 1s ease-in-out";
 
-                function changeSlide() {
-                    if (currentIndex === totalImages - 1) {
-                        // Reset to first image
-                        currentIndex = 0;
-                        slider.style.transition = "none";
-                        slider.style.transform = `translateX(0)`;
+                // function changeSlide() {
+                //     if (currentIndex === totalImages - 1) {
+                //         // Reset to first image
+                //         currentIndex = 0;
+                //         slider.style.transition = "none";
+                //         slider.style.transform = `translateX(0)`;
                         
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                slider.style.transition = "transform 1s ease-in-out";
-                            });
-                        });
-                    } else {
-                        currentIndex++;
-                        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    }
-                }
+                //         requestAnimationFrame(() => {
+                //             requestAnimationFrame(() => {
+                //                 slider.style.transition = "transform 1s ease-in-out";
+                //             });
+                //         });
+                //     } else {
+                //         currentIndex++;
+                //         slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                //     }
+                // }
 
-                // Start automatic sliding
-                const slideInterval = setInterval(changeSlide, 3000);
+                // // Start automatic sliding
+                // const slideInterval = setInterval(changeSlide, 3000);
 
-                // Add hover controls
-                slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                slider.addEventListener('mouseleave', () => setInterval(changeSlide, 3000));
+                // // Add hover controls
+                // slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                // slider.addEventListener('mouseleave', () => setInterval(changeSlide, 3000));
 
-                // Add touch support
-                let touchStartX = 0;
-                let touchEndX = 0;
+                // // Add touch support
+                // let touchStartX = 0;
+                // let touchEndX = 0;
 
-                slider.addEventListener('touchstart', e => {
-                    touchStartX = e.changedTouches[0].screenX;
-                });
+                // slider.addEventListener('touchstart', e => {
+                //     touchStartX = e.changedTouches[0].screenX;
+                // });
 
-                slider.addEventListener('touchend', e => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    if (touchStartX - touchEndX > 50) {
-                        changeSlide();
-                    }
-                });
+                // slider.addEventListener('touchend', e => {
+                //     touchEndX = e.changedTouches[0].screenX;
+                //     if (touchStartX - touchEndX > 50) {
+                //         changeSlide();
+                //     }
+                // });
             </script>

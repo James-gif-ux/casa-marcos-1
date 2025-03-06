@@ -46,17 +46,17 @@ class Reservation_Model {
     }
 
     // Insert a new booking into the database
-    public function insert_reservation($name, $email, $phone, $date, $message, $service_id, $status = 'pending') {
+    public function insert_reservation($name, $email, $phone, $checkin, $checkout, $message, $service_id, $status = 'pending') {
         // Validate if the service exists
         if (!$this->get_service_name_by_id($service_id)) {
             return "";
         }
 
         // Use prepared statements to prevent SQL injection
-        $stmt = $this->conn->prepare("INSERT INTO reservations (name, email, phone, date, message, status) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO reservations (name, email, phone, checkin, checkout, message, status) VALUES (?, ?, ?, ?, ?, ?)");
         
         // Bind the parameters
-        $stmt->bind_param("ssssss", $name, $email, $phone, $date, $message, $status);
+        $stmt->bind_param("ssssss", $name, $email, $phone, $checkin, $checkout, $message, $status);
         
         // Execute the query and check if it was successful
         if ($stmt->execute()) {

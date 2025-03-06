@@ -61,7 +61,7 @@
   .overlay-light-left {
       background-color: rgba(243, 244, 246, 0.8);
       position: absolute;
-      inset-y: 0;
+      
       width: 50%;
       left: 0;
       border-radius: 12px 0 0 12px; /* Rounded corners on the left */
@@ -71,7 +71,7 @@
   .overlay-light-right {
       background-color: rgba(243, 244, 246, 0.8);
       position: absolute;
-      inset-y: 0;
+     
       width: 50%;
       right: 0;
       border-radius: 0 12px 12px 0; /* Rounded corners on the right */
@@ -95,7 +95,7 @@
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      /* transition: transform 0.3s ease; */
   }
 
   .room-card:hover {
@@ -177,7 +177,7 @@
 
 /*rooms section for continued scrolling*/
 /*start of rooms section*/
-.image-wrapper {
+/* .image-wrapper {
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -189,9 +189,9 @@
             }
             100% {
                 /* Move left by 50% of the width to show the duplicate set */
-                transform: translateX(-263%);
+                /* transform: translateX(-263%);
             }
-        }
+        } */ 
 /*end of rooms section*/
 
 /* Base styles */
@@ -231,9 +231,9 @@
         width: 100% !important;
     }
     
-    .image-slider-section {
+    /* .image-slider-section {
         padding: 2rem 0.5rem;
-    }
+    } */
     
     .image {
         height: 400px;
@@ -279,8 +279,7 @@
         font-size: 0.9rem;
         overflow: hidden;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+      
         margin: 8px 0;
     }
 
@@ -330,14 +329,14 @@
         font-size: 0.9rem;
     }
     
-    .image-wrapper {
+    /* .image-wrapper {
         animation: continuousSlide 30s linear infinite;
-    }
+    } */
     
-    @keyframes continuousSlide {
+    /* @keyframes continuousSlide {
         0% { transform: translateX(0); }
         100% { transform: translateX(-200%); }
-    }
+    } */
 }
 
 /* Touch device optimization */
@@ -419,9 +418,9 @@
 }
 
 @media screen and (max-width: 480px) {
-    .image-slider-section {
+    /* .image-slider-section {
         padding: 1rem 0;
-    }
+    } */
     
     .image {
         height: 250px;
@@ -445,9 +444,9 @@
         font-size: 0.8rem;
     }
     
-    .image-wrapper {
+    /* .image-wrapper {
         animation: continuousSlide 20s linear infinite;
-    }
+    } */
 
     h3 {
         font-size: 1.2rem !important;

@@ -33,7 +33,7 @@
     $connector = new Connector();
 
     // Fetch all bookings that are pending approval
-    $sql = "SELECT reservation_id, name, email, phone, date, message FROM reservations WHERE status = 'pending'";
+    $sql = "SELECT reservation_id, name, email, phone, checkin, checkout, message FROM reservations WHERE status = 'pending'";
     $reservations = $connector->executeQuery($sql);
 
     // Handle form submission
@@ -42,15 +42,16 @@
             $connector = new Connector();
             
             // Updated SQL to include res_services_id
-            $sql = "INSERT INTO reservations (name, email, phone, date, message, status, res_services_id) 
-                    VALUES (:name, :email, :phone, :date, :message, 'pending', :service_id)";
+            $sql = "INSERT INTO reservations (name, email, phone, checkin, checkout, message, status, res_services_id) 
+                    VALUES (:name, :email, :phone, :checkin, :checkout, :message, 'pending', :service_id)";
             
             $stmt = $connector->getConnection()->prepare($sql);
             $result = $stmt->execute([
                 ':name' => $_POST['name'],
                 ':email' => $_POST['email'],
                 ':phone' => $_POST['phone'],
-                ':date' => $_POST['date'],
+                ':checkin' => $_POST['checkin'],
+                ':checkout' => $_POST['checkout'],
                 ':message' => $_POST['message'],
                 ':service_id' => $_POST['service_id'] // This gets the hidden service_id field value
             ]);
@@ -336,121 +337,121 @@
             }
         }
 
-            /* Responsive Design */
-            @media screen and (max-width: 1024px) {
-                .reservation-page {
-                    padding: 20px;
-                    max-width: 900px;
-                }
-            
-                .room-image {
-                    height: 400px;
-                    margin-top: 80px;
-                }
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .reservation-page {
+                padding: 20px;
+                max-width: 900px;
             }
-            
-            @media screen and (max-width: 768px) {
-                body {
-                    height: auto;
-                    padding: 10px;
-                }
-            
-                .reservation-page {
-                    flex-direction: column;
-                    padding: 20px;
-                }
-            
-                .room-image-section,
-                .reservation-container {
-                    width: 100%;
-                }
-            
-                .room-image {
-                    height: 300px;
-                    margin-top: 40px;
-                }
-            
-                .right-section {
-                    padding-left: 0;
-                    margin-top: 30px;
-                }
-            
-                h2 {
-                    font-size: 28px;
-                }
-            
-                h3 {
-                    font-size: 24px;
-                }
+        
+            .room-image {
+                height: 400px;
+                margin-top: 80px;
             }
-            
-            @media screen and (max-width: 480px) {
-                .reservation-page {
-                    padding: 15px;
-                }
-            
-                .room-image {
-                    height: 200px;
-                    margin-top: 20px;
-                }
-            
-                input, textarea, .submit-btn {
-                    padding: 12px;
-                    font-size: 16px;
-                }
-            
-                label {
-                    font-size: 16px;
-                }
-            
-                .form-group {
-                    margin-bottom: 15px;
-                }
-            
-                h2 {
-                    font-size: 24px;
-                }
-            
-                h3 {
-                    font-size: 20px;
-                }
-            
-                p {
-                    font-size: 16px;
-                }
+        }
+        
+        @media screen and (max-width: 768px) {
+            body {
+                height: auto;
+                padding: 10px;
             }
-            
-            /* Touch Device Optimizations */
-            @media (hover: none) {
-                input:hover, textarea:hover, .submit-btn:hover {
-                    transform: none;
-                }
-            
-                .submit-btn {
-                    padding: 15px 20px;
-                }
+        
+            .reservation-page {
+                flex-direction: column;
+                padding: 20px;
             }
-        </style>
-            <body>
-                <div class="reservation-page">
-                    <!-- Room Image Section -->
-                    <div class="room-image-section">
-                        <img src="../images/<?= $service['services_image'] ?>" alt="Room Image" class="room-image">
-                        <h3><?= $service['services_name'] ?></h3>
-                        <p><?= $service['services_description'] ?></p>
-                        <p class="service-price">₱<?= number_format($service['services_price'], 2) ?></p>
-                    </div>
-                    <?php
-                        ?>
-                    <!-- Reservation Form Section -->
-                    <div class="reservation-container">
-                        <div class="right-section">
-                            <h2>Make a Reservation</h2>
-                            <form method="POST" action="reservation.php?service_id=<?= $service['services_id'] ?>" class="reservation-form">
-                                <div class="form-group">
-                                    <label for="name">Full Name:</label>
-                                    <input type="text" id="name" name="name" required>
-                                </div>
+        
+            .room-image-section,
+            .reservation-container {
+                width: 100%;
+            }
+        
+            .room-image {
+                height: 300px;
+                margin-top: 40px;
+            }
+        
+            .right-section {
+                padding-left: 0;
+                margin-top: 30px;
+            }
+        
+            h2 {
+                font-size: 28px;
+            }
+        
+            h3 {
+                font-size: 24px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .reservation-page {
+                padding: 15px;
+            }
+        
+            .room-image {
+                height: 200px;
+                margin-top: 20px;
+            }
+        
+            input, textarea, .submit-btn {
+                padding: 12px;
+                font-size: 16px;
+            }
+        
+            label {
+                font-size: 16px;
+            }
+        
+            .form-group {
+                margin-bottom: 15px;
+            }
+        
+            h2 {
+                font-size: 24px;
+            }
+        
+            h3 {
+                font-size: 20px;
+            }
+        
+            p {
+                font-size: 16px;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            input:hover, textarea:hover, .submit-btn:hover {
+                transform: none;
+            }
+        
+            .submit-btn {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+        <body>
+            <div class="reservation-page">
+                <!-- Room Image Section -->
+                <div class="room-image-section">
+                    <img src="../images/<?= $service['services_image'] ?>" alt="Room Image" class="room-image">
+                    <h3><?= $service['services_name'] ?></h3>
+                    <p><?= $service['services_description'] ?></p>
+                    <p class="service-price">₱<?= number_format($service['services_price'], 2) ?></p>
+                </div>
+                <?php
+                    ?>
+                <!-- Reservation Form Section -->
+                <div class="reservation-container">
+                    <div class="right-section">
+                        <h2>Make a Reservation</h2>
+                        <form method="POST" action="reservation.php?service_id=<?= $service['services_id'] ?>" class="reservation-form">
+                            <div class="form-group">
+                                <label for="name">Full Name:</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
 
                                 <div class="form-group">
                                     <label for="email">Email:</label>
@@ -463,8 +464,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="date">Date:</label>
-                                    <input type="date" id="date" name="date" required>
+                                    <label for="checkin">Check in:</label>
+                                    <input type="date" id="checkin" name="checkin" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkout">Check out:</label>
+                                    <input type="date" id="checkout" name="checkout" required>
                                 </div>
 
                                 <div class="form-group">

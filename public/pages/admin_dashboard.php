@@ -58,5 +58,8 @@
 		function settings(){
 			include '../views/settings.php';
 		}
+		function reports(){
+			include '../views/reports.php';
+		}
 	}
 ?>

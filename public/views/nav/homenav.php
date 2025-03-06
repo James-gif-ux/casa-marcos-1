@@ -104,10 +104,19 @@
     .off {
         text-align: center;
         padding: 20rem;
-        background-image: url('../images/restaurant.jpg');
+        background-image: url('../images/offers.jpg');
         background-size: cover;
         background-position: center;
     }
+
+    .about {
+        text-align: center;
+        padding: 20rem;
+        background-image: url('../images/abouts.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
 
     footer {
         background-color: #2c3e50;
@@ -506,11 +515,13 @@
         <ul class="nav-links" style="width: 100%; align-items: center;">
             <li><a href="roomstry.php" class="<?php echo ($current_page == 'roomstry.php') ? 'active' : ''; ?>">Our Rooms</a></li>
             <li><a href="offers.php" class="<?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Food Menu</a></li>
-            <a href="home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
-                <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
-                    <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
-                </h1>
-            </a>
+            <li>
+                <a href="home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
+                    <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
+                        <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
+                    </h1>
+                </a>
+            </li>
             <li><a href="aboutus.php" class="<?php echo ($current_page == 'aboutus.php') ? 'active' : ''; ?>">About us</a></li>
             <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact</a></li>
         </ul>
@@ -518,8 +529,76 @@
 </header>
     
 
-<a href="contact.php" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; text-decoration: none;">
-    <div class="message-icon" style="background: #2c3e50; padding: 15px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer;">
-        <i class="fas fa-comment" style="color: white; font-size: 20px;"></i>
+<!-- Settings button that transforms into menu -->
+<div id="settings-menu" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <!-- Main settings button -->
+    <div id="settings-btn" class="settings-icon" style="background: #2c3e50; padding: 15px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-cog" style="color: white; font-size: 20px;"></i>
     </div>
-</a>
+
+    <!-- Menu items (hidden by default) -->
+    <div id="menu-items" style="display: none; position: absolute; bottom: 70px; right: 0;">
+        <a href="contact.php" style="display: block; margin-bottom: 10px; text-decoration: none;">
+            <div class="menu-icon" style="background: #2c3e50; padding: 15px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+                <i class="fas fa-comment" style="color: white; font-size: 20px;"></i>
+            </div>
+        </a>
+        <a href="authentication.php" style="display: block; text-decoration: none;">
+            <div class="menu-icon" style="background: #2c3e50; padding: 15px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+                <i class="fas fa-user" style="color: white; font-size: 20px;"></i>
+            </div>
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const settingsBtn = document.getElementById('settings-btn');
+    const menuItems = document.getElementById('menu-items');
+    let isOpen = false;
+
+    settingsBtn.addEventListener('click', function() {
+        if (!isOpen) {
+            // Rotate settings icon
+            settingsBtn.style.transform = 'rotate(180deg)';
+            // Show menu items with fade in
+            menuItems.style.display = 'block';
+            menuItems.style.animation = 'fadeIn 0.3s ease-in';
+            // Change to times icon
+            settingsBtn.querySelector('i').className = 'fas fa-times';
+        } else {
+            // Rotate back
+            settingsBtn.style.transform = 'rotate(0deg)';
+            // Hide menu items with fade out
+            menuItems.style.animation = 'fadeOut 0.3s ease-out';
+            setTimeout(() => {
+                menuItems.style.display = 'none';
+            }, 300);
+            // Change back to settings icon
+            settingsBtn.querySelector('i').className = 'fas fa-cog';
+        }
+        isOpen = !isOpen;
+    });
+});
+</script>
+
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+.settings-icon:hover {
+    transform: rotate(90deg);
+}
+
+.menu-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+}
+</style>
