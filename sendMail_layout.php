@@ -29,7 +29,7 @@
                     letter-spacing: 1px;
                 }
 
-                label {
+                label {  
                     font-size: 14px;
                     font-weight: 500;
                     color: #555;
