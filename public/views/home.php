@@ -146,104 +146,36 @@
                     });
                 </script>
 
-        <section style="padding: 10rem 2rem; position: relative; overflow: hidden; background-color: #f9f6f2;">
-            <style>
-                @media (max-width: 1024px) {
-                    .history-container {
-                        gap: 2rem;
-                        padding: 2rem;
-                    }
-                    
-                    .history-content h3 {
-                        font-size: 1.5rem;
-                    }
-                    
-                    .history-content p {
-                        font-size: 1rem;
-                    }
-                }
-
-                @media (max-width: 768px) {
-                    .history-container {
-                        flex-direction: column;
-                        padding: 1.5rem;
-                    }
-                    
-                    .history-image {
-                        width: 100%;
-                        margin-bottom: 2rem;
-                    }
-                    
-                    .history-content {
-                        text-align: center;
-                        padding: 0 1rem;
-                    }
-                    
-                    section {
-                        padding: 6rem 1rem;
-                    }
-                    
-                    .video-container {
-                        padding-bottom: 75%;
-                    }
-                    }
-
-                    @media (max-width: 480px) {
-                        section {
-                            padding: 4rem 1rem;
-                        }
-                        
-                        .history-content h3 {
-                            font-size: 1.3rem;
-                        }
-                        
-                        .history-content p {
-                            font-size: 0.9rem;
-                            line-height: 1.7;
-                        }
-                        
-                        .video-title {
-                            font-size: 1.3rem;
-                        }
-                    }
+       
     </style>
-    <div style=" background-color: #f9f6f2; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
-    <div class="history-container" style="display: flex; gap: 4rem; align-items: center; background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 240, 0.95)); 
-                padding: 3rem; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
-        <div class="history-image" style="flex: 1; transition: all 0.5s ease; position: relative;">
-            <img src="../images/history.jpg" alt="Resort History" 
-                 style="width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-                        transform: rotate(-2deg); transition: all 0.5s ease;"
-                 onmouseover="this.style.transform='rotate(0deg) scale(1.03)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.3)';"
-                 onmouseout="this.style.transform='rotate(-2deg) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.2)';">
-            <div style="position: absolute; top: -15px; right: -15px; background: rgb(102, 67, 35); color: white; 
-                        padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; transform: rotate(3deg);">
-                Since 2024
+    
+    
+        
+        <!-- Experience Section -->
+        <div style="max-width: 1400px; margin: 8rem auto; padding: 0 2rem;">
+        <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center;">
+                            About Us
+                            <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+                        </h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
+                <div style="background: #fff; padding: 3rem; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.05);">
+                    <p style="color: #34495e; font-size: 1.3rem; line-height: 1.8; margin-bottom: 2.5rem; text-align: justify; font-family: 'Roboto', sans-serif;">
+                        At Casa Marcos, we believe in creating extraordinary experiences through exceptional care and attention to detail. 
+                        Our dedicated team works tirelessly to ensure every guest feels welcomed and valued, combining professional 
+                        service with genuine Filipino warmth.
+                    </p>
+                    <p style="color: #34495e; font-size: 1.3rem; line-height: 1.8; text-align: justify; font-family: 'Roboto', sans-serif;">
+                        We pride ourselves on understanding and anticipating our guests' needs, offering personalized services that 
+                        make every stay memorable. Our commitment to excellence extends beyond luxury amenities to create meaningful 
+                        connections and experiences that will last a lifetime.
+                    </p>
+                </div>
+                <img src="../images/villas.jpg" alt="Experience" style="width: 100%; height: 500px; object-fit: cover; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
             </div>
         </div>
-        
-        <div class="history-content" style="flex: 1; text-align: left;">
-            <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'impact';">
-                Our Story
-            </h3>
-            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 1.8rem; 
-                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
-                Founded in 2024, Casa Marcos began as a modest family retreat nestled in the heart of nature. 
-                Over the decades, it has evolved into a premier luxury resort while maintaining its authentic charm 
-                and warm hospitality.
-            </p>
-            <p style="font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; margin-bottom: 2rem; 
-                     text-shadow: 0 1px 1px rgba(0,0,0,0.05); font-family: 'Georgia', serif;">
-                Today, Casa Marcos stands as a testament to excellence in hospitality, combining traditional values 
-                with modern luxury. Our commitment to exceptional service and guest satisfaction continues to be 
-                the cornerstone of our legacy.
-            </p>
-        </div>
-    </div>
-    </div>
 </section>
         <!-- Rooms Section -->
-        <section class="image-slider-section" style="padding: 8rem 1rem; background-color: #f9f6f2;">
+        <section class="image-slider-section" style="padding: 8rem 1rem; background-color:rgb(255, 255, 255);">
                     <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
                     Our Rooms
                     <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
@@ -281,22 +213,38 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Navigation Dots -->
-                        <div style="text-align: center; margin-top: 2rem;">
+                        <!-- Enhanced Navigation Dots -->
+                        <div style="text-align: center; margin-top: 3rem;">
                             <?php foreach ($services as $index => $srvc): ?>
                                 <span class="room-dot" 
                                       data-index="<?= $index ?>" 
                                       style="display: inline-block; 
-                                             width: 12px; 
-                                             height: 12px; 
+                                             width: 15px; 
+                                             height: 15px; 
                                              border-radius: 50%; 
-                                             background-color: #ccc; 
-                                             margin: 0 8px; 
+                                             background-color: #e0e0e0; 
+                                             margin: 0 12px; 
                                              cursor: pointer;
-                                             transition: background-color 0.3s ease;">
+                                             transition: all 0.4s ease;
+                                             border: 2px solid rgb(163, 99, 15);
+                                             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                             position: relative;
+                                             transform: scale(1);">
+                                    <span style="position: absolute;
+                                               top: -25px;
+                                               left: 50%;
+                                               transform: translateX(-50%) scale(0);
+                                               background: rgb(163, 99, 15);
+                                               color: white;
+                                               padding: 4px 8px;
+                                               border-radius: 4px;
+                                               font-size: 12px;
+                                               opacity: 0;
+                                               transition: all 0.3s ease;
+                                               white-space: nowrap;"><?= $srvc['services_name'] ?></span>
                                 </span>
                             <?php endforeach; ?>
-                        </div>
+                        </div>    
                 </section>
                 
                 <script>
@@ -329,7 +277,7 @@
 
 
 
-        <section style="padding: 8rem 2rem; background-color: #f9f6f2;">
+        <section style="padding: 8rem 2rem; background-color:rgb(255, 255, 255);">
                 <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
                     Our Amenities
                     <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
@@ -426,7 +374,7 @@
         </script>
 
             
-                    <section style="padding: 5rem 2rem; background-color: #f9f6f2;">
+                    <section style="padding: 5rem 2rem; background-color:rgb(255, 255, 255);">
                         <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center;">
                             Contact Us
                             <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
