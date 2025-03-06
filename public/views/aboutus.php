@@ -62,10 +62,6 @@
             <div style="position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, #e2c9a6 0%, transparent 70%); bottom: -100px; right: -100px; opacity: 0.1;"></div>
             
             <div style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
-            <h2 style="color: #2c3e50; font-size: 3.5rem; margin-bottom: 1rem; text-align: center; font-family: 'Playfair Display', serif;">
-            Our Team
-            </h2>
-            <span style="display: block; width: 150px; height: 4px; background: linear-gradient(to right, #c8a97e, #e2c9a6); margin: 0 auto 5rem; border-radius: 2px;"></span>
 
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;">
             <!-- Team Member 1 -->
@@ -74,7 +70,7 @@
              onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
             <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
                 <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
-                <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+                <img src="../images/owner.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
             </div>
             <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 1.8rem; font-family: 'Playfair Display', serif;">Maritess Cayaco Marcos</h3>
             <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Owner</p>
@@ -93,7 +89,7 @@
              onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
             <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
                 <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
-                <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+                <img src="../images/manager.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
             </div>
             <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 2rem; font-family: 'Playfair Display', serif;">Nicole Marie Marcos</h3>
             <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Manager</p>
@@ -111,7 +107,7 @@
              onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.1)'">
             <div style="position: relative; width: 240px; height: 240px; margin: 0 auto 2.5rem;">
                 <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(45deg, #c8a97e, #e2c9a6); opacity: 0.2; transform: scale(1.1);"></div>
-                <img src="../images/roomtab.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+                <img src="../images/cashier.jpg" alt="Staff Member" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
             </div>
             <h3 style="color: #2c3e50; margin-bottom: 1rem; text-align: center; font-size: 2rem; font-family: 'Playfair Display', serif;">Myca Jacinto</h3>
             <p style="color: #c8a97e; margin-bottom: 2rem; text-align: center; font-size: 1.3rem; font-weight: 500;">Front Office</p>

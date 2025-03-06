@@ -215,112 +215,57 @@
     <button onclick="showSection('desserts')">Desserts</button>
 </div>
 
-  <div id="main" class="menu-section">
-      <h2>Main Courses</h2>
-      <div class="grid-container">
-          <div>
-              <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
-              <span class="item-name">Pizza</span>
-              <span class="price">₱649.00</span>
-          </div>
-          <div>
-              <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
-              <span class="item-name">Burger</span>
-              <span class="price">₱449.00</span>
-          </div>
-          <div>
-              <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
-              <span class="item-name">Pasta</span>
-              <span class="price">₱549.00</span>
-          </div>
-          <div>
-              <img src="https://placehold.co/300x200" alt="Pizza" class="menu-image">
-              <span class="item-name">Pizza</span>
-              <span class="price">₱649.00</span>
-          </div>
-          <div>
-              <img src="https://placehold.co/300x200" alt="Burger" class="menu-image">
-              <span class="item-name">Burger</span>
-              <span class="price">₱449.00</span>
-          </div>
-          <div>
-              <img src="https://placehold.co/300x200" alt="Pasta" class="menu-image">
-              <span class="item-name">Pasta</span>
-              <span class="price">₱549.00</span>
-          </div>
-      </div>
-  </div>
-<div id="meats" class="menu-section">
-    <h2>Meats & Fish</h2>
-    <div class="grid-container">
-        <div>
-            <img src="https://placehold.co/300x200" alt="Steak" class="menu-image">
-            <span class="item-name">Steak</span>
-            <span class="price">₱1,249.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Fish" class="menu-image">
-            <span class="item-name">Fish</span>
-            <span class="price">₱949.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Grilled Chicken" class="menu-image">
-            <span class="item-name">Grilled Chicken</span>
-            <span class="price">₱799.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Steak" class="menu-image">
-            <span class="item-name">Steak</span>
-            <span class="price">₱1,249.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Fish" class="menu-image">
-            <span class="item-name">Fish</span>
-            <span class="price">₱949.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Grilled Chicken" class="menu-image">
-            <span class="item-name">Grilled Chicken</span>
-            <span class="price">₱799.00</span>
-        </div>
-    </div>
-</div>
+<?php
+$menu_sections = [
+    'main' => [
+        'title' => 'Main Courses',
+        'items' => [
+            ['name' => 'Pizza', 'price' => '649.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Burger', 'price' => '449.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Pasta', 'price' => '549.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Pizza', 'price' => '649.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Burger', 'price' => '449.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Pasta', 'price' => '549.00', 'image' => 'https://placehold.co/300x200']
+        ]
+    ],
+    'meats' => [
+        'title' => 'Meats & Fish',
+        'items' => [
+            ['name' => 'Steak', 'price' => '1,249.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Fish', 'price' => '949.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Grilled Chicken', 'price' => '799.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Steak', 'price' => '1,249.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Fish', 'price' => '949.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Grilled Chicken', 'price' => '799.00', 'image' => 'https://placehold.co/300x200']
+        ]
+    ],
+    'desserts' => [
+        'title' => 'Desserts',
+        'items' => [
+            ['name' => 'Ice Cream', 'price' => '299.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Chocolate Cake', 'price' => '349.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Apple Pie', 'price' => '399.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Ice Cream', 'price' => '299.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Chocolate Cake', 'price' => '349.00', 'image' => 'https://placehold.co/300x200'],
+            ['name' => 'Apple Pie', 'price' => '399.00', 'image' => 'https://placehold.co/300x200']
+        ]
+    ]
+];
 
-<div id="desserts" class="menu-section">
-    <h2>Desserts</h2>
-    <div class="grid-container">
-        <div>
-            <img src="https://placehold.co/300x200" alt="Ice Cream" class="menu-image">
-            <span class="item-name">Ice Cream</span>
-            <span class="price">₱299.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Chocolate Cake" class="menu-image">
-            <span class="item-name">Chocolate Cake</span>
-            <span class="price">₱349.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Apple Pie" class="menu-image">
-            <span class="item-name">Apple Pie</span>
-            <span class="price">₱399.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Ice Cream" class="menu-image">
-            <span class="item-name">Ice Cream</span>
-            <span class="price">₱299.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Chocolate Cake" class="menu-image">
-            <span class="item-name">Chocolate Cake</span>
-            <span class="price">₱349.00</span>
-        </div>
-        <div>
-            <img src="https://placehold.co/300x200" alt="Apple Pie" class="menu-image">
-            <span class="item-name">Apple Pie</span>
-            <span class="price">₱399.00</span>
+foreach ($menu_sections as $section_id => $section): ?>
+    <div id="<?php echo $section_id; ?>" class="menu-section">
+        <h2><?php echo $section['title']; ?></h2>
+        <div class="grid-container">
+            <?php foreach ($section['items'] as $item): ?>
+                <div>
+                    <img src="<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>" class="menu-image">
+                    <span class="item-name"><?php echo $item['name']; ?></span>
+                    <span class="price">₱<?php echo $item['price']; ?></span>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
-</div>
+<?php endforeach; ?>
 
 <script>
     function showSection(section) {

@@ -58,6 +58,7 @@
                     /* Table Styles */
                     table {
                         border-collapse: collapse;
+                        margin-top: 1rem;
                     }
 
                     thead {
@@ -119,27 +120,7 @@
                 </style>
             </head>
             <body>
-                <div class="mb-4 p-4 bg-white rounded shadow flex items-center justify-between">
-                    <div class="flex items-center">
-                        <label class="mr-2">Show</label>
-                        <select id="entriesSelect" class="form-control input-sm px-3 py-1 border rounded" onchange="changeEntries()">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <label class="ml-2">entries</label>
-                    </div>
-                    <!-- Existing search and sort controls -->
-                    <div class="search-container">
-                        <input type="text" id="searchInput" class="search-input" placeholder="Search by name or email..." oninput="searchTable()">
-                        <select id="sortSelect" class="sort-select" onchange="searchTable()">
-                            <option value="name">Sort by Name</option>
-                            <option value="date">Sort by Check-in Date</option>
-                            <option value="status">Sort by Status</option>
-                        </select>
-                    </div>
-                </div>
+                
                 <div class="messages-container">
                     <div class="table-wrapper">
                         <table>
