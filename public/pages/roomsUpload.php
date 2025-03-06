@@ -1,48 +1,45 @@
 <?php
-require_once '../model/server.php';
-include_once '../model/BookingModel.php';
+	//import model
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    $connector = new Connector();
-    
-    try {
-        $services_name = $_POST['services_name'];
-        $services_description = $_POST['services_description'];
-        $services_price = $_POST['services_price'];
+	$page_info['page'] = 'roomsUpload'; //for page that needs to be called
+	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'roomsUpload'; //for function to be loaded
+		
+	
+	try {//used try to catch unfortunate errors
+		//check for active function
+		
+		//no active function, use the default page to view
+		new roomsUpload($page_info);
+		
+	}catch (Throwable $e){ //get the encountered error
+		echo '<h1>ERROR 404</h1>';
+		echo $e->getMessage();
+	}//end of validation
+	
+	
+	//-----------------------//
+	//--  Class Navigation --//
+	//-----------------------//
+	class roomsUpload{
+		//set default page info
+		private $page = '';
+		private $sub_page = '';
+		
+		//run function construct
+		function __construct($page_info){
+			//assign page info
+			$this->page = $page_info['page'];
+			$this->sub_page = $page_info['sub_page'];
+			
+			//run the function
+			$this->{$page_info['sub_page']}();
+		}
+		
+		//-----------------------------//
+		//--   function start here   --//
+		function roomsUpload(){
+			include '../views/roomsUpload.php';
+		}
         
-        // Handle file upload
-        $target_dir = "../images/";
-        $file_extension = strtolower(pathinfo($_FILES["service_img"]["name"], PATHINFO_EXTENSION));
-        $new_filename = uniqid() . '.' . $file_extension;
-        $target_file = $target_dir . $new_filename;
-        
-        // Check if image file is actual image
-        if (!getimagesize($_FILES["services_img"]["tmp_name"])) {
-            throw new Exception("File is not an image.");
-        }
-        
-        // Move uploaded file
-        if (!move_uploaded_file($_FILES["services_img"]["tmp_name"], $target_file)) {
-            throw new Exception("Failed to upload file.");
-        }
-        
-        // Insert into database
-        $sql = "INSERT INTO services_tb (service_name, services_img, services_description, services_price) 
-                VALUES (:name, :img, :description, :price)";
-        $stmt = $connector->getConnection()->prepare($sql);
-        $stmt->execute([
-            ':name' => $service_name,
-            ':img' => $new_filename,
-            ':description' => $service_description,
-            ':price' => $service_price
-        ]);
-        
-        header("Location: ../views/roomsUpload.php?success=1");
-        exit();
-        
-    } catch (Exception $e) {
-        header("Location: ../views/roomsUpload.php?error=" . urlencode($e->getMessage()));
-        exit();
-    }
-}
+	}
 ?>

@@ -1,4 +1,5 @@
 <?php
+
     include 'nav/header.php';
     require_once '../model/server.php';
     include_once '../model/Booking_Model.php';
@@ -36,7 +37,6 @@
                 font-size: 20px;
             }
             table{
-                margin-top: 20px;
                 border-collapse: collapse;
             }
             th{
@@ -48,7 +48,7 @@
                 height: auto;
             }
             td {
-                padding: 10px;
+                padding: 9px;
                 text-align: center;
                 vertical-align: middle;
             }
