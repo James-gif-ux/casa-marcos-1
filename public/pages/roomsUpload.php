@@ -1,45 +1,82 @@
 <?php
-	//import model
+//import model
+include '../model/roomsUpload_Model.php';
+$page_info['page'] = 'roomsUpload';
+$page_info['sub_page'] = isset($_GET['sub_page']) ? $_GET['sub_page'] : 'roomsUpload';
 
-	$page_info['page'] = 'roomsUpload'; //for page that needs to be called
-	$page_info['sub_page'] = isset($_GET['sub_page'])? $_GET['sub_page'] : 'roomsUpload'; //for function to be loaded
-		
-	
-	try {//used try to catch unfortunate errors
-		//check for active function
-		
-		//no active function, use the default page to view
-		new roomsUpload($page_info);
-		
-	}catch (Throwable $e){ //get the encountered error
-		echo '<h1>ERROR 404</h1>';
-		echo $e->getMessage();
-	}//end of validation
-	
-	
-	//-----------------------//
-	//--  Class Navigation --//
-	//-----------------------//
-	class roomsUpload{
-		//set default page info
-		private $page = '';
-		private $sub_page = '';
-		
-		//run function construct
-		function __construct($page_info){
-			//assign page info
-			$this->page = $page_info['page'];
-			$this->sub_page = $page_info['sub_page'];
-			
-			//run the function
-			$this->{$page_info['sub_page']}();
-		}
-		
-		//-----------------------------//
-		//--   function start here   --//
-		function roomsUpload(){
-			include '../views/roomsUpload.php';
-		}
+try {
+    if (isset($_POST['update'])) {
+        $rooms = new Rooms_Upload($page_info);
+    } else {
+        $rooms = new roomsUpload($page_info);
+    }
+} catch (Throwable $e) {
+    echo '<h1>ERROR 404</h1>';
+    echo $e->getMessage();
+}
+
+class roomsUpload {
+    private $page = '';
+    private $sub_page = '';
+    
+    function __construct($page_info) {
+        $this->page = $page_info['page'];
+        $this->sub_page = $page_info['sub_page'];
+        $this->roomsUpload();
+    }
+    
+    function roomsUpload() {
+        $rooms = new roomsUpload_Model();
+        $result = $rooms->service_update_submit($_POST); // Get all services
+        include '../views/roomsUpload.php';
+    }
+}
+
+class Rooms_Upload {
+    private $page = '';
+    private $sub_page = '';
+
+    function __construct($page_info) {
+        $this->page = $page_info['page'];
+        $this->sub_page = $page_info['sub_page'];
+        $this->service_update_submit();
+    }
+
+    function service_update_submit() {
+        $rooms = new roomsUpload_Model();
         
-	}
+        // Check if file is uploaded
+        if (!empty($_FILES['services_image']['name'])) {
+            $target_dir = "../images/";
+            $file = $_FILES['services_image'];
+            $fileName = time() . '_' . basename($file['name']);
+            $targetFilePath = $target_dir . $fileName;
+            
+            if (move_uploaded_file($file["tmp_name"], $targetFilePath)) {
+                $result = $rooms->service_update_submit(
+                    $_POST['services_id'],
+                    $_POST['services_name'],
+                    $_POST['services_price'],
+                    $_POST['services_description'],
+                    $fileName
+                );
+            }
+        } else {
+            $result = $rooms->service_update_submit(
+                $_POST['services_id'],
+                $_POST['services_name'],
+                $_POST['services_price'],
+                $_POST['services_description'],
+                null // Keep existing image
+            );
+        }
+
+        if ($result) {
+            header("Location: ../views/roomsUpload.php?success=updated");
+        } else {
+            header("Location: ../views/roomsUpload.php?error=update_failed");
+        }
+        exit();
+    }
+}
 ?>

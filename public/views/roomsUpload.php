@@ -141,7 +141,7 @@
                                             <div class="modal-content" style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 50%;">
                                                 <span class="close" onclick="closeEditModal()" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
                                                 <h2>Edit Room</h2>
-                                                <form id="editRoomForm" action="../pages/uploadRoom.php" method="POST">
+                                                <form id="editRoomForm" action="../pages/roomsUpload.php" method="POST">
                                                     <input type="hidden" id="edit_room_id" name="room_id">
                                                     <div style="margin-bottom: 15px;">
                                                         <label for="edit_room_name">Room Name:</label>
