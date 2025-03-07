@@ -180,14 +180,142 @@
                                         </div>
                                     </div>
                                 </th>
-                                <th class="px-4 py-3 text-center">Contact Number</th>
-                                <th class="px-4 py-3 ">Rooms Name</th>
-                                <th class="px-4 py-3 text-center">Check in</th>
-                                <th class="px-4 py-3 text-center">Check out</th>
-                                <th class="px-4 py-3 text-center">Nights</th>
-                                <th class="px-4 py-3 text-center">Total Amount</th>
-                                <th class="px-4 py-3 text-center">Booking Status</th>
-                                <th colspan="3" class="px-4 py-3 text-center">Action</th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Contact Number</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Rooms Name</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Check in</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Check out</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Night</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Total Amount</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Booking Status</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Action</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
