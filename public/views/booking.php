@@ -25,6 +25,9 @@
         $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <link rel="stylesheet" href="../assets/css/booking.css">
+    <link rel="stylesheet" href="/DataTables/datatables.css" />
+ 
+
             <!-- Add these styles to the top of your file or in your CSS -->
     <style>
         .table-container {
@@ -93,91 +96,7 @@
             justify-content: space-between;
         }
     </style>
-    <script src="../assets/js/booking.js"></script>
 
-    <script>
-        // <!-- Search and Sort Controls -->
-        let currentPage = 1;
-    
-    function changeEntries() {
-        currentPage = 1; // Reset to first page when changing entries
-        updateTable();
-    }
-
-    function updateTable() {
-        const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
-        const tbody = document.querySelector('tbody');
-        const rows = Array.from(tbody.getElementsByTagName('tr'));
-        const searchInput = document.getElementById('searchInput').value.toLowerCase();
-
-        // Filter rows based on search
-        const filteredRows = rows.filter(row => {
-            const name = row.cells[1].textContent.toLowerCase();
-            const email = row.cells[2].textContent.toLowerCase();
-            return name.includes(searchInput) || email.includes(searchInput);
-        });
-
-        // Calculate pagination
-        const totalPages = Math.ceil(filteredRows.length / entriesPerPage);
-        const start = (currentPage - 1) * entriesPerPage;
-        const end = start + entriesPerPage;
-
-        // Hide all rows first
-        rows.forEach(row => row.style.display = 'none');
-
-        // Show only rows for current page
-        filteredRows.slice(start, end).forEach(row => row.style.display = '');
-
-        // Update row numbers
-        let rowNumber = start + 1;
-        filteredRows.slice(start, end).forEach(row => {
-            row.cells[0].textContent = rowNumber++;
-        });
-    }
-
-    // Modify existing searchTable function
-    function searchTable() {
-        currentPage = 1; // Reset to first page when searching
-        const sortValue = document.getElementById('sortSelect').value;
-        const tbody = document.querySelector('tbody');
-        const rows = Array.from(tbody.getElementsByTagName('tr'));
-
-        // Sort functionality remains the same
-        rows.sort((a, b) => {
-            const statusA = a.cells[9].textContent.toLowerCase();
-            const statusB = b.cells[9].textContent.toLowerCase();
-
-            // Always keep pending on top
-            if (statusA === 'pending' && statusB !== 'pending') return -1;
-            if (statusB === 'pending' && statusA !== 'pending') return 1;
-
-            switch(sortValue) {
-                case 'name':
-                    return a.cells[1].textContent.localeCompare(b.cells[1].textContent);
-                case 'date':
-                    return new Date(a.cells[5].textContent) - new Date(b.cells[5].textContent);
-                case 'status':
-                    return a.cells[9].textContent.localeCompare(b.cells[9].textContent);
-                default:
-                    return 0;
-            }
-        });
-
-        // Clear and re-append sorted rows
-        while (tbody.firstChild) {
-            tbody.removeChild(tbody.firstChild);
-        }
-        rows.forEach(row => tbody.appendChild(row));
-
-        // Update table with pagination
-        updateTable();
-        }
-
-        // Initialize table
-        document.addEventListener('DOMContentLoaded', function() {
-            updateTable();
-        });
-    </script>
         <!-- New Table -->
 
         
@@ -207,12 +126,60 @@
                 </div>
                 <div class="table-container">
                     <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
+                        <table class="w-full whitespace-no-wrap" id="myTable">
                             <thead>
                             <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3 ">No.</th>
-                                <th class="px-4 py-3 ">Customers Name</th>
-                                <th class="px-4 py-3 ">Booking Email</th>
+                            <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">No.</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Customer Name</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
+                                    <div class="flex items-center justify-center">
+                                        <span class="dt-column-title">Booking Email</span>
+                                        <div class="flex flex-col ml-2">
+                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                                </svg>
+                                            </button>
+                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
                                 <th class="px-4 py-3 text-center">Contact Number</th>
                                 <th class="px-4 py-3 ">Rooms Name</th>
                                 <th class="px-4 py-3 text-center">Check in</th>
@@ -315,6 +282,7 @@
             </div>
         </div>
 <!-- Add these functions to your existing JavaScript -->
+<script src="/DataTables/datatables.js"></script>
 <script>
 function prevPage() {
     if (currentPage > 1) {
@@ -362,4 +330,198 @@ document.addEventListener('DOMContentLoaded', function() {
     updateTable();
     updatePageInfo();
 });
+</script>
+<script src="../assets/js/booking.js"></script>
+
+<script>
+    // <!-- Search and Sort Controls -->
+    let currentPage = 1;
+
+function changeEntries() {
+    currentPage = 1; // Reset to first page when changing entries
+    updateTable();
+}
+
+function updateTable() {
+    const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
+    const tbody = document.querySelector('tbody');
+    const rows = Array.from(tbody.getElementsByTagName('tr'));
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+    // Filter rows based on search
+    const filteredRows = rows.filter(row => {
+        const name = row.cells[1].textContent.toLowerCase();
+        const email = row.cells[2].textContent.toLowerCase();
+        return name.includes(searchInput) || email.includes(searchInput);
+    });
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredRows.length / entriesPerPage);
+    const start = (currentPage - 1) * entriesPerPage;
+    const end = start + entriesPerPage;
+
+    // Hide all rows first
+    rows.forEach(row => row.style.display = 'none');
+
+    // Show only rows for current page
+    filteredRows.slice(start, end).forEach(row => row.style.display = '');
+
+    // Update row numbers
+    let rowNumber = start + 1;
+    filteredRows.slice(start, end).forEach(row => {
+        row.cells[0].textContent = rowNumber++;
+    });
+}
+
+// Modify existing searchTable function
+    function searchTable() {
+        currentPage = 1; // Reset to first page when searching
+        const sortValue = document.getElementById('sortSelect').value;
+        const tbody = document.querySelector('tbody');
+        const rows = Array.from(tbody.getElementsByTagName('tr'));
+
+        // Sort functionality remains the same
+    rows.sort((a, b) => {
+        const statusA = a.cells[9].textContent.toLowerCase();
+        const statusB = b.cells[9].textContent.toLowerCase();
+
+        // Always keep pending on top
+        if (statusA === 'pending' && statusB !== 'pending') return -1;
+        if (statusB === 'pending' && statusA !== 'pending') return 1;
+
+        switch(sortValue) {
+            case 'name':
+                return a.cells[1].textContent.localeCompare(b.cells[1].textContent);
+            case 'date':
+                return new Date(a.cells[5].textContent) - new Date(b.cells[5].textContent);
+            case 'status':
+                return a.cells[9].textContent.localeCompare(b.cells[9].textContent);
+            default:
+                return 0;
+        }
+    });
+
+    // Clear and re-append sorted rows
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+    rows.forEach(row => tbody.appendChild(row));
+
+    // Update table with pagination
+    updateTable();
+    }
+
+    // Initialize table
+    document.addEventListener('DOMContentLoaded', function() {
+        updateTable();
+    });
+</script>
+<script>
+    // Initialize DataTable with sorting functionality
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            responsive: true,
+            order: [[1, 'asc']], // Default sort by customer name (column index 1) ascending
+            columnDefs: [
+                {
+                    targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // Apply sorting to all columns except action column
+                    orderable: true
+                },
+                {
+                    targets: [10], // Action column
+                    orderable: false
+                }
+            ],
+            language: {
+                sortAscending: ': activate to sort column ascending',
+                sortDescending: ': activate to sort column descending'
+            }
+        });
+
+        // Custom sorting buttons
+        $('.sort-btn').on('click', function() {
+            const column = $(this).closest('th').index();
+            const isAsc = $(this).hasClass('sort-asc');
+            
+            $('#myTable').DataTable()
+                .order([column, isAsc ? 'asc' : 'desc'])
+                .draw();
+        });
+    });
+</script>
+<script>
+function sortTableAsc(columnIndex) {
+    const table = document.getElementById('myTable');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const rows = Array.from(tbody.getElementsByTagName('tr'));
+
+    rows.sort((a, b) => {
+        let aValue = a.cells[columnIndex + 1].textContent.trim();
+        let bValue = b.cells[columnIndex + 1].textContent.trim();
+        
+        // Handle date sorting
+        if (columnIndex === 4 || columnIndex === 5) { // Check-in and Check-out columns
+            return new Date(aValue) - new Date(bValue);
+        }
+        
+        // Handle numeric sorting
+        if (!isNaN(aValue) && !isNaN(bValue)) {
+            return parseFloat(aValue) - parseFloat(bValue);
+        }
+        
+        // Default string sorting
+        return aValue.localeCompare(bValue);
+    });
+
+    // Clear and re-append sorted rows
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+    rows.forEach(row => tbody.appendChild(row));
+    updateRowNumbers();
+}
+
+function sortTableDesc(columnIndex) {
+    const table = document.getElementById('myTable');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const rows = Array.from(tbody.getElementsByTagName('tr'));
+
+    rows.sort((a, b) => {
+        let aValue = a.cells[columnIndex + 1].textContent.trim();
+        let bValue = b.cells[columnIndex + 1].textContent.trim();
+        
+        // Handle date sorting
+        if (columnIndex === 4 || columnIndex === 5) { // Check-in and Check-out columns
+            return new Date(bValue) - new Date(aValue);
+        }
+        
+        // Handle numeric sorting
+        if (!isNaN(aValue) && !isNaN(bValue)) {
+            return parseFloat(bValue) - parseFloat(aValue);
+        }
+        
+        // Default string sorting
+        return bValue.localeCompare(aValue);
+    });
+
+    // Clear and re-append sorted rows
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+    rows.forEach(row => tbody.appendChild(row));
+    updateRowNumbers();
+}
+
+function updateRowNumbers() {
+    const tbody = document.querySelector('tbody');
+    const rows = tbody.getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[0].textContent = i + 1;
+    }
+}
+
+// Remove or comment out the DataTables initialization
+// $(document).ready(function() {
+//     $('#myTable').DataTable({...});
+// });
 </script>
