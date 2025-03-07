@@ -64,5 +64,8 @@
 		function roomsUpload(){
 			include '../views/roomsUpload.php';
 		}
+		function food(){
+			include '../views/food.php';
+		}
 	}
 ?>
