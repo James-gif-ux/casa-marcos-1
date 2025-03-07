@@ -121,7 +121,6 @@
                             <th>Room Description</th>
                             <th>Room Price</th>
                             <th>Room Image</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -134,42 +133,6 @@
                                 <td class="px-2 py-3 text-left"><?php echo htmlspecialchars($service['services_description']); ?></td>
                                 <td class="px-4 py-3 text-left">₱<?php echo number_format(htmlspecialchars($service['services_price']), 2); ?></td>
                                 <td><img src="../images/<?php echo htmlspecialchars($service['services_image']); ?>" alt="Room Image" class="image"></td>
-                                <td>
-                                    <button onclick="openEditModal(<?php echo $service['services_id']; ?>, '<?php echo htmlspecialchars($service['services_name'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($service['services_description'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($service['services_price']); ?>')" style="background-color: #2196F3; color: white; border: none; padding: 5px 10px; margin: 2px; border-radius: 3px; cursor: pointer;"><i class="bi bi-pencil-square"></i></button>
-                                         <!-- Edit Modal -->
-                                        <div id="editModal" class="modal" style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
-                                            <div class="modal-content" style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 50%;">
-                                                <span class="close" onclick="closeEditModal()" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
-                                                <h2>Edit Room</h2>
-                                                <form id="editRoomForm" action="../pages/roomsUpload.php" method="POST">
-                                                    <input type="hidden" id="edit_room_id" name="room_id">
-                                                    <div style="margin-bottom: 15px;">
-                                                        <label for="edit_room_name">Room Name:</label>
-                                                        <select name="room_name" id="edit_room_name" class="form-control" required>
-                                                            <option value="Sapphira Villa 6 Pax">Sapphira Villa 6 Pax</option>
-                                                            <option value="Sapphira Villas 8 Pax">Sapphira Villas 8 Pax</option>
-                                                            <option value="Matrimonial">Matrimonial</option>
-                                                            <option value="Matrimonial Plus">Matrimonial Plus</option>
-                                                            <option value="Barkada">Barkada</option>
-                                                            <option value="CV Room 4 Pax">CV Room 4 Pax</option>
-                                                            <option value="CV Room 8 Pax">CV Room 8 Pax</option>
-                                                        </select>
-                                                    </div>
-                                                    <div style="margin-bottom: 15px;">
-                                                        <label for="edit_room_description">Description:</label>
-                                                        <textarea id="edit_room_description" name="room_description" required style="width: 100%; height: 100px;"></textarea>
-                                                    </div>
-                                                    <div style="margin-bottom: 15px; ">
-                                                        <label for="edit_room_price">Price:</label>
-                                                        <input type="number" id="edit_room_price" name="room_price" style="border: 1px solid #ccc;" required>
-                                                    </div>
-                                                    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Update Room</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                   
-                                    <button onclick="deleteRoom(<?php echo $service['services_id']; ?>)" style="background-color: #f44336; color: white; border: none; padding: 5px 10px; margin: 2px; border-radius: 3px; cursor: pointer;"><i class="bi bi-trash-fill"></i></button>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

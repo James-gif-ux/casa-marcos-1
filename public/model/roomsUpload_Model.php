@@ -1,55 +1,45 @@
 <?php
-    //import database connector
-    require_once 'server.php';
-    
-    class roomsUpload_Model extends Connector {
-        function __construct() {
-            parent::__construct();
-        }
-        
-        function get_services() {
-            $sql = "SELECT * FROM `services_tb`";  // Remove WHERE clause to get all services
+	//import database connector
+	require_once 'server.php';
+	
+	//-------------------------------//
+	//--class for login page active--//
+	//-------------------------------//
+	class roomsUpload_Model extends Connector{
+		function __construct(){
+			parent::__construct();
+		}
+		
+		//-------------------------------//
+		//--  function starts here      --//
+		function get_services(){
+            $sql = "SELECT * FROM `services_tb` WHERE `services_id` = 1";
             $query = $this->getConnection()->prepare($sql);        
+            //execute query
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);  // Changed to fetchAll
+            //return
+            return $query->fetch(PDO::FETCH_ASSOC);
         }
         
-        function service_update_submit($data) {
-            try {
-                $sql = "UPDATE `services_tb` SET 
-                        `services_name` = :services_name,
-                        `services_description` = :services_description,
-                        `services_price` = :services_price
-                        WHERE `services_id` = :services_id";
-                
-                $query = $this->getConnection()->prepare($sql);
-                $query->bindParam(':services_name', $data['room_name']);
-                $query->bindParam(':services_description', $data['room_description']);
-                $query->bindParam(':services_price', $data['room_price']);
-                $query->bindParam(':services_id', $data['edit_services_id']);
-                
-                return $query->execute();
-            } catch (PDOException $e) {
-                error_log($e->getMessage());
-                return false;
-            }
+        function updateRoom(){
+            $sql = "UPDATE `services_tb` 
+                    SET `services_name` = '{$_POST['services_name']}', `services_price` = '{$_POST['services_price']}', `services_description` = '{$_POST['services_description']}' 
+                    WHERE `services_id` = '{$_GET['id']}'";
+            $query = $this->getConnection()->prepare($sql);
+            //execute query
+            $query->execute();
+            //return
+            return $query->fetch(PDO::FETCH_ASSOC);
         }
 
-        function upload_service_image($data) {
-            try {
-                $sql = "UPDATE `services_tb` SET 
-                        `services_image` = :services_image 
-                        WHERE `services_id` = :services_id";
-                
-                $query = $this->getConnection()->prepare($sql);
-                $query->bindParam(':services_image', $data['room_image']);
-                $query->bindParam(':services_id', $data['edit_services_id']);
-                
-                return $query->execute();
-            } catch (PDOException $e) {
-                error_log($e->getMessage());
-                return false;
-            }
+        function upload_service_image($data){
+            $sql = "UPDATE `services_tb` SET `services_image` = :services_image WHERE `services_id` = 1";
+            $query = $this->getConnection()->prepare($sql);
+            $query->bindParam(':services_image', $data['services_image']);
+            //execute query
+            $query->execute();
+            //return
+            return $query->fetch(PDO::FETCH_ASSOC);
         }
-    }
+	 }
 ?>
