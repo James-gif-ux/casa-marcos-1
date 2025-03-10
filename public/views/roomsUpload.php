@@ -123,19 +123,6 @@
                             <th>Room Image</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php 
-                        $counter = 1;
-                        foreach ($services as $service): ?>
-                            <tr>
-                                <td><?php echo $counter++; ?></td>
-                                <td class="px-4 py3 text-left"><?php echo htmlspecialchars($service['services_name']); ?></td>
-                                <td class="px-2 py-3 text-left"><?php echo htmlspecialchars($service['services_description']); ?></td>
-                                <td class="px-4 py-3 text-left">₱<?php echo number_format(htmlspecialchars($service['services_price']), 2); ?></td>
-                                <td><img src="../images/<?php echo htmlspecialchars($service['services_image']); ?>" alt="Room Image" class="image"></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
                 </table>
             </div>
         </section>
