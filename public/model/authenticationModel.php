@@ -1,6 +1,6 @@
 <?php
 	//import database connector
-	require_once 'connector.php';
+	require_once 'server.php';
 	
 	//-------------------------------//
 	//--class for login page active--//
@@ -14,7 +14,7 @@
 		//--  function starts here      --//
 		function loggedin(){
             $sql = "SELECT * FROM `admin_tb` WHERE admin_username = ? and admin_password = ?";
-            $query = $this->conn->prepare($sql);
+            $query = $this->getConnection()->prepare($sql);
             
             // Bind the parameters
             $query->bindParam(1, $_POST['username']);
