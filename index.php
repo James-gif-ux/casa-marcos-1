@@ -1,3 +1,3 @@
 <script>
-    window.location.href = "../pages/home.php";
+    window.location.href = "./public/pages/home.php";
 </script>

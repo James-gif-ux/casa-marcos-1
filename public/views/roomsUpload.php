@@ -121,8 +121,68 @@
                             <th>Room Description</th>
                             <th>Room Price</th>
                             <th>Room Image</th>
+                            <th>Action  </th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <?php 
+                        $counter = 1;
+                        foreach ($services as $service): ?>
+                            <tr>
+                                <td class="px-2 py-3 text-left"><?php echo $counter++; ?></td>
+                                <td class="px-2 py-3 text-left"><?php echo htmlspecialchars($service['services_name']); ?></td>
+                                <td class="px-2 py-3 text-left"><?php echo htmlspecialchars($service['services_description']); ?></td>
+                                <td><?php echo htmlspecialchars($service['services_price']); ?></td>
+                                <td>
+                                    <?php if(!empty($service['services_image'])): ?>
+                                        <img src="../images/<?php echo htmlspecialchars($service['services_image']); ?>" 
+                                        alt="Room Image" class="room-image" style="width: 50px; height: 50px; ">
+                                    <?php endif; ?>
+                                </td>
+                                <td class="px-2 py-3">
+                                    <button onclick="openEditModal(
+                                        '<?php echo htmlspecialchars($service['services_id']); ?>', 
+                                        '<?php echo htmlspecialchars($service['services_name']); ?>', 
+                                        '<?php echo htmlspecialchars($service['services_description']); ?>', 
+                                        '<?php echo htmlspecialchars($service['services_price']); ?>'
+                                    )" class="btn btn-primary" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">
+                                        Edit
+                                    </button>
+
+                                    <!-- Edit Modal -->
+                                    <div id="editModal" class="modal" style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+                                        <div class="modal-content" style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px;">
+                                            <span class="close" onclick="closeEditModal()" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+                                            <h2>Edit Room Details</h2>
+                                            <form action="../pages/updateRoom.php" method="POST" enctype="multipart/form-data">
+                                                <input type="hidden" id="edit_room_id" name="room_id">
+                                                <div style="margin-bottom: 15px;">
+                                                    <label for="edit_room_name">Room Name:</label>
+                                                    <input type="text" id="edit_room_name" name="room_name" style="width: 100%; padding: 8px;">
+                                                </div>
+                                                <div style="margin-bottom: 15px;">
+                                                    <label for="edit_room_description">Description:</label>
+                                                    <textarea id="edit_room_description" name="room_description" style="width: 100%; height: 100px; padding: 8px;"></textarea>
+                                                </div>
+                                                <div style="margin-bottom: 15px;">
+                                                    <label for="edit_room_price">Price:</label>
+                                                    <input type="number" id="edit_room_price" name="room_price" style="width: 100%; padding: 8px;">
+                                                </div>
+                                                <div style="margin-bottom: 15px; margin-right:20px;">
+                                                    <label for="edit_room_image">New Image (optional):</label>
+                                                    <input type="file" id="edit_room_image" name="room_image" accept="image/*">
+                                                </div>
+                                                <div style="text-align: right;">
+                                                    <button type="button" onclick="closeEditModal()" style="padding: 8px 15px; margin-right: 10px; background-color: #ccc;">Cancel</button>
+                                                    <button type="submit" style="padding: 8px 15px; background-color: #007bff; color: white; border: none;">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
         </section>

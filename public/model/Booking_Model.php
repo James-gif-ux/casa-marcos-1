@@ -115,6 +115,22 @@ class Booking_Model {
         return $bookings;
     }
 
-
+    public function update_room($id, $name, $description, $price, $image) {
+        try {
+            $sql = "UPDATE services_tb SET 
+                    services_name = ?, 
+                    services_description = ?, 
+                    services_price = ?, 
+                    services_image = ? 
+                    WHERE services_id = ?";
+                    
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$name, $description, $price, $image, $id]);
+            
+            return true;
+        } catch (PDOException $e) {
+            return "Database Error: " . $e->getMessage();
+        }
+    }
 }
 ?>
