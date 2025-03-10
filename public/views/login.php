@@ -247,7 +247,7 @@
                                     id="password" aria-label="password" placeholder="Password" required>
                             </div>
                             <button class="btn btn-secondary btn-user btn-block">Login</button>
-                            <a href="../index.php" style="display: block; margin-top: 15px; text-align: center; color: var(--primary);">
+                            <a href="../../index.php" style="display: block; margin-top: 15px; text-align: center; color: var(--primary);">
                                 <i class="fas fa-home" style="font-size: 20px;"></i> Back to Home
                             </a>   <?php if(isset($msg)): ?>
                             <div class="error-message">
