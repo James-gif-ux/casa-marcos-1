@@ -55,9 +55,10 @@
 
 
     <link rel="stylesheet" href="../assets/css/booking.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css.map">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Include jQuery and DataTables scripts -->
     <script src="../assets/js/jquery-3.7.1.min.js"></script>
@@ -65,143 +66,8 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <style>
-    table{
-        width: 100%;
-    }
+   
 
-    /* Add to existing styles */
-    .bg-yellow-50 {
-        background-color: rgba(254, 252, 232, 0.5);
-    }
-    .bg-green-100 {
-        background-color: #D1FAE5;
-    }
-    .text-green-700 {
-        color: #047857;
-    }
-    .rounded-full {
-        border-radius: 9999px;
-    }
-    .table-container {
-        max-height: 760px;
-        overflow-y: auto;
-        margin: 20px 0;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .table-container::-webkit-scrollbar {
-        width: 8px;
-    }
-    .table-container::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-    }
-    .table-container::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 4px;
-    }
-    .table-container::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-    /* Fixed header styles */
-    thead {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-    }
-    th {
-        position: sticky;
-        top: 0;
-        padding: 5px;
-        background-color: rgb(162, 203, 243);
-        z-index: 2;
-        border-bottom: 2px solid #e5e7eb;
-    }
-    /* Ensure header stays above content when scrolling */
-    tbody {
-        position: relative;
-        z-index: 1;
-    }
-    #entriesSelect {
-        background-color: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 0.375rem;
-        padding: 0.5rem;
-        cursor: pointer;
-    }
-    .flex {
-        display: flex;
-    }
-    .items-center {
-        align-items: center;
-    }
-    .justify-between {
-        justify-content: space-between;
-    }
-
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-        background-color: #fefefe;
-        margin: 10% auto; /* Reduced from 15% */
-        padding: 25px; /* Reduced padding */
-        border: 1px solid #888;
-        width: 35%; /* Reduced width */
-        max-width: 450px; /* Reduced max-width */
-        border-radius: 6px;
-    }
-    
-    .mb-3 {
-        margin-bottom: 0.75rem;
-    }
-    
-    .modal-body label {
-        font-size: 0.9rem;
-        display: block;
-        margin-bottom: 0.3rem;
-    }
-    
-    .modal-buttons {
-        margin-top: 1rem;
-        display: flex;
-        gap: 0.5rem;
-        justify-content: flex-end;
-    }
-    
-    .modal-buttons button {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
-
-    /* Add these styles to your existing style section */
-    #sortSelect {
-        background-color: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 0.375rem;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-    }
-
-    #sortOrderBtn {
-        background-color: #e2e8f0;
-        border: none;
-        border-radius: 0.375rem;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    #sortOrderBtn:hover {
-        background-color: #cbd5e0;
-    }
 </style>
 
     <section>
@@ -223,7 +89,7 @@
                     <option value="Check Out">Check Out</option>
                 </select>
             </div>
-        
+            
         
             <!-- Modify the table wrapper div -->
             <div >
@@ -246,7 +112,7 @@
                         <?php  $rowNumber = 1; ?>
                         <?php foreach ($reservation as $res): ?>
                             <tr class="text-gray-700 dark:text-gray-400 <?php echo $hasMultipleBookings ? 'bg-yellow-50' : ''; ?>"> 
-                                <td class="px-2 py-3 text-center" style="padding: 25px;"><?php echo $rowNumber ++;?></td>
+                                <td class="px-2 py-3 text-center" style="padding: 0px;"><?php echo $rowNumber ++;?></td>
                                 <td class="px-2 py-3 "><?php echo htmlspecialchars($res['services_name'] ?? 'N/A'); ?></td>
                                 <td class="px-2 py-3 "><?php echo htmlspecialchars($res['name']); ?></td>
                                 <td class="px-2 py-3 "><?php echo htmlspecialchars($res['email']); ?></td>
@@ -255,7 +121,7 @@
                                 <td class="px-2 py-3 text-center"><?php echo htmlspecialchars(date('M. d, Y', strtotime($res['checkout']))); ?></td>
                                 <td class="px-2 py-3 "><?php echo htmlspecialchars($res['message']); ?></td>
                                 <td class="px-2 py-3 text-center"><?php echo htmlspecialchars($res['status']); ?></td>
-                                <td style="display: flex; justify-content: center; align-items: center; padding: 10px; gap: 8px;">
+                                <td class="px-2 py-3 text-center">
                                     <?php if (isset($res['reservation_id'])): ?>
                                         <?php if ($res['status'] === 'pending'): ?>
                                             <a href="javascript:void(0)" onclick="showConfirmModal(
@@ -267,18 +133,14 @@
                                                 '<?php echo htmlspecialchars($res['checkin']); ?>',
                                                 '<?php echo htmlspecialchars($res['checkout']); ?>',
                                                 '<?php echo htmlspecialchars($res['status']); ?>'
-                                            )" class="btn-sm" style="padding: 5px; border-radius: 8px; margin-top:15px; background-color: green; gap: 5px; position: relative;" title="Reserved Booking">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-square-fill" viewBox="0 0 16 16">
-                                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
-                                                </svg></a>
+                                            )" class="btn btn-success" title="Approve Reservation">
+                                                <i class="bi bi-check-square"  style="background-color: #1a96d3; padding: 5px;"></i>
+                                            </a>
                                         <?php endif; ?>
                                         <?php if ($res['status'] === 'pending'): ?>
                                         <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=cancelled"
-                                            class="btn-sm" style="padding: 5px; border-radius: 8px; margin-top:15px; background-color: red; gap: 5px; position: relative;" title="Cancel Booking">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-x-square" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                            </svg>
+                                            class="btn-sm" title="Cancel Reservation">
+                                            <i class="bi bi-x-square" style="background-color: red; padding: 5px;"></i>
                                         </a>
                                         <?php endif; ?>
                                     <?php endif; ?>
@@ -307,38 +169,43 @@
                             </div>
                             <hr>
                             <div class="mb-3">
-                                    <label for="email" class="form-label"><b>Email: &nbsp;</b><span id="modalEmail"></span></label>
-                                </div>
-                                <hr>
-                                <div class="mb-3">
-                                    <label for="number" class="form-label"><b>Phone Number:</b> &nbsp;<span id="modalPhone"></label>
-                                </div>
-                                <hr>
-                                <div class="mb-3">
-                                    <label for="service" class="form-label"><b>Selected Room:</b> &nbsp;<span id="modalRoom"></label>
-                                </div>
-                                <hr>
-                                <div class="mb-3">
-                                    <label for="check_in" class="form-label"><b>Check-in Date:</b> &nbsp;<span id="modalCheckin"></label>
-                                </div>
-                                <hr>
-                                <div class="mb-3">
-                                    <label for="check_out" class="form-label"><b>Check-out Date:</b> &nbsp;<span id="modalCheckout"></label>
-                                </div>
-                                <hr>
-                                <div class="mb-3">
-                                    <label for="check_out" class="form-label"><b>Status:</b> &nbsp;<span id="modalStatus"></span></label>
-                                </div><br>
-                                <div class="modal-buttons">
-                                    <button type="button" onclick="closeModal()" class="btn-danger">Cancel</button>
-                                    <button type="submit" class="btn-approve">Confirm Reservation</button>
-                                </div>
+                                <label for="email" class="form-label"><b>Email: &nbsp;</b><span id="modalEmail"></span></label>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="number" class="form-label"><b>Phone Number:</b> &nbsp;<span id="modalPhone"></label>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="service" class="form-label"><b>Selected Room:</b> &nbsp;<span id="modalRoom"></label>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="check_in" class="form-label"><b>Check-in Date:</b> &nbsp;<span id="modalCheckin"></span></label>
+                                <input type="date" id="form_checkin_input" name="check_in" class="form-control" 
+                                        onchange="document.getElementById('modalCheckin').textContent = this.value" required>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="check_out" class="form-label"><b>Check-out Date:</b> &nbsp;<span id="modalCheckout"></span></label>
+                                <input type="date" id="form_checkout_input" name="check_out" class="form-control"
+                                        onchange="document.getElementById('modalCheckout').textContent = this.value" required>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="check_out" class="form-label"><b>Status:</b> &nbsp;<span id="modalStatus"></span></label>
+                            </div><br>
+                            <div class="modal-buttons">
+                                <button type="button" onclick="closeModal()" class="btn-danger">Cancel</button>
+                                <button type="submit" class="btn-approve">Confirm Reservation</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <section>
     <div class="table-container">
         <div class="w-full overflow-x-auto">
             <table class="w-full whitespace-no-wrap" id="myTable" class="display">
@@ -384,7 +251,7 @@
                                         </a>
                                         <?php if ($booking['booking_status'] === 'pending'): ?>
                                             <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=approve" 
-                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: green; gap: 5px; position: relative;" title="Approve Booking">
+                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: blue; gap: 5px; position: relative;" title="Check-in">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check2-circle" viewBox="0 0 16 16">
                                                     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
                                                     <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.384 7.323a.5.5 0 0 0-1.06 1.06L6.97 11.03a.5.5 0 0 0 1.079-.02l3.992-4.99a.5.5 0 0 0-.01-1.05z"/>
@@ -394,7 +261,7 @@
                                         
                                         <?php if ($booking['booking_status'] === 'approved'): ?>
                                             <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=complete" 
-                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: green; gap: 5px; position: relative;" title="Checkout">
+                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: red; gap: 5px; position: relative;" title="Check-out">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                                             </svg></a>
@@ -407,6 +274,7 @@
                 </table>
             </div>
         </div>
+    </section>
     </div>
     <?php
 
@@ -614,4 +482,3 @@
             }
         });
     </script>
-

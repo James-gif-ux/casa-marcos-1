@@ -60,32 +60,21 @@
 
             <div class="card border-0">
                 <div class="card-body date-picker-container">
-                    <form method="POST" action="" class="mb-4">
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="start_date" class="form-label fw-bold">
-                                        <i class="fas fa-calendar-alt me-2"></i>Start Date:
-                                    </label>
-                                    <input type="date" class="form-control form-control-lg" id="start_date" name="start_date" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="end_date" class="form-label fw-bold">
-                                        <i class="fas fa-calendar-alt me-2"></i>End Date:
-                                    </label>
-                                    <input type="date" class="form-control form-control-lg" id="end_date" name="end_date" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="invisible">Generate:</label>
-                                <button type="submit" class="btn generate-btn btn-lg w-100 text-white">
-                                    <i class="fas fa-sync-alt me-2"></i>Generate Report
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <form action="" method="POST">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+										</div>
+										<div class="input-group-prepend">
+											<input type="month" class="form-control" name="month_pick" value="2025-03">
+										</div>
+										
+										<div class="input-group-append">
+											<input type="hidden" name="subpage" value="attendance">
+											<input class="btn btn-primary" type="submit" value="Go">
+										</div>
+									</div>
+								</form>
 
                     
                         </div>
@@ -97,8 +86,9 @@
         <?php
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Get the date range
-                        $start_date = $_POST['start_date'];
-                        $end_date = $_POST['end_date'];
+                        $selected_month = $_GET['month_pick'];
+                        $start_date = date('Y-m-01', strtotime($selected_month));
+                        $end_date = date('Y-m-t', strtotime($selected_month));
 
                         // Database connection
                         require_once '../model/server.php';
@@ -121,8 +111,6 @@
                             
                             $stmt = $connector->getConnection()->prepare($query);
                             $stmt->execute(array($start_date, $end_date));
-                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            $stmt->execute();
                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             
                             // Initialize totals
@@ -161,13 +149,13 @@
                                             
                                             $total_revenue += $row['daily_revenue'];
                                             $total_bookings += $row['total_bookings'];
-                                            $total_bookings += $row['completed_bookings'];
+                                            $total_completed += $row['completed_bookings'];
                                         }
                                         ?>
                                         <tr class="total-row">
                                             <td class="px-4 py-3 fw-bold text-center">Total</td>
                                             <td class="px-4 py-3 fw-bold text-center"><?php echo $total_bookings; ?></td>
-                                            <td class="px-4 py-3 fw-bold text-center"><?php echo $total_bookings; ?></td>
+                                            <td class="px-4 py-3 fw-bold text-center"><?php echo $total_completed; ?></td>
                                             <td class="px-4 py-3 fw-bold text-center">₱<?php echo number_format($total_revenue, 2); ?></td>
                                         </tr>
                                     </tbody>
