@@ -1,5 +1,4 @@
 <?php
-    session_start();
    
     require_once '../model/server.php';
     include_once 'nav/header.php';

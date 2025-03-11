@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sortSelect = document.getElementById('sortSelect');
     const tbody = document.querySelector('tbody');
     const rows = Array.from(tbody.querySelectorAll('tr'));
+    
     // Modal functionality
     const modal = document.getElementById('messageModal');
     const span = document.getElementsByClassName('close')[0];

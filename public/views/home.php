@@ -74,7 +74,8 @@
             echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
         }
     }
-        ?>
+    ini_set('memory_limit', '256M');
+?>
 
         <link rel="stylesheet" href="../assets/css/roomstry.css">
             <main>

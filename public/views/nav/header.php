@@ -1,4 +1,9 @@
 <?php
+session_start();
+// Clear any previous active menu state
+if (isset($_SESSION['active_menu'])) {
+    unset($_SESSION['active_menu']);
+}
 require_once '../model/server.php';
 
 // Initialize unreadCount variable
@@ -46,6 +51,9 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
     ></script>
     <script src="../assets/js/charts-lines.js" defer></script>
     <script src="../assets/js/charts-pie.js" defer></script>
+
+    
+
   </head>
   <style>
     
@@ -215,21 +223,6 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                     </a>
                   </li>
                   
-                  <!-- Example for payments -->
-                <li class="relative px-6 py-3 menu-item" data-page="reservedBooking">
-                    <?php if($current_page == 'reservedBooking.php'): ?>
-                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
-                    <?php endif; ?>
-                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'reservedBooking.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                      href="../pages/admin_dashboard.php?sub_page=reservedBooking">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
-                        <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                      </svg>
-                      <span class="ml-4 text-gray-500 dark:text-gray-400">Reserved Booking</span>
-                    </a>
-                  </li>
-                  
                   
                   <li class="relative px-6 py-3 menu-item" data-page="roomsUpload">
                     <?php if($current_page == 'roomsUpload.php'): ?>
@@ -372,20 +365,6 @@ $active_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
                         <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
                       </svg>
                       <span class="ml-4">Payments</span>
-                    </a>
-                  </li>
-                  <!-- Example for payments -->
-                <li class="relative px-6 py-3 menu-item" data-page="reservedBooking">
-                    <?php if($current_page == 'reservedBooking.php'): ?>
-                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg active-indicator" aria-hidden="true"></span>
-                    <?php endif; ?>
-                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 <?php echo $current_page == 'reservedBooking.php' ? 'text-gray-800 dark:text-gray-100' : ''; ?>"
-                      href="../pages/admin_dashboard.php?sub_page=reservedBooking">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
-                        <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                      </svg>
-                      <span class="ml-4">Reserved Booking</span>
                     </a>
                   </li>
                   <li class="relative px-6 py-3 menu-item" data-page="roomsUpload">
