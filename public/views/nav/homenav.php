@@ -509,7 +509,7 @@
             <li><a href="roomstry.php" class="<?php echo ($current_page == 'roomstry.php') ? 'active' : ''; ?>">Our Rooms</a></li>
             <li><a href="offers.php" class="<?php echo ($current_page == 'offers.php') ? 'active' : ''; ?>">Food Menu</a></li>
             
-                <a href="home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
+                <a href="../pages/home.php" class="logo mobile-logo" style="margin: 0 2rem; text-decoration: none;">
                     <h1 style="text-align: center; line-height: 1.2;">CASA MARCOS
                         <span style="display: block; font-size: 1rem;">RESORT AND VILLAS</span>
                     </h1>

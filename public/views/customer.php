@@ -21,81 +21,6 @@
         }
         
         ?>
-
-        <script>
-            // Function to clear URL parameters
-            function clearUrlParams() {
-                const url = window.location.href.split('?')[0];
-                window.history.replaceState({}, document.title, url);
-            }
-
-
-            // <!-- Search and Sort Controls -->
-        let currentPage = 1;
-            
-            function changeEntries() {
-                currentPage = 1; // Reset to first page when changing entries
-                updateTable();
-            }
-
-            function updateTable() {
-                const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
-                const tbody = document.querySelector('tbody');
-                const rows = Array.from(tbody.getElementsByTagName('tr'));
-                const searchInput = document.getElementById('searchInput').value.toLowerCase();
-
-                // Filter rows based on search
-                const filteredRows = rows.filter(row => {
-                    const name = row.cells[1].textContent.toLowerCase();
-                    const email = row.cells[2].textContent.toLowerCase();
-                    return name.includes(searchInput) || email.includes(searchInput);
-                });
-
-                // Calculate pagination
-                const totalPages = Math.ceil(filteredRows.length / entriesPerPage);
-                const start = (currentPage - 1) * entriesPerPage;
-                const end = start + entriesPerPage;
-
-                // Hide all rows first
-                rows.forEach(row => row.style.display = 'none');
-
-                // Show only rows for current page
-                filteredRows.slice(start, end).forEach(row => row.style.display = '');
-
-                // Update row numbers
-                let rowNumber = start + 1;
-                filteredRows.slice(start, end).forEach(row => {
-                    row.cells[0].textContent = rowNumber++;
-                });
-            }
-            // Add this to your script section
-            
-                function adjustTableHeight() {
-                    const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
-                    const tableContainer = document.querySelector('.table-container');
-                    
-                    if (entriesPerPage <= 10) {
-                        tableContainer.style.maxHeight = 'none';
-                        tableContainer.style.overflowY = 'visible';
-                    } else {
-                        tableContainer.style.maxHeight = '500px';  // Adjust this value as needed
-                        tableContainer.style.overflowY = 'auto';
-                    }
-                }
-            
-                // Modify the existing changeEntries function
-                function changeEntries() {
-                    currentPage = 1;
-                    adjustTableHeight();  // Add this line
-                    updateTable();
-                }
-            
-                // Call on page load
-                document.addEventListener('DOMContentLoaded', function() {
-                    adjustTableHeight();
-                    updateTable();
-                });
-            </script>
             <style>
                 .table-container {
                     max-height: 760px;
@@ -211,3 +136,77 @@
         echo "Error: " . $e->getMessage();
     }
     ?>
+          <script>
+            // Function to clear URL parameters
+            function clearUrlParams() {
+                const url = window.location.href.split('?')[0];
+                window.history.replaceState({}, document.title, url);
+            }
+
+
+            // <!-- Search and Sort Controls -->
+        let currentPage = 1;
+            
+            function changeEntries() {
+                currentPage = 1; // Reset to first page when changing entries
+                updateTable();
+            }
+
+            function updateTable() {
+                const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
+                const tbody = document.querySelector('tbody');
+                const rows = Array.from(tbody.getElementsByTagName('tr'));
+                const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+                // Filter rows based on search
+                const filteredRows = rows.filter(row => {
+                    const name = row.cells[1].textContent.toLowerCase();
+                    const email = row.cells[2].textContent.toLowerCase();
+                    return name.includes(searchInput) || email.includes(searchInput);
+                });
+
+                // Calculate pagination
+                const totalPages = Math.ceil(filteredRows.length / entriesPerPage);
+                const start = (currentPage - 1) * entriesPerPage;
+                const end = start + entriesPerPage;
+
+                // Hide all rows first
+                rows.forEach(row => row.style.display = 'none');
+
+                // Show only rows for current page
+                filteredRows.slice(start, end).forEach(row => row.style.display = '');
+
+                // Update row numbers
+                let rowNumber = start + 1;
+                filteredRows.slice(start, end).forEach(row => {
+                    row.cells[0].textContent = rowNumber++;
+                });
+            }
+            // Add this to your script section
+            
+                function adjustTableHeight() {
+                    const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
+                    const tableContainer = document.querySelector('.table-container');
+                    
+                    if (entriesPerPage <= 10) {
+                        tableContainer.style.maxHeight = 'none';
+                        tableContainer.style.overflowY = 'visible';
+                    } else {
+                        tableContainer.style.maxHeight = '500px';  // Adjust this value as needed
+                        tableContainer.style.overflowY = 'auto';
+                    }
+                }
+            
+                // Modify the existing changeEntries function
+                function changeEntries() {
+                    currentPage = 1;
+                    adjustTableHeight();  // Add this line
+                    updateTable();
+                }
+            
+                // Call on page load
+                document.addEventListener('DOMContentLoaded', function() {
+                    adjustTableHeight();
+                    updateTable();
+                });
+            </script>

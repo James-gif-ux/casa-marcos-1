@@ -5,6 +5,31 @@
     try {
         $connector = new Connector();
         
+        // Modified query to prioritize pending status
+        $sql = "SELECT reservation_id, r.*, s.services_name,
+                (SELECT COUNT(*) FROM reservations WHERE name = r.name) as booking_count
+                FROM reservations r 
+                LEFT JOIN services_tb s ON r.res_services_id = s.services_id 
+                WHERE r.status IN ('pending', 'confirmed', 'cancelled')
+                ORDER BY 
+                    CASE r.status
+                        WHEN 'pending' THEN 1
+                        WHEN 'confirmed' THEN 2
+                        WHEN 'cancelled' THEN 3
+                        ELSE 4
+                    END,
+                    r.checkin DESC";
+        
+        $stmt = $connector->executeQuery($sql);
+        $reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+        // Fetch all messages
+
+    try {
+        $connector = new Connector();
+        
         // Fetch all bookings
         $sql = "SELECT DISTINCT b.*, s.services_name, s.services_price,
                 DATEDIFF(b.booking_check_out, b.booking_check_in) as total_nights,
@@ -23,371 +48,236 @@
         
         $stmt = $connector->executeQuery($sql);
         $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    ?>
+    } catch (PDOException $e) {
+        echo "Error: ". $e->getMessage();
+    }
+?>
+
+
     <link rel="stylesheet" href="../assets/css/booking.css">
-    <link rel="stylesheet" href="/DataTables/datatables.css" />
- 
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-            <!-- Add these styles to the top of your file or in your CSS -->
-    <style>
-        .table-container {
-            max-height: 675px; /* Adjust height as needed */
-            overflow-y: auto;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    <!-- Include jQuery and DataTables scripts -->
+    <script src="../assets/js/jquery-3.7.1.min.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<style>
+   
 
-        .table-container::-webkit-scrollbar {
-            width: 8px;
-        }
+</style>
 
-        .table-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-
-        .table-container::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-
-        .table-container::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Fixed header styles */
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 2;
-        }
-
-        th {
-            position: sticky;
-            top: 0;
-            background-color:rgb(162, 203, 243);
-            z-index: 2;
-            border-bottom: 2px solid #e5e7eb;
-        }
-
-        /* Ensure header stays above content when scrolling */
-        tbody {
-            position: relative;
-            z-index: 1;
-        }
-        #entriesSelect {
-        background-color: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 0.375rem;
-        padding: 0.5rem;
-        cursor: pointer;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .items-center {
-            align-items: center;
-        }
-
-        .justify-between {
-            justify-content: space-between;
-        }
-    </style>
-
-        <!-- New Table -->
-
+    <section>
+        <div>
+            <select class="form-select mb-3" id="bookingSelect" aria-label="Booking type selection">
+            <option selected>Select booking type</option>
+            <option value="1">New Booking</option>
+            <option value="2">Reserved Booking</option>
+            </select>
+        </div>
+        <div id="tableContainer">
+            <div class="mb-3">
+                <select id="statusFilter" class="form-select">
+                    <option value="">All Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Check In">Check In</option>
+                    <option value="Check Out">Check Out</option>
+                </select>
+            </div>
+            
         
-            <!-- Modify the table container structure -->
-            <div class="w-full overflow-hidden">
-                <!-- Add entries selector -->
-                <div class="mb-4 p-4 bg-white rounded shadow flex items-center justify-between">
-                    <div class="flex items-center">
-                        <label class="mr-2">Show</label>
-                        <select id="entriesSelect" class="form-control input-sm px-3 py-1 border rounded" onchange="changeEntries()">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <label class="ml-2">entries</label>
-                    </div>
-                    <!-- Existing search and sort controls -->
-                    <div class="search-container">
-                        <input type="text" id="searchInput" class="search-input" placeholder="Search by name or email..." oninput="searchTable()">
-                        <select id="sortSelect" class="sort-select" onchange="searchTable()">
-                            <option value="name">Sort by Name</option>
-                            <option value="date">Sort by Check-in Date</option>
-                            <option value="status">Sort by Status</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap" id="myTable">
-                            <thead>
-                            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">No.</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Customer Name</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Booking Email</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Contact Number</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Rooms Name</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Check in</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Check out</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Night</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Total Amount</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Booking Status</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-dt-column="0" rowspan="1" id="myTable" colspan="1" class="dt-orderable-asc dt-orderable-desc dt-ordering-asc text-center" aria-sort="ascending">
-                                    <div class="flex items-center justify-center">
-                                        <span class="dt-column-title">Action</span>
-                                        <div class="flex flex-col ml-2">
-                                            <button onclick="sortTableAsc(0)" class="sort-btn" title="Sort Ascending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-                                                </svg>
-                                            </button>
-                                            <button onclick="sortTableDesc(0)" class="sort-btn" title="Sort Descending">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
+            <!-- Modify the table wrapper div -->
+            <div >
+                <table class="w-full whitespace-no-wrap border-collapse" id="reservedTable" class="display" style="display: none;">
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-4 py-3 text-center">No.</th>
+                            <th class="px-4 py-3 text-center">Rooms Name</th>
+                            <th class="px-4 py-3 text-center">Customers Name</th>
+                            <th class="px-4 py-3 text-center">Booking Email</th>
+                            <th class="px-4 py-3 text-center">Contact Number</th>
+                            <th class="px-4 py-3 text-center">check in</th>
+                            <th class="px-4 py-3 text-center">Check out</th>
+                            <th class="px-4 py-3 text-center">Messages</th>
+                            <th class="px-4 py-3 text-center">Booking Status</th>
+                            <th class="px-4 py-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        <?php  $rowNumber = 1; ?>
+                        <?php foreach ($reservation as $res): ?>
+                            <tr class="text-gray-700 dark:text-gray-400 <?php echo $hasMultipleBookings ? 'bg-yellow-50' : ''; ?>"> 
+                                <td class="px-2 py-3 text-center" style="padding: 0px;"><?php echo $rowNumber ++;?></td>
+                                <td class="px-2 py-3 "><?php echo htmlspecialchars($res['services_name'] ?? 'N/A'); ?></td>
+                                <td class="px-2 py-3 "><?php echo htmlspecialchars($res['name']); ?></td>
+                                <td class="px-2 py-3 "><?php echo htmlspecialchars($res['email']); ?></td>
+                                <td class="px-2 py-3 text-center"><?php echo htmlspecialchars($res['phone']); ?></td>
+                                <td class="px-2 py-3 text-center"><?php echo htmlspecialchars(date('M. d, Y', strtotime($res['checkin']))); ?></td>
+                                <td class="px-2 py-3 text-center"><?php echo htmlspecialchars(date('M. d, Y', strtotime($res['checkout']))); ?></td>
+                                <td class="px-2 py-3 "><?php echo htmlspecialchars($res['message']); ?></td>
+                                <td class="px-2 py-3 text-center"><?php echo htmlspecialchars($res['status']); ?></td>
+                                <td class="px-2 py-3 text-center">
+                                    <?php if (isset($res['reservation_id'])): ?>
+                                        <?php if ($res['status'] === 'pending'): ?>
+                                            <a href="javascript:void(0)" onclick="showConfirmModal(
+                                                '<?php echo htmlspecialchars($res['reservation_id']); ?>',
+                                                '<?php echo htmlspecialchars($res['services_name'] ?? 'N/A'); ?>',
+                                                '<?php echo htmlspecialchars($res['name']); ?>',
+                                                '<?php echo htmlspecialchars($res['email']); ?>',
+                                                '<?php echo htmlspecialchars($res['phone']); ?>',
+                                                '<?php echo htmlspecialchars($res['checkin']); ?>',
+                                                '<?php echo htmlspecialchars($res['checkout']); ?>',
+                                                '<?php echo htmlspecialchars($res['status']); ?>'
+                                            )" class="btn btn-success" title="Approve Reservation">
+                                                <i class="bi bi-check-square"  style="background-color: #1a96d3; padding: 5px;"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if ($res['status'] === 'pending'): ?>
+                                        <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=cancelled"
+                                            class="btn-sm" title="Cancel Reservation">
+                                            <i class="bi bi-x-square" style="background-color: red; padding: 5px;"></i>
+                                        </a>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                <?php $rowNumber = 1; ?>
-                                <?php foreach ($bookings as $booking): ?>
-                                    <tr class="text-gray-700 dark:text-gray-400">
-                                        <td class="px-4 py-3 "><?php echo $rowNumber++; ?></td>
-                                        <td class="px-4 py-3 "><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
-                                        <td class="px-4 py-3 r"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
-                                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
-                                        <td class="px-4 py-3 ">
-                                            <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
-                                        </td>
-                                        <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_in'])); ?></td>
-                                        <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_out'])); ?></td>
-                                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['total_nights']); ?></td>
-                                        <td class="px-4 py-3" style="text-align: right;">₱<?php echo number_format($booking['total_amount'], 2); ?></td>
-                                        <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
-                                        <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                                            <?php if (isset($booking['booking_id'])): ?>
-                                               <!-- Update the chat icon to include email -->
-                                                <a href="javascript:void(0)" onclick="openModal('<?php echo htmlspecialchars($booking['booking_id']); ?>', '<?php echo htmlspecialchars($booking['booking_email']); ?>')" 
-                                                class="btn btn-primary d-flex align-items-center justify-content-center" style="margin-right: 15px;" title="Message">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="grey" class="bi bi-chat-square-dots-fill" viewBox="0 0 16 16">
-                                                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-                                                    </svg>
-                                                </a>
-                                                <?php if ($booking['booking_status'] === 'pending'): ?>
-                                                    <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=approve" 
-                                                    class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: green; gap: 5px; position: relative;" title="Approve Booking">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check2-circle" viewBox="0 0 16 16">
-                                                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
-                                                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.384 7.323a.5.5 0 0 0-1.06 1.06L6.97 11.03a.5.5 0 0 0 1.079-.02l3.992-4.99a.5.5 0 0 0-.01-1.05z"/>
-                                                        </svg>
-                                                    </a>
-                                                <?php endif; ?>
-                                                
-                                                <?php if ($booking['booking_status'] === 'approved'): ?>
-                                                    <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=complete" 
-                                                    class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: green; gap: 5px; position: relative;" title="Checkout">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                                    </svg></a>
-                                                <?php endif; ?>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                
-                                </tbody>
-                            </table>
-                        </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add this modal HTML before the closing body tag -->
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <h2 style="margin-bottom: 20px; font-size: 1.5rem;">Confirm Reservation to Book</h2>
+                    <div class="modal-body">
+                        <form action="../pages/resBooks.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=approve" method="POST">
+                            <input type="hidden" name="service_id" id="service_id" />
+                            <input type="hidden" name="fullname" id="form_fullname" />
+                            <input type="hidden" name="email" id="form_email" />
+                            <input type="hidden" name="number" id="form_number" />
+                            <input type="hidden" name="check_in" id="form_checkin" />
+                            <input type="hidden" name="check_out" id="form_checkout" />
+                            <input type="hidden" name="action" value="approve" />
+                            <div class="mb-3" style="margin-bottom: 0.75rem;">
+                                <label for="fullname" class="form-label" style="font-size: 0.9rem;"><b>Full Name: &nbsp;</b> <span id="modalCustomer"></span></label>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="email" class="form-label"><b>Email: &nbsp;</b><span id="modalEmail"></span></label>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="number" class="form-label"><b>Phone Number:</b> &nbsp;<span id="modalPhone"></label>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="service" class="form-label"><b>Selected Room:</b> &nbsp;<span id="modalRoom"></label>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="check_in" class="form-label"><b>Check-in Date:</b> &nbsp;<span id="modalCheckin"></span></label>
+                                <input type="date" id="form_checkin_input" name="check_in" class="form-control" 
+                                        onchange="document.getElementById('modalCheckin').textContent = this.value" required>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="check_out" class="form-label"><b>Check-out Date:</b> &nbsp;<span id="modalCheckout"></span></label>
+                                <input type="date" id="form_checkout_input" name="check_out" class="form-control"
+                                        onchange="document.getElementById('modalCheckout').textContent = this.value" required>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="check_out" class="form-label"><b>Status:</b> &nbsp;<span id="modalStatus"></span></label>
+                            </div><br>
+                            <div class="modal-buttons">
+                                <button type="button" onclick="closeModal()" class="btn-danger">Cancel</button>
+                                <button type="submit" class="btn-approve">Confirm Reservation</button>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                <!-- Add pagination controls -->
-                <div class="flex items-center justify-between p-4 bg-white border-t">
-                    <button onclick="prevPage()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                        Previous
-                    </button>
-                    <span id="pageInfo" class="text-sm text-gray-700">
-                        Page <span id="currentPageSpan">1</span>
-                    </span>
-                    <button onclick="nextPage()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                        Next
-                    </button>
                 </div>
             </div>
         </div>
+    </section>
+    <section>
+    <div class="table-container">
+        <div class="w-full overflow-x-auto">
+            <table class="w-full whitespace-no-wrap" id="myTable" class="display">
+                <thead>
+                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-4 py3">No.</th>
+                    <th class="px-4 py3">Customer's Name</th>
+                    <th class="px-4 py3">Email</th>
+                    <th class="px-4 py3">Contact No.</th>
+                    <th class="px-4 py3">Rooms Name</th>
+                    <th class="px-4 py3">Checkin Date</th>
+                    <th class="px-4 py3">Checkout Date</th>
+                    <th class="px-4 py3">Night</th>
+                    <th class="px-4 py3">Amount</th>
+                    <th class="px-4 py3">Status</th>
+                    <th class="px-4 py3">Action</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    <?php $rowNumber = 1; ?>
+                        <?php foreach ($bookings as $booking): ?>
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <td class="px-4 py-3 "><?php echo $rowNumber++; ?></td>
+                                <td class="px-4 py-3 "><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
+                                <td class="px-4 py-3 r"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
+                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
+                                <td class="px-4 py-3 ">
+                                    <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
+                                </td>
+                                <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_in'])); ?></td>
+                                <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_out'])); ?></td>
+                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['total_nights']); ?></td>
+                                <td class="px-4 py-3" style="text-align: right;">₱<?php echo number_format($booking['total_amount'], 2); ?></td>
+                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
+                                <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
+                                    <?php if (isset($booking['booking_id'])): ?>
+                                        <!-- Update the chat icon to include email -->
+                                        <a href="javascript:void(0)" onclick="openModal('<?php echo htmlspecialchars($booking['booking_id']); ?>', '<?php echo htmlspecialchars($booking['booking_email']); ?>')" 
+                                            class="btn btn-secondary-sm d-flex align-items-center justify-content-center"  style="margin-right: 15px;" title="Message">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="grey" class="bi bi-chat-square-dots-fill" viewBox="0 0 16 16">
+                                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                            </svg>
+                                        </a>
+                                        <?php if ($booking['booking_status'] === 'pending'): ?>
+                                            <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=approve" 
+                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: blue; gap: 5px; position: relative;" title="Check-in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.384 7.323a.5.5 0 0 0-1.06 1.06L6.97 11.03a.5.5 0 0 0 1.079-.02l3.992-4.99a.5.5 0 0 0-.01-1.05z"/>
+                                                </svg>
+                                            </a>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($booking['booking_status'] === 'approved'): ?>
+                                            <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=complete" 
+                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: red; gap: 5px; position: relative;" title="Check-out">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                            </svg></a>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    </div>
     <?php
-    } catch (Exception $e) { 
-        echo "Error: " . $e->getMessage();
-    }
+
     ?>
         <div id="messageModal" class="modal">
             <div class="modal-content">
@@ -409,247 +299,186 @@
                 </form>
             </div>
         </div>
-<!-- Add these functions to your existing JavaScript -->
-<script src="/DataTables/datatables.js"></script>
-<script>
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        updateTable();
-        updatePageInfo();
-    }
-}
 
-function nextPage() {
-    const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
-    const tbody = document.querySelector('tbody');
-    const rows = Array.from(tbody.getElementsByTagName('tr'));
-    const totalPages = Math.ceil(rows.length / entriesPerPage);
-    
-    if (currentPage < totalPages) {
-        currentPage++;
-        updateTable();
-        updatePageInfo();
-    }
-}
-
-function updatePageInfo() {
-    const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
-    const tbody = document.querySelector('tbody');
-    const rows = Array.from(tbody.getElementsByTagName('tr'));
-    const totalPages = Math.ceil(rows.length / entriesPerPage);
-    
-    document.getElementById('currentPageSpan').textContent = currentPage;
-    
-    // Disable/enable buttons based on current page
-    const prevButton = document.querySelector('button[onclick="prevPage()"]');
-    const nextButton = document.querySelector('button[onclick="nextPage()"]');
-    
-    prevButton.disabled = currentPage === 1;
-    nextButton.disabled = currentPage === totalPages;
-    
-    // Update visual state
-    prevButton.style.opacity = currentPage === 1 ? '0.5' : '1';
-    nextButton.style.opacity = currentPage === totalPages ? '0.5' : '1';
-}
-
-// Update the existing document.addEventListener to include updatePageInfo
-document.addEventListener('DOMContentLoaded', function() {
-    updateTable();
-    updatePageInfo();
-});
-</script>
-<script src="../assets/js/booking.js"></script>
-
-<script>
-    // <!-- Search and Sort Controls -->
-    let currentPage = 1;
-
-function changeEntries() {
-    currentPage = 1; // Reset to first page when changing entries
-    updateTable();
-}
-
-function updateTable() {
-    const entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
-    const tbody = document.querySelector('tbody');
-    const rows = Array.from(tbody.getElementsByTagName('tr'));
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
-
-    // Filter rows based on search
-    const filteredRows = rows.filter(row => {
-        const name = row.cells[1].textContent.toLowerCase();
-        const email = row.cells[2].textContent.toLowerCase();
-        return name.includes(searchInput) || email.includes(searchInput);
-    });
-
-    // Calculate pagination
-    const totalPages = Math.ceil(filteredRows.length / entriesPerPage);
-    const start = (currentPage - 1) * entriesPerPage;
-    const end = start + entriesPerPage;
-
-    // Hide all rows first
-    rows.forEach(row => row.style.display = 'none');
-
-    // Show only rows for current page
-    filteredRows.slice(start, end).forEach(row => row.style.display = '');
-
-    // Update row numbers
-    let rowNumber = start + 1;
-    filteredRows.slice(start, end).forEach(row => {
-        row.cells[0].textContent = rowNumber++;
-    });
-}
-
-// Modify existing searchTable function
-    function searchTable() {
-        currentPage = 1; // Reset to first page when searching
-        const sortValue = document.getElementById('sortSelect').value;
-        const tbody = document.querySelector('tbody');
-        const rows = Array.from(tbody.getElementsByTagName('tr'));
-
-        // Sort functionality remains the same
-    rows.sort((a, b) => {
-        const statusA = a.cells[9].textContent.toLowerCase();
-        const statusB = b.cells[9].textContent.toLowerCase();
-
-        // Always keep pending on top
-        if (statusA === 'pending' && statusB !== 'pending') return -1;
-        if (statusB === 'pending' && statusA !== 'pending') return 1;
-
-        switch(sortValue) {
-            case 'name':
-                return a.cells[1].textContent.localeCompare(b.cells[1].textContent);
-            case 'date':
-                return new Date(a.cells[5].textContent) - new Date(b.cells[5].textContent);
-            case 'status':
-                return a.cells[9].textContent.localeCompare(b.cells[9].textContent);
-            default:
-                return 0;
-        }
-    });
-
-    // Clear and re-append sorted rows
-    while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
-    }
-    rows.forEach(row => tbody.appendChild(row));
-
-    // Update table with pagination
-    updateTable();
-    }
-
-    // Initialize table
-    document.addEventListener('DOMContentLoaded', function() {
-        updateTable();
-    });
-</script>
-<script>
-    // Initialize DataTable with sorting functionality
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            responsive: true,
-            order: [[1, 'asc']], // Default sort by customer name (column index 1) ascending
-            columnDefs: [
-                {
-                    targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // Apply sorting to all columns except action column
-                    orderable: true
-                },
-                {
-                    targets: [10], // Action column
-                    orderable: false
+<!-------scripts-------->       
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#reservedTable').DataTable();
+            
+            $('#bookingSelect').change(function() {
+                if ($(this).val() === '1') {
+                    $('#myTable').show();
+                    $('#myTable_wrapper').show();
+                    $('#reservedTable_wrapper').hide(); // Changed this line
+                } else if ($(this).val() === '2') {
+                    $('#myTable').hide();
+                    $('#myTable_wrapper').hide();
+                    $('#reservedTable').show();
+                    $('#reservedTable_wrapper').show(); // Changed this line
+                } else {
+                    $('#myTable').hide();
+                    $('#myTable_wrapper').hide();
+                    $('#reservedTable').hide(); // Changed this line
+                    $('#reservedTable_wrapper').hide(); // Changed this line
                 }
-            ],
-            language: {
-                sortAscending: ': activate to sort column ascending',
-                sortDescending: ': activate to sort column descending'
+            });
+
+            // Status filter for reserved booking table
+            var reservedBookingTable = $('#reservedTable').DataTable();
+            $('#statusFilter').on('change', function() {
+                var selectedStatus = $(this).val();
+                // Column 8 appears to be the status column in your reserved bookings table
+                reservedBookingTable.column(8).search(selectedStatus).draw();
+            });
+
+            // Status filter for new booking table
+            var newBookingTable = $('#myTable').DataTable();
+            $('#statusFilter').on('change', function() {
+                var selectedStatus = $(this).val();
+                // Map status values for new bookings
+                switch(selectedStatus) {
+                    case 'Pending':
+                        selectedStatus = 'pending';
+                        break;
+                    case 'Approved':
+                        selectedStatus = 'approved';
+                        break;
+                    case 'Check In':
+                        selectedStatus = 'check in';
+                        break;
+                    case 'Check Out': 
+                        selectedStatus = 'check out';
+                        break;
+                }
+                newBookingTable.column(9).search(selectedStatus).draw();
+            });
+
+            
+
+            // Initially hide both tables
+            $('#myTable').hide();
+            $('#reservedTable_wrapper').hide(); // Changed this line
+        });
+    </script>
+    <script>
+        // Function to clear URL parameters
+        function clearUrlParams() {
+            const url = window.location.href.split('?')[0];
+            window.history.replaceState({}, document.title, url);
+        }
+    </script>
+
+    <script>
+        function showConfirmModal(id, room, customer, email, phone, checkin, checkout, status) {
+            // Display in spans
+            document.getElementById('modalRoom').textContent = room;
+            document.getElementById('modalCustomer').textContent = customer;
+            document.getElementById('modalEmail').textContent = email;
+            document.getElementById('modalPhone').textContent = phone;
+            document.getElementById('modalCheckin').textContent = checkin;
+            document.getElementById('modalCheckout').textContent = checkout;
+            document.getElementById('modalStatus').textContent = status;
+            
+            // Set hidden form values
+            document.getElementById('service_id').value = id;
+            document.getElementById('form_fullname').value = customer;
+            document.getElementById('form_email').value = email;
+            document.getElementById('form_number').value = phone;
+            document.getElementById('form_checkin').value = checkin;
+            document.getElementById('form_checkout').value = checkout;
+            
+            document.getElementById('confirmModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('confirmModal')) {
+                closeModal();
+            }
+        }
+
+    
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to clear URL parameters
+        function clearUrlParams() {
+            const url = window.location.href.split('?')[0];
+            window.history.replaceState({}, document.title, url);
+        }
+        // Function to open the message modal
+        const modal = document.getElementById('messageModal');
+        const span = document.getElementsByClassName('close')[0];
+        const bookingIdInput = document.getElementById('booking_id');
+        const recipientEmailInput = document.getElementById('recipient_email');
+        function openModal(messageId, email) {
+            modal.style.display = 'block';
+            bookingIdInput.value = messageId;
+            recipientEmailInput.value = email;
+        }
+        // Close modal when clicking (X)
+        span.onclick = function() {
+            modal.style.display = 'none';
+        }
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        // Modal functionality inquiries
+        window.openModal = function(messageId, email) {
+            modal.style.display = 'block';
+            bookingIdInput.value = messageId;
+            recipientEmailInput.value = email;
+        }
+        if (span) {
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        // Form submission
+        const emailForm = document.getElementById('emailForm');
+        if (emailForm) {
+            emailForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                try {
+                    const formData = new FormData(this);
+                    
+                    const response = await fetch('../../send_mail.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        alert(data.message);
+                        modal.style.display = 'none';
+                        this.reset(); // Clear form
+                    } else {
+                        throw new Error(data.message);
+                    }
+
+                } catch (error) {
+                    alert(error.message);
+                    console.error('Error:', error);
+                }
+                });
             }
         });
-
-        // Custom sorting buttons
-        $('.sort-btn').on('click', function() {
-            const column = $(this).closest('th').index();
-            const isAsc = $(this).hasClass('sort-asc');
-            
-            $('#myTable').DataTable()
-                .order([column, isAsc ? 'asc' : 'desc'])
-                .draw();
-        });
-    });
-</script>
-<script>
-function sortTableAsc(columnIndex) {
-    const table = document.getElementById('myTable');
-    const tbody = table.getElementsByTagName('tbody')[0];
-    const rows = Array.from(tbody.getElementsByTagName('tr'));
-
-    rows.sort((a, b) => {
-        let aValue = a.cells[columnIndex + 1].textContent.trim();
-        let bValue = b.cells[columnIndex + 1].textContent.trim();
-        
-        // Handle date sorting
-        if (columnIndex === 4 || columnIndex === 5) { // Check-in and Check-out columns
-            return new Date(aValue) - new Date(bValue);
-        }
-        
-        // Handle numeric sorting
-        if (!isNaN(aValue) && !isNaN(bValue)) {
-            return parseFloat(aValue) - parseFloat(bValue);
-        }
-        
-        // Default string sorting
-        return aValue.localeCompare(bValue);
-    });
-
-    // Clear and re-append sorted rows
-    while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
-    }
-    rows.forEach(row => tbody.appendChild(row));
-    updateRowNumbers();
-}
-
-function sortTableDesc(columnIndex) {
-    const table = document.getElementById('myTable');
-    const tbody = table.getElementsByTagName('tbody')[0];
-    const rows = Array.from(tbody.getElementsByTagName('tr'));
-
-    rows.sort((a, b) => {
-        let aValue = a.cells[columnIndex + 1].textContent.trim();
-        let bValue = b.cells[columnIndex + 1].textContent.trim();
-        
-        // Handle date sorting
-        if (columnIndex === 4 || columnIndex === 5) { // Check-in and Check-out columns
-            return new Date(bValue) - new Date(aValue);
-        }
-        
-        // Handle numeric sorting
-        if (!isNaN(aValue) && !isNaN(bValue)) {
-            return parseFloat(bValue) - parseFloat(aValue);
-        }
-        
-        // Default string sorting
-        return bValue.localeCompare(aValue);
-    });
-
-    // Clear and re-append sorted rows
-    while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
-    }
-    rows.forEach(row => tbody.appendChild(row));
-    updateRowNumbers();
-}
-
-function updateRowNumbers() {
-    const tbody = document.querySelector('tbody');
-    const rows = tbody.getElementsByTagName('tr');
-    for (let i = 0; i < rows.length; i++) {
-        rows[i].cells[0].textContent = i + 1;
-    }
-}
-
-// Remove or comment out the DataTables initialization
-// $(document).ready(function() {
-//     $('#myTable').DataTable({...});
-// });
-</script>
+    </script>

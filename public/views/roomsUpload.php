@@ -143,9 +143,9 @@
                                     <button onclick="openEditModal(
                                         '<?php echo htmlspecialchars($service['services_id']); ?>', 
                                         '<?php echo htmlspecialchars($service['services_name']); ?>', 
-                                        '<?php echo htmlspecialchars($service['services_description']); ?>', 
+                                        '<?php echo nl2br(htmlspecialchars($service['services_description'])); ?>', 
                                         '<?php echo htmlspecialchars($service['services_price']); ?>'
-                                    )" class="btn btn-primary" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">
+                                    )" class="btn btn-primary" style="background-color:rgb(241, 102, 8); color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">
                                         Edit
                                     </button>
 

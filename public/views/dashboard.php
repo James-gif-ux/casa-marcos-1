@@ -1,9 +1,5 @@
 <?php
-  session_start();
-  // Clear any previous active menu state
-  if (isset($_SESSION['active_menu'])) {
-      unset($_SESSION['active_menu']);
-  }
+  
   require_once '../model/server.php';
   include_once 'nav/header.php';
 
