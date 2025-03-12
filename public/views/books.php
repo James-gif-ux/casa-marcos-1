@@ -82,11 +82,7 @@
                                         ₱<?= number_format($srvc['services_price'], 2) ?>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                        <button type="button" class="readmore" data-bs-toggle="modal" data-bs-target="#bookingModal"
-                                                data-id="<?= $srvc['services_id'] ?>"
-                                                data-name="<?= $srvc['services_name'] ?>">
-                                            Book Now
-                                        </button>
+                                        
                                         <a href="reservation.php?service_id=<?= $srvc['services_id'] ?>" 
                                         class="readmore" 
                                         style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: white;">
@@ -123,54 +119,7 @@
             </form>
         </div>
 
-        <!-- Single Modal for all bookings -->
-        <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="bookingModalLabel">Book Your Room:</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="../pages/submit-booking.php" method="POST">
-                            <input type="hidden" name="service_id" id="service_id" />
-                            <div class="mb-3">
-                                <label for="fullname" class="form-label">Full Name:</label>
-                                <input type="text" name="fullname" class="form-control" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email:</label>
-                                <input type="email" name="email" class="form-control" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="number" class="form-label">Phone Number:</label>
-                                <input type="text" name="number" class="form-control" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="service" class="form-label">Select Service:</label>
-                                <input type="text" id="service_name" name="service" class="form-control" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="check_in" class="form-label">Check-in Date:</label>
-                                <input type="date" name="check_in" class="form-control" id="modal_check_in" required 
-                                    min="<?php echo date('Y-m-d') ?>"
-                                    value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : ''; ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="check_out" class="form-label">Check-out Date:</label>
-                                <input type="date" name="check_out" class="form-control" id="modal_check_out" required 
-                                    min="<?php echo date('Y-m-d'); ?>"
-                                    value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : ''; ?>">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit Booking</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <script>
             window.addEventListener('scroll', function () {

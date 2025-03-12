@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Body = "You have received a new message from the contact form.<br><br>".
                      "Name: $name<br>".
                      "Email: $email<br>".
-                     "Message:<br>$message";
+                     "Message:$message<br>";
 
         $mail->send();
         header("Location: ../views/thank_you.php");
