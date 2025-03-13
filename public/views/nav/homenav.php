@@ -95,7 +95,7 @@
 
     .hera {
         text-align: center;
-        padding: 23rem;
+        padding: 27rem;
         background-image: url('../images/villas.jpg');
         background-size: cover;
         background-position: center;

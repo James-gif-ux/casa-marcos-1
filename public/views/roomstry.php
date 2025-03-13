@@ -73,7 +73,6 @@
 
             if ($result) {
                 echo "<script>
-                    alert('Dates have been successfully saved!');
                     window.location.href = 'books.php';
                 </script>";
                 $_SESSION['check_in'] = $checkin_date;

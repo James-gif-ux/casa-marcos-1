@@ -145,20 +145,14 @@
         /* Reservation Form Section */
         .reservation-container {
             width: 55%;
+            padding-top: 50px;
         }
 
         .right-section {
             padding-left: 30px;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            font-size: 32px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+      
 
         /* Alerts (Success/Error) */
         .alert {
@@ -281,10 +275,6 @@
                 margin-top: 30px;
             }
 
-            h2 {
-                font-size: 28px;
-            }
-
             h3 {
                 font-size: 24px;
             }
@@ -312,11 +302,6 @@
             .form-group {
                 margin-bottom: 15px;
             }
-
-            h2 {
-                font-size: 24px;
-            }
-
             h3 {
                 font-size: 20px;
             }
@@ -376,10 +361,6 @@
                 margin-top: 30px;
             }
         
-            h2 {
-                font-size: 28px;
-            }
-        
             h3 {
                 font-size: 24px;
             }
@@ -406,10 +387,6 @@
         
             .form-group {
                 margin-bottom: 15px;
-            }
-        
-            h2 {
-                font-size: 24px;
             }
         
             h3 {
@@ -446,7 +423,6 @@
                 <!-- Reservation Form Section -->
                 <div class="reservation-container">
                     <div class="right-section">
-                        <h2>Make a Reservation</h2>
                         <form method="POST" action="reservation.php?service_id=<?= $service['services_id'] ?>" class="reservation-form">
                             <div class="form-group">
                                 <label for="name">Full Name:</label>
