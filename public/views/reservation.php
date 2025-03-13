@@ -94,6 +94,7 @@
                 <!-- Reservation Form Section -->
                 <div class="reservation-container">
                     <div class="right-section">
+                        <h2>Make a Reservation</h2>
                         <form method="POST" action="reservation.php?service_id=<?= $service['services_id'] ?>" class="reservation-form">
                             <div class="form-group">
                                 <label for="name">Full Name:</label>
@@ -110,14 +111,18 @@
                                     <input type="tel" id="phone" name="phone" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="checkin">Check in:</label>
-                                    <input type="date" id="checkin" name="checkin" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="checkout">Check out:</label>
-                                    <input type="date" id="checkout" name="checkout" required>
-                                </div>
+                                <div class="mb-3">
+                                <label for="check_in" class="form-label">Check-in Date:</label>
+                                <input type="date" name="check_in" class="form-control" id="modal_check_in" required 
+                                    min="<?php echo date('Y-m-d') ?>"
+                                    value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : ''; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="check_out" class="form-label">Check-out Date:</label>
+                                <input type="date" name="check_out" class="form-control" id="modal_check_out" required 
+                                    min="<?php echo date('Y-m-d'); ?>"
+                                    value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : ''; ?>">
+                            </div>
 
                                 <div class="form-group">
                                     <label for="message">Special Requests:</label>

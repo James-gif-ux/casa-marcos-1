@@ -36,13 +36,14 @@
                 (DATEDIFF(b.booking_check_out, b.booking_check_in) * s.services_price) as total_amount
                 FROM booking_tb b 
                 LEFT JOIN services_tb s ON b.booking_services_id = s.services_id 
-                WHERE b.booking_status IN ('pending', 'approved', 'completed')
+                WHERE b.booking_status IN ('approved', 'checked-in', 'checked-out', 'checked-out') /* Added checked-out status */
                 GROUP BY b.booking_id
                 ORDER BY 
                     CASE 
-                        WHEN b.booking_status = 'pending' THEN 1
-                        WHEN b.booking_status = 'approved' THEN 2
-                        ELSE 3 
+                        WHEN b.booking_status = 'approved' THEN 1
+                        WHEN b.booking_status = 'checked-in' THEN 2
+                        WHEN b.booking_status = 'checked-out' THEN 3
+                        ELSE 4
                     END,
                     b.booking_check_in DESC";
         
@@ -71,29 +72,26 @@
 </style>
 
     <section>
+        <div class="mb-3">
+            <select id="statusFilter" class="select" style="float: right; margin-right: 70px; margin-top: 22px; border:1px solid gray; padding: 9px; border-radius: 5px;" aria-label="Booking status selection">
+                <option value="">All Status</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="Check In">Check In</option>
+                <option value="Check Out">Check Out</option>
+            </select>
+        </div>
         <div>
-            <select class="form-select mb-3" id="bookingSelect" aria-label="Booking type selection">
+            <select class="select" style="float: right; margin-right: 30px; margin-top: 10px; border:1px solid gray; padding: 10px; border-radius: 5px;" id="bookingSelect" aria-label="Booking type selection">
             <option selected>Select booking type</option>
             <option value="1">New Booking</option>
             <option value="2">Reserved Booking</option>
             </select>
         </div>
-        <div id="tableContainer">
-            <div class="mb-3">
-                <select id="statusFilter" class="form-select">
-                    <option value="">All Status</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Cancelled">Cancelled</option>
-                    <option value="Check In">Check In</option>
-                    <option value="Check Out">Check Out</option>
-                </select>
-            </div>
-            
-        
+        <div  id="tableContainer">
             <!-- Modify the table wrapper div -->
-            <div >
-                <table class="w-full whitespace-no-wrap border-collapse" id="reservedTable" class="display" style="display: none;">
+                <table class="w-full border-collapse" id="reservedTable" class="display" style="display: none;">
                     <thead>
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-4 py-3 text-center">No.</th>
@@ -108,7 +106,9 @@
                             <th class="px-4 py-3 text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" style="box-shadow: 0px -4px 18px 3px rgba(0,0,0,0.49);
+                            -webkit-box-shadow: 0px -4px 18px 3px rgba(0,0,0,0.49);
+                            -moz-box-shadow: 0px -4px 18px 3px rgba(0,0,0,0.49);">
                         <?php  $rowNumber = 1; ?>
                         <?php foreach ($reservation as $res): ?>
                             <tr class="text-gray-700 dark:text-gray-400 <?php echo $hasMultipleBookings ? 'bg-yellow-50' : ''; ?>"> 
@@ -149,7 +149,6 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            </div>
 
             <!-- Add this modal HTML before the closing body tag -->
             <div id="confirmModal" class="modal">
@@ -183,13 +182,13 @@
                             <div class="mb-3">
                                 <label for="check_in" class="form-label"><b>Check-in Date:</b> &nbsp;<span id="modalCheckin"></span></label>
                                 <input type="date" id="form_checkin_input" name="check_in" class="form-control" 
-                                        onchange="document.getElementById('modalCheckin').textContent = this.value" required>
+                                        onchange="document.getElementById('modalCheckin').textContent = this.value" >
                             </div>
                             <hr>
                             <div class="mb-3">
                                 <label for="check_out" class="form-label"><b>Check-out Date:</b> &nbsp;<span id="modalCheckout"></span></label>
                                 <input type="date" id="form_checkout_input" name="check_out" class="form-control"
-                                        onchange="document.getElementById('modalCheckout').textContent = this.value" required>
+                                        onchange="document.getElementById('modalCheckout').textContent = this.value" >
                             </div>
                             <hr>
                             <div class="mb-3">
@@ -206,74 +205,84 @@
         </div>
     </section>
     <section>
-    <div class="table-container">
-        <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-no-wrap" id="myTable" class="display">
-                <thead>
-                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py3">No.</th>
-                    <th class="px-4 py3">Customer's Name</th>
-                    <th class="px-4 py3">Email</th>
-                    <th class="px-4 py3">Contact No.</th>
-                    <th class="px-4 py3">Rooms Name</th>
-                    <th class="px-4 py3">Checkin Date</th>
-                    <th class="px-4 py3">Checkout Date</th>
-                    <th class="px-4 py3">Night</th>
-                    <th class="px-4 py3">Amount</th>
-                    <th class="px-4 py3">Status</th>
-                    <th class="px-4 py3">Action</th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    <?php $rowNumber = 1; ?>
-                        <?php foreach ($bookings as $booking): ?>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3 "><?php echo $rowNumber++; ?></td>
-                                <td class="px-4 py-3 "><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
-                                <td class="px-4 py-3 r"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
-                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
-                                <td class="px-4 py-3 ">
-                                    <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
-                                </td>
-                                <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_in'])); ?></td>
-                                <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_out'])); ?></td>
-                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['total_nights']); ?></td>
-                                <td class="px-4 py-3" style="text-align: right;">₱<?php echo number_format($booking['total_amount'], 2); ?></td>
-                                <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
-                                <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-                                    <?php if (isset($booking['booking_id'])): ?>
-                                        <!-- Update the chat icon to include email -->
-                                        <a href="javascript:void(0)" onclick="openModal('<?php echo htmlspecialchars($booking['booking_id']); ?>', '<?php echo htmlspecialchars($booking['booking_email']); ?>')" 
-                                            class="btn btn-secondary-sm d-flex align-items-center justify-content-center"  style="margin-right: 15px;" title="Message">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="grey" class="bi bi-chat-square-dots-fill" viewBox="0 0 16 16">
-                                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-                                            </svg>
-                                        </a>
-                                        <?php if ($booking['booking_status'] === 'pending'): ?>
-                                            <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=approve" 
-                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: blue; gap: 5px; position: relative;" title="Check-in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check2-circle" viewBox="0 0 16 16">
-                                                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
-                                                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.384 7.323a.5.5 0 0 0-1.06 1.06L6.97 11.03a.5.5 0 0 0 1.079-.02l3.992-4.99a.5.5 0 0 0-.01-1.05z"/>
+        <div class="table-container">
+            <div class=" w-full overflow-x-auto">
+                <table class="w-full whitespace-no-wrap" id="myTable" class="display">
+                    <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py3">No.</th>
+                        <th class="px-4 py3">Customer's Name</th>
+                        <th class="px-4 py3">Email</th>
+                        <th class="px-4 py3">Contact No.</th>
+                        <th class="px-4 py3">Rooms Name</th>
+                        <th class="px-4 py3">Checkin Date</th>
+                        <th class="px-4 py3">Checkout Date</th>
+                        <th class="px-4 py3">Night</th>
+                        <th class="px-4 py3">Amount</th>
+                        <th class="px-4 py3">Status</th>
+                        <th class="px-4 py3">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" style="box-shadow: 0px -4px 18px 3px rgba(0,0,0,0.49);
+                            -webkit-box-shadow: 0px -4px 18px 3px rgba(0,0,0,0.49);
+                            -moz-box-shadow: 0px -4px 18px 3px rgba(0,0,0,0.49);">
+                        <?php $rowNumber = 1; ?>
+                            <?php foreach ($bookings as $booking): ?>
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3 "><?php echo $rowNumber++; ?></td>
+                                    <td class="px-4 py-3 "><?php echo htmlspecialchars($booking['booking_fullname']); ?></td>
+                                    <td class="px-4 py-3 r"><?php echo htmlspecialchars($booking['booking_email']); ?></td>
+                                    <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_number']); ?></td>
+                                    <td class="px-4 py-3 ">
+                                        <?php echo htmlspecialchars($booking['services_name'] ?? 'N/A'); ?>
+                                    </td>
+                                    <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_in'])); ?></td>
+                                    <td class="px-4 py-3 text-center"><?php echo date('M. d, Y', strtotime($booking['booking_check_out'])); ?></td>
+                                    <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['total_nights']); ?></td>
+                                    <td class="px-4 py-3" style="text-align: right;">₱<?php echo number_format($booking['total_amount'], 2); ?></td>
+                                    <td class="px-4 py-3 text-center"><?php echo htmlspecialchars($booking['booking_status']); ?></td>
+                                    <td style="display: flex; justify-content: center; align-items: center; padding: 10px;">
+                                        <?php if (isset($booking['booking_id'])): ?>
+                                            <!-- Update the chat icon to include email -->
+                                            <a href="javascript:void(0)" onclick="openModal('<?php echo htmlspecialchars($booking['booking_id']); ?>', '<?php echo htmlspecialchars($booking['booking_email']); ?>')" 
+                                                class="btn btn-secondary-sm d-flex align-items-center justify-content-center"  style="margin-right: 15px;" title="Message">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="grey" class="bi bi-chat-square-dots-fill" viewBox="0 0 16 16">
+                                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                                                 </svg>
                                             </a>
+                                            <?php if ($booking['booking_status'] === 'approved'): ?>
+                                                <a href="javascript:void(0)" 
+                                                    onclick="confirmAction('<?php echo htmlspecialchars($booking['booking_id']); ?>', 'checked-in')"
+                                                    class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: blue; gap: 5px; position: relative;" 
+                                                    title="Check-in">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.384 7.323a.5.5 0 0 0-1.06 1.06L6.97 11.03a.5.5 0 0 0 1.079-.02l3.992-4.99a.5.5 0 0 0-.01-1.05z"/>
+                                                    </svg>
+                                                </a>
+                                            <?php endif; ?>
+
+                                            <?php if ($booking['booking_status'] === 'checked-in'): ?>
+                                                <a href="javascript:void(0)"
+                                                    onclick="handleCheckout(
+                                                        '<?php echo htmlspecialchars($booking['booking_id']); ?>', 
+                                                        '<?php echo htmlspecialchars($booking['booking_email']); ?>'
+                                                    )"
+                                                    class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: red; gap: 5px; position: relative;" 
+                                                    title="Check-out">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                                    </svg>
+                                                </a>
+                                            <?php endif; ?>
                                         <?php endif; ?>
-                                        
-                                        <?php if ($booking['booking_status'] === 'approved'): ?>
-                                            <a href="../pages/admin-client.php?booking_id=<?php echo htmlspecialchars($booking['booking_id']); ?>&action=complete" 
-                                            class="btn-sm" style="padding: 5px; border-radius: 8px; background-color: red; gap: 5px; position: relative;" title="Check-out">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                            </svg></a>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
     </section>
     </div>
     <?php
@@ -405,7 +414,83 @@
             }
         }
 
-    
+        function showConfirmModal(id, room, customer, email, phone, checkin, checkout, status) {
+            // Show confirmation dialog
+            if (confirm('Are you sure you want to approve this reservation?')) {
+                // Display in spans
+                document.getElementById('modalRoom').textContent = room;
+                document.getElementById('modalCustomer').textContent = customer;
+                document.getElementById('modalEmail').textContent = email;
+                document.getElementById('modalPhone').textContent = phone;
+                document.getElementById('modalCheckin').textContent = checkin;
+                document.getElementById('modalCheckout').textContent = checkout;
+                document.getElementById('modalStatus').textContent = status;
+                
+                // Set hidden form values
+                document.getElementById('service_id').value = id;
+                document.getElementById('form_fullname').value = customer;
+                document.getElementById('form_email').value = email;
+                document.getElementById('form_number').value = phone;
+                document.getElementById('form_checkin').value = checkin;
+                document.getElementById('form_checkout').value = checkout;
+                
+                // Show modal
+                document.getElementById('confirmModal').style.display = 'block';
+
+                // Add form submit handler
+                document.querySelector('.modal-content form').addEventListener('submit', function(e) {
+                    if (confirm('Confirm reservation approval?')) {
+                        alert('Reservation approved successfully!');
+                    } else {
+                        e.preventDefault();
+                    }
+                });
+            }
+        }
+
+        function confirmAction(bookingId, action) {
+                let message = action === 'checked-in' 
+                    ? 'Are you sure you want to check in this booking?' 
+                    : 'Are you sure you want to check out this booking?';
+                    
+                if (confirm(message)) {
+                    window.location.href = `../pages/admin-client.php?booking_id=${bookingId}&action=${action}`;
+                }
+            }
+
+            function handleCheckout(bookingId, email) {
+                // Set modal values
+                document.getElementById('booking_id').value = bookingId;
+                document.getElementById('recipient_email').value = email;
+                
+                // Show modal
+                document.getElementById('messageModal').style.display = 'block';
+            }
+
+            // Add form submit handler to handle the actual checkout
+            document.getElementById('emailForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const bookingId = document.getElementById('booking_id').value;
+                
+                // Update booking status
+                // First send email
+                fetch('../../send_mail.php', {
+                    method: 'POST',
+                    body: new FormData(this)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success) {
+                        // After successful email, redirect to update booking status
+                        window.location.href = `../pages/admin-client.php?booking_id=${bookingId}&action=checked-out`;
+                    } else {
+                        throw new Error(data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error: ' + error.message);
+                });
+            });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -481,4 +566,6 @@
                 });
             }
         });
+
+
     </script>

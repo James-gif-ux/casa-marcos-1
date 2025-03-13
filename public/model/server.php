@@ -34,12 +34,34 @@ class Connector {
     }
 
     // Method to execute update queries (INSERT, UPDATE, DELETE)
-    public function executeUpdate($sql, $params) {
+    public function executeUpdate($sql, $params = []) {
         try {
-            $stmt = $this->conn->prepare($sql); // Prepare the SQL query
-            return $stmt->execute($params);    // Execute the query with parameters
+            // Validate SQL query
+            if (empty($sql)) {
+                throw new InvalidArgumentException("SQL query cannot be empty");
+            }
+
+            // Validate parameters
+            if (!is_array($params)) {
+                throw new InvalidArgumentException("Parameters must be an array");
+            }
+
+            $stmt = $this->conn->prepare($sql);
+            
+            // Execute and return result
+            $result = $stmt->execute($params);
+            
+            if (!$result) {
+                throw new PDOException("Query execution failed");
+            }
+            
+            return $result;
+
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Database Error: " . $e->getMessage());
+            return false;
+        } catch (InvalidArgumentException $e) {
+            error_log("Invalid Input: " . $e->getMessage());
             return false;
         }
     }

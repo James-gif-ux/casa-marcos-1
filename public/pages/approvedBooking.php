@@ -9,8 +9,8 @@ if (isset($_GET['reservation_id']) && isset($_GET['action'])) {
     // Initialize $sql variable
     $sql = '';
 
-    if ($action === 'approve') {
-        $sql = "UPDATE reservations SET status = 'approved' WHERE reservation_id = :reservation_id";
+    if ($action === 'pedning') {
+        $sql = "UPDATE reservations SET status = 'pending' WHERE reservation_id = :reservation_id";
     } elseif ($action === 'cancelled') {
         $sql = "UPDATE reservations SET status = 'cancelled' WHERE reservation_id = :reservation_id";
     }

@@ -49,13 +49,13 @@ $connector->getConnection()->beginTransaction();
         // Commit transaction
     $connector->getConnection()->commit();
         
-        header("Location: ../views/reservedBooking.php?approved=true");
+        header("Location: ../pages/booking.php?approved=true");
         exit();
         
     } catch (Exception $e) {
         // Rollback on error
     $connector->getConnection()->rollBack();
-        header("Location: ../views/reservedBooking.php?approved=false&error=" . urlencode($e->getMessage()));
+        header("Location: ../pages/booking.php?approved=false&error=" . urlencode($e->getMessage()));
         exit();
     }
 }
