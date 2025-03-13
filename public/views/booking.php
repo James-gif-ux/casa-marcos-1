@@ -138,7 +138,7 @@
                                             </a>
                                         <?php endif; ?>
                                         <?php if ($res['status'] === 'pending'): ?>
-                                        <a href="../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=cancelled"
+                                        <a href="#" onclick="if(confirm('Are you sure you want to cancel this reservation?')) { window.location.href='../pages/approvedBooking.php?reservation_id=<?php echo htmlspecialchars($res['reservation_id']); ?>&action=cancelled'; } return false;"
                                             class="btn-sm" title="Cancel Reservation">
                                             <i class="bi bi-x-square" style="background-color: red; padding: 5px;"></i>
                                         </a>

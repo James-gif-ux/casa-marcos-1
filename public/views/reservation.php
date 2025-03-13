@@ -447,7 +447,7 @@
                 <div class="reservation-container">
                     <div class="right-section">
                         <h2>Make a Reservation</h2>
-                        <form method="POST" action="../pages/paymentMethod.php?service_id=<?= $service['services_id'] ?>" class="reservation-form">
+                        <form method="POST" action="reservation.php?service_id=<?= $service['services_id'] ?>" class="reservation-form">
                             <div class="form-group">
                                 <label for="name">Full Name:</label>
                                 <input type="text" id="name" name="name" required>
@@ -463,18 +463,33 @@
                                     <input type="tel" id="phone" name="phone" required>
                                 </div>
 
-                                <div class="mb-3">
-                                <label for="check_in" class="form-label">Check-in Date:</label>
-                                <input type="date" name="check_in" class="form-control" id="modal_check_in" required 
-                                    min="<?php echo date('Y-m-d') ?>"
-                                    value="<?php echo isset($_SESSION['check_in']) ? $_SESSION['check_in'] : ''; ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="check_out" class="form-label">Check-out Date:</label>
-                                <input type="date" name="check_out" class="form-control" id="modal_check_out" required 
-                                    min="<?php echo date('Y-m-d'); ?>"
-                                    value="<?php echo isset($_SESSION['check_out']) ? $_SESSION['check_out'] : ''; ?>">
-                            </div>
+                                <div class="form-group">
+                                    <label for="checkin">Check in:</label>
+                                    <input type="date" id="checkin" name="checkin" required min="<?= date('Y-m-d') ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkout">Check out:</label>
+                                    <input type="date" id="checkout" name="checkout" required>
+                                </div>
+                                <script>
+                                    // Set min dates and add validation
+                                    const checkin = document.getElementById('checkin');
+                                    const checkout = document.getElementById('checkout');
+                                    
+                                    checkin.addEventListener('change', function() {
+                                        checkout.min = this.value;
+                                        if(checkout.value && checkout.value < this.value) {
+                                            checkout.value = this.value;
+                                        }
+                                    });
+                                    
+                                    checkout.addEventListener('change', function() {
+                                        if(this.value < checkin.value) {
+                                            alert('Check-out date cannot be before check-in date');
+                                            this.value = checkin.value;
+                                        }
+                                    });
+                                </script>
 
                                 <div class="form-group">
                                     <label for="message">Special Requests:</label>
