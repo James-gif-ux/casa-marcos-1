@@ -1,4 +1,4 @@
-        <?php
+<?php
             include_once 'nav/homenav.php';
             include_once '../model/BookingModel.php';
             include_once '../model/Booking_Model.php';
@@ -52,26 +52,42 @@
         try {
             $connector = new Connector();
             
-            // Updated SQL to include res_services_id
-            $sql = "INSERT INTO reservations (name, email, phone, date, message, status, res_services_id) 
-                    VALUES (:name, :email, :phone, :date, :message, 'pending', :service_id)";
+            // Validate required fields
+            $required_fields = ['name', 'email', 'phone', 'checkin_date', 'checkout_date', 'message', 'service_id'];
+            foreach ($required_fields as $field) {
+                if (!isset($_POST[$field]) || empty(trim($_POST[$field]))) {
+                    throw new Exception("Please fill in all required fields. Missing: " . $field);
+                }
+            }
+            
+            // Validate dates
+            $checkin = $_POST['checkin'];
+            $checkout = $_POST['checkout'];
+            
+            if (!strtotime($checkin) || !strtotime($checkout)) {
+                throw new Exception("Invalid date format");
+            }
+            
+            $sql = "INSERT INTO reservations (name, email, phone, checkin, checkout, message, status, res_services_id) 
+                    VALUES (:name, :email, :phone, :checkin, :checkout, :message, 'pending', :service_id)";
             
             $stmt = $connector->getConnection()->prepare($sql);
             $result = $stmt->execute([
                 ':name' => $_POST['name'],
                 ':email' => $_POST['email'],
                 ':phone' => $_POST['phone'],
-                ':date' => $_POST['date'],
+                ':checkin' => $checkin,
+                ':checkout' => $checkout,
                 ':message' => $_POST['message'],
-                ':service_id' => $_POST['service_id'] // This gets the hidden service_id field value
+                ':service_id' => $_POST['service_id']
             ]);
 
             if ($result) {
                 echo "<script>alert('Reservation submitted successfully!');</script>";
             }
             
-        } catch (PDOException $e) {
-            echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
+        } catch (Exception $e) {
+            echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
         }
     }
     ini_set('memory_limit', '256M');

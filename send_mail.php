@@ -44,4 +44,21 @@
         }
         exit();
     }
+        /**$to = $_POST['email'];
+        $headers = "From: casa-marcos@gmail.com" . "\r\n" . "CC: ".$to;
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
+
+        if (mail($to, $subject, $message, $headers)){
+            echo json_encode(['success' => true, 'message' => 'Email sent successfully!']);
+        } else {
+            //echo json_encode(['success' => false, 'message' => 'Failed to send email.']);
+            $error = error_get_last();
+            if (isset($error['message'])) {
+                echo json_encode(['success' => false, 'message' => $error['message']]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'No specific error details available.']);
+            }
+        }
+        exit();**/
     ?>
