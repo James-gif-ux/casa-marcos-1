@@ -24,29 +24,52 @@
     ?>
     <!-- Add this in the <head> section -->
     <link rel="stylesheet" href="../assets/css/roomstry.css">
-        <section class="hera">
-            <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-                <form method="POST" action="" style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; justify-content: center;">
-                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
-                            <input type="date" id="checkin" name="checkin_date" required 
-                                min="<?php echo date('Y-m-d'); ?>"
-                                style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                        </div>
-                        <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
-                            <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
-                            <input type="date" id="checkout" name="checkout_date" required
-                                min="<?php echo date('Y-m-d'); ?>"
-                                style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
-                        </div>
-                    </div>
-                    <button type="submit" name="submit_dates" style="width: 45%; margin: 2rem auto; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; display: block;">
-                        Search Booking
-                    </button>
-                </form>
-            </div>
+        <section class="hero">
         </section>
+       
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin-top: 980px;">
+                <div style="max-width: 1200px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); ">
+                            <form method="POST" action="" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-end; justify-content: space-between;">
+                                <div class="flex-col" style="flex: 1; min-width: 200px;">
+                                    <label for="checkin" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Check In</label>
+                                    <input type="date" id="checkin" name="checkin_date" required 
+                                        min="<?php echo date('Y-m-d'); ?>"
+                                        style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
+                                </div>
+                                
+                                <div class="flex-col" style="flex: 1; min-width: 200px;">
+                                    <label for="checkout" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Check Out</label>
+                                    <input type="date" id="checkout" name="checkout_date" required
+                                        style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
+                                </div>
+
+                                <div class="flex-col" style="flex: 1; min-width: 150px;">
+                                    <label for="adults" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Adults</label>
+                                    <select id="adults" name="adults" style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+
+                                <div class="flex-col" style="flex: 1; min-width: 150px;">
+                                    <label for="children" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Children</label>
+                                    <select id="children" name="children" style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="search_dates" value="true">
+                                <button type="submit" style="flex: 1; min-width: 200px; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+                                    Check Availability
+                                </button>
+                            </form>
+                        </div>
+                </div>
 
     <?php
     if (isset($_POST['submit_dates'])) {
@@ -73,7 +96,6 @@
 
             if ($result) {
                 echo "<script>
-                    alert('Dates have been successfully saved!');
                     window.location.href = 'books.php';
                 </script>";
                 $_SESSION['check_in'] = $checkin_date;

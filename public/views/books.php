@@ -82,7 +82,6 @@
                                         ₱<?= number_format($srvc['services_price'], 2) ?>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                        
                                         <a href="reservation.php?service_id=<?= $srvc['services_id'] ?>" 
                                         class="readmore" 
                                         style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: white;">
@@ -119,7 +118,7 @@
             </form>
         </div>
 
-        
+    
 
         <script>
             window.addEventListener('scroll', function () {
@@ -132,34 +131,7 @@
             });
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    // Get the check-in and check-out dates from the main form
-                    const mainCheckIn = document.querySelector('.booking-container input[name="check_in"]');
-                    const mainCheckOut = document.querySelector('.booking-container input[name="check_out"]');
-
-                    // Event delegation for the book now buttons
-                    document.querySelectorAll('.readmore').forEach(button => {
-                        button.addEventListener('click', function () {
-                            // Get service details from data attributes
-                            const serviceId = this.getAttribute('data-id');
-                            const serviceName = this.getAttribute('data-name');
-
-                            // Populate the modal with service data
-                            document.getElementById('service_id').value = serviceId;
-                            document.getElementById('service_name').value = serviceName;
-
-                            // Set the modal date inputs with the main form dates
-                            if (mainCheckIn.value) {
-                                document.getElementById('modal_check_in').value = mainCheckIn.value;
-                            }
-                            if (mainCheckOut.value) {
-                                document.getElementById('modal_check_out').value = mainCheckOut.value;
-                            }
-                        });
-                    });
-                });
-            </script>
+            
         <script>
             // Handle check-in and check-out date validation
             const checkInInput = document.querySelector('input[name="check_in"]');

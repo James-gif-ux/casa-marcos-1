@@ -417,7 +417,7 @@
     }
 }
 </style>
-
+<link rel="stylesheet" href="../assets/css/about.css">
 <section class="about-section">
     <div class="slider-container">
         <div class="slider">

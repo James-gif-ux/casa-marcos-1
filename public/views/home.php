@@ -96,28 +96,50 @@
         <link rel="stylesheet" href="../assets/css/roomstry.css">
             <main>
                 <section class="hera">
-                    <div style="max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); backdrop-filter: blur(1px);">
-                        <form method="POST" action="" style="display: flex; flex-direction: column; align-items: center;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; justify-content: center;">
-                                <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
-                                    <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK IN</h3>
+                </section>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin-top: 980px;">
+                <div style="max-width: 1200px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); ">
+                            <form method="POST" action="" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-end; justify-content: space-between;">
+                                <div class="flex-col" style="flex: 1; min-width: 200px;">
+                                    <label for="checkin" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Check In</label>
                                     <input type="date" id="checkin" name="checkin_date" required 
                                         min="<?php echo date('Y-m-d'); ?>"
-                                        style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                                        style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
                                 </div>
-                                <div style="background:rgba(250, 240, 230, 0); padding: 1.5rem; border-radius: 12px; text-align: center;">
-                                    <h3 style="color: rgb(218, 191, 156); margin-bottom: 1rem; font-size: 1.4rem; font-family: 'impact';">CHECK OUT</h3>
+                                
+                                <div class="flex-col" style="flex: 1; min-width: 200px;">
+                                    <label for="checkout" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Check Out</label>
                                     <input type="date" id="checkout" name="checkout_date" required
-                                        style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+                                        style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
                                 </div>
-                            </div>
-                            <input type="hidden" name="search_dates" value="true">
-                            <button type="submit" style="width: 45%; margin: 2rem auto; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; display: block;">
-                                Search Booking
-                            </button>
-                        </form>
-                    </div>
-                </section>
+
+                                <div class="flex-col" style="flex: 1; min-width: 150px;">
+                                    <label for="adults" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Adults</label>
+                                    <select id="adults" name="adults" style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+
+                                <div class="flex-col" style="flex: 1; min-width: 150px;">
+                                    <label for="children" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Children</label>
+                                    <select id="children" name="children" style="width: 100%; padding: 0.8rem; border: 1px solid #d4b696; border-radius: 8px; font-size: 1rem;">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="search_dates" value="true">
+                                <button type="submit" style="flex: 1; min-width: 200px; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+                                    Check Availability
+                                </button>
+                            </form>
+                        </div>
+                </div>
                 <?php
                     if (isset($_POST['submit_dates'])) {
                         try {
@@ -295,53 +317,129 @@
 
 
         <section style="padding: 8rem 2rem; background-color:rgb(255, 255, 255);">
-                <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
-                    Our Amenities
-                    <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
-                </h2>
-                <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: 0 2rem;">
-                    
-                    <!-- Amenity Cards -->
-                <?php foreach ($images as $img): ?>
-                    <div class="amenity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease;">
-                        <img src="../images/<?= $img['image_img'] ?>" alt="<?= $img['image_img'] ?>" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;">
-                        <div style="padding: 2rem;">
-                            <h3 style="color: rgb(102, 67, 35); font-size: 1.5rem; font-family: 'impact'; margin-bottom: 1rem;"><?= $img['image_name'] ?></h3>
-                            <p style="color: #666; line-height: 1.6;"><?= $img['image_description'] ?></p>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
+<section class="gallery-section">
+    <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center; position: relative;">
+        Our Amenities
+        <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+    </h2>
+    <div class="gallery-masonry">
+        <?php foreach ($images as $img): ?>
+            <div class="gallery-item">
+                <img class="gallery-image" src="../images/<?= $img['image_img'] ?>" alt="<?= $img['image_img'] ?>">
+                <div class="gallery-overlay">
+                    <h3><?= $img['image_name'] ?></h3>
+                    <p><?= $img['image_description'] ?></p>
                 </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
 
-            <style>
-                .amenity-card:hover {
-                    transform: translateY(-15px);
-                    box-shadow: 0 15px 40px rgba(102, 67, 35, 0.2);
-                }
-                .amenity-card:hover img {
-                    transform: scale(1.1);
-                }
-                .dot.active-dot {
-                    background-color: rgb(163, 99, 15);
-                }
-                .dot {
-                    background-color: #ccc;
-                    transition: background-color 0.3s;
-                }
-                .dot:hover {
-                    background-color: rgb(163, 99, 15);
-                }
-                @media (max-width: 1200px) {
-                    div[style*="grid-template-columns"] {
-                        grid-template-columns: repeat(2, 1fr) !important;
-                    }
-                }
-                @media (max-width: 768px) {
-                    div[style*="grid-template-columns"] {
-                        grid-template-columns: 1fr !important;
-                    }
-                }
-            </style>
+<style>
+    .gallery-section {
+        max-width: 1400px;
+        margin: 8rem auto;
+        padding: 2rem;
+    }
+
+    .gallery-masonry {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        grid-auto-flow: dense;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        height: 600px; /* Fixed height */
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .gallery-item.large {
+        grid-column: span 2;
+        grid-row: span 2;
+        height: 800px; /* Double height for large items */
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        padding: 2rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-overlay h3 {
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .gallery-overlay p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        margin: 0;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .gallery-item:hover .gallery-image {
+        transform: scale(1.1);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+    }
+
+    /* Scrollbar styling */
+    .gallery-overlay p::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .gallery-overlay p::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .gallery-overlay p::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 3px;
+    }
+
+    @media (max-width: 1200px) {
+        .gallery-masonry {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .gallery-item.large {
+            grid-column: span 1;
+            grid-row: span 1;
+            height: 400px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .gallery-masonry {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        .gallery-item {
+            height: 300px;
+        }
+    }
+</style>
         </section>
 
         <!-- Ensure that the accompanying script remains as previously provided -->
@@ -391,82 +489,85 @@
         </script>
 
             
-                    <section style="padding: 5rem 2rem; background-color:rgb(255, 255, 255);">
-                        <h2 style="color: rgb(102, 67, 35); margin-bottom: 4rem; font-size: 2.5rem; font-family: 'impact'; text-align: center;">
-                            Contact Us
-                            <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
-                        </h2>
-                        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 3rem;">
-                            <!-- Contact Info Side -->
-                                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                                    <h3 style="color: rgb(102, 67, 35); font-size: 1.8rem; margin-bottom: 2rem; font-family: 'impact';">Find Us</h3>
-                                    
-                                    <!-- Location -->
-                                    <div style="margin-bottom: 2rem;">
-                                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                                            <i class="fas fa-map-marker-alt" style="color: rgb(102, 67, 35); font-size: 1.5rem; margin-right: 1rem;"></i>
-                                            <h4 style="color: rgb(102, 67, 35); font-size: 1.2rem;">Address</h4>
-                                        </div>
-                                        <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;">Brgy SapSap, Pastrana Leyte</p>
-                                    </div>
+<section style="padding: 5rem 1rem; background-color:rgb(255, 255, 255);">
+    <h2 style="color: rgb(102, 67, 35); margin-bottom: 3rem; font-size: clamp(1.8rem, 4vw, 2.5rem); font-family: 'impact'; text-align: center;">
+        Contact Us
+        <span style="display: block; width: 80px; height: 3px; background: rgb(163, 99, 15); margin: 1rem auto;"></span>
+    </h2>
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <!-- Contact Info Side -->
+        <div style="background: white; padding: clamp(1rem, 3vw, 2rem); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h3 style="color: rgb(102, 67, 35); font-size: clamp(1.4rem, 3vw, 1.8rem); margin-bottom: 2rem; font-family: 'impact';">Find Us</h3>
+            
+            <!-- Location -->
+            <div style="margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <i class="fas fa-map-marker-alt" style="color: rgb(102, 67, 35); font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-right: 1rem;"></i>
+                    <h4 style="color: rgb(102, 67, 35); font-size: clamp(1rem, 2vw, 1.2rem);">Address</h4>
+                </div>
+                <p style="color: #666; line-height: 1.6; padding-left: 2.5rem; font-size: clamp(0.9rem, 1.8vw, 1rem);">Brgy SapSap, Pastrana Leyte</p>
+            </div>
 
-                                    <!-- Phone -->
-                                    <div style="margin-bottom: 2rem;">
-                                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                                            <i class="fas fa-phone" style="color: rgb(102, 67, 35); font-size: 1.5rem; margin-right: 1rem;"></i>
-                                            <h4 style="color: rgb(102, 67, 35); font-size: 1.2rem;">Phone</h4>
-                                        </div>
-                                        <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;">+1 234 567 8900</p>
-                                    </div>
+            <!-- Phone -->
+            <div style="margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <i class="fas fa-phone" style="color: rgb(102, 67, 35); font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-right: 1rem;"></i>
+                    <h4 style="color: rgb(102, 67, 35); font-size: clamp(1rem, 2vw, 1.2rem);">Phone</h4>
+                </div>
+                <p style="color: #666; line-height: 1.6; padding-left: 2.5rem; font-size: clamp(0.9rem, 1.8vw, 1rem);">+1 234 567 8900</p>
+            </div>
 
-                                    <!-- Email -->
-                                    <div style="margin-bottom: 2rem;">
-                                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                                            <i class="fas fa-envelope" style="color: rgb(102, 67, 35); font-size: 1.5rem; margin-right: 1rem;"></i>
-                                            <h4 style="color: rgb(102, 67, 35); font-size: 1.2rem;">Email</h4>
-                                        </div>
-                                        <p style="color: #666; line-height: 1.6; padding-left: 2.5rem;">casamarcosresort@gmail.com</p>
-                                    </div>
-                                </div>
+            <!-- Email -->
+            <div style="margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <i class="fas fa-envelope" style="color: rgb(102, 67, 35); font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-right: 1rem;"></i>
+                    <h4 style="color: rgb(102, 67, 35); font-size: clamp(1rem, 2vw, 1.2rem);">Email</h4>
+                </div>
+                <p style="color: #666; line-height: 1.6; padding-left: 2.5rem; font-size: clamp(0.9rem, 1.8vw, 1rem);">casamarcosresort@gmail.com</p>
+            </div>
+        </div>
 
-                            <!-- Contact Form Side -->
-                                <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                                    <form action="contact.php" method="POST" style="display: grid; gap: 1.5rem;">
-                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                                            <div style="position: relative;">
-                                                <i class="fas fa-user" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>
-                                                <input type="text" name="name" placeholder="Your Name" required 
-                                                    style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; width: 100%;">
-                                            </div>
-                                            <div style="position: relative;">
-                                                <i class="fas fa-envelope" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>
-                                                <input type="email" name="email" placeholder="Your Email" required 
-                                                    style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; width: 100%;">
-                                            </div>
-                                        </div>
-                                        <div style="position: relative;">
-                                            <i class="fas fa-heading" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>
-                                            <input type="text" name="subject" placeholder="Subject" required 
-                                                style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; width: 100%;">
-                                        </div>
-                                        <div style="position: relative;">
-                                            <i class="fas fa-comment" style="position: absolute; left: 1rem; top: 1.2rem; color: #d4b696;"></i>
-                                            <textarea name="message" placeholder="Your Message" required 
-                                                style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: 1rem; min-height: 150px; resize: vertical; width: 100%;"></textarea>
-                                        </div>
-                                        <button type="submit" 
-                                            style="padding: 1rem 2rem; background: linear-gradient(to right, rgb(102, 67, 35), rgb(163, 99, 15)); 
-                                                color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; 
-                                                transition: transform 0.3s ease, box-shadow 0.3s ease;"
-                                            onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 5px 15px rgba(102, 67, 35, 0.3)';"
-                                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                                            <i class="fas fa-paper-plane" style="margin-right: 0.5rem;"></i>
-                                            Send Message
-                                        </button>
-                                    </form>
-                                </div>
-                        </div>
-                    </section>
+        <!-- Contact Form Side -->
+        <div style="background: white; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <form action="contact.php" method="POST" style="display: grid; gap: 1.5rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+                    <div style="position: relative;">
+                        <i class="fas fa-user" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>
+                        <input type="text" name="name" placeholder="Your Name" required 
+                            style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: clamp(0.9rem, 1.8vw, 1rem); width: 100%;">
+                    </div>
+                    <div style="position: relative;">
+                        <i class="fas fa-envelope" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>
+                        <input type="email" name="email" placeholder="Your Email" required 
+                            style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: clamp(0.9rem, 1.8vw, 1rem); width: 100%;">
+                    </div>
+                </div>
+                <div style="position: relative;">
+                    <i class="fas fa-heading" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #d4b696;"></i>
+                    <input type="text" name="subject" placeholder="Subject" required 
+                        style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: clamp(0.9rem, 1.8vw, 1rem); width: 100%;">
+                </div>
+                <div style="position: relative;">
+                    <i class="fas fa-comment" style="position: absolute; left: 1rem; top: 1.2rem; color: #d4b696;"></i>
+                    <textarea name="message" placeholder="Your Message" required 
+                        style="padding: 1rem 1rem 1rem 3rem; border: 2px solid #d4b696; border-radius: 8px; font-size: clamp(0.9rem, 1.8vw, 1rem); min-height: 150px; resize: vertical; width: 100%;"></textarea>
+                </div>
+                <button type="submit" 
+                    style="padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem); 
+                        background: linear-gradient(to right, rgb(102, 67, 35), rgb(163, 99, 15)); 
+                        color: white; border: none; border-radius: 8px; 
+                        font-size: clamp(0.9rem, 1.8vw, 1.1rem); cursor: pointer; 
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        width: 100%; max-width: 300px; margin: 0 auto;"
+                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 5px 15px rgba(102, 67, 35, 0.3)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <i class="fas fa-paper-plane" style="margin-right: 0.5rem;"></i>
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
                 
             </main>
 

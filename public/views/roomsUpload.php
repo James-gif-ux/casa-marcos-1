@@ -15,61 +15,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Casa Marcos Rooms</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        
-        <style>
-            @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-            h1{
-                text-align: left;
-                margin-top: 30px;
-                padding: 10px;
-                font-size: 30px;
-                font-weight: bold;
-            }
-            select{
-                width: 24.5%;
-                border: 1px solid #ccc;
-                padding: 5px;
-                margin-left: 10px;
-            }
-            input{
-                width: 30%;
-                margin-left: 10px;
-                font-size: 20px;
-            }
-            table{
-                border-collapse: collapse;
-            }
-            th{
-                background-color: gray;
-                padding: 10px;
-            }
-            .room-image {
-                max-width: 150px;
-                height: auto;
-            }
-            td {
-                padding: 9px;
-                text-align: center;
-                vertical-align: middle;
-            }
-            textarea{
-                width: 50%; 
-                margin-left: 10px; 
-                padding: 5px; 
-                height: 100px;
-                border: 1px solid #ccc;
-            }
-            .image{
-                width: 50px;
-                height: 50px;
-            }
-            .control{
-                width: 10%;
-                margin-left: 5px;
-                border: 1px solid #ccc;
-                padding: 5px;
-            }
-        </style>
+        <link rel="stylesheet" href="../assets/css/up.css">
+       
     </head>
     <body>
         <h1>CASA MARCOS Rooms</h1>
