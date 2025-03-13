@@ -80,7 +80,9 @@
         <link rel="stylesheet" href="../assets/css/roomstry.css">
             <main>
                 <section class="hera">
-                        <div style="max-width: 1200px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+                </section>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin-top: 980px;">
+                <div style="max-width: 1200px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); ">
                             <form method="POST" action="" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-end; justify-content: space-between;">
                                 <div class="flex-col" style="flex: 1; min-width: 200px;">
                                     <label for="checkin" style="display: block; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">Check In</label>
@@ -116,12 +118,12 @@
                                 </div>
 
                                 <input type="hidden" name="search_dates" value="true">
-                                <button type="submit" style="flex: 1; min-width: 200px; padding: 0.8rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+                                <button type="submit" style="flex: 1; min-width: 200px; padding: 1rem; background: rgb(218, 191, 156); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
                                     Check Availability
                                 </button>
                             </form>
                         </div>
-                </section>
+                </div>
                 <?php
                     if (isset($_POST['submit_dates'])) {
                         try {
