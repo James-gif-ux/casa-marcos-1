@@ -37,7 +37,7 @@
                   </div>
                   <div>
                   <p
-                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Customers
+                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total Bookings
                   </p>
                     <?php
                     // Count unique customers by using array_unique on booking_fullname
