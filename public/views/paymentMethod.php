@@ -7,28 +7,7 @@
       $reservationModel = new Reservation_Model();
       $connector = new Connector(); // Initialize connector before using it
   
-      // Add this at the top of the file after session_start()
-      $checkin_date = isset($_SESSION['checkin']) ? $_SESSION['checkin'] : '';
-      $checkout_date = isset($_SESSION['checkout']) ? $_SESSION['checkout'] : '';
 
-      // Get specific service based on URL parameter
-      if (isset($_GET['service_id'])) {
-          $service_id = $_GET['service_id'];
-          $sql = "SELECT * FROM services_tb WHERE services_id = :service_id";
-          $stmt = $connector->getConnection()->prepare($sql);
-          $stmt->execute([':service_id' => $service_id]);
-          $service = $stmt->fetch(PDO::FETCH_ASSOC);
-          
-          if (!$service) {
-              header("Location: books.php");
-              exit();
-          }
-      } else {
-          // Redirect back to books.php if no service_id is provided
-          header("Location: books.php");
-          exit();
-      }
-  
       // Get all services
       $services = $reservationModel->get_service();
   
@@ -140,17 +119,65 @@
 
         <!-- Right Column - Payment Options --> 
         <div class="bg-background rounded-lg shadow-md p-6" style="background-color: white;">
-            <h2 class="text-2xl font-bold text-foreground mb-6">Payment Method</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <button class="flex items-center justify-center border border-border rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors" style="font-size: 30px; font-weight: bold;">
-                        <img src="../images/bdo.png" alt="Touch n' go" class="mr-2" style="width: 40px;"/>
-                        BDO
+                    <button onclick="loadPayPal()" id="paypal-button" class="flex items-center justify-center border border-border rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors" style="font-size: 30px; font-weight: bold;">
+                        <img src="../images/paypal.png" alt="Touch n' go" class="mr-2" style="width: 30px;"/>
+                        PayPal
                     </button>
-                    <button class="flex items-center justify-center p-4 border border-border rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors" style="font-size: 30px; font-weight: bold;">
+                    <div id="paypal-container-BJYLZQSA8GYB6" style="display: none;"></div>
+                    <script>
+                        function loadPayPal() {
+                            document.getElementById('paypal-button').style.display = 'none';
+                            document.getElementById('paypal-container-BJYLZQSA8GYB6').style.display = 'block';
+                            
+                            const script = document.createElement('script');
+                            script.src = "https://www.paypal.com/sdk/js?client-id=BAAb0vCYZ9_VdWVbZj_mL1WiB5aqZbeBMqAQD0247k1iueqK7B7KYBNKNz7HFVzBfrZDto04VAq52EOIKc&components=hosted-buttons&disable-funding=venmo&currency=PHP";
+                            script.onload = function() {
+                                paypal.HostedButtons({
+                                    hostedButtonId: "BJYLZQSA8GYB6",
+                                }).render("#paypal-container-BJYLZQSA8GYB6")
+                            };
+                            document.body.appendChild(script);
+                        }
+                    </script>
+
+                    
+                    <button onclick="showGcashModal()" class="flex items-center justify-center p-4 border border-border rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors" style="font-size: 30px; font-weight: bold;">
                         <img src="../images/gcash.png" alt="GCash" class="mr-2" style="width: 40px;" />
                         GCash
                     </button>
+
+                    <!-- Modal for GCash QR -->
+                    <div id="gcashModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+                        <div class="bg-white p-6 rounded-lg shadow-xl relative max-w-sm w-full mx-4">
+                            <button onclick="closeGcashModal()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                                <span class="text-2xl">&times;</span>
+                            </button>
+                            <div class="text-center">
+                                <h3 class="text-lg font-semibold mb-4">Scan QR Code to Pay with GCash</h3>
+                                <img src="../images/gcash-qr.jpg" alt="GCash QR Code" class="max-w-[200px] mx-auto mb-4" />
+                                <p class="text-sm text-gray-600">Scan this QR code with your GCash app to make the payment</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function showGcashModal() {
+                            document.getElementById('gcashModal').classList.remove('hidden');
+                        }
+
+                        function closeGcashModal() {
+                            document.getElementById('gcashModal').classList.add('hidden');
+                        }
+
+                        // Close modal when clicking outside
+                        document.getElementById('gcashModal').addEventListener('click', function(e) {
+                            if (e.target === this) {
+                                closeGcashModal();
+                            }
+                        });
+                    </script>
                 <textarea 
                     name="message" 
                     placeholder="Enter a message (optional)" 

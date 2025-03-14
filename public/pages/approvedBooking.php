@@ -20,17 +20,17 @@ if (isset($_GET['reservation_id']) && isset($_GET['action'])) {
         $params = [':reservation_id' => $reservation_id];
 
         if ($connector->executeUpdate($sql, $params)) {
-            header("Location: ../pages/reservedBooking.php?approved=true");
+            header("Location: ../pages/booking.php?approved=true");
         } else {
-            header("Location: ../pages/reservedBooking.php?approved=false");
+            header("Location: ../pages/booking.php?approved=false");
         }
     } else {
-        header("Location: ../pages/reservedBooking.php?error=invalid_action");
+        header("Location: ../pages/booking.php?error=invalid_action");
     }
     exit();
 }
 
 // Redirect if no parameters provided
-header("Location: ../pages/reservedBooking.php?error=missing_params");
+header("Location: ../pages/booking.php?error=missing_params");
 exit();
 ?>
